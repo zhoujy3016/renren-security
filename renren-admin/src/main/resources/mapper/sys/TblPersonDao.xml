@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.modules.sys.dao.TblPersonDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.renren.modules.sys.entity.TblPersonEntity" id="tblPersonMap">
+        <result property="personId" column="person_id"/>
+        <result property="personName" column="person_name"/>
+        <result property="nationality" column="nationality"/>
+        <result property="nationalityName" column="nationalityName"/>
+        <result property="area" column="area"/>
+        <result property="areaName" column="areaName"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+	<select id="queryPersonList" resultMap="tblPersonMap">
+		select p.*, d1.name as areaName, d2.name as nationalityName
+		from tbl_person p
+		left join sys_dict d1 on d1.code = p.area and d1.type = 'area'
+		left join sys_dict d2 on d2.code = p.nationality and d2.type = 'mz'
+	</select>
+
+</mapper>
