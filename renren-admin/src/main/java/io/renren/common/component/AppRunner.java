@@ -34,7 +34,7 @@ public class AppRunner implements ApplicationRunner{
 	private void makeDictCache() {
 		Map<String, List<SysDictEntity>> map = dictConfigBean.getDictMap();
 		// 取得数据字典所有类型
-	List<SysDictEntity> typeList = sysDictService.getSysDictEntityGroupByType();
+		List<SysDictEntity> typeList = sysDictService.getSysDictEntityGroupByType();
 		for(int i = 0; i < typeList.size(); i++) {
 		String type = typeList.get(i).getType();
 		// 根据类型查询每种数据字典，添加到map中
