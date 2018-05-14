@@ -41,7 +41,6 @@ public class TblPersonController extends AbstractController{
         PageUtils page = tblPersonService.queryPage(params);
         // test 
         List<TblPersonEntity> listPerson = this.tblPersonService.queryPersonList();
-        
         return R.ok().put("page", page);
     }
     

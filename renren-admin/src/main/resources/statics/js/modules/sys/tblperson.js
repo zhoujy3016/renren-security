@@ -7,6 +7,7 @@ $(function () {
 			{ label: '姓名', name: 'personName', index: 'person_name', width: 80 },
 			{ label: '民族', name: 'nationalityName', index: 'nationalityName', width: 50 },
 			{ label: '地区', name: 'areaName', index: 'area', width: 50 },
+			{ label: '电话', name: 'telephone', index: 'telephone', width: 50 },
 			{ label: '备注', name: 'remark', index: 'remark', width: 150 }
         ],
 		viewrecords: true,

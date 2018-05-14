@@ -48,6 +48,8 @@ public class TblPersonEntity implements Serializable {
 	 */
 	private String remark;
 	
+	private String telephone;
+	
 	/**
 	 * 民族名称
 	 */
@@ -130,4 +132,11 @@ public class TblPersonEntity implements Serializable {
 	public void setAreaName(String areaName) {
 		this.areaName = areaName;
 	}
+	public String getTelephone() {
+		return telephone;
+	}
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+
 }

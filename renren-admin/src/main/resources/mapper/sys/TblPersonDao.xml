@@ -12,6 +12,8 @@
         <result property="area" column="area"/>
         <result property="areaName" column="areaName"/>
         <result property="remark" column="remark"/>
+        <result property="telephone" column="telephone"/>
+      <!--   <result property="对象属性" column="数据库字段"/> -->
     </resultMap>
 	<select id="queryPersonList" resultMap="tblPersonMap">
 		select p.*, d1.name as areaName, d2.name as nationalityName
