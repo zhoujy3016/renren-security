@@ -41,6 +41,7 @@ public class TblPersonController extends AbstractController{
         PageUtils page = tblPersonService.queryPage(params);
         // test 
         List<TblPersonEntity> listPerson = this.tblPersonService.queryPersonList();
+        
         return R.ok().put("page", page);
     }
     
@@ -51,7 +52,7 @@ public class TblPersonController extends AbstractController{
     @RequiresPermissions("sys:tblperson:info")
     public R info(@PathVariable("personId") Integer personId){
         TblPersonEntity tblPerson = tblPersonService.selectById(personId);
-
+        
         return R.ok().put("tblPerson", tblPerson);
     }
 
