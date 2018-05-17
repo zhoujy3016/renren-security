@@ -15,11 +15,22 @@
         <result property="telephone" column="telephone"/>
       <!--   <result property="对象属性" column="数据库字段"/> -->
     </resultMap>
-	<select id="queryPersonList" resultMap="tblPersonMap">
-		select p.*, d1.name as areaName, d2.name as nationalityName
+	<select id="selectPersonList" resultMap="tblPersonMap">
+		select p.*, d1.value as areaName, d2.value as nationalityName
 		from tbl_person p
 		left join sys_dict d1 on d1.code = p.area and d1.type = 'area'
 		left join sys_dict d2 on d2.code = p.nationality and d2.type = 'mz'
+		<where>
+			<if test="name!=null and name!=''">
+				and p.person_Name like '%${name}%'
+			</if>
+			<if test="nationality!=null and nationality!=''">
+				and p.nationality = #{nationality}
+			</if>
+			<if test="area!=null and area!=''">
+				and p.area = #{area}
+			</if>
+		</where>
 	</select>
 
 </mapper>

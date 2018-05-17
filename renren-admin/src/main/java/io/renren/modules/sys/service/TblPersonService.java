@@ -1,11 +1,12 @@
 package io.renren.modules.sys.service;
 
+import java.util.Map;
+
 import com.baomidou.mybatisplus.service.IService;
 import io.renren.common.utils.PageUtils;
 import io.renren.modules.sys.entity.TblPersonEntity;
 
-import java.util.List;
-import java.util.Map;
+
 
 /**
  * 
@@ -18,6 +19,13 @@ public interface TblPersonService extends IService<TblPersonEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
     
-    List<TblPersonEntity> queryPersonList();
+//    List<TblPersonEntity> queryPersonList();
+    
+    /**
+     * 自定义分页实现
+     * @param page
+     * @return
+     */
+    PageUtils selectPersonList(Map<String, Object> params);
 }
 

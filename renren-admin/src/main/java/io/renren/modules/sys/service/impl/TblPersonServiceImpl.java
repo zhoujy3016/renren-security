@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.plugins.pagination.Pagination;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.Query;
@@ -64,9 +65,23 @@ public class TblPersonServiceImpl extends ServiceImpl<TblPersonDao, TblPersonEnt
     }
 
 	@Override
-	public List<TblPersonEntity> queryPersonList() {
-		List<TblPersonEntity> personList = baseMapper.queryPersonList();
-		return personList;
+	public PageUtils selectPersonList(Map<String, Object> params) {
+		Page<TblPersonEntity> page = new Query<TblPersonEntity>(params).getPage();
+		page.setSize(3);
+		// 前台传入的条件，姓名，民族，地区
+		page.setRecords(baseMapper.selectPersonList(page, (String)params.get("name"), 
+				(String)params.get("nationality"), (String)params.get("area")));
+		return new PageUtils(page);
 	}
+
+
+
+//	@Override
+//	public List<TblPersonEntity> queryPersonList() {
+//		List<TblPersonEntity> personList = baseMapper.queryPersonList();
+//		return personList;
+//	}
+
+	
 
 }

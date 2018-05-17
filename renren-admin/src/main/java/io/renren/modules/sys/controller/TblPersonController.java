@@ -38,9 +38,14 @@ public class TblPersonController extends AbstractController{
     @RequestMapping("/list")
     @RequiresPermissions("sys:tblperson:list")
     public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = tblPersonService.queryPage(params);
+        
+    	// PageUtils page = tblPersonService.queryPage(params);
         // test 
-        List<TblPersonEntity> listPerson = this.tblPersonService.queryPersonList();
+        //List<TblPersonEntity> listPerson = this.tblPersonService.queryPersonList();
+        
+    	// 自定义分页查询
+    	PageUtils page = tblPersonService.selectPersonList(params);
+    	
         return R.ok().put("page", page);
     }
     
