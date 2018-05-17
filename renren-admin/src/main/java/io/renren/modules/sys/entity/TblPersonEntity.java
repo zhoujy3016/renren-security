@@ -31,17 +31,17 @@ public class TblPersonEntity implements Serializable {
 	/**
 	 * 
 	 */
-	@NotBlank(message="姓名不能为空")
+	@NotBlank(message="{person.name.isEmpty}")
 	private String personName;
 	/**
 	 * 
 	 */
-	@NotNull(message="民族不能为空")
+	@NotNull(message="{person.nationality.isNull}")
 	private Integer nationality;
 	/**
 	 * 
 	 */
-	@NotNull(message="地区不能为空")
+	@NotNull(message="{person.area.isNull}")
 	private Integer area;
 	/**
 	 * 
