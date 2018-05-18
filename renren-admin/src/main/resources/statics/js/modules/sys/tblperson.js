@@ -1,7 +1,7 @@
 $(function () {
     $("#jqGrid").jqGrid({
         url: baseURL + 'sys/tblperson/list',
-        datatype: "json",
+        datatype: "json", // 初始化 json：加载数据  local:不加载
         colModel: [
         	{ label: 'ID', name: 'personId', index: "person_id", width: 45, key: true, hidden:true},
 			{ label: '姓名', name: 'personName', index: 'person_name', width: 80 },
