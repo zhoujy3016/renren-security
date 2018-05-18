@@ -67,7 +67,6 @@ public class TblPersonServiceImpl extends ServiceImpl<TblPersonDao, TblPersonEnt
 	@Override
 	public PageUtils selectPersonList(Map<String, Object> params) {
 		Page<TblPersonEntity> page = new Query<TblPersonEntity>(params).getPage();
-		page.setSize(3);
 		// 前台传入的条件，姓名，民族，地区
 		page.setRecords(baseMapper.selectPersonList(page, (String)params.get("name"), 
 				(String)params.get("nationality"), (String)params.get("area")));
