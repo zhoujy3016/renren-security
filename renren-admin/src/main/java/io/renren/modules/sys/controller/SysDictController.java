@@ -105,7 +105,7 @@ public class SysDictController {
     public R delete(@RequestBody Long[] ids){
         sysDictService.deleteBatchIds(Arrays.asList(ids));
         // 更新数据字典
-        DictComponent.reloadDictCacheData(ids);
+        DictComponent.reloadDictCacheDataBatch(ids);
         return R.ok();
     }
 
