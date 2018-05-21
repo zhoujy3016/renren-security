@@ -35,6 +35,10 @@ public interface SysDictService extends IService<SysDictEntity> {
     
     List<SysDictEntity> getSysDictEntity(String type);
     
+    // 系统初始化调用
     List<SysDictEntity> getSysDictEntityGroupByType();
+    
+    // 删除数据字典 查出待删除的id所在的type分组
+    List<SysDictEntity> getSysDictEntityGroupByType(Long[] ids);
 }
 

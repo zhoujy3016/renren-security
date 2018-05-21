@@ -16,7 +16,7 @@
 
 package io.renren.modules.sys.controller;
 
-import io.renren.common.config.DictConfig;
+import io.renren.common.component.DictComponent;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.R;
 import io.renren.common.validator.ValidatorUtils;
@@ -27,7 +27,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,8 +42,6 @@ public class SysDictController {
     @Autowired
     private SysDictService sysDictService;
 
-    @Autowired
-    private DictConfig dictConfigBean;
     /**
      * 列表
      */
@@ -76,9 +73,11 @@ public class SysDictController {
     public R save(@RequestBody SysDictEntity dict){
         //校验类型
         ValidatorUtils.validateEntity(dict);
-
         sysDictService.insert(dict);
-
+        
+        String type = dict.getType();
+        // 更新数据字典缓存
+        DictComponent.reloadDictCacheData(type, sysDictService.getSysDictEntity(type));
         return R.ok();
     }
 
@@ -92,7 +91,9 @@ public class SysDictController {
         ValidatorUtils.validateEntity(dict);
 
         sysDictService.updateById(dict);
-
+        String type = dict.getType();
+        // 更新数据字典缓存
+        DictComponent.reloadDictCacheData(type, sysDictService.getSysDictEntity(type));
         return R.ok();
     }
 
@@ -103,7 +104,8 @@ public class SysDictController {
     @RequiresPermissions("sys:dict:delete")
     public R delete(@RequestBody Long[] ids){
         sysDictService.deleteBatchIds(Arrays.asList(ids));
-
+        // 更新数据字典
+        DictComponent.reloadDictCacheData(ids);
         return R.ok();
     }
 
@@ -114,13 +116,7 @@ public class SysDictController {
      */
     @RequestMapping("/dictCache/{types}")
     public R dictList(@PathVariable("types") String types) {
-    	Map<String, Object> resultMap = new HashMap<>();
-    	Map<String, List<SysDictEntity>> dictMap = dictConfigBean.getDictMap();
-    	String[] arrType = types.split(",");
-    	// 根据画面中所需要的type,从map中取出所需要的数据字典
-		for(String type : arrType) {
-			resultMap.put(type, dictMap.get(type));
-		}
+    	Map<String, Object> resultMap = DictComponent.getDictCacheDataByTypes(types);
     	return R.ok(resultMap);
     }
     

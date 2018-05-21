@@ -63,4 +63,10 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictDao, SysDictEntity> i
 		return sysDictEntityList;
 	}
 
+	@Override
+	public List<SysDictEntity> getSysDictEntityGroupByType(Long[] ids) {
+		List<SysDictEntity> sysDictEntityList = this.baseMapper.getSysDictEntityGroupByType(ids);
+		return sysDictEntityList;
+	}
+
 }
