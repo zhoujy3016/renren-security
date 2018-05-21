@@ -38,7 +38,6 @@ spring:
       basename: ValidationMessages
       encoding: UTF-8
 
-
 renren:
     redis:
         open: false  # 是否开启redis缓存  true开启   false关闭
