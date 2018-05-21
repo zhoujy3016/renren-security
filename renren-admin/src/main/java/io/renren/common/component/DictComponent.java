@@ -1,7 +1,6 @@
 package io.renren.common.component;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +10,6 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.mysql.fabric.xmlrpc.base.Array;
 
 import io.renren.common.utils.RedisUtils;
 import io.renren.modules.sys.entity.SysDictEntity;
