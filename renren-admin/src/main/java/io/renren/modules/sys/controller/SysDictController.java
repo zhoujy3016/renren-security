@@ -45,7 +45,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("sys/dict")
-@Api("数据字典")
+@Api(description="数据字典")
 public class SysDictController {
     @Autowired
     private SysDictService sysDictService;
