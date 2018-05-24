@@ -22,8 +22,15 @@ import io.renren.common.utils.R;
 import io.renren.common.validator.ValidatorUtils;
 import io.renren.modules.sys.entity.SysDictEntity;
 import io.renren.modules.sys.service.SysDictService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -38,6 +45,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("sys/dict")
+@Api("数据字典")
 public class SysDictController {
     @Autowired
     private SysDictService sysDictService;
@@ -57,9 +65,10 @@ public class SysDictController {
     /**
      * 信息
      */
-    @RequestMapping("/info/{id}")
+    @RequestMapping(value="/info/{id}", method=RequestMethod.GET)
     @RequiresPermissions("sys:dict:info")
-    public R info(@PathVariable("id") Long id){
+    @ApiOperation(value="查询数据字典", notes="根据id查询数据字典", httpMethod=MediaType.APPLICATION_JSON_VALUE)
+    public R info(@ApiParam @PathVariable("id") Long id){
         SysDictEntity dict = sysDictService.selectById(id);
 
         return R.ok().put("dict", dict);
@@ -68,8 +77,9 @@ public class SysDictController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @RequestMapping(value="/save", method=RequestMethod.POST)
     @RequiresPermissions("sys:dict:save")
+    @ApiOperation(value="插入数据字典", notes="插入数据字典", httpMethod=MediaType.APPLICATION_JSON_VALUE)
     public R save(@RequestBody SysDictEntity dict){
         //校验类型
         ValidatorUtils.validateEntity(dict);
@@ -84,8 +94,9 @@ public class SysDictController {
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @RequestMapping(value="/update", method=RequestMethod.POST)
     @RequiresPermissions("sys:dict:update")
+    @ApiOperation(value="更新数据字典", notes="更新数据字典", httpMethod=MediaType.APPLICATION_JSON_VALUE)
     public R update(@RequestBody SysDictEntity dict){
         //校验类型
         ValidatorUtils.validateEntity(dict);
