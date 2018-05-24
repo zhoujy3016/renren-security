@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 
 import javax.validation.constraints.NotBlank;
@@ -27,27 +29,33 @@ public class TblPersonEntity implements Serializable {
 	 * 
 	 */
 	@TableId
+	@ApiModelProperty(name="主键id")
 	private Integer personId;
 	/**
 	 * 
 	 */
 	@NotBlank(message="{person.name.isEmpty}")
+	@ApiModelProperty(name="姓名")
 	private String personName;
 	/**
 	 * 
 	 */
 	@NotNull(message="{person.nationality.isNull}")
+	@ApiModelProperty(name="民族")
 	private Integer nationality;
 	/**
 	 * 
 	 */
 	@NotNull(message="{person.area.isNull}")
+	@ApiModelProperty(name="地区")
 	private Integer area;
 	/**
 	 * 
 	 */
+	@ApiModelProperty(name="备注")
 	private String remark;
 	
+	@ApiModelProperty(name="电话")
 	private String telephone;
 	
 	/**

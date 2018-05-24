@@ -23,19 +23,16 @@ import io.renren.common.validator.ValidatorUtils;
 import io.renren.modules.sys.entity.SysDictEntity;
 import io.renren.modules.sys.service.SysDictService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
+
 
 /**
  * 数据字典
@@ -53,8 +50,9 @@ public class SysDictController {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @RequestMapping(value="/list", method=RequestMethod.GET)
     @RequiresPermissions("sys:dict:list")
+    @ApiOperation(value="数据字典列表", notes="返回数据字典列表")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = sysDictService.queryPage(params);
 
@@ -67,8 +65,8 @@ public class SysDictController {
      */
     @RequestMapping(value="/info/{id}", method=RequestMethod.GET)
     @RequiresPermissions("sys:dict:info")
-    @ApiOperation(value="查询数据字典", notes="根据id查询数据字典", httpMethod=MediaType.APPLICATION_JSON_VALUE)
-    public R info(@ApiParam @PathVariable("id") Long id){
+    @ApiOperation(value="查询数据字典", notes="通过id查询数据字典")
+    public R info(@ApiParam(required=true) @PathVariable("id") Long id){
         SysDictEntity dict = sysDictService.selectById(id);
 
         return R.ok().put("dict", dict);
@@ -79,7 +77,7 @@ public class SysDictController {
      */
     @RequestMapping(value="/save", method=RequestMethod.POST)
     @RequiresPermissions("sys:dict:save")
-    @ApiOperation(value="插入数据字典", notes="插入数据字典", httpMethod=MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value="增加", notes="增加数据字典")
     public R save(@RequestBody SysDictEntity dict){
         //校验类型
         ValidatorUtils.validateEntity(dict);
@@ -96,7 +94,7 @@ public class SysDictController {
      */
     @RequestMapping(value="/update", method=RequestMethod.POST)
     @RequiresPermissions("sys:dict:update")
-    @ApiOperation(value="更新数据字典", notes="更新数据字典", httpMethod=MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value="修改", notes="修改数据字典")
     public R update(@RequestBody SysDictEntity dict){
         //校验类型
         ValidatorUtils.validateEntity(dict);
@@ -111,9 +109,10 @@ public class SysDictController {
     /**
      * 删除
      */
-    @RequestMapping("/delete")
+    @RequestMapping(value="/delete", method=RequestMethod.POST)
     @RequiresPermissions("sys:dict:delete")
-    public R delete(@RequestBody Long[] ids){
+    @ApiOperation(value="删除", notes="删除数据字典")
+    public R delete(@ApiParam(required=true) @RequestBody Long[] ids){
         sysDictService.deleteBatchIds(Arrays.asList(ids));
         // 更新数据字典
         DictComponent.reloadDictCacheDataBatch(ids);
@@ -125,7 +124,8 @@ public class SysDictController {
      * @param types
      * @return
      */
-    @RequestMapping("/dictCache/{types}")
+    @RequestMapping(value="/dictCache/{types}", method=RequestMethod.GET)
+    @ApiOperation(value="取得页面所需数据字典", notes="传递多个type类型返回画面所需要的数据字典")
     public R dictList(@PathVariable("types") String types) {
     	Map<String, Object> resultMap = DictComponent.getDictCacheDataByTypes(types);
     	return R.ok(resultMap);

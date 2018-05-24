@@ -1,7 +1,6 @@
 package io.renren.modules.sys.controller;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 import io.renren.common.validator.ValidatorUtils;
@@ -10,11 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.renren.modules.sys.entity.TblPersonEntity;
 import io.renren.modules.sys.service.TblPersonService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.R;
 
@@ -29,14 +31,16 @@ import io.renren.common.utils.R;
  */
 @RestController
 @RequestMapping("sys/tblperson")
+@Api(description="报名人员")
 public class TblPersonController extends AbstractController{
     @Autowired
     private TblPersonService tblPersonService;
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @RequestMapping(value="/list", method=RequestMethod.GET)
     @RequiresPermissions("sys:tblperson:list")
+    @ApiOperation(value="人员列表", notes="返回人员列表")
     public R list(@RequestParam Map<String, Object> params){
         
     	// PageUtils page = tblPersonService.queryPage(params);
@@ -52,8 +56,9 @@ public class TblPersonController extends AbstractController{
     /**
      * 信息
      */
-    @RequestMapping("/info/{personId}")
+    @RequestMapping(value="/info/{personId}", method=RequestMethod.GET)
     @RequiresPermissions("sys:tblperson:info")
+    @ApiOperation(value="查询人员", notes="通过id查询人员")
     public R info(@PathVariable("personId") Integer personId){
         TblPersonEntity tblPerson = tblPersonService.selectById(personId);
         
@@ -63,8 +68,9 @@ public class TblPersonController extends AbstractController{
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @RequestMapping(value="/save", method=RequestMethod.POST)
     @RequiresPermissions("sys:tblperson:save")
+    @ApiOperation(value="增加", notes="增加人员")
     public R save(@RequestBody TblPersonEntity tblPerson){
     	ValidatorUtils.validateEntity(tblPerson);
         tblPersonService.insert(tblPerson);
@@ -75,8 +81,9 @@ public class TblPersonController extends AbstractController{
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @RequestMapping(value="/update", method=RequestMethod.POST)
     @RequiresPermissions("sys:tblperson:update")
+    @ApiOperation(value="修改", notes="修改人员")
     public R update(@RequestBody TblPersonEntity tblPerson){
         ValidatorUtils.validateEntity(tblPerson);
         tblPersonService.updateAllColumnById(tblPerson);//全部更新
@@ -87,8 +94,9 @@ public class TblPersonController extends AbstractController{
     /**
      * 删除
      */
-    @RequestMapping("/delete")
+    @RequestMapping(value="/delete", method=RequestMethod.POST)
     @RequiresPermissions("sys:tblperson:delete")
+    @ApiOperation(value="删除", notes="删除人员")
     public R delete(@RequestBody Integer[] personIds){
         tblPersonService.deleteBatchIds(Arrays.asList(personIds));
 

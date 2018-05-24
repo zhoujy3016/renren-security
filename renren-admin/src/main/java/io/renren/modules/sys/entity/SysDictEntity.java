@@ -44,13 +44,13 @@ public class SysDictEntity implements Serializable {
 	 * 字典名称
 	 */
 	@NotBlank(message="字典名称不能为空")
-	@ApiModelProperty("字典名称")
+	@ApiModelProperty(name="字典名称")
 	private String name;
 	/**
 	 * 字典类型
 	 */
 	@NotBlank(message="字典类型不能为空")
-	@ApiModelProperty("字典名称")
+	@ApiModelProperty("字典类型")
 	private String type;
 	/**
 	 * 字典码
