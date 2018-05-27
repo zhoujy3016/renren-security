@@ -137,5 +137,5 @@ var vm = new Vue({
 	},
 	created: function(){
 		this.getDictList();
-	},
+	}
 });
