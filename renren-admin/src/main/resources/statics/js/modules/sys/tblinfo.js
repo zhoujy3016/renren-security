@@ -5,8 +5,7 @@ $(function () {
         colModel: [			
 			{ label: 'infoId', name: 'infoId', index: 'info_id', width: 50, key: true, hidden:true },
 			{ label: '标题', name: 'infoTitle', index: 'info_title', width: 80 }, 			
-			{ label: '类型', name: 'infoTypeName', index: '', width: 40 }, 			
-			{ label: '内容', name: 'infoContent', index: 'info_content', width: 160 }			
+			{ label: '类型', name: 'infoTypeName', index: '', width: 40 }		
         ],
 		viewrecords: true,
         height: 385,
@@ -122,6 +121,7 @@ var vm = new Vue({
 			vm.showList = true;
 			var page = $("#jqGrid").jqGrid('getGridParam','page');
 			$("#jqGrid").jqGrid('setGridParam',{ 
+				postData:{"title":vm.q.title, "type":vm.q.type},
                 page:page
             }).trigger("reloadGrid");
 		},
