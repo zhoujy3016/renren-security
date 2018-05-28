@@ -6,6 +6,9 @@ import com.baomidou.mybatisplus.annotations.TableName;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 /**
  * 
  * 
@@ -25,10 +28,12 @@ public class TblInfoEntity implements Serializable {
 	/**
 	 * 
 	 */
+	@NotBlank(message="信息标题不能为空！")
 	private String infoTitle;
 	/**
 	 * 
 	 */
+	@NotNull(message="请选择信息类型！")
 	private Integer infoType;
 	
 	

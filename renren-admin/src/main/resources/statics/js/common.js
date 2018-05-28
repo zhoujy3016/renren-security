@@ -78,3 +78,15 @@ function getSelectedRows() {
 function isBlank(value) {
     return !value || !/\S/.test(value)
 }
+
+
+//function initDictData(types) {
+//	$.ajax({
+//		type: "GET",
+//	    url: baseURL + "sys/dict/dictCache/" + types,
+//        contentType: "application/json",
+//	    success: function(r){
+//	    	return r;
+//		}
+//	});
+//}

@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 import io.renren.common.validator.ValidatorUtils;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -61,6 +62,7 @@ public class TblInfoController {
     @RequestMapping("/save")
     @RequiresPermissions("sys:tblinfo:save")
     public R save(@RequestBody TblInfoEntity tblInfo){
+    	ValidatorUtils.validateEntity(tblInfo);
         tblInfoService.insert(tblInfo);
 
         return R.ok();

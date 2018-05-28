@@ -91,10 +91,10 @@ public class DictComponent {
      * @param dictList
      */
     public static void insertEmpty(List<SysDictEntity> dictList, SysDictEntity typeObject) {
-//    	SysDictEntity empty = new SysDictEntity();
-//    	empty.setCode(StringUtils.EMPTY);
-//    	empty.setValue("请选择" + typeObject.getName() + "...");
-//    	dictList.add(0, empty);
+    	SysDictEntity empty = new SysDictEntity();
+    	empty.setCode(StringUtils.EMPTY);
+    	empty.setValue(StringUtils.EMPTY);
+    	dictList.add(0, empty);
     }
     
 }
