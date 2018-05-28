@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -46,6 +47,7 @@ public class DictComponent {
 			String type = typeList.get(i).getType();
 			// 根据类型查询每种数据字典，添加到map中
 			List<SysDictEntity> dictList = dictComponent.sysDictService.getSysDictEntity(type);
+			insertEmpty(dictList, typeList.get(i));
 			dictComponent.redisUtils.set(type, dictList);
 		}
     }
@@ -82,6 +84,17 @@ public class DictComponent {
     public static void reloadDictCacheDataBatch(Long[] ids) {
     	List<SysDictEntity> delList = dictComponent.sysDictService.getSysDictEntityGroupByType(ids);
     	loadDictDataByType(delList);
+    }
+    
+    /**
+     * list第一位存放一个空值
+     * @param dictList
+     */
+    public static void insertEmpty(List<SysDictEntity> dictList, SysDictEntity typeObject) {
+//    	SysDictEntity empty = new SysDictEntity();
+//    	empty.setCode(StringUtils.EMPTY);
+//    	empty.setValue("请选择" + typeObject.getName() + "...");
+//    	dictList.add(0, empty);
     }
     
 }
