@@ -80,7 +80,7 @@ var vm = new Vue({
 		saveOrUpdate: function (event) {
 			var url = vm.tblInfo.infoId == null ? "sys/tblinfo/save" : "sys/tblinfo/update";
 			var content = CKEDITOR.instances.ckeditor.getData();
-			vm.tblInfo.infoContent = content;
+			vm.tblInfo.infoContent = escape(content);
 			$.ajax({
 				type: "POST",
 			    url: baseURL + url,
@@ -90,6 +90,7 @@ var vm = new Vue({
 			    	if(r.code === 0){
 						alert('操作成功', function(index){
 							vm.reload();
+							CKEDITOR.instances.ckeditor.setData('');
 						});
 					}else{
 						alert(r.msg);
@@ -124,7 +125,7 @@ var vm = new Vue({
 		getInfo: function(infoId){
 			$.get(baseURL + "sys/tblinfo/info/"+infoId, function(r){
                 vm.tblInfo = r.tblInfo;
-                CKEDITOR.instances.ckeditor.setData(vm.tblInfo.infoContent);
+                CKEDITOR.instances.ckeditor.setData(unescape(vm.tblInfo.infoContent));
             });
 		},
 		reload: function (event) {
