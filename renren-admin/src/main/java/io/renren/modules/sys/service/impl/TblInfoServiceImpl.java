@@ -3,6 +3,8 @@ package io.renren.modules.sys.service.impl;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 import java.util.Map;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -48,5 +50,12 @@ public class TblInfoServiceImpl extends ServiceImpl<TblInfoDao, TblInfoEntity> i
         
         return new PageUtils(page);
     }
+
+	@Override
+	public void saveInfo(TblInfoEntity infoEntity) {
+		infoEntity.setInfoCreateTime(new Date());
+		this.insert(infoEntity);
+		
+	}
 
 }

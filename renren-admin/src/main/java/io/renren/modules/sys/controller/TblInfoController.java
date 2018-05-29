@@ -63,7 +63,7 @@ public class TblInfoController {
     @RequiresPermissions("sys:tblinfo:save")
     public R save(@RequestBody TblInfoEntity tblInfo){
     	ValidatorUtils.validateEntity(tblInfo);
-        tblInfoService.insert(tblInfo);
+    	tblInfoService.saveInfo(tblInfo);
 
         return R.ok();
     }

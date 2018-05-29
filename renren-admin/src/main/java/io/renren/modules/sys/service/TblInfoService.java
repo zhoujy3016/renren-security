@@ -16,5 +16,7 @@ import java.util.Map;
 public interface TblInfoService extends IService<TblInfoEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+    
+    void saveInfo(TblInfoEntity infoEntity);
 }
 

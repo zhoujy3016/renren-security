@@ -3,8 +3,10 @@ package io.renren.modules.sys.entity;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -44,6 +46,12 @@ public class TblInfoEntity implements Serializable {
 	 * 
 	 */
 	private String infoContent;
+	
+	/**
+	 * 	创建时间
+	 */
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date infoCreateTime;
 
 	/**
 	 * 设置：
@@ -98,6 +106,12 @@ public class TblInfoEntity implements Serializable {
 	}
 	public void setInfoTypeName(String infoTypeName) {
 		this.infoTypeName = infoTypeName;
+	}
+	public Date getInfoCreateTime() {
+		return infoCreateTime;
+	}
+	public void setInfoCreateTime(Date infoCreateTime) {
+		this.infoCreateTime = infoCreateTime;
 	}
 	
 	

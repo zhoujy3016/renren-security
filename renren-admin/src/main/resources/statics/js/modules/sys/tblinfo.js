@@ -1,7 +1,6 @@
 $(function () {
     // 初始化下拉菜单
     getDictList();
-	
     // 表格生成
     $("#jqGrid").jqGrid({
         url: baseURL + 'sys/tblinfo/list',
@@ -9,7 +8,8 @@ $(function () {
         colModel: [			
 			{ label: 'infoId', name: 'infoId', index: 'info_id', width: 50, key: true, hidden:true },
 			{ label: '标题', name: 'infoTitle', index: 'info_title', width: 80 }, 			
-			{ label: '类型', name: 'infoTypeName', index: '', width: 40 }		
+			{ label: '类型', name: 'infoTypeName', index: '', width: 40 },
+			{ label: '创建时间', name: 'infoCreateTime', index: 'info_create_time', width: 40 }
         ],
 		viewrecords: true,
         height: 385,
