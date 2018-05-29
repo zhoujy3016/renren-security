@@ -1,4 +1,8 @@
 $(function () {
+    // 初始化下拉菜单
+    getDictList();
+	
+    // 表格生成
     $("#jqGrid").jqGrid({
         url: baseURL + 'sys/tblinfo/list',
         datatype: "json",
@@ -35,6 +39,12 @@ $(function () {
     
     CKEDITOR.replace('ckeditor');
 });
+
+
+function getDictList() {
+	var r = initDictData("xwlx");
+	vm.dictXwlx = r.xwlx;
+}
 
 var vm = new Vue({
 	el:'#rrapp',
@@ -125,16 +135,5 @@ var vm = new Vue({
                 page:page
             }).trigger("reloadGrid");
 		},
-		// 初始化数据字典
-		getDictList: function () {
-			 var types = "xwlx";
-			 $.get(baseURL + "sys/dict/dictCache/" + types ,function(r){
-				 vm.dictXwlx = r.xwlx;
-	         });
-		}
-	},
-	created:function() {
-		this.getDictList();
 	}
-	
 });

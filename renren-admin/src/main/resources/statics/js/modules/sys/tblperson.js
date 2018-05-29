@@ -1,4 +1,7 @@
 $(function () {
+    // 初始化下拉菜单
+    getDictList();
+	// 表格生成
     $("#jqGrid").jqGrid({
         url: baseURL + 'sys/tblperson/list',
         datatype: "json", // 初始化 json：加载数据  local:不加载
@@ -37,6 +40,13 @@ $(function () {
     });
 
 });
+
+// 初始化数据字典
+function getDictList() {
+	var r = initDictData("mz,area");
+	vm.dictMz = r.mz;
+	vm.dictArea = r.area;
+}
 
 var vm = new Vue({
 	el:'#rrapp',
@@ -125,17 +135,6 @@ var vm = new Vue({
 				postData:{'name': vm.q.name, 'nationality' : vm.q.nationality, "area":vm.q.area},
                 page:page
             }).trigger("reloadGrid");
-		},
-		// 初始化数据字典
-		getDictList: function () {
-			 var types = "mz,area";
-			 $.get(baseURL + "sys/dict/dictCache/" + types ,function(r){
-				 vm.dictMz = r.mz;
-				 vm.dictArea = r.area;
-	         });
 		}
-	},
-	created: function(){
-		this.getDictList();
 	}
 });
