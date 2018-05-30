@@ -79,7 +79,7 @@ function isBlank(value) {
     return !value || !/\S/.test(value)
 }
 
-
+// 根据传递类型，获取数据字典
 function initDictData(types) {
 	var data;
 	$.ajax({

@@ -77,6 +77,13 @@ var vm = new Vue({
             
             vm.getInfo(infoId)
 		},
+		view:function(event) {
+			var infoId = getSelectedRow();
+			if(infoId == null){
+				return ;
+			}
+			window.location.href = "tblinfoview.html?infoId="+infoId;
+		},
 		saveOrUpdate: function (event) {
 			var url = vm.tblInfo.infoId == null ? "sys/tblinfo/save" : "sys/tblinfo/update";
 			var content = CKEDITOR.instances.ckeditor.getData();
