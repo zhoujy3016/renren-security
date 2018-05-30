@@ -74,6 +74,7 @@ public class DictComponent {
      */
     public static void reloadDictCacheData(String type, List<SysDictEntity> dictList) {
     	dictComponent.redisUtils.delete(type);
+    	insertEmpty(dictList, null);
     	dictComponent.redisUtils.set(type, dictList);
     }
     
