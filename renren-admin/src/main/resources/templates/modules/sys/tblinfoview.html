@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+		<#include "/header.html">
+</head>
+<body>
+<div id="rrapp" v-cloak>
+	<input type="button" class="btn btn-warning" @click="back" value="返回"/>
+	</br>
+    {{tblInfo.infoTitle}}
+    </br>
+    <div id="content"></div>
+</div>
+
+<script src="${request.contextPath}/statics/js/modules/sys/tblinfoview.js?_${.now?long}"></script>
+</body>
+</html>
