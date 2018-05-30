@@ -7,7 +7,11 @@ $(function () {
         datatype: "json",
         colModel: [			
 			{ label: 'infoId', name: 'infoId', index: 'info_id', width: 50, key: true, hidden:true },
-			{ label: '标题', name: 'infoTitle', index: 'info_title', width: 80 }, 			
+			{ label: '标题', name: 'infoTitle', index: 'info_title', width: 80,
+			  formatter:function(cellvalue, options, rowObject){
+			    return "<a onclick=\"vm.view("+rowObject.infoId+")\">"+cellvalue+"</a>";
+			  }
+			}, 			
 			{ label: '类型', name: 'infoTypeName', index: '', width: 40 },
 			{ label: '创建时间', name: 'infoCreateTime', index: 'info_create_time', width: 40 }
         ],
@@ -77,11 +81,7 @@ var vm = new Vue({
             
             vm.getInfo(infoId)
 		},
-		view:function(event) {
-			var infoId = getSelectedRow();
-			if(infoId == null){
-				return ;
-			}
+		view:function(infoId) {
 			window.location.href = "tblinfoview.html?infoId="+infoId;
 		},
 		saveOrUpdate: function (event) {
