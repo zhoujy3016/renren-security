@@ -47,7 +47,6 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictDao, SysDictEntity> i
                     .like(StringUtils.isNotBlank(name),"name", name)
                     .orderBy("type")
         );
-
         return new PageUtils(page);
     }
 
