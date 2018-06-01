@@ -19,6 +19,8 @@ package io.renren.modules.sys.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+
+import io.renren.common.component.DictComponent;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.Query;
 import io.renren.modules.sys.dao.SysDictDao;
@@ -27,6 +29,7 @@ import io.renren.modules.sys.service.SysDictService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -67,6 +70,29 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictDao, SysDictEntity> i
 	public List<SysDictEntity> getSysDictEntityGroupByType(Long[] ids) {
 		List<SysDictEntity> sysDictEntityList = this.baseMapper.getSysDictEntityGroupByType(ids);
 		return sysDictEntityList;
+	}
+
+	@Override
+	public void insertDict(SysDictEntity sysDictEntity) {
+		this.insert(sysDictEntity);
+        String type = sysDictEntity.getType();
+        // 更新数据字典缓存
+        DictComponent.reloadDictCacheData(type, this.getSysDictEntity(type));
+	}
+
+	@Override
+	public void updateDict(SysDictEntity sysDictEntity) {
+        this.updateById(sysDictEntity);
+        String type = sysDictEntity.getType();
+        // 更新数据字典缓存
+        DictComponent.reloadDictCacheData(type, this.getSysDictEntity(type));
+	}
+
+	@Override
+	public void deleteDict(Long[] ids) {
+        this.deleteBatchIds(Arrays.asList(ids));
+        // 更新数据字典
+        DictComponent.reloadDictCacheDataBatch(ids);
 	}
 
 }

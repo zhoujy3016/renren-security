@@ -81,11 +81,7 @@ public class SysDictController {
     public R save(@RequestBody SysDictEntity dict){
         //校验类型
         ValidatorUtils.validateEntity(dict);
-        sysDictService.insert(dict);
-        
-        String type = dict.getType();
-        // 更新数据字典缓存
-        DictComponent.reloadDictCacheData(type, sysDictService.getSysDictEntity(type));
+        sysDictService.insertDict(dict);
         return R.ok();
     }
 
@@ -98,11 +94,8 @@ public class SysDictController {
     public R update(@RequestBody SysDictEntity dict){
         //校验类型
         ValidatorUtils.validateEntity(dict);
+        sysDictService.updateDict(dict);
 
-        sysDictService.updateById(dict);
-        String type = dict.getType();
-        // 更新数据字典缓存
-        DictComponent.reloadDictCacheData(type, sysDictService.getSysDictEntity(type));
         return R.ok();
     }
 
@@ -113,9 +106,7 @@ public class SysDictController {
     @RequiresPermissions("sys:dict:delete")
     @ApiOperation(value="删除", notes="删除数据字典")
     public R delete(@ApiParam(required=true) @RequestBody Long[] ids){
-        sysDictService.deleteBatchIds(Arrays.asList(ids));
-        // 更新数据字典
-        DictComponent.reloadDictCacheDataBatch(ids);
+    	sysDictService.deleteDict(ids);
         return R.ok();
     }
 

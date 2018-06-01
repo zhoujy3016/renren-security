@@ -30,6 +30,13 @@ import java.util.Map;
  * @since 3.1.0 2018-01-27
  */
 public interface SysDictService extends IService<SysDictEntity> {
+	
+	void insertDict(SysDictEntity sysDictEntity);
+	
+	void updateDict(SysDictEntity sysDictEntity);
+	
+	void deleteDict(Long[] ids);
+	
 
     PageUtils queryPage(Map<String, Object> params);
     
