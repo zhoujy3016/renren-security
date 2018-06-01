@@ -22,7 +22,9 @@
 		left join sys_dict d2 on d2.code = p.nationality and d2.type = 'mz'
 		<where>
 			<if test="name!=null and name!=''">
-				and p.person_Name like '%${name}%'
+				<!-- 使用bind防止sql注入 -->
+				<bind name="nameLike" value="'%' + name + '%'"/>
+				and p.person_Name like #{nameLike}
 			</if>
 			<if test="nationality!=null and nationality!=''">
 				and p.nationality = #{nationality}
