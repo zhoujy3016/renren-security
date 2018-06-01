@@ -30,7 +30,6 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.Map;
 
 
@@ -55,7 +54,6 @@ public class SysDictController {
     @ApiOperation(value="数据字典列表", notes="返回数据字典列表")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = sysDictService.queryPage(params);
-
         return R.ok().put("page", page);
     }
 
