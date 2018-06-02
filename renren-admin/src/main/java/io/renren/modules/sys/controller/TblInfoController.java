@@ -1,6 +1,7 @@
 package io.renren.modules.sys.controller;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 import io.renren.common.validator.ValidatorUtils;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.renren.modules.sys.entity.TblInfoEntity;
 import io.renren.modules.sys.service.TblInfoService;
+import io.renren.common.component.DictComponent;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.R;
 
@@ -40,8 +42,11 @@ public class TblInfoController {
     @RequiresPermissions("sys:tblinfo:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = tblInfoService.queryPage(params);
-
-        return R.ok().put("page", page);
+        
+    	Map<String, Object> map = new HashMap<>();
+    	map.put("page", page);
+    	map.put("userdata", DictComponent.getDictCacheDataByTypes("xwlx"));
+        return R.ok(map);
     }
 
 

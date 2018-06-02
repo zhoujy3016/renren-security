@@ -79,17 +79,17 @@ function isBlank(value) {
     return !value || !/\S/.test(value)
 }
 
-// 根据传递类型，获取数据字典
-function initDictData(types) {
-	var data;
-	$.ajax({
-		type: "GET",
-		async:false,
-	    url: baseURL + "sys/dict/dictCache/" + types,
-        contentType: "application/json",
-	    success: function(r){
-	    	data = r;
-		}
-	});
-	return data;
-}
+//// 根据传递类型，获取数据字典
+//function initDictData(types) {
+//	var data;
+//	$.ajax({
+//		type: "GET",
+//		async:false,
+//	    url: baseURL + "sys/dict/dictCache/" + types,
+//        contentType: "application/json",
+//	    success: function(r){
+//	    	data = r;
+//		}
+//	});
+//	return data;
+//}

@@ -1,6 +1,7 @@
 package io.renren.modules.sys.controller;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 import io.renren.common.validator.ValidatorUtils;
@@ -17,6 +18,7 @@ import io.renren.modules.sys.entity.TblPersonEntity;
 import io.renren.modules.sys.service.TblPersonService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.renren.common.component.DictComponent;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.R;
 
@@ -50,7 +52,10 @@ public class TblPersonController extends AbstractController{
     	// 自定义分页查询
     	PageUtils page = tblPersonService.selectPersonList(params);
     	
-        return R.ok().put("page", page);
+    	Map<String, Object> map = new HashMap<>();
+    	map.put("page", page);
+    	map.put("userdata", DictComponent.getDictCacheDataByTypes("mz,area"));
+        return R.ok(map);
     }
     
     /**

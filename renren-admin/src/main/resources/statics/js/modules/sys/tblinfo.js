@@ -1,6 +1,4 @@
 $(function () {
-    // 初始化下拉菜单
-    getDictList();
     // 表格生成
     $("#jqGrid").jqGrid({
         url: baseURL + 'sys/tblinfo/list',
@@ -38,6 +36,9 @@ $(function () {
         gridComplete:function(){
         	//隐藏grid底部滚动条
         	$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" }); 
+        },
+        loadComplete: function(data) {
+        	setDictList(data.userdata);
         }
     });
     
@@ -45,8 +46,7 @@ $(function () {
 });
 
 
-function getDictList() {
-	var r = initDictData("xwlx");
+function setDictList(r) {
 	vm.dictXwlx = r.xwlx;
 }
 
