@@ -33,6 +33,9 @@ $(function () {
         gridComplete:function(){
         	//隐藏grid底部滚动条
         	$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" }); 
+        },
+        loadComplete: function(data) {
+        	vm.dictType = data.userdata;
         }
     });
 });
@@ -41,11 +44,13 @@ var vm = new Vue({
 	el:'#rrapp',
 	data:{
         q:{
-            name: null
+            name: null,
+            type:null
         },
 		showList: true,
 		title: null,
-		dict: {}
+		dict: {},
+		dictType:{}
 	},
 	methods: {
 		query: function () {
@@ -117,7 +122,7 @@ var vm = new Vue({
 			vm.showList = true;
 			var page = $("#jqGrid").jqGrid('getGridParam','page');
 			$("#jqGrid").jqGrid('setGridParam',{
-                postData:{'name': vm.q.name},
+                postData:{'name': vm.q.name, 'type':vm.q.type},
                 page:page
             }).trigger("reloadGrid");
 		}

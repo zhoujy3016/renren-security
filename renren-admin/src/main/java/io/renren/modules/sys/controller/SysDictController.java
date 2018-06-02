@@ -30,6 +30,10 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import com.alibaba.fastjson.JSONObject;
+
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -54,7 +58,13 @@ public class SysDictController {
     @ApiOperation(value="数据字典列表", notes="返回数据字典列表")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = sysDictService.queryPage(params);
-        return R.ok().put("page", page);
+        // 画面数据字典类型下拉菜单
+        List<SysDictEntity> typeList = sysDictService.getSysDictEntityGroupByType();
+        // 结果map
+        Map<String, Object> map = new HashMap<>();
+        map.put("page", page);
+        map.put("userdata", typeList);
+        return R.ok(map);
     }
 
 
@@ -108,16 +118,16 @@ public class SysDictController {
         return R.ok();
     }
 
-    /**
-     * 传递多个type类型返回画面所需要的数据字典
-     * @param types
-     * @return
-     */
-    @RequestMapping(value="/dictCache/{types}", method=RequestMethod.GET)
-    @ApiOperation(value="取得页面所需数据字典", notes="传递多个type类型返回画面所需要的数据字典")
-    public R dictList(@PathVariable("types") String types) {
-    	Map<String, Object> resultMap = DictComponent.getDictCacheDataByTypes(types);
-    	return R.ok(resultMap);
-    }
+//    /**
+//     * 传递多个type类型返回画面所需要的数据字典
+//     * @param types
+//     * @return
+//     */
+//    @RequestMapping(value="/dictCache/{types}", method=RequestMethod.GET)
+//    @ApiOperation(value="取得页面所需数据字典", notes="传递多个type类型返回画面所需要的数据字典")
+//    public R dictList(@PathVariable("types") String types) {
+//    	Map<String, Object> resultMap = DictComponent.getDictCacheDataByTypes(types);
+//    	return R.ok(resultMap);
+//    }
     
 }
