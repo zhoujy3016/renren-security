@@ -38,6 +38,7 @@ public class TblInfoServiceImpl extends ServiceImpl<TblInfoDao, TblInfoEntity> i
                 new EntityWrapper<TblInfoEntity>()
                 .like(StringUtils.isNotBlank(title) , "info_title", title)
                 .eq(StringUtils.isNotBlank(type), "info_type", type)
+                .orderBy("info_id", false)
         );
 
         for(TblInfoEntity tblInfoEntity:page.getRecords()) {
