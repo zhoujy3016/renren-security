@@ -18,6 +18,8 @@ package io.renren.common.config;
 
 import io.renren.modules.sys.shiro.RedisShiroSessionDAO;
 import io.renren.modules.sys.shiro.UserRealm;
+
+import org.apache.shiro.cache.MemoryConstrainedCacheManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -60,11 +62,12 @@ public class ShiroConfig {
     }
 
     @Bean("securityManager")
-    public SecurityManager securityManager(UserRealm userRealm, SessionManager sessionManager) {
+    public SecurityManager securityManager(UserRealm userRealm, SessionManager sessionManager, MemoryConstrainedCacheManager shiroCacheManager) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(userRealm);
         securityManager.setSessionManager(sessionManager);
-
+        // 存放认证与授权缓存
+        securityManager.setCacheManager(shiroCacheManager);
         return securityManager;
     }
 
@@ -111,5 +114,11 @@ public class ShiroConfig {
         AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
         advisor.setSecurityManager(securityManager);
         return advisor;
+    }
+    
+    // shiro在内存中使用map存放授权与认证的map
+    @Bean
+    public MemoryConstrainedCacheManager shiroCacheManager() {
+    	return new MemoryConstrainedCacheManager();
     }
 }
