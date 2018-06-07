@@ -19,6 +19,7 @@ package io.renren.modules.sys.shiro;
 import io.renren.common.exception.RRException;
 import io.renren.modules.sys.entity.SysUserEntity;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
@@ -66,6 +67,12 @@ public class ShiroUtils {
 
 	public static boolean isLogin() {
 		return SecurityUtils.getSubject().getPrincipal() != null;
+	}
+	
+	public static void login(String username, String password) {
+		Subject subject = getSubject();
+		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+		subject.login(token);
 	}
 
 	public static void logout() {

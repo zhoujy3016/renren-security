@@ -75,9 +75,7 @@ public class SysLoginController {
 //		}
 		
 		try{
-			Subject subject = ShiroUtils.getSubject();
-			UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-			subject.login(token);
+			ShiroUtils.login(username, password);
 		}catch (UnknownAccountException e) {
 			return R.error(e.getMessage());
 		}catch (IncorrectCredentialsException e) {
@@ -87,7 +85,6 @@ public class SysLoginController {
 		}catch (AuthenticationException e) {
 			return R.error("账户验证失败");
 		}
-	    
 		return R.ok();
 	}
 	
