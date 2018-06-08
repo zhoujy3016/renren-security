@@ -7,7 +7,7 @@ $(function () {
 			{ label: 'infoId', name: 'infoId', index: 'info_id', width: 50, key: true, hidden:true },
 			{ label: '标题', name: 'infoTitle', index: 'info_title', width: 80,
 			  formatter:function(cellvalue, options, rowObject){
-			    return "<a onclick=\"vm.view("+rowObject.infoId+")\">"+cellvalue+"</a>";
+			    return '<a onclick="vm.view(' + rowObject.infoId+ ')">'+cellvalue+'</a>';
 			  }
 			}, 			
 			{ label: '类型', name: 'infoTypeName', index: '', width: 40 },
@@ -82,7 +82,8 @@ var vm = new Vue({
             vm.getInfo(infoId)
 		},
 		view:function(infoId) {
-			window.location.href = "tblinfoview.html?infoId="+infoId;
+//			window.location.href = "tblinfoview.html?infoId="+infoId;
+			window.open("tblinfoview.html?infoId="+infoId,"",""); 
 		},
 		saveOrUpdate: function (event) {
 			var url = vm.tblInfo.infoId == null ? "sys/tblinfo/save" : "sys/tblinfo/update";

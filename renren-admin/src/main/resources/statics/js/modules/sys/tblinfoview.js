@@ -15,9 +15,6 @@ var vm = new Vue({
                 vm.tblInfo = r.tblInfo;
                 $("#content").html(unescape(vm.tblInfo.infoContent));
             });
-		},
-		back: function (event) {
-			history.go(-1);
 		}
 	},
 	created:function() {
