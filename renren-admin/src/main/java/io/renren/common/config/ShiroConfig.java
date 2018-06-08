@@ -116,7 +116,10 @@ public class ShiroConfig {
         return advisor;
     }
     
-    // shiro在内存中使用map存放授权与认证的map
+   /**
+    * shiro在内存中使用map存放授权与认证的map
+    * @return
+    */
     @Bean
     public MemoryConstrainedCacheManager shiroCacheManager() {
     	return new MemoryConstrainedCacheManager();
