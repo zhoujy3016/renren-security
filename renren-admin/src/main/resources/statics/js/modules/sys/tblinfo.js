@@ -82,8 +82,7 @@ var vm = new Vue({
             vm.getInfo(infoId)
 		},
 		view:function(infoId) {
-//			window.location.href = "tblinfoview.html?infoId="+infoId;
-			window.open("tblinfoview.html?infoId="+infoId,"",""); 
+			window.open("tblinfoview.html?infoId="+infoId); 
 		},
 		saveOrUpdate: function (event) {
 			var url = vm.tblInfo.infoId == null ? "sys/tblinfo/save" : "sys/tblinfo/update";

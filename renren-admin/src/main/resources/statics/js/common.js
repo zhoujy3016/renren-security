@@ -79,6 +79,20 @@ function isBlank(value) {
     return !value || !/\S/.test(value)
 }
 
+// 取得url?后边的参数
+function getParameters(url) {
+	var arrParam = new Object();
+	if (url.indexOf("?") != -1) {
+		var str = url.substr(1);//substr()方法返回从参数值开始到结束的字符串；
+		strs = str.split("&");
+		for(var i = 0; i < strs.length; i ++) {
+			arrParam[strs[i].split("=")[0]]=(strs[i].split("=")[1]);
+		}
+		console.log(arrParam);//此时的theRequest就是我们需要的参数；
+	}
+	return arrParam;
+}
+
 //// 根据传递类型，获取数据字典
 //function initDictData(types) {
 //	var data;
