@@ -27,7 +27,7 @@ public class DictComponent {
     public static DictComponent dictComponent;
     
     @PostConstruct
-    public void init() {
+    private void init() {
     	dictComponent = this;
     	dictComponent.redisUtils = this.redisUtils;
     	dictComponent.sysDictService = this.sysDictService;
