@@ -9,9 +9,10 @@ import javax.annotation.PostConstruct;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-
+import io.renren.common.service.DictCacheService;
 import io.renren.common.utils.RedisUtils;
 import io.renren.modules.sys.entity.SysDictEntity;
 import io.renren.modules.sys.service.SysDictService;
@@ -26,11 +27,20 @@ public class DictComponent {
 	
     public static DictComponent dictComponent;
     
+    //是否开启redis缓存  true开启   false关闭
+    @Value("${renren.redis.open}")
+    private boolean open;
+
+    
+    @Autowired
+    private DictCacheService dictCacheService;
+    
     @PostConstruct
     private void init() {
     	dictComponent = this;
     	dictComponent.redisUtils = this.redisUtils;
     	dictComponent.sysDictService = this.sysDictService;
+    	dictComponent.open = this.open;
     }
     
     /**
@@ -38,17 +48,40 @@ public class DictComponent {
      */
     public static void initDictCacheData() {
     	List<SysDictEntity> typeList = dictComponent.sysDictService.getSysDictEntityGroupByType();
-    	loadDictDataByType(typeList);
+    	if(dictComponent.open == true) {
+    		loadDictDataToRedis(typeList);
+    	} else {
+    		loadDictDataToMap(typeList);
+    	}
     }
     
-    
-    public static void loadDictDataByType(List<SysDictEntity> typeList) {
+    /**
+     * 数据放到redis数据库中
+     * @param typeList
+     */
+    private static void loadDictDataToRedis(List<SysDictEntity> typeList) {
 		for(int i = 0; i < typeList.size(); i++) {
 			String type = typeList.get(i).getType();
 			// 根据类型查询每种数据字典，添加到map中
 			List<SysDictEntity> dictList = dictComponent.sysDictService.getSysDictEntity(type);
 			insertEmpty(dictList, typeList.get(i));
 			dictComponent.redisUtils.set(type, dictList);
+		}
+    }
+    
+    /**
+     * 数据放入到map中
+     * @param typeList
+     */
+    
+    private static void loadDictDataToMap(List<SysDictEntity> typeList) {
+		Map<String, Object> cacheMap = dictComponent.dictCacheService.getCacheMap(); 
+		for(int i = 0; i < typeList.size(); i++) {
+			String type = typeList.get(i).getType();
+			// 根据类型查询每种数据字典，添加到map中
+			List<SysDictEntity> dictList = dictComponent.sysDictService.getSysDictEntity(type);
+			insertEmpty(dictList, typeList.get(i));
+			cacheMap.put(type, dictList);
 		}
     }
     
@@ -61,9 +94,16 @@ public class DictComponent {
     public static Map<String, Object> getDictCacheDataByTypes(String types) {
     	Map<String, Object> resultMap = new HashMap<>();
     	String[] arrType = types.split(",");
-		for(String type : arrType) {
-			resultMap.put(type, dictComponent.redisUtils.get(type, ArrayList.class));
-		}
+    	if(dictComponent.open == true) {
+    		for(String type : arrType) {
+    			resultMap.put(type, dictComponent.redisUtils.get(type, ArrayList.class));
+    		}
+    	} else {
+    		Map<String, Object> dictMap = dictComponent.dictCacheService.getCacheMap();
+    		for(String type: arrType) {
+    			resultMap.put(type, dictMap.get(type));
+    		}
+    	}
     	return resultMap;
     }
     
@@ -84,14 +124,14 @@ public class DictComponent {
      */
     public static void reloadDictCacheDataBatch(Long[] ids) {
     	List<SysDictEntity> delList = dictComponent.sysDictService.getSysDictEntityGroupByType(ids);
-    	loadDictDataByType(delList);
+    	loadDictDataToRedis(delList);
     }
     
     /**
      * list第一位存放一个空值
      * @param dictList
      */
-    public static void insertEmpty(List<SysDictEntity> dictList, SysDictEntity typeObject) {
+    private static void insertEmpty(List<SysDictEntity> dictList, SysDictEntity typeObject) {
     	SysDictEntity empty = new SysDictEntity();
     	empty.setCode(StringUtils.EMPTY);
     	empty.setValue(StringUtils.EMPTY);
