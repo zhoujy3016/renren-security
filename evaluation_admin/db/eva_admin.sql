@@ -1,6 +1,6 @@
 /*
 SQLyog  v12.2.6 (64 bit)
-MySQL - 5.7.22-log : Database - eva_admin
+MySQL - 5.7.20-log : Database - eva_admin
 *********************************************************************
 */
 
@@ -12,7 +12,7 @@ MySQL - 5.7.22-log : Database - eva_admin
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`eva_admin` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`eva_admin` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
 USE `eva_admin`;
 
@@ -41,9 +41,12 @@ CREATE TABLE `bte_evaluate` (
   `create_date` datetime DEFAULT NULL,
   `create_user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`data_no`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `bte_evaluate` */
+
+insert  into `bte_evaluate`(`data_no`,`eval_title`,`eval_memo`,`eval_state_id`,`create_date`,`create_user_id`) values 
+(1,'第一期培训班测评','第一期培训班测评说明',0,NULL,NULL);
 
 /*Table structure for table `bte_lesson` */
 
@@ -75,12 +78,13 @@ CREATE TABLE `bte_question` (
   `create_date` datetime DEFAULT NULL,
   `create_user_Id` int(11) DEFAULT NULL,
   PRIMARY KEY (`data_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `bte_question` */
 
 insert  into `bte_question`(`data_no`,`question_title`,`question_type_id`,`question_state_id`,`create_date`,`create_user_Id`) values 
-(1,'培训时间安排是否科学？',1,0,NULL,NULL);
+(1,'培训时间安排是否科学？',1,1,NULL,NULL),
+(2,'培训地点选择是否合理？',1,1,'2018-06-19 20:25:33',1);
 
 /*Table structure for table `bte_result` */
 
@@ -246,7 +250,7 @@ CREATE TABLE `qrtz_scheduler_state` (
 /*Data for the table `qrtz_scheduler_state` */
 
 insert  into `qrtz_scheduler_state`(`SCHED_NAME`,`INSTANCE_NAME`,`LAST_CHECKIN_TIME`,`CHECKIN_INTERVAL`) values 
-('RenrenScheduler','zhoujy-PC1529395428337',1529395584894,15000);
+('RenrenScheduler','zhoujy-PC1529415290755',1529415417623,15000);
 
 /*Table structure for table `qrtz_simple_triggers` */
 
@@ -330,7 +334,7 @@ CREATE TABLE `qrtz_triggers` (
 /*Data for the table `qrtz_triggers` */
 
 insert  into `qrtz_triggers`(`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`,`JOB_NAME`,`JOB_GROUP`,`DESCRIPTION`,`NEXT_FIRE_TIME`,`PREV_FIRE_TIME`,`PRIORITY`,`TRIGGER_STATE`,`TRIGGER_TYPE`,`START_TIME`,`END_TIME`,`CALENDAR_NAME`,`MISFIRE_INSTR`,`JOB_DATA`) values 
-('RenrenScheduler','TASK_1','DEFAULT','TASK_1','DEFAULT',NULL,1529397000000,-1,5,'WAITING','CRON',1529375408000,0,NULL,2,'��\0sr\0org.quartz.JobDataMap���迩��\0\0xr\0&org.quartz.utils.StringKeyDirtyFlagMap�����](\0Z\0allowsTransientDataxr\0org.quartz.utils.DirtyFlagMap�.�(v\n�\0Z\0dirtyL\0mapt\0Ljava/util/Map;xpsr\0java.util.HashMap���`�\0F\0\nloadFactorI\0	thresholdxp?@\0\0\0\0\0w\0\0\0\0\0\0t\0\rJOB_PARAM_KEYsr\0.io.renren.modules.job.entity.ScheduleJobEntity\0\0\0\0\0\0\0\0L\0beanNamet\0Ljava/lang/String;L\0\ncreateTimet\0Ljava/util/Date;L\0cronExpressionq\0~\0	L\0jobIdt\0Ljava/lang/Long;L\0\nmethodNameq\0~\0	L\0paramsq\0~\0	L\0remarkq\0~\0	L\0statust\0Ljava/lang/Integer;xpt\0testTasksr\0java.util.Datehj�KYt\0\0xpw\0\0X���0xt\00 0/30 * * * ?sr\0java.lang.Long;��̏#�\0J\0valuexr\0java.lang.Number������\0\0xp\0\0\0\0\0\0\0t\0testt\0renrent\0有参数测试sr\0java.lang.Integer⠤���8\0I\0valuexq\0~\0\0\0\0\0x\0'),
+('RenrenScheduler','TASK_1','DEFAULT','TASK_1','DEFAULT',NULL,1529416800000,-1,5,'WAITING','CRON',1529375408000,0,NULL,2,'��\0sr\0org.quartz.JobDataMap���迩��\0\0xr\0&org.quartz.utils.StringKeyDirtyFlagMap�����](\0Z\0allowsTransientDataxr\0org.quartz.utils.DirtyFlagMap�.�(v\n�\0Z\0dirtyL\0mapt\0Ljava/util/Map;xpsr\0java.util.HashMap���`�\0F\0\nloadFactorI\0	thresholdxp?@\0\0\0\0\0w\0\0\0\0\0\0t\0\rJOB_PARAM_KEYsr\0.io.renren.modules.job.entity.ScheduleJobEntity\0\0\0\0\0\0\0\0L\0beanNamet\0Ljava/lang/String;L\0\ncreateTimet\0Ljava/util/Date;L\0cronExpressionq\0~\0	L\0jobIdt\0Ljava/lang/Long;L\0\nmethodNameq\0~\0	L\0paramsq\0~\0	L\0remarkq\0~\0	L\0statust\0Ljava/lang/Integer;xpt\0testTasksr\0java.util.Datehj�KYt\0\0xpw\0\0X���0xt\00 0/30 * * * ?sr\0java.lang.Long;��̏#�\0J\0valuexr\0java.lang.Number������\0\0xp\0\0\0\0\0\0\0t\0testt\0renrent\0有参数测试sr\0java.lang.Integer⠤���8\0I\0valuexq\0~\0\0\0\0\0x\0'),
 ('RenrenScheduler','TASK_2','DEFAULT','TASK_2','DEFAULT',NULL,1529377200000,-1,5,'PAUSED','CRON',1529375408000,0,NULL,2,'��\0sr\0org.quartz.JobDataMap���迩��\0\0xr\0&org.quartz.utils.StringKeyDirtyFlagMap�����](\0Z\0allowsTransientDataxr\0org.quartz.utils.DirtyFlagMap�.�(v\n�\0Z\0dirtyL\0mapt\0Ljava/util/Map;xpsr\0java.util.HashMap���`�\0F\0\nloadFactorI\0	thresholdxp?@\0\0\0\0\0w\0\0\0\0\0\0t\0\rJOB_PARAM_KEYsr\0.io.renren.modules.job.entity.ScheduleJobEntity\0\0\0\0\0\0\0\0L\0beanNamet\0Ljava/lang/String;L\0\ncreateTimet\0Ljava/util/Date;L\0cronExpressionq\0~\0	L\0jobIdt\0Ljava/lang/Long;L\0\nmethodNameq\0~\0	L\0paramsq\0~\0	L\0remarkq\0~\0	L\0statust\0Ljava/lang/Integer;xpt\0testTasksr\0java.util.Datehj�KYt\0\0xpw\0\0X�w�`xt\00 0/30 * * * ?sr\0java.lang.Long;��̏#�\0J\0valuexr\0java.lang.Number������\0\0xp\0\0\0\0\0\0\0t\0test2pt\0无参数测试sr\0java.lang.Integer⠤���8\0I\0valuexq\0~\0\0\0\0x\0');
 
 /*Table structure for table `schedule_job` */
@@ -371,7 +375,7 @@ CREATE TABLE `schedule_job_log` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`log_id`),
   KEY `job_id` (`job_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='定时任务日志';
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='定时任务日志';
 
 /*Data for the table `schedule_job_log` */
 
@@ -385,7 +389,10 @@ insert  into `schedule_job_log`(`log_id`,`job_id`,`bean_name`,`method_name`,`par
 (7,1,'testTask','test','renren',0,NULL,1012,'2018-06-19 14:30:00'),
 (8,1,'testTask','test','renren',0,NULL,1020,'2018-06-19 15:00:00'),
 (9,1,'testTask','test','renren',0,NULL,1029,'2018-06-19 15:30:00'),
-(10,1,'testTask','test','renren',0,NULL,1017,'2018-06-19 16:00:00');
+(10,1,'testTask','test','renren',0,NULL,1017,'2018-06-19 16:00:00'),
+(11,1,'testTask','test','renren',0,NULL,1019,'2018-06-19 20:30:00'),
+(12,1,'testTask','test','renren',0,NULL,1036,'2018-06-19 21:00:00'),
+(13,1,'testTask','test','renren',0,NULL,1051,'2018-06-19 21:30:00');
 
 /*Table structure for table `sys_config` */
 
@@ -443,7 +450,7 @@ CREATE TABLE `sys_dict` (
   `del_flag` tinyint(4) DEFAULT '0' COMMENT '删除标记  -1：已删除  0：正常',
   PRIMARY KEY (`id`),
   UNIQUE KEY `type` (`type`,`code`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='数据字典表';
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='数据字典表';
 
 /*Data for the table `sys_dict` */
 
@@ -459,7 +466,9 @@ insert  into `sys_dict`(`id`,`name`,`type`,`code`,`value`,`order_num`,`remark`,`
 (9,'课程类型','kclx','2','专业课',2,NULL,0),
 (10,'课程类型','kclx','3','十九大',3,NULL,0),
 (11,'启用状态','qyzt','0','关闭',0,NULL,0),
-(12,'启用状态','qyzt','1','启用',1,NULL,0);
+(12,'启用状态','qyzt','1','启用',1,NULL,0),
+(13,'测评状态','cpzt','0','关闭',0,NULL,0),
+(14,'测评状态','cpzt','1','开启',1,NULL,0);
 
 /*Table structure for table `sys_log` */
 
@@ -475,7 +484,7 @@ CREATE TABLE `sys_log` (
   `ip` varchar(64) DEFAULT NULL COMMENT 'IP地址',
   `create_date` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COMMENT='系统日志';
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COMMENT='系统日志';
 
 /*Data for the table `sys_log` */
 
@@ -499,7 +508,16 @@ insert  into `sys_log`(`id`,`username`,`operation`,`method`,`params`,`time`,`ip`
 (17,'admin','重置密码','io.renren.modules.sys.controller.SysUserController.passwordReset()','[2]',30,'0:0:0:0:0:0:0:1','2018-06-19 13:38:25'),
 (18,'gab','修改密码','io.renren.modules.sys.controller.SysUserController.password()','\"000000\"',16,'0:0:0:0:0:0:0:1','2018-06-19 13:38:40'),
 (19,'admin','修改角色','io.renren.modules.sys.controller.SysRoleController.update()','{\"roleId\":1,\"roleName\":\"部级\",\"deptId\":1,\"deptName\":\"公安部\",\"menuIdList\":[1,2,15,16,17,18,3,19,20,21,22,4,23,24,25,26,31,32,33,34,35,36,37,38,39,40,41],\"deptIdList\":[1,2,3],\"createTime\":\"Jun 19, 2018 10:47:08 AM\"}',71,'0:0:0:0:0:0:0:1','2018-06-19 13:39:38'),
-(20,'admin','重置密码','io.renren.modules.sys.controller.SysUserController.passwordReset()','[1]',2,'0:0:0:0:0:0:0:1','2018-06-19 13:55:56');
+(20,'admin','重置密码','io.renren.modules.sys.controller.SysUserController.passwordReset()','[1]',2,'0:0:0:0:0:0:0:1','2018-06-19 13:55:56'),
+(21,'admin','保存菜单','io.renren.modules.sys.controller.SysMenuController.save()','{\"menuId\":48,\"parentId\":43,\"parentName\":\"试题管理\",\"name\":\"变更状态\",\"perms\":\"sys:btequestion:state\",\"type\":2,\"orderNum\":0}',23,'0:0:0:0:0:0:0:1','2018-06-19 20:26:27'),
+(22,'admin','修改角色','io.renren.modules.sys.controller.SysRoleController.update()','{\"roleId\":1,\"roleName\":\"部级\",\"deptId\":1,\"deptName\":\"公安部\",\"menuIdList\":[1,2,15,16,17,18,3,19,20,21,22,4,23,24,25,26,31,32,33,34,35,36,37,38,39,40,41,43,44,45,46,47,48],\"deptIdList\":[1,2,3],\"createTime\":\"Jun 19, 2018 10:47:08 AM\"}',50,'0:0:0:0:0:0:0:1','2018-06-19 20:28:58'),
+(23,'admin','保存菜单','io.renren.modules.sys.controller.SysMenuController.save()','{\"menuId\":49,\"parentId\":41,\"parentName\":\"测评管理\",\"name\":\"测评信息管理\",\"url\":\"modules/sys/bteevaluate.html\",\"type\":1,\"icon\":\"fa fa-cubes\",\"orderNum\":0}',22,'0:0:0:0:0:0:0:1','2018-06-19 21:02:38'),
+(24,'admin','修改菜单','io.renren.modules.sys.controller.SysMenuController.update()','{\"menuId\":43,\"parentId\":41,\"parentName\":\"测评管理\",\"name\":\"试题管理\",\"url\":\"modules/sys/btequestion.html\",\"type\":1,\"icon\":\"fa fa-file-code-o\",\"orderNum\":1}',13,'0:0:0:0:0:0:0:1','2018-06-19 21:04:31'),
+(25,'admin','保存菜单','io.renren.modules.sys.controller.SysMenuController.save()','{\"menuId\":50,\"parentId\":43,\"parentName\":\"试题管理\",\"name\":\"查看\",\"perms\":\"sys:bteevaluate:list,sys:bteevaluate:info\",\"type\":2,\"orderNum\":0}',11,'0:0:0:0:0:0:0:1','2018-06-19 21:06:30'),
+(26,'admin','保存菜单','io.renren.modules.sys.controller.SysMenuController.save()','{\"menuId\":51,\"parentId\":49,\"parentName\":\"测评信息管理\",\"name\":\"新增\",\"perms\":\"sys:bteevaluate:save\",\"type\":2,\"orderNum\":0}',10,'0:0:0:0:0:0:0:1','2018-06-19 21:06:54'),
+(27,'admin','修改菜单','io.renren.modules.sys.controller.SysMenuController.update()','{\"menuId\":50,\"parentId\":49,\"parentName\":\"测评信息管理\",\"name\":\"查看\",\"perms\":\"sys:bteevaluate:list,sys:bteevaluate:info\",\"type\":2,\"orderNum\":0}',10,'0:0:0:0:0:0:0:1','2018-06-19 21:07:07'),
+(28,'admin','保存菜单','io.renren.modules.sys.controller.SysMenuController.save()','{\"menuId\":52,\"parentId\":49,\"parentName\":\"测评信息管理\",\"name\":\"修改\",\"perms\":\"sys:bteevaluate:update\",\"type\":2,\"orderNum\":0}',9,'0:0:0:0:0:0:0:1','2018-06-19 21:07:25'),
+(29,'admin','保存菜单','io.renren.modules.sys.controller.SysMenuController.save()','{\"menuId\":53,\"parentId\":49,\"parentName\":\"测评信息管理\",\"name\":\"删除\",\"perms\":\"sys:bteevaluate:delete\",\"type\":2,\"orderNum\":0}',10,'0:0:0:0:0:0:0:1','2018-06-19 21:07:44');
 
 /*Table structure for table `sys_menu` */
 
@@ -515,7 +533,7 @@ CREATE TABLE `sys_menu` (
   `icon` varchar(50) DEFAULT NULL COMMENT '菜单图标',
   `order_num` int(11) DEFAULT NULL COMMENT '排序',
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8 COMMENT='菜单管理';
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8 COMMENT='菜单管理';
 
 /*Data for the table `sys_menu` */
 
@@ -561,11 +579,17 @@ insert  into `sys_menu`(`menu_id`,`parent_id`,`name`,`url`,`perms`,`type`,`icon`
 (40,36,'删除',NULL,'sys:dict:delete',2,NULL,6),
 (41,0,'测评管理','',NULL,0,'fa fa-industry',0),
 (42,2,'密码重置',NULL,'sys:user:psdreset',2,NULL,0),
-(43,41,'试题管理','modules/sys/btequestion.html',NULL,1,'fa fa-file-code-o',6),
+(43,41,'试题管理','modules/sys/btequestion.html',NULL,1,'fa fa-file-code-o',1),
 (44,43,'查看',NULL,'sys:btequestion:list,sys:btequestion:info',2,NULL,6),
 (45,43,'新增',NULL,'sys:btequestion:save',2,NULL,6),
 (46,43,'修改',NULL,'sys:btequestion:update',2,NULL,6),
-(47,43,'删除',NULL,'sys:btequestion:delete',2,NULL,6);
+(47,43,'删除',NULL,'sys:btequestion:delete',2,NULL,6),
+(48,43,'变更状态',NULL,'sys:btequestion:state',2,NULL,0),
+(49,41,'测评信息管理','modules/sys/bteevaluate.html',NULL,1,'fa fa-cubes',0),
+(50,49,'查看',NULL,'sys:bteevaluate:list,sys:bteevaluate:info',2,NULL,0),
+(51,49,'新增',NULL,'sys:bteevaluate:save',2,NULL,0),
+(52,49,'修改',NULL,'sys:bteevaluate:update',2,NULL,0),
+(53,49,'删除',NULL,'sys:bteevaluate:delete',2,NULL,0);
 
 /*Table structure for table `sys_oss` */
 
@@ -608,15 +632,15 @@ CREATE TABLE `sys_role_dept` (
   `role_id` bigint(20) DEFAULT NULL COMMENT '角色ID',
   `dept_id` bigint(20) DEFAULT NULL COMMENT '部门ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COMMENT='角色与部门对应关系';
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COMMENT='角色与部门对应关系';
 
 /*Data for the table `sys_role_dept` */
 
 insert  into `sys_role_dept`(`id`,`role_id`,`dept_id`) values 
 (18,2,2),
-(22,1,1),
-(23,1,2),
-(24,1,3);
+(25,1,1),
+(26,1,2),
+(27,1,3);
 
 /*Table structure for table `sys_role_menu` */
 
@@ -627,39 +651,45 @@ CREATE TABLE `sys_role_menu` (
   `role_id` bigint(20) DEFAULT NULL COMMENT '角色ID',
   `menu_id` bigint(20) DEFAULT NULL COMMENT '菜单ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=193 DEFAULT CHARSET=utf8 COMMENT='角色与菜单对应关系';
+) ENGINE=InnoDB AUTO_INCREMENT=226 DEFAULT CHARSET=utf8 COMMENT='角色与菜单对应关系';
 
 /*Data for the table `sys_role_menu` */
 
 insert  into `sys_role_menu`(`id`,`role_id`,`menu_id`) values 
 (137,2,41),
-(166,1,1),
-(167,1,2),
-(168,1,15),
-(169,1,16),
-(170,1,17),
-(171,1,18),
-(172,1,3),
-(173,1,19),
-(174,1,20),
-(175,1,21),
-(176,1,22),
-(177,1,4),
-(178,1,23),
-(179,1,24),
-(180,1,25),
-(181,1,26),
-(182,1,31),
-(183,1,32),
-(184,1,33),
-(185,1,34),
-(186,1,35),
-(187,1,36),
-(188,1,37),
-(189,1,38),
-(190,1,39),
-(191,1,40),
-(192,1,41);
+(193,1,1),
+(194,1,2),
+(195,1,15),
+(196,1,16),
+(197,1,17),
+(198,1,18),
+(199,1,3),
+(200,1,19),
+(201,1,20),
+(202,1,21),
+(203,1,22),
+(204,1,4),
+(205,1,23),
+(206,1,24),
+(207,1,25),
+(208,1,26),
+(209,1,31),
+(210,1,32),
+(211,1,33),
+(212,1,34),
+(213,1,35),
+(214,1,36),
+(215,1,37),
+(216,1,38),
+(217,1,39),
+(218,1,40),
+(219,1,41),
+(220,1,43),
+(221,1,44),
+(222,1,45),
+(223,1,46),
+(224,1,47),
+(225,1,48);
 
 /*Table structure for table `sys_user` */
 
