@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.modules.sys.dao.BteQuestionDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.renren.modules.sys.entity.BteQuestionEntity" id="bteQuestionMap">
+        <result property="dataNo" column="data_no"/>
+        <result property="questionTitle" column="question_title"/>
+        <result property="questionTypeId" column="question_type_id"/>
+        <result property="questionStateId" column="question_state_id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="createUserId" column="create_user_Id"/>
+        <result property="questionTypeName" column="questionTypeName"/>
+        <result property="questionStateName" column="questionStateName"/>
+    </resultMap>
+
+	<select id="selectBteQuestionList" resultMap="bteQuestionMap">
+		select bq.data_no, 
+			   bq.question_title, 
+			   bq.question_type_id,
+			   bq.question_state_id, 
+			   bq.create_date, 
+			   bq.create_user_Id,
+			   d1.value as questionTypeName, 
+			   d2.value as questionStateName
+		from bte_question bq
+		left join sys_dict d1 on d1.code = bq.question_type_id and d1.type = 'stlx'
+		left join sys_dict d2 on d2.code = bq.question_state_id and d2.type = 'qyzt'
+	</select>
+
+</mapper>
