@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.modules.sys.dao.BteEvaluateDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.renren.modules.sys.entity.BteEvaluateEntity" id="bteEvaluateMap">
+        <result property="dataNo" column="data_no"/>
+        <result property="evalTitle" column="eval_title"/>
+        <result property="evalMemo" column="eval_memo"/>
+        <result property="evalStateId" column="eval_state_id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="createUserId" column="create_user_id"/>
+    </resultMap>
+
+
+</mapper>
