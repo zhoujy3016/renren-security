@@ -1,6 +1,7 @@
 package io.renren.modules.sys.service.impl;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.Map;
@@ -29,7 +30,24 @@ public class BteQuestionServiceImpl extends ServiceImpl<BteQuestionDao, BteQuest
 	public void insertQuestion(BteQuestionEntity bteQuestion) {
 		bteQuestion.setCreateDate(new Date());
 		bteQuestion.setCreateUserId(ShiroUtils.getUserId());
-		
+		this.insert(bteQuestion);
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void changeQuestionStage(Integer[] dataNos) {
+		for(int id:dataNos) {
+			BteQuestionEntity bteQuestionEntity = this.selectById(id);
+			int state = bteQuestionEntity.getQuestionStateId();
+			// 切换状态
+			if(state == 0) {
+				state = 1;
+			} else {
+				state = 0;
+			}
+			bteQuestionEntity.setQuestionStateId(state);
+			this.updateAllColumnById(bteQuestionEntity);
+		}
 	}
 
 }

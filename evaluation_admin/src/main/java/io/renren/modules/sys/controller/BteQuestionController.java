@@ -65,6 +65,8 @@ public class BteQuestionController {
     @RequestMapping("/save")
     @RequiresPermissions("sys:btequestion:save")
     public R save(@RequestBody BteQuestionEntity bteQuestion){
+    	// 校验
+    	ValidatorUtils.validateEntity(bteQuestion);
         bteQuestionService.insertQuestion(bteQuestion);
 
         return R.ok();
@@ -76,6 +78,7 @@ public class BteQuestionController {
     @RequestMapping("/update")
     @RequiresPermissions("sys:btequestion:update")
     public R update(@RequestBody BteQuestionEntity bteQuestion){
+    	// 校验
         ValidatorUtils.validateEntity(bteQuestion);
         bteQuestionService.updateAllColumnById(bteQuestion);//全部更新
         
@@ -92,5 +95,14 @@ public class BteQuestionController {
 
         return R.ok();
     }
+    
+    @RequestMapping("/state")
+    @RequiresPermissions("sys:btequestion:state")
+    public R state(@RequestBody Integer[] dataNos) {
+    	bteQuestionService.changeQuestionStage(dataNos);
+    	
+    	return R.ok();
+    }
+    
 
 }

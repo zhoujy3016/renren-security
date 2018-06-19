@@ -112,6 +112,29 @@ var vm = new Vue({
 				});
 			});
 		},
+		state:function() {
+			var dataNos = getSelectedRows();
+			if(dataNos == null){
+				return ;
+			}
+			confirm('确定要变更选中的记录的状态？', function(){
+				$.ajax({
+					type: "POST",
+				    url: baseURL + "sys/btequestion/state",
+                    contentType: "application/json",
+				    data: JSON.stringify(dataNos),
+				    success: function(r){
+						if(r.code == 0){
+							alert('操作成功', function(index){
+								$("#jqGrid").trigger("reloadGrid");
+							});
+						}else{
+							alert(r.msg);
+						}
+					}
+				});
+			});
+		},
 		getInfo: function(dataNo){
 			$.get(baseURL + "sys/btequestion/info/"+dataNo, function(r){
                 vm.bteQuestion = r.bteQuestion;

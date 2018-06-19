@@ -18,5 +18,7 @@ public interface BteQuestionService extends IService<BteQuestionEntity> {
     PageUtils queryPage(Map<String, Object> params);
     
     void insertQuestion(BteQuestionEntity bteQuestion);
+    
+    void changeQuestionStage(Integer[] dataNos);
 }
 
