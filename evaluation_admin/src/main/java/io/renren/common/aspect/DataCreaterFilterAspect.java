@@ -12,6 +12,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
 import io.renren.common.annotation.DataCreaterFilter;
+import io.renren.common.utils.Constant;
 import io.renren.modules.sys.entity.SysUserEntity;
 import io.renren.modules.sys.shiro.ShiroUtils;
 
@@ -48,7 +49,7 @@ public class DataCreaterFilterAspect {
 		if(!isGab) {	// 非公安角色，查询自己的
 			conditions = tableAlias + "creater= '" + user.getUsername() + "' "; 
 		}
-		params.put("conditions", conditions);
+		params.put(Constant.SQL_FILTER, conditions);
 	}
 		
 }
