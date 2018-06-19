@@ -20,7 +20,7 @@ import io.renren.modules.sys.shiro.ShiroUtils;
 @Component
 public class DataCreaterFilterAspect {
 	
-	@Pointcut("@annotation(readingList.common.annotation.DataFilter)")
+	@Pointcut("@annotation(io.renren.common.annotation.DataCreaterFilterAspect)")
 	public void dataFilterCut() {
 		
 	}
