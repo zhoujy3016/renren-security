@@ -22,7 +22,7 @@ public class BteQuestionServiceImpl extends ServiceImpl<BteQuestionDao, BteQuest
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
 		Page<BteQuestionEntity> page = new Query<BteQuestionEntity>(params).getPage();
-		page.setRecords(baseMapper.selectBteQuestionList());
+		page.setRecords(baseMapper.selectBteQuestionList(page));
 		return new PageUtils(page);
     }
 

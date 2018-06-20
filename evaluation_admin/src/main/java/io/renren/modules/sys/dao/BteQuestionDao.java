@@ -5,6 +5,7 @@ import io.renren.modules.sys.entity.BteQuestionEntity;
 import java.util.List;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.plugins.pagination.Pagination;
 
 /**
  * 
@@ -14,5 +15,5 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * @date 2018-06-19 15:11:26
  */
 public interface BteQuestionDao extends BaseMapper<BteQuestionEntity> {
-	List<BteQuestionEntity> selectBteQuestionList();
+	List<BteQuestionEntity> selectBteQuestionList(Pagination page);
 }
