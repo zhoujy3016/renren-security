@@ -128,7 +128,7 @@ var vm = new Vue({
 		},
 		// 测评结果查看
 		resultList:function(dataNo) {
-			alert(dataNo);
+			window.location.href = "bteresult.html?evalId="+dataNo;
 		},
 		reload: function (event) {
 			vm.showList = true;

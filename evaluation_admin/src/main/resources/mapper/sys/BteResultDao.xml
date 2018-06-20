@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.modules.sys.dao.BteResultDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.renren.modules.sys.entity.BteResultEntity" id="bteResultMap">
+        <result property="dataNo" column="data_no"/>
+        <result property="evalId" column="eval_id"/>
+        <result property="questionTypeId" column="question_type_id"/>
+        <result property="questionId" column="question_id"/>
+        <result property="questionScore" column="question_score"/>
+        <result property="createDate" column="create_date"/>
+        <result property="evalSuggest" column="eval_suggest"/>
+    </resultMap>
+
+
+</mapper>
