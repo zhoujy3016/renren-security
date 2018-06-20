@@ -1,23 +1,16 @@
 $(function () {
+	
+	var arrParam = getParameters(location.search);
+	
     $("#jqGrid").jqGrid({
-        url: baseURL + 'sys/bteevaluate/list',
+        url: baseURL + 'sys/btelesson/list/' + arrParam['evalId'],
         datatype: "json",
         colModel: [			
 			{ label: 'dataNo', name: 'dataNo', index: 'data_no', width: 50, key: true, hidden:true },
-			{ label: '测评名称', name: 'evalTitle', index: 'eval_title', width: 80 }, 			
-			{ label: '测评说明', name: 'evalMemo', index: 'eval_memo', width: 80 }, 			
-			{ label: '课程设置', name: '', index: '', width: 40, 
-				  formatter:function(cellvalue, options, rowObject){
-					    return '<a onclick="vm.lessonList(' + rowObject.dataNo+ ')">设置</a>';
-				  }	
-			}, 			
-			{ label: '查看结果', name: '', index: '', width: 40,
-				  formatter:function(cellvalue, options, rowObject){
-					    return '<a onclick="vm.resultList(' + rowObject.dataNo+ ')">查看</a>';
-				  }		
-			},
-			{ label: '状态', name: 'evalStateName', index: 'evalStateName', width: 40 }, 
-			{ label: '二维码', name: '', index: '', width: 40 }, 	
+			{ label: '课程名称', name: 'lessonTitle', index: 'lesson_title', width: 80 }, 			
+			{ label: '课程类型', name: 'lessonTypeId', index: 'lesson_type_id', width: 80 }, 			
+			{ label: '教官姓名', name: 'lessonTeacherName', index: 'lesson_teacher_name', width: 80 }, 			
+			{ label: '教官身份证号', name: 'lessonPid', index: 'lesson_pid', width: 80 }	
         ],
 		viewrecords: true,
         height: 385,
@@ -42,17 +35,26 @@ $(function () {
         gridComplete:function(){
         	//隐藏grid底部滚动条
         	$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" }); 
+        },
+        loadComplete: function(data) {
+        	setDictList(data.userdata);
+        	vm.evalId = data.evalId;
         }
     });
 });
+
+function setDictList(r) {
+	vm.dictKclx = r.kclx;
+}
 
 var vm = new Vue({
 	el:'#rrapp',
 	data:{
 		showList: true,
 		title: null,
-		bteEvaluate: {},
-		showState:true // 状态radio 控制
+		bteLesson: {},
+		dictKclx:{},
+		evalId:null
 	},
 	methods: {
 		query: function () {
@@ -61,7 +63,7 @@ var vm = new Vue({
 		add: function(){
 			vm.showList = false;
 			vm.title = "新增";
-			vm.bteEvaluate = {};
+			vm.bteLesson = {};
 		},
 		update: function (event) {
 			var dataNo = getSelectedRow();
@@ -72,16 +74,14 @@ var vm = new Vue({
             vm.title = "修改";
             
             vm.getInfo(dataNo)
-            // 更新的情况下，允许显示状态radiobutton
-            vm.showState = false;
 		},
 		saveOrUpdate: function (event) {
-			var url = vm.bteEvaluate.dataNo == null ? "sys/bteevaluate/save" : "sys/bteevaluate/update";
+			var url = vm.bteLesson.dataNo == null ? "sys/btelesson/save" : "sys/btelesson/update";
 			$.ajax({
 				type: "POST",
 			    url: baseURL + url,
                 contentType: "application/json",
-			    data: JSON.stringify(vm.bteEvaluate),
+			    data: JSON.stringify(vm.bteLesson),
 			    success: function(r){
 			    	if(r.code === 0){
 						alert('操作成功', function(index){
@@ -102,7 +102,7 @@ var vm = new Vue({
 			confirm('确定要删除选中的记录？', function(){
 				$.ajax({
 					type: "POST",
-				    url: baseURL + "sys/bteevaluate/delete",
+				    url: baseURL + "sys/btelesson/delete",
                     contentType: "application/json",
 				    data: JSON.stringify(dataNos),
 				    success: function(r){
@@ -118,21 +118,15 @@ var vm = new Vue({
 			});
 		},
 		getInfo: function(dataNo){
-			$.get(baseURL + "sys/bteevaluate/info/"+dataNo, function(r){
-                vm.bteEvaluate = r.bteEvaluate;
+			$.get(baseURL + "sys/btelesson/info/"+dataNo, function(r){
+                vm.bteLesson = r.bteLesson;
             });
 		},
-		// 课程设置、查看
-		lessonList:function(dataNo) {
-			window.location.href = "btelesson.html?evalId="+dataNo;
-		},
-		// 测评结果查看
-		resultList:function(dataNo) {
-			alert(dataNo);
+		back: function (event) {
+			history.go(-1);
 		},
 		reload: function (event) {
 			vm.showList = true;
-			vm.showState = true;
 			var page = $("#jqGrid").jqGrid('getGridParam','page');
 			$("#jqGrid").jqGrid('setGridParam',{ 
                 page:page
