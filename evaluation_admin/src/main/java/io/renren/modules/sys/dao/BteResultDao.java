@@ -1,6 +1,10 @@
 package io.renren.modules.sys.dao;
 
 import io.renren.modules.sys.entity.BteResultEntity;
+import io.renren.modules.sys.entity.BteResultExtendsEntity;
+
+import java.util.List;
+
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**
@@ -11,5 +15,17 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * @date 2018-06-20 14:30:53
  */
 public interface BteResultDao extends BaseMapper<BteResultEntity> {
-	
+	/**
+	 * 以常规问题表为主表统计数据
+	 * @param evalId
+	 * @return
+	 */
+    List<BteResultExtendsEntity> queryQuestionList(Integer evalId);
+    
+    /**
+     * 以课程信息表为主表统计数据
+     * @param evalId
+     * @return
+     */
+    List<BteResultExtendsEntity> queryLessonList(Integer evalId);
 }

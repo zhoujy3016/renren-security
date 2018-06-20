@@ -19,11 +19,4 @@ import com.baomidou.mybatisplus.plugins.pagination.Pagination;
 public interface BteQuestionDao extends BaseMapper<BteQuestionEntity> {
 	
 	List<BteQuestionEntity> selectBteQuestionList(Pagination page);
-	
-	/**
-	 * 通过evalId从关联表中查询测评的试题
-	 * @param evalId
-	 * @return
-	 */
-	List<BteQuestionEntity> selectBteQuestionHistory(@Param("evalId") Integer evalId);
 }

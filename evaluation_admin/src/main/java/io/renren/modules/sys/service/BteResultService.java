@@ -3,6 +3,7 @@ package io.renren.modules.sys.service;
 import com.baomidou.mybatisplus.service.IService;
 import io.renren.common.utils.PageUtils;
 import io.renren.modules.sys.entity.BteResultEntity;
+import io.renren.modules.sys.entity.BteResultExtendsEntity;
 
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,6 @@ public interface BteResultService extends IService<BteResultEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
     
-    List<BteResultEntity> queryResultList(Integer evalId);
+    List<BteResultExtendsEntity> queryResultList(Integer evalId);
 }
 

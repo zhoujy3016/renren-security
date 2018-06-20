@@ -14,5 +14,37 @@
         <result property="evalSuggest" column="eval_suggest"/>
     </resultMap>
 
+	
+    <resultMap type="io.renren.modules.sys.entity.BteResultExtendsEntity" extends="bteResultMap" id="bteResultExtendsMap">
+        <result property="questionTitle" column="question_title"/>
+        <result property="evaPersonNum" column="evaPersonNum"/>
+        <result property="score1" column="score1"/>
+        <result property="score2" column="score2"/>
+        <result property="score3" column="score3"/>
+        <result property="score4" column="score4"/>
+        <result property="score5" column="score5"/>
+        <result property="avgScore" column="avgScore"/>
+    </resultMap>
+	
+	<!-- 统计测评信息（试题） -->
+	<select id="queryQuestionList" resultMap="bteResultExtendsMap">
+		SELECT
+		  bq.question_title,
+		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_score = 1) AS score1,
+		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_score = 2) AS score2,
+		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_score = 3) AS score3,
+		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_score = 4) AS score4,
+		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_score = 5) AS score5
+		FROM
+		  bte_question bq,
+		  bte_evalrefquestion ref,
+		  bte_evaluate be
+		WHERE bq.data_no = ref.question_id
+		  AND  be.data_no = ref.eval_id
+		  AND be.data_no = #{evalId}
+	</select>
+	
+	
+	<!-- 统计测评信息（课程） -->
 
 </mapper>
