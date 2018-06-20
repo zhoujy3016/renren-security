@@ -61,7 +61,8 @@ public class BteEvaluateController {
     @RequestMapping("/save")
     @RequiresPermissions("sys:bteevaluate:save")
     public R save(@RequestBody BteEvaluateEntity bteEvaluate){
-        bteEvaluateService.insert(bteEvaluate);
+    	ValidatorUtils.validateEntity(bteEvaluate);
+        bteEvaluateService.insertEvaluate(bteEvaluate);
 
         return R.ok();
     }

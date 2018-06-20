@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.annotations.TableName;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * 
  * 
@@ -26,6 +28,7 @@ public class BteEvaluateEntity implements Serializable {
 	/**
 	 * 
 	 */
+	@NotBlank(message="测评名称不能为空")
 	private String evalTitle;
 	/**
 	 * 
@@ -42,7 +45,7 @@ public class BteEvaluateEntity implements Serializable {
 	/**
 	 * 
 	 */
-	private Integer createUserId;
+	private Long createUserId;
 	
 	/**
 	 * 状态名称
@@ -113,13 +116,13 @@ public class BteEvaluateEntity implements Serializable {
 	/**
 	 * 设置：
 	 */
-	public void setCreateUserId(Integer createUserId) {
+	public void setCreateUserId(Long createUserId) {
 		this.createUserId = createUserId;
 	}
 	/**
 	 * 获取：
 	 */
-	public Integer getCreateUserId() {
+	public Long getCreateUserId() {
 		return createUserId;
 	}
 	public String getEvalStateName() {

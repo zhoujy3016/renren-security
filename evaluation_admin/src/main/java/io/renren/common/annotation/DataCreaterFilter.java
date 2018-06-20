@@ -13,5 +13,5 @@ public @interface DataCreaterFilter {
 	
 	String tableAlias() default "";
 	
-	boolean user() default true;
+	String userId() default "create_user_id";
 }

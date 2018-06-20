@@ -16,5 +16,7 @@ import java.util.Map;
 public interface BteEvaluateService extends IService<BteEvaluateEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+    
+    void insertEvaluate(BteEvaluateEntity bteEvaluate);
 }
 
