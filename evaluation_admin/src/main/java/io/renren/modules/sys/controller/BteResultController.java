@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.renren.modules.sys.entity.BteResultEntity;
 import io.renren.modules.sys.service.BteResultService;
-import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.R;
 
 

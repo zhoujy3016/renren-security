@@ -55,6 +55,9 @@ var vm = new Vue({
 		evalId:null
 	},
 	methods: {
+		back: function (event) {
+			history.go(-1);
+		}
 //		query: function () {
 //			vm.reload();
 //		},
