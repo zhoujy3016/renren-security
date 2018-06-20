@@ -1,5 +1,5 @@
 $(function () {
-	
+	// 通过url获得参数
 	var arrParam = getParameters(location.search);
 	
     $("#jqGrid").jqGrid({
@@ -8,9 +8,9 @@ $(function () {
         colModel: [			
 			{ label: 'dataNo', name: 'dataNo', index: 'data_no', width: 50, key: true, hidden:true },
 			{ label: '课程名称', name: 'lessonTitle', index: 'lesson_title', width: 80 }, 			
-			{ label: '课程类型', name: 'lessonTypeId', index: 'lesson_type_id', width: 80 }, 			
-			{ label: '教官姓名', name: 'lessonTeacherName', index: 'lesson_teacher_name', width: 80 }, 			
-			{ label: '教官身份证号', name: 'lessonPid', index: 'lesson_pid', width: 80 }	
+			{ label: '课程类型', name: 'lessonTypeName', index: 'lessonTypeName', width: 40 }, 			
+			{ label: '教官姓名', name: 'lessonTeacherName', index: 'lesson_teacher_name', width: 40 }, 			
+			{ label: '教官身份证号', name: 'lessonPid', index: 'lesson_pid', width: 40 }	
         ],
 		viewrecords: true,
         height: 385,
@@ -54,7 +54,7 @@ var vm = new Vue({
 		title: null,
 		bteLesson: {},
 		dictKclx:{},
-		evalId:null
+		evalId:null,
 	},
 	methods: {
 		query: function () {
@@ -77,6 +77,7 @@ var vm = new Vue({
 		},
 		saveOrUpdate: function (event) {
 			var url = vm.bteLesson.dataNo == null ? "sys/btelesson/save" : "sys/btelesson/update";
+			vm.bteLesson.evalId = vm.evalId; // 测评信息id
 			$.ajax({
 				type: "POST",
 			    url: baseURL + url,

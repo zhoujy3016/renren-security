@@ -1,10 +1,14 @@
 package io.renren.modules.sys.entity;
 
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * 
@@ -29,18 +33,22 @@ public class BteLessonEntity implements Serializable {
 	/**
 	 * 
 	 */
+	@NotBlank(message="课程名称不能为空")
 	private String lessonTitle;
 	/**
 	 * 
 	 */
+	@NotNull(message="请选择课程类型！")
 	private Integer lessonTypeId;
 	/**
 	 * 
 	 */
+	@NotBlank(message="教官姓名不能为空！")
 	private String lessonTeacherName;
 	/**
 	 * 
 	 */
+	@NotBlank(message="教官身份证不能为空！")
 	private String lessonPid;
 	/**
 	 * 
@@ -50,6 +58,12 @@ public class BteLessonEntity implements Serializable {
 	 * 
 	 */
 	private Integer createUserId;
+	
+	/**
+	 * 课程类型名称
+	 */
+	@TableField(exist=false)
+	private String lessonTypeName;
 
 	/**
 	 * 设置：
@@ -147,4 +161,11 @@ public class BteLessonEntity implements Serializable {
 	public Integer getCreateUserId() {
 		return createUserId;
 	}
+	public String getLessonTypeName() {
+		return lessonTypeName;
+	}
+	public void setLessonTypeName(String lessonTypeName) {
+		this.lessonTypeName = lessonTypeName;
+	}
+	
 }

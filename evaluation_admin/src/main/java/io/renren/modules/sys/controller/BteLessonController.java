@@ -67,6 +67,7 @@ public class BteLessonController {
     @RequestMapping("/save")
     @RequiresPermissions("sys:btelesson:save")
     public R save(@RequestBody BteLessonEntity bteLesson){
+    	ValidatorUtils.validateEntity(bteLesson);
         bteLessonService.insert(bteLesson);
 
         return R.ok();

@@ -28,7 +28,7 @@ public class BteEvaluateEntity implements Serializable {
 	/**
 	 * 
 	 */
-	@NotBlank(message="测评名称不能为空")
+	@NotBlank(message="测评名称不能为空！")
 	private String evalTitle;
 	/**
 	 * 
