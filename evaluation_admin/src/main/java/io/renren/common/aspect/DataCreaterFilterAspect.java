@@ -1,11 +1,10 @@
 package io.renren.common.aspect;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
 
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
