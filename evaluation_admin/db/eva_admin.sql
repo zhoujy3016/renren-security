@@ -1,6 +1,6 @@
 /*
 SQLyog  v12.2.6 (64 bit)
-MySQL - 5.7.22-log : Database - eva_admin
+MySQL - 5.7.20-log : Database - eva_admin
 *********************************************************************
 */
 
@@ -12,7 +12,7 @@ MySQL - 5.7.22-log : Database - eva_admin
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`eva_admin` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`eva_admin` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
 USE `eva_admin`;
 
@@ -180,16 +180,119 @@ CREATE TABLE `bte_result` (
   `create_date` datetime DEFAULT NULL,
   `eval_suggest` text,
   PRIMARY KEY (`data_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=153 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `bte_result` */
 
 insert  into `bte_result`(`data_no`,`eval_id`,`question_type_id`,`question_id`,`question_score`,`create_date`,`eval_suggest`) values 
-(1,12,1,1,5,NULL,NULL),
-(2,12,1,1,4,NULL,NULL),
-(3,12,1,1,5,NULL,NULL),
-(4,12,1,2,1,NULL,NULL),
-(5,12,1,1,3,NULL,NULL);
+(45,14,1,13,5,'2018-06-21 19:55:25',NULL),
+(46,14,1,14,4,'2018-06-21 19:55:25',NULL),
+(47,14,1,15,3,'2018-06-21 19:55:25',NULL),
+(48,14,2,9,1,'2018-06-21 19:55:25',NULL),
+(49,14,2,7,1,'2018-06-21 19:55:25',NULL),
+(50,14,2,8,5,'2018-06-21 19:55:25',NULL),
+(51,14,3,11,5,'2018-06-21 19:55:25',NULL),
+(52,14,3,14,5,'2018-06-21 19:55:25',NULL),
+(53,14,3,12,5,'2018-06-21 19:55:25',NULL),
+(54,14,3,10,5,'2018-06-21 19:55:25',NULL),
+(55,14,3,15,5,'2018-06-21 19:55:25',NULL),
+(56,14,3,13,4,'2018-06-21 19:55:25',NULL),
+(57,14,4,1,4,'2018-06-21 19:55:25',NULL),
+(58,14,4,5,4,'2018-06-21 19:55:25',NULL),
+(59,14,4,2,5,'2018-06-21 19:55:25',NULL),
+(60,14,4,6,5,'2018-06-21 19:55:25',NULL),
+(61,14,4,4,5,'2018-06-21 19:55:25',NULL),
+(62,14,5,16,NULL,'2018-06-21 19:55:25','Â•ΩÂª∫ËÆÆ'),
+(63,14,1,13,5,'2018-06-21 20:05:58',NULL),
+(64,14,1,14,5,'2018-06-21 20:05:58',NULL),
+(65,14,1,15,5,'2018-06-21 20:05:58',NULL),
+(66,14,2,9,5,'2018-06-21 20:05:58',NULL),
+(67,14,2,7,5,'2018-06-21 20:05:58',NULL),
+(68,14,2,8,5,'2018-06-21 20:05:58',NULL),
+(69,14,3,14,5,'2018-06-21 20:05:58',NULL),
+(70,14,3,12,5,'2018-06-21 20:05:58',NULL),
+(71,14,3,10,5,'2018-06-21 20:05:58',NULL),
+(72,14,3,15,5,'2018-06-21 20:05:58',NULL),
+(73,14,3,13,5,'2018-06-21 20:05:58',NULL),
+(74,14,3,11,5,'2018-06-21 20:05:58',NULL),
+(75,14,4,6,5,'2018-06-21 20:05:58',NULL),
+(76,14,4,1,5,'2018-06-21 20:05:58',NULL),
+(77,14,4,2,5,'2018-06-21 20:05:58',NULL),
+(78,14,4,5,5,'2018-06-21 20:05:58',NULL),
+(79,14,4,4,5,'2018-06-21 20:05:58',NULL),
+(80,14,5,16,NULL,'2018-06-21 20:05:58','Ëµ∂Á¥ßÊääÁªèË¥πÁªì‰∫Ü'),
+(81,14,1,13,5,'2018-06-21 20:05:59',NULL),
+(82,14,1,14,5,'2018-06-21 20:05:59',NULL),
+(83,14,1,15,5,'2018-06-21 20:05:59',NULL),
+(84,14,2,9,5,'2018-06-21 20:05:59',NULL),
+(85,14,2,7,5,'2018-06-21 20:05:59',NULL),
+(86,14,2,8,5,'2018-06-21 20:05:59',NULL),
+(87,14,3,14,5,'2018-06-21 20:05:59',NULL),
+(88,14,3,12,5,'2018-06-21 20:05:59',NULL),
+(89,14,3,10,5,'2018-06-21 20:05:59',NULL),
+(90,14,3,15,5,'2018-06-21 20:05:59',NULL),
+(91,14,3,13,5,'2018-06-21 20:05:59',NULL),
+(92,14,3,11,5,'2018-06-21 20:05:59',NULL),
+(93,14,4,6,5,'2018-06-21 20:05:59',NULL),
+(94,14,4,1,5,'2018-06-21 20:05:59',NULL),
+(95,14,4,2,5,'2018-06-21 20:05:59',NULL),
+(96,14,4,5,5,'2018-06-21 20:05:59',NULL),
+(97,14,4,4,5,'2018-06-21 20:05:59',NULL),
+(98,14,5,16,NULL,'2018-06-21 20:05:59','Ëµ∂Á¥ßÊääÁªèË¥πÁªì‰∫Ü'),
+(99,14,1,13,5,'2018-06-21 20:14:08',NULL),
+(100,14,1,14,5,'2018-06-21 20:14:08',NULL),
+(101,14,1,15,4,'2018-06-21 20:14:08',NULL),
+(102,14,2,8,3,'2018-06-21 20:14:08',NULL),
+(103,14,2,7,4,'2018-06-21 20:14:08',NULL),
+(104,14,2,9,4,'2018-06-21 20:14:08',NULL),
+(105,14,3,14,2,'2018-06-21 20:14:08',NULL),
+(106,14,3,13,5,'2018-06-21 20:14:08',NULL),
+(107,14,3,11,3,'2018-06-21 20:14:08',NULL),
+(108,14,3,15,5,'2018-06-21 20:14:08',NULL),
+(109,14,3,12,2,'2018-06-21 20:14:08',NULL),
+(110,14,3,10,1,'2018-06-21 20:14:08',NULL),
+(111,14,4,6,4,'2018-06-21 20:14:08',NULL),
+(112,14,4,1,3,'2018-06-21 20:14:08',NULL),
+(113,14,4,2,5,'2018-06-21 20:14:08',NULL),
+(114,14,4,5,5,'2018-06-21 20:14:08',NULL),
+(115,14,4,4,3,'2018-06-21 20:14:08',NULL),
+(116,14,5,16,NULL,'2018-06-21 20:14:08','12'),
+(117,14,1,13,1,'2018-06-21 20:41:44',NULL),
+(118,14,1,14,1,'2018-06-21 20:41:44',NULL),
+(119,14,1,15,1,'2018-06-21 20:41:44',NULL),
+(120,14,2,9,1,'2018-06-21 20:41:44',NULL),
+(121,14,2,7,3,'2018-06-21 20:41:44',NULL),
+(122,14,2,8,3,'2018-06-21 20:41:44',NULL),
+(123,14,3,13,3,'2018-06-21 20:41:44',NULL),
+(124,14,3,11,5,'2018-06-21 20:41:44',NULL),
+(125,14,3,14,5,'2018-06-21 20:41:44',NULL),
+(126,14,3,12,4,'2018-06-21 20:41:44',NULL),
+(127,14,3,10,4,'2018-06-21 20:41:44',NULL),
+(128,14,3,15,3,'2018-06-21 20:41:44',NULL),
+(129,14,4,6,2,'2018-06-21 20:41:44',NULL),
+(130,14,4,1,3,'2018-06-21 20:41:44',NULL),
+(131,14,4,2,3,'2018-06-21 20:41:44',NULL),
+(132,14,4,5,3,'2018-06-21 20:41:44',NULL),
+(133,14,4,4,3,'2018-06-21 20:41:44',NULL),
+(134,14,5,16,NULL,'2018-06-21 20:41:44','Êèê‰∫§ÊµãËØÑÊàêÁª©ÔºåÁªôÈí±'),
+(135,14,1,13,5,'2018-06-21 20:43:21',NULL),
+(136,14,1,14,4,'2018-06-21 20:43:21',NULL),
+(137,14,1,15,4,'2018-06-21 20:43:21',NULL),
+(138,14,2,9,3,'2018-06-21 20:43:21',NULL),
+(139,14,2,7,3,'2018-06-21 20:43:21',NULL),
+(140,14,2,8,4,'2018-06-21 20:43:21',NULL),
+(141,14,3,13,4,'2018-06-21 20:43:21',NULL),
+(142,14,3,11,3,'2018-06-21 20:43:21',NULL),
+(143,14,3,14,5,'2018-06-21 20:43:21',NULL),
+(144,14,3,12,2,'2018-06-21 20:43:21',NULL),
+(145,14,3,10,1,'2018-06-21 20:43:21',NULL),
+(146,14,3,15,1,'2018-06-21 20:43:21',NULL),
+(147,14,4,6,5,'2018-06-21 20:43:21',NULL),
+(148,14,4,1,5,'2018-06-21 20:43:21',NULL),
+(149,14,4,2,5,'2018-06-21 20:43:21',NULL),
+(150,14,4,5,5,'2018-06-21 20:43:21',NULL),
+(151,14,4,4,5,'2018-06-21 20:43:21',NULL),
+(152,14,5,16,NULL,'2018-06-21 20:43:21','ÂìàÂìàÂìàÂìà');
 
 /*Table structure for table `qrtz_blob_triggers` */
 
@@ -338,7 +441,7 @@ CREATE TABLE `qrtz_scheduler_state` (
 /*Data for the table `qrtz_scheduler_state` */
 
 insert  into `qrtz_scheduler_state`(`SCHED_NAME`,`INSTANCE_NAME`,`LAST_CHECKIN_TIME`,`CHECKIN_INTERVAL`) values 
-('RenrenScheduler','WIN-19ISNCJ37UB1529565959507',1529568743555,15000);
+('RenrenScheduler','zhoujy-PC1529586283108',1529587054795,15000);
 
 /*Table structure for table `qrtz_simple_triggers` */
 
@@ -422,7 +525,7 @@ CREATE TABLE `qrtz_triggers` (
 /*Data for the table `qrtz_triggers` */
 
 insert  into `qrtz_triggers`(`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`,`JOB_NAME`,`JOB_GROUP`,`DESCRIPTION`,`NEXT_FIRE_TIME`,`PREV_FIRE_TIME`,`PRIORITY`,`TRIGGER_STATE`,`TRIGGER_TYPE`,`START_TIME`,`END_TIME`,`CALENDAR_NAME`,`MISFIRE_INSTR`,`JOB_DATA`) values 
-('RenrenScheduler','TASK_1','DEFAULT','TASK_1','DEFAULT',NULL,1529569800000,-1,5,'WAITING','CRON',1529375408000,0,NULL,2,'¨Ì\0sr\0org.quartz.JobDataMapü∞ÉËø©∞À\0\0xr\0&org.quartz.utils.StringKeyDirtyFlagMapÇË√˚≈](\0Z\0allowsTransientDataxr\0org.quartz.utils.DirtyFlagMapÊ.≠(v\nŒ\0Z\0dirtyL\0mapt\0Ljava/util/Map;xpsr\0java.util.HashMap⁄¡√`—\0F\0\nloadFactorI\0	thresholdxp?@\0\0\0\0\0w\0\0\0\0\0\0t\0\rJOB_PARAM_KEYsr\0.io.renren.modules.job.entity.ScheduleJobEntity\0\0\0\0\0\0\0\0L\0beanNamet\0Ljava/lang/String;L\0\ncreateTimet\0Ljava/util/Date;L\0cronExpressionq\0~\0	L\0jobIdt\0Ljava/lang/Long;L\0\nmethodNameq\0~\0	L\0paramsq\0~\0	L\0remarkq\0~\0	L\0statust\0Ljava/lang/Integer;xpt\0testTasksr\0java.util.DatehjÅKYt\0\0xpw\0\0X∫ıì0xt\00 0/30 * * * ?sr\0java.lang.Long;ã‰êÃè#ﬂ\0J\0valuexr\0java.lang.NumberÜ¨ïî‡ã\0\0xp\0\0\0\0\0\0\0t\0testt\0renrent\0ÊúâÂèÇÊï∞ÊµãËØïsr\0java.lang.Integer‚†§˜Åá8\0I\0valuexq\0~\0\0\0\0\0x\0'),
+('RenrenScheduler','TASK_1','DEFAULT','TASK_1','DEFAULT',NULL,1529587800000,-1,5,'WAITING','CRON',1529375408000,0,NULL,2,'¨Ì\0sr\0org.quartz.JobDataMapü∞ÉËø©∞À\0\0xr\0&org.quartz.utils.StringKeyDirtyFlagMapÇË√˚≈](\0Z\0allowsTransientDataxr\0org.quartz.utils.DirtyFlagMapÊ.≠(v\nŒ\0Z\0dirtyL\0mapt\0Ljava/util/Map;xpsr\0java.util.HashMap⁄¡√`—\0F\0\nloadFactorI\0	thresholdxp?@\0\0\0\0\0w\0\0\0\0\0\0t\0\rJOB_PARAM_KEYsr\0.io.renren.modules.job.entity.ScheduleJobEntity\0\0\0\0\0\0\0\0L\0beanNamet\0Ljava/lang/String;L\0\ncreateTimet\0Ljava/util/Date;L\0cronExpressionq\0~\0	L\0jobIdt\0Ljava/lang/Long;L\0\nmethodNameq\0~\0	L\0paramsq\0~\0	L\0remarkq\0~\0	L\0statust\0Ljava/lang/Integer;xpt\0testTasksr\0java.util.DatehjÅKYt\0\0xpw\0\0X∫ıì0xt\00 0/30 * * * ?sr\0java.lang.Long;ã‰êÃè#ﬂ\0J\0valuexr\0java.lang.NumberÜ¨ïî‡ã\0\0xp\0\0\0\0\0\0\0t\0testt\0renrent\0ÊúâÂèÇÊï∞ÊµãËØïsr\0java.lang.Integer‚†§˜Åá8\0I\0valuexq\0~\0\0\0\0\0x\0'),
 ('RenrenScheduler','TASK_2','DEFAULT','TASK_2','DEFAULT',NULL,1529377200000,-1,5,'PAUSED','CRON',1529375408000,0,NULL,2,'¨Ì\0sr\0org.quartz.JobDataMapü∞ÉËø©∞À\0\0xr\0&org.quartz.utils.StringKeyDirtyFlagMapÇË√˚≈](\0Z\0allowsTransientDataxr\0org.quartz.utils.DirtyFlagMapÊ.≠(v\nŒ\0Z\0dirtyL\0mapt\0Ljava/util/Map;xpsr\0java.util.HashMap⁄¡√`—\0F\0\nloadFactorI\0	thresholdxp?@\0\0\0\0\0w\0\0\0\0\0\0t\0\rJOB_PARAM_KEYsr\0.io.renren.modules.job.entity.ScheduleJobEntity\0\0\0\0\0\0\0\0L\0beanNamet\0Ljava/lang/String;L\0\ncreateTimet\0Ljava/util/Date;L\0cronExpressionq\0~\0	L\0jobIdt\0Ljava/lang/Long;L\0\nmethodNameq\0~\0	L\0paramsq\0~\0	L\0remarkq\0~\0	L\0statust\0Ljava/lang/Integer;xpt\0testTasksr\0java.util.DatehjÅKYt\0\0xpw\0\0X√wƒ`xt\00 0/30 * * * ?sr\0java.lang.Long;ã‰êÃè#ﬂ\0J\0valuexr\0java.lang.NumberÜ¨ïî‡ã\0\0xp\0\0\0\0\0\0\0t\0test2pt\0Êó†ÂèÇÊï∞ÊµãËØïsr\0java.lang.Integer‚†§˜Åá8\0I\0valuexq\0~\0\0\0\0x\0');
 
 /*Table structure for table `schedule_job` */
@@ -463,7 +566,7 @@ CREATE TABLE `schedule_job_log` (
   `create_time` datetime DEFAULT NULL COMMENT 'ÂàõÂª∫Êó∂Èó¥',
   PRIMARY KEY (`log_id`),
   KEY `job_id` (`job_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COMMENT='ÂÆöÊó∂‰ªªÂä°Êó•Âøó';
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 COMMENT='ÂÆöÊó∂‰ªªÂä°Êó•Âøó';
 
 /*Data for the table `schedule_job_log` */
 
@@ -499,7 +602,11 @@ insert  into `schedule_job_log`(`log_id`,`job_id`,`bean_name`,`method_name`,`par
 (29,1,'testTask','test','renren',0,NULL,1019,'2018-06-21 14:30:00'),
 (30,1,'testTask','test','renren',0,NULL,1009,'2018-06-21 15:00:00'),
 (31,1,'testTask','test','renren',0,NULL,1062,'2018-06-21 15:30:00'),
-(32,1,'testTask','test','renren',0,NULL,1008,'2018-06-21 16:00:00');
+(32,1,'testTask','test','renren',0,NULL,1008,'2018-06-21 16:00:00'),
+(33,1,'testTask','test','renren',0,NULL,1052,'2018-06-21 19:00:00'),
+(34,1,'testTask','test','renren',0,NULL,1049,'2018-06-21 19:30:00'),
+(35,1,'testTask','test','renren',0,NULL,1007,'2018-06-21 20:00:00'),
+(36,1,'testTask','test','renren',0,NULL,1008,'2018-06-21 20:30:00');
 
 /*Table structure for table `sys_config` */
 
