@@ -29,4 +29,20 @@
 		left join sys_dict d2 on d2.code = bq.question_state_id and d2.type = 'qyzt'
 	</select>
 
+
+	<select id="queryQuestionByEvalRelation" resultMap="bteQuestionMap">
+		SELECT
+		   bq.question_title,
+		   bq.question_type_id,
+		   bq.question_state_id, 
+		   bq.create_date, 
+		   bq.create_user_Id
+		FROM
+		  bte_question bq,
+		  bte_evalrefquestion ref,
+		  bte_evaluate be
+		WHERE bq.data_no = ref.question_id
+		  AND  be.data_no = ref.eval_id
+		  AND be.data_no = #{evalId}
+	</select>
 </mapper>

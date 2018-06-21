@@ -19,4 +19,6 @@ import com.baomidou.mybatisplus.plugins.pagination.Pagination;
 public interface BteQuestionDao extends BaseMapper<BteQuestionEntity> {
 	
 	List<BteQuestionEntity> selectBteQuestionList(Pagination page);
+	
+	List<BteQuestionEntity> queryQuestionByEvalRelation(@Param("evalId") Integer evalId);
 }

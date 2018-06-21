@@ -31,15 +31,18 @@ public class HomeController extends AbstractController {
 	private BteEvaluateService bteEvaluateService;
 	
 	@RequestMapping("/evalPaper/{evalId}")
-	public R evalPaper(@PathVariable("evalId") Long evalId) {
+	public R evalPaper(@PathVariable("evalId") Integer evalId) {
+		Map<String, Object> map;
 		// 查看当前测评是否开启
 		BteEvaluateEntity eval = this.bteEvaluateService.selectById(evalId);
 		if(eval.getEvalStateId() != 1) { // 当前测评状态非“进行中”
 			return R.error("当前测评未开始或已结束！");
 		} else {
-			
+			map = new HashMap<>();
+			map.put("lesson", bteLessonService.queryLessonsByEvalId(evalId));
+			map.put("question", beQuestionService.queryQuestionByEvalRelation(evalId));
+			return R.ok(map);
 		}
-		return R.ok();
 	}
 	
 	@RequestMapping("/saveEval")

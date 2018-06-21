@@ -18,5 +18,11 @@ public interface BteLessonService extends IService<BteLessonEntity> {
 
     PageUtils queryPage(Map<String, Object> params, Integer evalId);
     
+    /**
+     * 查询某个测评下的试题
+     * @param evalId
+     * @return
+     */
+    List<BteLessonEntity> queryLessonsByEvalId(Integer evalId);
 }
 

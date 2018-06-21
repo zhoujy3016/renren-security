@@ -3,6 +3,7 @@ package io.renren.modules.sys.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -40,4 +41,9 @@ public class BteLessonServiceImpl extends ServiceImpl<BteLessonDao, BteLessonEnt
         }
         return new PageUtils(page);
     }
+
+	@Override
+	public List<BteLessonEntity> queryLessonsByEvalId(Integer evalId) {
+		return this.selectList(new EntityWrapper<BteLessonEntity>().eq("eval_id", evalId));
+	}
 }

@@ -47,6 +47,7 @@ public class BteEvaluateServiceImpl extends ServiceImpl<BteEvaluateDao, BteEvalu
         Page<BteEvaluateEntity> page = this.selectPage(
                 new Query<BteEvaluateEntity>(params).getPage(),
                 new EntityWrapper<BteEvaluateEntity>()
+                .orderBy("data_no desc")
                 .addFilterIfNeed(params.get(Constant.SQL_FILTER) != null, (String)params.get(Constant.SQL_FILTER))
         );
         for(BteEvaluateEntity eva:page.getRecords()) {

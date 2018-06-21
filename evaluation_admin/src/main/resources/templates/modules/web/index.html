@@ -14,319 +14,51 @@
   <h1 class="jq_title">部级培训质量评价调查问卷</h1>
   <div  class="jq_dec">经过大家的共同努力，本期培训班就要圆满结束了。为深入了解大家的意见与建议，进一步改进各项工作，提升部级培训质量，公安部政治部制作了质量评价调查问卷。问卷实行5分制，1分最低，5分最高。本问卷为无记名问卷，请大家认真填写，及时反馈。</div>
   <div class="question-list">
-       <div v-if="error" class="alert alert-danger alert-dismissible">
-        <h4 style="margin-bottom: 0px;"><i class="fa fa-exclamation-triangle"></i> {{errorMsg}}</h4>
-      </div>
+  <div v-if="error" class="alert alert-danger alert-dismissible">
+     <h4 style="margin-bottom: 0px;"><i class="fa fa-exclamation-triangle"></i> {{errorMsg}}</h4>
+   </div>
+   
+  <div v-if="!error" >
   <form>
-    <div class="partition">
-      <h3 class="partition-name">一、总体评价</h3>
-      <div class="question" id="q1">
-        <div class="question-title"> 培训时间安排是否科学培训时间安排是否科学培训时间安排是否科学培训时间安排是否科学培训时间安排是否科学培训时间安排是否科学？ </div>
-        <ul  class="question-option list-inline">
-          <li>
-            <label><input type="radio" name="q1" value="单选" id="RadioGroup1_0">
-            5
-            </label>
-          </li>
-          <li>
-            <label>
-              <input type="radio" name="q1" value="单选" id="RadioGroup1_1">
-              4
-            </label>
-          </li>
-          <li>
-            <label>
-              <input type="radio" name="q1" value="单选" id="RadioGroup1_1">
-              3</label>
-          </li>
-          <li>
-            <label>
-              <input type="radio" name="q1" value="单选" id="RadioGroup1_1">
-              2
-            </label>
-          </li>
-          <li>
-            <label>
-              <input type="radio" name="q1" value="单选" id="RadioGroup1_1">
-              1
-            </label>
-          </li>
-          
-        </ul>
-        
+  
+  	<div class="partition">
+      <h3 class="partition-name">一、课程评价</h3>
+      <div id="type_1">
       </div>
-
-      <div class="question" id="q2">
-        <div class="question-title"> 培训时间安排是否科学？ </div>
-        <ul  class="question-option list-inline">
-          <li>
-            <label><input type="radio" name="q2" value="单选" id="RadioGroup1_0">
-            5</label></li>
-          <li>
-            <label>
-              <input type="radio" name="q2" value="单选" id="RadioGroup1_1">
-              4
-            </label>
-          </li>
-          <li>
-            <label>
-              <input type="radio" name="q2" value="单选" id="RadioGroup1_1">
-              3</label>
-          </li>
-          <li>
-            <label>
-              <input type="radio" name="q2" value="单选" id="RadioGroup1_1">
-              2</label></li>
-          <li>
-            <label>
-              <input type="radio" name="q2" value="单选" id="RadioGroup1_1">
-              1</label>
-          </li>
-          
-        </ul>
-      </div>
-      <div class="question" id="q3">
-        <div class="question-title"> 培训时间安排是否科学？ </div>
-        <ul  class="list-inline">
-          <li>
-            <label><input type="radio" name="q3" value="单选" id="RadioGroup1_0">
-            5</label>
-          </li>
-          <li>
-            <label>
-              <input type="radio" name="q3" value="单选" id="RadioGroup1_1">
-              4</label></li>
-          <li>
-            <label>
-              <input type="radio" name="q3" value="单选" id="RadioGroup1_1">
-              3</label>
-          </li>
-          <li>
-            <label>
-              <input type="radio" name="q3" value="单选" id="RadioGroup1_1">
-              2</label></li>
-          <li>
-            <label>
-              <input type="radio" name="q3" value="单选" id="RadioGroup1_1">
-              1</label>
-          </li>
-          
-        </ul>
-      </div>
-      <div class="question" id="q4">
-        <div class="question-title"> 培训时间安排是否科学？ </div>
-        <ul  class="list-inline">
-          <li>
-            <label><input type="radio" name="q4" value="单选" id="RadioGroup1_0">
-            5</label></li>
-          <li>
-            <label>
-              <input type="radio" name="q4" value="单选" id="RadioGroup1_1">
-              4</label></li>
-          <li>
-            <label>
-              <input type="radio" name="q4" value="单选" id="RadioGroup1_1">
-              3</label>
-          </li>
-          <li>
-            <label>
-              <input type="radio" name="q4" value="单选" id="RadioGroup1_1">
-              2</label></li>
-          <li>
-            <label>
-              <input type="radio" name="q4" value="单选" id="RadioGroup1_1">
-              1</label>
-          </li>
-          
-        </ul>
-      </div>
-      <div class="question" id="q5">
-        <div class="question-title"> 培训时间安排是否科学？ </div>
-        <ul  class="list-inline">
-          <li>
-            <label><input type="radio" name="q5" value="单选" id="RadioGroup1_0">
-            5</label>
-          </li>
-          <li>
-            <label>
-              <input type="radio" name="q5" value="单选" id="RadioGroup1_1">
-              4</label></li>
-          <li>
-            <label>
-              <input type="radio" name="q5" value="单选" id="RadioGroup1_1">
-              3</label>
-          </li>
-          <li>
-            <label>
-              <input type="radio" name="q5" value="单选" id="RadioGroup1_1">
-              2</label>
-          </li>
-          <li>
-            <label>
-              <input type="radio" name="q5" value="单选" id="RadioGroup1_1">
-              1</label>
-          </li>
-          
-        </ul>
-      </div>
+      
     </div>
     
     <div class="partition">
       <h3 class="partition-name">二、管理质量</h3>
-      <div class="question" id="q6">
-        <div class="question-title"> 培训时间安排是否科学？ </div>
-        <ul  class="list-inline">
-          <li>
-            <label><input type="radio" name="q6" value="单选" id="RadioGroup1_0"> 
-            5</label>
-          </li>
-          <li>
-            <label>
-              <input type="radio" name="q6" value="单选" id="RadioGroup1_1">
-              4</label>
-          </li>
-          <li>
-            <label>
-              <input type="radio" name="q6" value="单选" id="RadioGroup1_1">
-              3</label>
-          </li>
-          <li>
-            <label>
-              <input type="radio" name="q6" value="单选" id="RadioGroup1_1">
-              2</label></li>
-          <li>
-            <label>
-              <input type="radio" name="q6" value="单选" id="RadioGroup1_1">
-              1</label>
-          </li>
-          
-        </ul>
+      <div id="type_2">
       </div>
-      <div class="question" id="q7">
-        <div class="question-title"> 培训时间安排是否科学？ </div>
-        <ul  class="list-inline">
-          <li>
-            <label><input type="radio" name="q7" value="单选" id="RadioGroup1_0"> 
-            5</label></li>
-          <li>
-            <label>
-              <input type="radio" name="q7" value="单选" id="RadioGroup1_1">
-              4</label>
-          </li>
-          <li>
-            <label>
-              <input type="radio" name="q7" value="单选" id="RadioGroup1_1">
-              3</label>
-          </li>
-          <li>
-            <label>
-              <input type="radio" name="q7" value="单选" id="RadioGroup1_1">
-              2</label>
-          </li>
-          <li>
-            <label>
-              <input type="radio" name="q7" value="单选" id="RadioGroup1_1">
-              1</label>
-          </li>
-          
-        </ul>
-      </div>
-      <div class="question" id="q8">
-        <div class="question-title"> 培训时间安排是否科学？ </div>
-        <ul  class="list-inline">
-          <li>
-            <label><input type="radio" name="q8" value="单选" id="RadioGroup1_0"> 
-            5</label>
-          </li>
-          <li>
-            <label>
-              <input type="radio" name="q8" value="单选" id="RadioGroup1_1">
-              4</label>
-          </li>
-          <li>
-            <label>
-              <input type="radio" name="q8" value="单选" id="RadioGroup1_1">
-              3</label>
-          </li>
-          <li>
-            <label>
-              <input type="radio" name="q8" value="单选" id="RadioGroup1_1">
-              2</label>
-          </li>
-          <li>
-            <label>
-              <input type="radio" name="q8" value="单选" id="RadioGroup1_1">
-              1</label>
-          </li>
-          
-        </ul>
-      </div>
-      <div class="question" id="q9">
-        <div class="question-title"> 培训时间安排是否科学？ </div>
-        <ul  class="list-inline">
-          <li>
-            <label><input type="radio" name="q9" value="单选" id="RadioGroup1_0"> 
-            5</label></li>
-          <li>
-            <label>
-              <input type="radio" name="q9" value="单选" id="RadioGroup1_1">
-              4</label></li>
-          <li>
-            <label>
-              <input type="radio" name="q9" value="单选" id="RadioGroup1_1">
-              3</label>
-          </li>
-          <li>
-            <label>
-              <input type="radio" name="q9" value="单选" id="RadioGroup1_1">
-              2</label>
-          </li>
-          <li>
-            <label>
-              <input type="radio" name="q9" value="单选" id="RadioGroup1_1">
-              1</label>
-          </li>
-          
-        </ul>
-      </div>
-      <div class="question" id="q10">
-        <div class="question-title"> 培训时间安排是否科学？ </div>
-        <ul class="question-option list-inline">
-          <li>
-            <label><input type="radio" name="q10" value="单选" id="RadioGroup1_0"> 
-            5</label>
-          </li>
-          <li>
-            <label>
-              <input type="radio" name="q10" value="单选" id="RadioGroup1_1">
-              4</label>
-          </li>
-          <li>
-            <label>
-              <input type="radio" name="q10" value="单选" id="RadioGroup1_1">
-              3</label>
-          </li>
-          <li>
-            <label>
-              <input type="radio" name="q10" value="单选" id="RadioGroup1_1">
-              2</label></li>
-          <li>
-            <label>
-              <input type="radio" name="q10" value="单选" id="RadioGroup1_1">
-              1</label>
-          </li>
-          
-        </ul>
-      </div>
+     </div> 
+      
+    <div class="partition">
+      <h3 class="partition-name">三、服务评价</h3>
+	  <div id="type_3">
+      </div>      
     </div>
-     <div style="text-align:center"><button type="button" class="btn btn-primary " id="submint-btn">提 交</button></div>
+  
+    <div class="partition">
+      <h3 class="partition-name">四、总体评价</h3>
+      <div id="type_4">
+      </div>  
+    </div>
+    
+	<div class="partition">
+      <h3 class="partition-name">五、其他建议</h3>
+      	  <div id="type_5">
+      </div>  
+
+    </div>
+     <div style="text-align:center"><button type="button" @click="saveEval" class="btn btn-primary " id="submint-btn">提 交</button></div>
     </form>
+    
+     </div>
   </div>
 
 </div>
-
-
-
 
 <script src="${request.contextPath}/statics/libs/jquery.min.js"></script>
 <script src="${request.contextPath}/statics/libs/vue.min.js"></script>
@@ -335,56 +67,6 @@
 <script src="${request.contextPath}/statics/libs/fastclick.min.js"></script>
 <script src="${request.contextPath}/statics/libs/app.js"></script>
 <script src="${request.contextPath}/statics/js/webCommon.js"></script>
-<script type="text/javascript">
-$(function () {
-    $("#submint-btn").click(function(){
-		 var kvName = {}, allSelected = true;
-			 $(':checkbox,:radio').each(function () {
-			 if (kvName[this.name]) return true;
-		 if ($('[name="' + this.name + '"]:checked').length == 0) {
-			 $("#"+ this.name +"").addClass("err")
-			 this.focus(); 
-			
-			 }else{
-			$("#"+ this.name +"").removeClass("err") 
-		}
-			kvName[this.name] = true//标志此组已经检查过，剩余的不需要遍历了，上面的第一句直接继续检查下一组
-		});
-	});
-});
-
-var vm = new Vue({
-	el:'#wallpaper',
-	data:{
-		error: false,
-		errorMsg: ''
-	},
-	beforeCreate: function(){
-
-	},
-	methods: {
-		getEvalPaper:function(evalId) {
-			$.ajax({
-				type: "POST",
-			    url: baseURL + "home/evalPaper/" + evalId,
-			    dataType: "json",
-			    success: function(result){
-					if(result.code == 0){
-						
-					}else{
-						vm.error = true;
-						vm.errorMsg = result.msg;
-						console.log(vm.errorMsg);
-					}
-				}
-			});
-		}
-	},
-	created:function() {
-		var arrParam = getParameters(location.search);
-		this.getEvalPaper(arrParam['evalId']);
-	}
-});
-</script>
+<script src="${request.contextPath}/statics/js/modules/web/index.js"></script>
 </body>
 </html>

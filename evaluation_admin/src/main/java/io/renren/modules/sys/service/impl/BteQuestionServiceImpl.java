@@ -53,8 +53,7 @@ public class BteQuestionServiceImpl extends ServiceImpl<BteQuestionDao, BteQuest
 
 	@Override
 	public List<BteQuestionEntity> queryQuestionByEvalRelation(Integer evalId) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.baseMapper.queryQuestionByEvalRelation(evalId);
 	}
 
 }
