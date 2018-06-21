@@ -44,5 +44,6 @@
 		WHERE bq.data_no = ref.question_id
 		  AND  be.data_no = ref.eval_id
 		  AND be.data_no = #{evalId}
+		  ORDER BY bq.question_type_id ASC
 	</select>
 </mapper>

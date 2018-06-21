@@ -48,12 +48,13 @@ var vm = new Vue({
 		setEvalData:function(result) {
 			vm.lesson = result.lesson;
 			vm.question = result.question;
+			var row = 1;
 			// 设置课程评价试题
 			var strLesson = '';
 			for(var i = 0; i < vm.lesson.length; i++) {
 				var lesson = vm.lesson[i];
 				strLesson += '<div class="question" id="q1">';
-				strLesson += '<div class="question-title">'+ lesson.lessonTitle + '（' + lesson.lessonTeacherName +'）</div>';
+				strLesson += '<div class="question-title">'+ (row++) + ' . ' + lesson.lessonTitle + '（' + lesson.lessonTeacherName +'）</div>';
 				strLesson += '<ul  class="question-option list-inline">';
 				strLesson += '<li><label><input type="radio" name="question_1_'+ i +'" value="单选" id="RadioGroup1_0">5</label></li>';
 				strLesson += '<li><label><input type="radio" name="question_1_'+ i +'" value="单选" id="RadioGroup1_0">4</label></li>';
@@ -69,13 +70,18 @@ var vm = new Vue({
 				var typeId = question.questionTypeId;
 				var strQuestion = '';
 				strQuestion += '<div class="question" id="q1">';
-				strQuestion += '<div class="question-title">'+ question.questionTitle +'</div>';
+				strQuestion += '<div class="question-title">'+ (row++) + ' . ' + question.questionTitle +'</div>';
 				strQuestion += '<ul  class="question-option list-inline">';
-				strQuestion += '<li><label><input type="radio" name="question_'+ typeId +'_'+ i +'" value="单选" id="RadioGroup1_0">5</label></li>';
-				strQuestion += '<li><label><input type="radio" name="question_'+ typeId +'_'+ i +'" value="单选" id="RadioGroup1_0">4</label></li>';
-				strQuestion += '<li><label><input type="radio" name="question_'+ typeId+ '_'+ i +'" value="单选" id="RadioGroup1_0">3</label></li>';
-				strQuestion += '<li><label><input type="radio" name="question_'+ typeId + '_'+ i +'" value="单选" id="RadioGroup1_0">2</label></li>';
-				strQuestion += '<li><label><input type="radio" name="question_'+ typeId +'_'+ i +'" value="单选" id="RadioGroup1_0">1</label></li>';
+				// 非其他建议的情况下
+				if(typeId != 5) {
+					strQuestion += '<li><label><input type="radio" name="question_'+ typeId +'_'+ i +'" value="单选" id="RadioGroup1_0">5</label></li>';
+					strQuestion += '<li><label><input type="radio" name="question_'+ typeId +'_'+ i +'" value="单选" id="RadioGroup1_0">4</label></li>';
+					strQuestion += '<li><label><input type="radio" name="question_'+ typeId+ '_'+ i +'" value="单选" id="RadioGroup1_0">3</label></li>';
+					strQuestion += '<li><label><input type="radio" name="question_'+ typeId + '_'+ i +'" value="单选" id="RadioGroup1_0">2</label></li>';
+					strQuestion += '<li><label><input type="radio" name="question_'+ typeId +'_'+ i +'" value="单选" id="RadioGroup1_0">1</label></li>';
+				}  else { // 其他建议用textarea
+					strQuestion += '<textarea rows="5" cols="100" name="question_'+ typeId +'_'+ i +'" />';
+				}
 				strQuestion += '</ul></div>';
 				$("#type_" + typeId).append(strQuestion);
 			}
