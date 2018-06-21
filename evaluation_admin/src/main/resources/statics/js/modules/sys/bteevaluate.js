@@ -17,7 +17,11 @@ $(function () {
 				  }		
 			},
 			{ label: '状态', name: 'evalStateName', index: 'evalStateName', width: 40 }, 
-			{ label: '二维码', name: '', index: '', width: 40 }, 	
+			{ label: '二维码', name: '', index: '', width: 40,
+				formatter:function(cellvalue, options, rowObject){
+				    return '<a onclick="vm.downloadQr(' + rowObject.dataNo+ ')">下载</a>';
+			  }	
+			}
         ],
 		viewrecords: true,
         height: 385,
@@ -129,6 +133,23 @@ var vm = new Vue({
 		// 测评结果查看
 		resultList:function(dataNo) {
 			window.location.href = "bteresult.html?evalId="+dataNo;
+		},
+		// 生成二维码
+		downloadQr:function(dataNo) {
+			$.ajax({
+				type: "POST",
+			    url: baseURL + "sys/bteevaluate/downloadQr/" + dataNo,
+                contentType: "application/json",
+			    success: function(r){
+//					if(r.code == 0){
+//						alert('操作成功', function(index){
+//							$("#jqGrid").trigger("reloadGrid");
+//						});
+//					}else{
+//						alert(r.msg);
+//					}
+				}
+			});
 		},
 		reload: function (event) {
 			vm.showList = true;

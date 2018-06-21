@@ -6,6 +6,9 @@ import io.renren.modules.sys.entity.BteEvaluateEntity;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * 
  *
@@ -18,5 +21,7 @@ public interface BteEvaluateService extends IService<BteEvaluateEntity> {
     PageUtils queryPage(Map<String, Object> params);
     
     void insertEvaluate(BteEvaluateEntity bteEvaluate);
+    
+    void downloadQr(Integer dataNo, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception;
 }
 

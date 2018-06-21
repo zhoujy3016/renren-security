@@ -4,13 +4,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
 
 import io.renren.common.annotation.DataCreaterFilter;
 import io.renren.common.utils.Constant;
@@ -31,7 +41,7 @@ import io.renren.modules.sys.shiro.ShiroUtils;
 
 @Service("bteEvaluateService")
 public class BteEvaluateServiceImpl extends ServiceImpl<BteEvaluateDao, BteEvaluateEntity> implements BteEvaluateService {
-
+	
 	@Autowired
 	private SysDictService sysDictService;
 	
@@ -84,6 +94,26 @@ public class BteEvaluateServiceImpl extends ServiceImpl<BteEvaluateDao, BteEvalu
 		}
 		// 批量插入关联数据
 		this.bteEvalrefquestionService.insertBatch(refList);
+	}
+
+	@Override
+	public void downloadQr(Integer dataNo, HttpServletRequest httpServletRequest,
+			HttpServletResponse httpServletResponse) throws Exception {
+		try {
+		String data = "www.baidu.com";
+//		String dataHandle = new String(data.getBytes("UTF_8"), "UTF_8");
+        BitMatrix bitMatrix = new MultiFormatWriter().encode(data, BarcodeFormat.QR_CODE, 300, 300);
+
+        httpServletResponse.reset();//清空输出流
+
+        OutputStream os = httpServletResponse.getOutputStream();//取得输出流
+        MatrixToImageWriter.writeToStream(bitMatrix, "png", os);//写入文件刷新
+
+        os.flush();
+        os.close();//关闭输出流
+		} catch(Exception e) {
+			System.out.println(e.toString());
+		}
 	}
 
 }

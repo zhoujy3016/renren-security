@@ -3,6 +3,9 @@ package io.renren.modules.sys.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import io.renren.common.validator.ValidatorUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,6 +91,17 @@ public class BteEvaluateController {
         bteEvaluateService.deleteBatchIds(Arrays.asList(dataNos));
 
         return R.ok();
+    }
+    
+    @RequestMapping("/downloadQr/{dataNo}")
+    public R downloadQr(@PathVariable("dataNo") Integer dataNo, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+    	try {
+    		// 下载二维码
+    		this.bteEvaluateService.downloadQr(dataNo, httpServletRequest, httpServletResponse);
+    	} catch(Exception e) {
+    		return R.error(e.toString());
+    	}
+    	return R.ok();
     }
 
 }
