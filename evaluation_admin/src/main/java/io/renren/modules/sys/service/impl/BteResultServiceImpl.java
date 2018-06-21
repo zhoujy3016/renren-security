@@ -11,7 +11,7 @@ import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.Query;
 import io.renren.modules.sys.dao.BteResultDao;
 import io.renren.modules.sys.entity.BteResultEntity;
-import io.renren.modules.sys.entity.BteResultExtendsEntity;
+import io.renren.modules.sys.entity.BteResultEntityExt;
 import io.renren.modules.sys.service.BteResultService;
 
 
@@ -29,8 +29,8 @@ public class BteResultServiceImpl extends ServiceImpl<BteResultDao, BteResultEnt
     }
 
 	@Override
-	public List<BteResultExtendsEntity> queryResultList(Integer evalId) {
-		List<BteResultExtendsEntity> resultList = baseMapper.queryQuestionList(evalId);
+	public List<BteResultEntityExt> queryResultList(Integer evalId) {
+		List<BteResultEntityExt> resultList = baseMapper.queryQuestionList(evalId);
 
 		return resultList;
 	}

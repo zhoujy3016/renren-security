@@ -13,7 +13,7 @@ import java.io.Serializable;
  * @date 2018-06-20 14:30:53
  */
 @TableName("bte_result")
-public class BteResultExtendsEntity extends BteResultEntity implements Serializable {
+public class BteResultEntityExt extends BteResultEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	/**

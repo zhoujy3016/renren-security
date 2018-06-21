@@ -15,7 +15,7 @@
     </resultMap>
 
 	
-    <resultMap type="io.renren.modules.sys.entity.BteResultExtendsEntity" extends="bteResultMap" id="bteResultExtendsMap">
+    <resultMap type="io.renren.modules.sys.entity.BteResultEntityExt" extends="bteResultMap" id="bteResultMapExt">
         <result property="questionTitle" column="question_title"/>
         <result property="evaPersonNum" column="evaPersonNum"/>
         <result property="score1" column="score1"/>
@@ -27,14 +27,16 @@
     </resultMap>
 	
 	<!-- 统计测评信息（试题） -->
-	<select id="queryQuestionList" resultMap="bteResultExtendsMap">
+	<select id="queryQuestionList" resultMap="bteResultMapExt">
 		SELECT
 		  bq.question_title,
+		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_type_id = 1) AS evaPersonNum,
 		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_score = 1) AS score1,
 		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_score = 2) AS score2,
 		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_score = 3) AS score3,
 		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_score = 4) AS score4,
-		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_score = 5) AS score5
+		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_score = 5) AS score5,
+		  (SELECT AVG(question_score) FROM bte_result WHERE eval_id = #{evalId} AND bq.data_no = question_id) AS avgScore
 		FROM
 		  bte_question bq,
 		  bte_evalrefquestion ref,

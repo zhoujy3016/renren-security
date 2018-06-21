@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.renren.modules.sys.entity.BteResultEntity;
-import io.renren.modules.sys.entity.BteResultExtendsEntity;
+import io.renren.modules.sys.entity.BteResultEntityExt;
 import io.renren.modules.sys.service.BteResultService;
 import io.renren.common.utils.R;
 
@@ -41,7 +41,7 @@ public class BteResultController {
     @RequiresPermissions("sys:bteresult:list")
     public R list(@PathVariable("evalId") Integer evalId, @RequestParam Map<String, Object> params){
     	// 通过测评evalId 将该测评下的课程查询
-    	List<BteResultExtendsEntity> resultList = bteResultService.queryResultList(evalId);
+    	List<BteResultEntityExt> resultList = bteResultService.queryResultList(evalId);
     	Map<String, Object> map = new HashMap<>();
     	map.put("result", resultList);
     	map.put("evalId", evalId);

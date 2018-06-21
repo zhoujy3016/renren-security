@@ -1,7 +1,7 @@
 package io.renren.modules.sys.dao;
 
 import io.renren.modules.sys.entity.BteResultEntity;
-import io.renren.modules.sys.entity.BteResultExtendsEntity;
+import io.renren.modules.sys.entity.BteResultEntityExt;
 
 import java.util.List;
 
@@ -20,12 +20,12 @@ public interface BteResultDao extends BaseMapper<BteResultEntity> {
 	 * @param evalId
 	 * @return
 	 */
-    List<BteResultExtendsEntity> queryQuestionList(Integer evalId);
+    List<BteResultEntityExt> queryQuestionList(Integer evalId);
     
     /**
      * 以课程信息表为主表统计数据
      * @param evalId
      * @return
      */
-    List<BteResultExtendsEntity> queryLessonList(Integer evalId);
+    List<BteResultEntityExt> queryLessonList(Integer evalId);
 }
