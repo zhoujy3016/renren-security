@@ -1,6 +1,6 @@
 /*
 SQLyog  v12.2.6 (64 bit)
-MySQL - 5.7.20-log : Database - eva_admin
+MySQL - 5.7.22-log : Database - eva_admin
 *********************************************************************
 */
 
@@ -12,7 +12,7 @@ MySQL - 5.7.20-log : Database - eva_admin
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`eva_admin` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`eva_admin` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 
 USE `eva_admin`;
 
@@ -25,7 +25,7 @@ CREATE TABLE `bte_evalrefquestion` (
   `eval_id` int(11) DEFAULT NULL,
   `question_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`data_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `bte_evalrefquestion` */
 
@@ -55,7 +55,22 @@ insert  into `bte_evalrefquestion`(`data_no`,`eval_id`,`question_id`) values
 (23,13,13),
 (24,13,14),
 (25,13,15),
-(26,13,16);
+(26,13,16),
+(27,14,1),
+(28,14,2),
+(29,14,4),
+(30,14,5),
+(31,14,6),
+(32,14,7),
+(33,14,8),
+(34,14,9),
+(35,14,10),
+(36,14,11),
+(37,14,12),
+(38,14,13),
+(39,14,14),
+(40,14,15),
+(41,14,16);
 
 /*Table structure for table `bte_evaluate` */
 
@@ -69,7 +84,7 @@ CREATE TABLE `bte_evaluate` (
   `create_date` datetime DEFAULT NULL,
   `create_user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`data_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `bte_evaluate` */
 
@@ -86,7 +101,8 @@ insert  into `bte_evaluate`(`data_no`,`eval_title`,`eval_memo`,`eval_state_id`,`
 (10,'测评10',NULL,0,'2018-06-20 14:13:04',1),
 (11,'测评11',NULL,0,'2018-06-20 14:13:15',1),
 (12,'公安部第十四期培训班测评','测评14',0,'2018-06-20 14:17:32',1),
-(13,'局级第十五期培训班测评',NULL,0,'2018-06-20 14:18:18',1);
+(13,'局级第十五期培训班测评',NULL,0,'2018-06-20 14:18:18',1),
+(14,'6月21正式测评','这是一个测试前台好用与否的测评这是一个测试前台好用与否的测评这是一个测试前台好用与否的测评这是一个测试前台好用与否的测评这是一个测试前台好用与否的测评这是一个测试前台好用与否的测评这是一个测试前台好用与否的测评这是一个测试前台好用与否的测评这是一个测试前台好用与否的测评',1,'2018-06-21 14:03:44',1);
 
 /*Table structure for table `bte_lesson` */
 
@@ -102,7 +118,7 @@ CREATE TABLE `bte_lesson` (
   `create_date` datetime DEFAULT NULL,
   `create_user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`data_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `bte_lesson` */
 
@@ -110,7 +126,13 @@ insert  into `bte_lesson`(`data_no`,`eval_id`,`lesson_title`,`lesson_type_id`,`l
 (7,1,'习近平提出这\"六大原则\"',1,'周骏译','210603198404263016',NULL,NULL),
 (8,1,'习近平心中的长江经济带新路子什么样',3,'三胖子','210603198804263015',NULL,NULL),
 (9,1,'改革开放为什么能成功',2,'金家藩','210603198404263302',NULL,NULL),
-(10,2,'\"贸易恐怖主义\"救不了美国',1,'膜大','21060319840426312',NULL,NULL);
+(10,2,'\"贸易恐怖主义\"救不了美国',1,'膜大','21060319840426312',NULL,NULL),
+(11,12,'党的章程',3,'周骏译','210603198404263016',NULL,NULL),
+(12,12,'童心向党',2,'王力宏','210603198404263045',NULL,NULL),
+(13,14,'计算机科学与技术',1,'周骏译','210603198404263016',NULL,NULL),
+(14,14,'线性代数',2,'战力书','2106032198404263321',NULL,NULL),
+(15,14,'青山绿水就是金山银山',3,'周骏译','210603198404263016',NULL,NULL),
+(16,13,'认同与太阳太阳',1,'体育','345345',NULL,NULL);
 
 /*Table structure for table `bte_question` */
 
@@ -129,16 +151,16 @@ CREATE TABLE `bte_question` (
 /*Data for the table `bte_question` */
 
 insert  into `bte_question`(`data_no`,`question_title`,`question_type_id`,`question_state_id`,`create_date`,`create_user_Id`) values 
-(1,'培训时间安排是否科学？',1,0,NULL,NULL),
-(2,'培训地点选择是否合理？',1,0,'2018-06-19 20:25:33',1),
-(4,'培训课程安排是否全面？',1,0,'2018-06-20 14:06:45',1),
-(5,'教学方法是否贴近实战？',1,0,'2018-06-20 14:06:54',1),
-(6,'您的收获大吗？',1,0,'2018-06-20 14:07:10',1),
-(7,'班主任发挥作用如何？',2,0,'2018-06-20 14:07:18',1),
-(8,'其他学管干部发挥作用如何？',2,0,'2018-06-20 14:07:27',1),
-(9,'此次培训的管理秩序如何？',2,0,'2018-06-20 14:07:40',1),
-(10,'基地交通条件',3,0,'2018-06-20 14:07:50',1),
-(11,'基地场馆条件',3,0,'2018-06-20 14:08:31',1),
+(1,'培训时间安排是否科学？',4,1,NULL,NULL),
+(2,'培训地点选择是否合理？',4,1,'2018-06-19 20:25:33',1),
+(4,'培训课程安排是否全面？',4,1,'2018-06-20 14:06:45',1),
+(5,'教学方法是否贴近实战？',4,1,'2018-06-20 14:06:54',1),
+(6,'您的收获大吗？',4,1,'2018-06-20 14:07:10',1),
+(7,'班主任发挥作用如何？',2,1,'2018-06-20 14:07:18',1),
+(8,'其他学管干部发挥作用如何？',2,1,'2018-06-20 14:07:27',1),
+(9,'此次培训的管理秩序如何？',2,1,'2018-06-20 14:07:40',1),
+(10,'基地交通条件',3,1,'2018-06-20 14:07:50',1),
+(11,'基地场馆条件',3,1,'2018-06-20 14:08:31',1),
 (12,'装备器材条件',3,1,'2018-06-20 14:08:41',1),
 (13,'基地住宿条件',3,1,'2018-06-20 14:08:49',1),
 (14,'基地餐饮条件',3,1,'2018-06-20 14:08:59',1),
@@ -158,7 +180,7 @@ CREATE TABLE `bte_result` (
   `create_date` datetime DEFAULT NULL,
   `eval_suggest` text,
   PRIMARY KEY (`data_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `bte_result` */
 
@@ -166,7 +188,8 @@ insert  into `bte_result`(`data_no`,`eval_id`,`question_type_id`,`question_id`,`
 (1,12,1,1,5,NULL,NULL),
 (2,12,1,1,4,NULL,NULL),
 (3,12,1,1,5,NULL,NULL),
-(4,12,1,2,1,NULL,NULL);
+(4,12,1,2,1,NULL,NULL),
+(5,12,1,1,3,NULL,NULL);
 
 /*Table structure for table `qrtz_blob_triggers` */
 
@@ -315,7 +338,7 @@ CREATE TABLE `qrtz_scheduler_state` (
 /*Data for the table `qrtz_scheduler_state` */
 
 insert  into `qrtz_scheduler_state`(`SCHED_NAME`,`INSTANCE_NAME`,`LAST_CHECKIN_TIME`,`CHECKIN_INTERVAL`) values 
-('RenrenScheduler','zhoujy-PC1529501994222',1529502135884,15000);
+('RenrenScheduler','WIN-19ISNCJ37UB1529565959507',1529568743555,15000);
 
 /*Table structure for table `qrtz_simple_triggers` */
 
@@ -399,7 +422,7 @@ CREATE TABLE `qrtz_triggers` (
 /*Data for the table `qrtz_triggers` */
 
 insert  into `qrtz_triggers`(`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`,`JOB_NAME`,`JOB_GROUP`,`DESCRIPTION`,`NEXT_FIRE_TIME`,`PREV_FIRE_TIME`,`PRIORITY`,`TRIGGER_STATE`,`TRIGGER_TYPE`,`START_TIME`,`END_TIME`,`CALENDAR_NAME`,`MISFIRE_INSTR`,`JOB_DATA`) values 
-('RenrenScheduler','TASK_1','DEFAULT','TASK_1','DEFAULT',NULL,1529503200000,-1,5,'WAITING','CRON',1529375408000,0,NULL,2,'��\0sr\0org.quartz.JobDataMap���迩��\0\0xr\0&org.quartz.utils.StringKeyDirtyFlagMap�����](\0Z\0allowsTransientDataxr\0org.quartz.utils.DirtyFlagMap�.�(v\n�\0Z\0dirtyL\0mapt\0Ljava/util/Map;xpsr\0java.util.HashMap���`�\0F\0\nloadFactorI\0	thresholdxp?@\0\0\0\0\0w\0\0\0\0\0\0t\0\rJOB_PARAM_KEYsr\0.io.renren.modules.job.entity.ScheduleJobEntity\0\0\0\0\0\0\0\0L\0beanNamet\0Ljava/lang/String;L\0\ncreateTimet\0Ljava/util/Date;L\0cronExpressionq\0~\0	L\0jobIdt\0Ljava/lang/Long;L\0\nmethodNameq\0~\0	L\0paramsq\0~\0	L\0remarkq\0~\0	L\0statust\0Ljava/lang/Integer;xpt\0testTasksr\0java.util.Datehj�KYt\0\0xpw\0\0X���0xt\00 0/30 * * * ?sr\0java.lang.Long;��̏#�\0J\0valuexr\0java.lang.Number������\0\0xp\0\0\0\0\0\0\0t\0testt\0renrent\0有参数测试sr\0java.lang.Integer⠤���8\0I\0valuexq\0~\0\0\0\0\0x\0'),
+('RenrenScheduler','TASK_1','DEFAULT','TASK_1','DEFAULT',NULL,1529569800000,-1,5,'WAITING','CRON',1529375408000,0,NULL,2,'��\0sr\0org.quartz.JobDataMap���迩��\0\0xr\0&org.quartz.utils.StringKeyDirtyFlagMap�����](\0Z\0allowsTransientDataxr\0org.quartz.utils.DirtyFlagMap�.�(v\n�\0Z\0dirtyL\0mapt\0Ljava/util/Map;xpsr\0java.util.HashMap���`�\0F\0\nloadFactorI\0	thresholdxp?@\0\0\0\0\0w\0\0\0\0\0\0t\0\rJOB_PARAM_KEYsr\0.io.renren.modules.job.entity.ScheduleJobEntity\0\0\0\0\0\0\0\0L\0beanNamet\0Ljava/lang/String;L\0\ncreateTimet\0Ljava/util/Date;L\0cronExpressionq\0~\0	L\0jobIdt\0Ljava/lang/Long;L\0\nmethodNameq\0~\0	L\0paramsq\0~\0	L\0remarkq\0~\0	L\0statust\0Ljava/lang/Integer;xpt\0testTasksr\0java.util.Datehj�KYt\0\0xpw\0\0X���0xt\00 0/30 * * * ?sr\0java.lang.Long;��̏#�\0J\0valuexr\0java.lang.Number������\0\0xp\0\0\0\0\0\0\0t\0testt\0renrent\0有参数测试sr\0java.lang.Integer⠤���8\0I\0valuexq\0~\0\0\0\0\0x\0'),
 ('RenrenScheduler','TASK_2','DEFAULT','TASK_2','DEFAULT',NULL,1529377200000,-1,5,'PAUSED','CRON',1529375408000,0,NULL,2,'��\0sr\0org.quartz.JobDataMap���迩��\0\0xr\0&org.quartz.utils.StringKeyDirtyFlagMap�����](\0Z\0allowsTransientDataxr\0org.quartz.utils.DirtyFlagMap�.�(v\n�\0Z\0dirtyL\0mapt\0Ljava/util/Map;xpsr\0java.util.HashMap���`�\0F\0\nloadFactorI\0	thresholdxp?@\0\0\0\0\0w\0\0\0\0\0\0t\0\rJOB_PARAM_KEYsr\0.io.renren.modules.job.entity.ScheduleJobEntity\0\0\0\0\0\0\0\0L\0beanNamet\0Ljava/lang/String;L\0\ncreateTimet\0Ljava/util/Date;L\0cronExpressionq\0~\0	L\0jobIdt\0Ljava/lang/Long;L\0\nmethodNameq\0~\0	L\0paramsq\0~\0	L\0remarkq\0~\0	L\0statust\0Ljava/lang/Integer;xpt\0testTasksr\0java.util.Datehj�KYt\0\0xpw\0\0X�w�`xt\00 0/30 * * * ?sr\0java.lang.Long;��̏#�\0J\0valuexr\0java.lang.Number������\0\0xp\0\0\0\0\0\0\0t\0test2pt\0无参数测试sr\0java.lang.Integer⠤���8\0I\0valuexq\0~\0\0\0\0x\0');
 
 /*Table structure for table `schedule_job` */
@@ -440,7 +463,7 @@ CREATE TABLE `schedule_job_log` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`log_id`),
   KEY `job_id` (`job_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COMMENT='定时任务日志';
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COMMENT='定时任务日志';
 
 /*Data for the table `schedule_job_log` */
 
@@ -467,7 +490,16 @@ insert  into `schedule_job_log`(`log_id`,`job_id`,`bean_name`,`method_name`,`par
 (20,1,'testTask','test','renren',0,NULL,1027,'2018-06-20 13:00:00'),
 (21,1,'testTask','test','renren',0,NULL,1028,'2018-06-20 13:30:00'),
 (22,1,'testTask','test','renren',0,NULL,1033,'2018-06-20 14:30:00'),
-(23,1,'testTask','test','renren',0,NULL,1034,'2018-06-20 15:00:00');
+(23,1,'testTask','test','renren',0,NULL,1034,'2018-06-20 15:00:00'),
+(24,1,'testTask','test','renren',0,NULL,1051,'2018-06-21 08:30:00'),
+(25,1,'testTask','test','renren',0,NULL,1023,'2018-06-21 09:00:00'),
+(26,1,'testTask','test','renren',0,NULL,1029,'2018-06-21 11:00:00'),
+(27,1,'testTask','test','renren',0,NULL,1046,'2018-06-21 11:30:00'),
+(28,1,'testTask','test','renren',0,NULL,1013,'2018-06-21 12:00:00'),
+(29,1,'testTask','test','renren',0,NULL,1019,'2018-06-21 14:30:00'),
+(30,1,'testTask','test','renren',0,NULL,1009,'2018-06-21 15:00:00'),
+(31,1,'testTask','test','renren',0,NULL,1062,'2018-06-21 15:30:00'),
+(32,1,'testTask','test','renren',0,NULL,1008,'2018-06-21 16:00:00');
 
 /*Table structure for table `sys_config` */
 
@@ -533,7 +565,7 @@ insert  into `sys_dict`(`id`,`name`,`type`,`code`,`value`,`order_num`,`remark`,`
 (1,'性别','sex','0','女',0,NULL,-1),
 (2,'性别','sex','1','男',1,NULL,-1),
 (3,'性别','sex','2','未知',3,NULL,-1),
-(4,'试题类型','stlx','1','总体评价',1,NULL,0),
+(4,'试题类型','stlx','4','总体评价',4,NULL,0),
 (5,'试题类型','stlx','2','管理质量',2,NULL,0),
 (6,'试题类型','stlx','3','服务质量',3,NULL,0),
 (7,'试题类型','stlx','5','其他建议',4,NULL,0),
