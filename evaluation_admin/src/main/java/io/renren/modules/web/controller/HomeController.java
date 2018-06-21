@@ -1,11 +1,14 @@
 package io.renren.modules.web.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.renren.common.utils.R;
 import io.renren.modules.sys.controller.AbstractController;
 import io.renren.modules.sys.entity.BteEvaluateEntity;
+import io.renren.modules.sys.entity.BteResultEntity;
 import io.renren.modules.sys.service.BteEvaluateService;
 import io.renren.modules.sys.service.BteLessonService;
 import io.renren.modules.sys.service.BteQuestionService;
@@ -41,12 +45,13 @@ public class HomeController extends AbstractController {
 			map = new HashMap<>();
 			map.put("lesson", bteLessonService.queryLessonsByEvalId(evalId));
 			map.put("question", beQuestionService.queryQuestionByEvalRelation(evalId));
+			map.put("evalId", evalId);
 			return R.ok(map);
 		}
 	}
 	
-	@RequestMapping("/saveEval")
-	public @ResponseBody R saveEval(@RequestParam Map<String, Object> params) {
+	@RequestMapping(value="/saveEval", method=RequestMethod.POST)
+	public @ResponseBody R saveEval(@RequestBody Object object) {
 		System.out.print("提交成功");
 		
 		return R.ok();
