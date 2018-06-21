@@ -20,12 +20,12 @@ public interface BteResultDao extends BaseMapper<BteResultEntity> {
 	 * @param evalId
 	 * @return
 	 */
-    List<BteResultEntityExt> queryQuestionList(Integer evalId);
+    List<BteResultEntityExt> queryQuestionResultList(Integer evalId);
     
     /**
      * 以课程信息表为主表统计数据
      * @param evalId
      * @return
      */
-    List<BteResultEntityExt> queryLessonList(Integer evalId);
+    List<BteResultEntityExt> queryLessonResultList(Integer evalId);
 }

@@ -30,8 +30,10 @@ public class BteResultServiceImpl extends ServiceImpl<BteResultDao, BteResultEnt
 
 	@Override
 	public List<BteResultEntityExt> queryResultList(Integer evalId) {
-		List<BteResultEntityExt> resultList = baseMapper.queryQuestionList(evalId);
-
+		// 查询常规试题list
+		List<BteResultEntityExt> resultList = baseMapper.queryQuestionResultList(evalId);
+		// 查询课程列表
+		resultList.addAll(baseMapper.queryLessonResultList(evalId));
 		return resultList;
 	}
 

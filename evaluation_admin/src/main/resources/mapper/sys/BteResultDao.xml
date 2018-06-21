@@ -27,7 +27,7 @@
     </resultMap>
 	
 	<!-- 统计测评信息（试题） -->
-	<select id="queryQuestionList" resultMap="bteResultMapExt">
+	<select id="queryQuestionResultList" resultMap="bteResultMapExt">
 		SELECT
 		  bq.question_title,
 		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_type_id = 1) AS evaPersonNum,
@@ -46,7 +46,20 @@
 		  AND be.data_no = #{evalId}
 	</select>
 	
-	
 	<!-- 统计测评信息（课程） -->
+	<select id="queryLessonResultList" resultMap="bteResultMapExt">
+		SELECT 
+		  bl.lesson_title AS question_title,
+		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bl.data_no = question_id AND question_type_id = 4) AS evaPersonNum,
+		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bl.data_no = question_id AND question_score = 1 AND question_type_id = 4) AS score1,
+		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bl.data_no = question_id AND question_score = 2 AND question_type_id = 4) AS score2,
+		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bl.data_no = question_id AND question_score = 3 AND question_type_id = 4) AS score3,
+		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bl.data_no = question_id AND question_score = 4 AND question_type_id = 4) AS score4,
+		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bl.data_no = question_id AND question_score = 5 AND question_type_id = 4) AS score5,
+		  (SELECT AVG(question_score) FROM bte_result WHERE eval_id = #{evalId} AND bl.data_no = question_id) AS avgScore
+		FROM bte_lesson bl
+			where bl.eval_id = #{evalId}
+		
+	</select>
 
 </mapper>
