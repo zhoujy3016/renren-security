@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
@@ -48,6 +49,12 @@ public class BteQuestionServiceImpl extends ServiceImpl<BteQuestionDao, BteQuest
 			bteQuestionEntity.setQuestionStateId(state);
 			this.updateAllColumnById(bteQuestionEntity);
 		}
+	}
+
+	@Override
+	public List<BteQuestionEntity> queryQuestionByEvalRelation(Integer evalId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

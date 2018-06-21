@@ -91,6 +91,9 @@ public class ShiroConfig {
         filterMap.put("/sys/login", "anon");
         filterMap.put("/favicon.ico", "anon");
         filterMap.put("/captcha.jpg", "anon");
+        // 对web测评首页不拦截
+        filterMap.put("/modules/web/index.html", "anon");
+        // 对测评requestMapping路径不拦截
         filterMap.put("/home/**", "anon");
         filterMap.put("/**", "authc");
         shiroFilter.setFilterChainDefinitionMap(filterMap);

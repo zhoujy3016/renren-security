@@ -1,27 +1,49 @@
 package io.renren.modules.web.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import io.renren.common.utils.R;
 import io.renren.modules.sys.controller.AbstractController;
+import io.renren.modules.sys.entity.BteEvaluateEntity;
+import io.renren.modules.sys.service.BteEvaluateService;
+import io.renren.modules.sys.service.BteLessonService;
+import io.renren.modules.sys.service.BteQuestionService;
 
-@Controller
-@RequestMapping("/home")
+@RestController
+@RequestMapping("home")
 public class HomeController extends AbstractController {
 	
-	@RequestMapping("/index")
-	public String home() {
-		System.out.println("跳转到首页");
-		return "/modules/web/home";
+	@Autowired
+	private BteQuestionService beQuestionService;
+	
+	@Autowired
+	private BteLessonService bteLessonService;
+	
+	@Autowired
+	private BteEvaluateService bteEvaluateService;
+	
+	@RequestMapping("/evalPaper/{evalId}")
+	public R evalPaper(@PathVariable("evalId") Long evalId) {
+		// 查看当前测评是否开启
+		BteEvaluateEntity eval = this.bteEvaluateService.selectById(evalId);
+		if(eval.getEvalStateId() != 1) { // 当前测评状态非“进行中”
+			return R.error("当前测评未开始或已结束！");
+		} else {
+			
+		}
+		return R.ok();
 	}
 	
-	@RequestMapping("/submit")
-	public @ResponseBody R submit(@RequestParam Map<String, Object> params) {
+	@RequestMapping("/saveEval")
+	public @ResponseBody R saveEval(@RequestParam Map<String, Object> params) {
 		System.out.print("提交成功");
 		
 		return R.ok();

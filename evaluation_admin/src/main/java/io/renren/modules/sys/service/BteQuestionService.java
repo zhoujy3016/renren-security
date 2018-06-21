@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.service.IService;
 import io.renren.common.utils.PageUtils;
 import io.renren.modules.sys.entity.BteQuestionEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,6 +20,17 @@ public interface BteQuestionService extends IService<BteQuestionEntity> {
     
     void insertQuestion(BteQuestionEntity bteQuestion);
     
+    /**
+     * 改变试题状态
+     * @param dataNos
+     */
     void changeQuestionStage(Integer[] dataNos);
+    
+    /**
+     * 通过evalId与关系表查询当前测评当时的试题
+     * @param evalId
+     * @return
+     */
+    List<BteQuestionEntity> queryQuestionByEvalRelation(Integer evalId);
 }
 
