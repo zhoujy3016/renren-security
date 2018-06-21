@@ -20,6 +20,7 @@ import io.renren.modules.sys.entity.BteResultEntity;
 import io.renren.modules.sys.service.BteEvaluateService;
 import io.renren.modules.sys.service.BteLessonService;
 import io.renren.modules.sys.service.BteQuestionService;
+import io.renren.modules.sys.service.BteResultService;
 
 @RestController
 @RequestMapping("home")
@@ -33,6 +34,9 @@ public class HomeController extends AbstractController {
 	
 	@Autowired
 	private BteEvaluateService bteEvaluateService;
+	
+	@Autowired
+	private BteResultService bteResultService;
 	
 	@RequestMapping("/evalPaper/{evalId}")
 	public R evalPaper(@PathVariable("evalId") Integer evalId) {
@@ -51,9 +55,8 @@ public class HomeController extends AbstractController {
 	}
 	
 	@RequestMapping(value="/saveEval", method=RequestMethod.POST)
-	public @ResponseBody R saveEval(@RequestBody Object object) {
-		System.out.print("提交成功");
-		
+	public @ResponseBody R saveEval(@RequestBody Map<String, Object> resultMap) {
+		this.bteResultService.insertResultBatch(resultMap);
 		return R.ok();
 	}
 }

@@ -46,16 +46,19 @@ var vm = new Vue({
 		},
 		saveEval:function() {
 			var index = 0;
+			// 课程类型
 			for(var i = 0; i < vm.lesson.length; i++, index++) {
-				vm.result[index] = new Map();
-				vm.result[index].set("questionTypeId", "1") // 测评类型
-				vm.result[index].set("evalId", vm.evalId); // 测评编号
-				vm.result[index].set("questionId", vm.lesson[i].dataNo); // 试题编号（课程编号）
-				vm.result[index].set("questionScore", $('input[name="question_1_'+ i +'"]:checked').val()) 
+				vm.result[index] = {"questionTypeId" : 1, "evalId" : vm.evalId, "questionId" : vm.lesson[i].dataNo, "questionScore": $('input[name="question_1_'+ i +'"]:checked').val()};
 			}
-			
-			
-			console.log(vm.result);
+			// 常规试题
+			for(var i = 0; i < vm.question.length; i++, index++) {
+				var typeId = vm.question[i].questionTypeId;
+				if(typeId != 5) {
+					vm.result[index] = {"questionTypeId" : typeId, "evalId" : vm.evalId, "questionId" : vm.question[i].dataNo, "questionScore": $('input[name="question_'+ typeId +'_'+ i +'"]:checked').val()};	
+				} else { // 其他建议
+					vm.result[index] = {"questionTypeId" : typeId, "evalId" : vm.evalId, "questionId" : vm.question[i].dataNo, "evalSuggest": $("#question_"+ typeId + "_" +  i).val()};
+				}
+			}
 			
 			$.ajax({
 				type: "POST",
@@ -64,9 +67,11 @@ var vm = new Vue({
 			    data: JSON.stringify(vm.result),
 			    success: function(result){
 					if(result.code == 0){
-					
+						alert("测评提交成功,请勿重复提交。");
+						location.reload(); 
 					}else{
-						
+						vm.error = true;
+						vm.errorMsg = result.msg;
 					}
 				}
 			});
@@ -110,7 +115,7 @@ var vm = new Vue({
 					strQuestion += '<li><label><input type="radio" name="question_'+ typeId + '_'+ i +'" value="2" id="RadioGroup1_0"> 2</label></li>';
 					strQuestion += '<li><label><input type="radio" name="question_'+ typeId +'_'+ i +'" value="1" id="RadioGroup1_0"> 1</label></li>';
 				}  else { // 其他建议用textarea
-					strQuestion += '<textarea class="form-control" rows="5" cols="100" name="question_'+ typeId +'_'+ i +'" />';
+					strQuestion += '<textarea class="form-control" rows="5" cols="100" id="question_'+ typeId +'_'+ i +'" />';
 				}
 				strQuestion += '</ul></div>';
 				$("#type_" + typeId).append(strQuestion);

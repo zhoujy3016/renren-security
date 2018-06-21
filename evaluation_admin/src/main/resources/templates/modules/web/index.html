@@ -11,14 +11,14 @@
 <body class="hold-transition login-page">
 
 <div class="container" id="wallpaper" v-cloak>
-  <h1 class="jq_title">部级培训质量评价调查问卷</h1>
-  <div  class="jq_dec">经过大家的共同努力，本期培训班就要圆满结束了。为深入了解大家的意见与建议，进一步改进各项工作，提升部级培训质量，公安部政治部制作了质量评价调查问卷。问卷实行5分制，1分最低，5分最高。本问卷为无记名问卷，请大家认真填写，及时反馈。</div>
-  <div class="question-list">
   <div v-if="error" class="alert alert-danger alert-dismissible">
      <h4 style="margin-bottom: 0px;"><i class="fa fa-exclamation-triangle"></i> {{errorMsg}}</h4>
    </div>
    
   <div v-if="!error" >
+    <h1 class="jq_title">部级培训质量评价调查问卷</h1>
+	  <div  class="jq_dec">经过大家的共同努力，本期培训班就要圆满结束了。为深入了解大家的意见与建议，进一步改进各项工作，提升部级培训质量，公安部政治部制作了质量评价调查问卷。问卷实行5分制，1分最低，5分最高。本问卷为无记名问卷，请大家认真填写，及时反馈。</div>
+	  <div class="question-list">
   <form>
   
   	<div class="partition">

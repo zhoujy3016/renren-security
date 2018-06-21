@@ -32,6 +32,7 @@
 
 	<select id="queryQuestionByEvalRelation" resultMap="bteQuestionMap">
 		SELECT
+		   bq.data_no,
 		   bq.question_title,
 		   bq.question_type_id,
 		   bq.question_state_id, 

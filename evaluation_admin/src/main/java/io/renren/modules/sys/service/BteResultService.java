@@ -20,5 +20,7 @@ public interface BteResultService extends IService<BteResultEntity> {
     PageUtils queryPage(Map<String, Object> params);
     
     List<BteResultEntityExt> queryResultList(Integer evalId);
+    
+    void insertResultBatch(Map<String, Object> resultMap);
 }
 

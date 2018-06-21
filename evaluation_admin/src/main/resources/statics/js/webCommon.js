@@ -20,26 +20,6 @@ $.ajaxSetup({
 	cache: false
 });
 
-//重写alert
-window.alert = function(msg, callback){
-	parent.layer.alert(msg, function(index){
-		parent.layer.close(index);
-		if(typeof(callback) === "function"){
-			callback("ok");
-		}
-	});
-}
-
-//重写confirm式样框
-window.confirm = function(msg, callback){
-	parent.layer.confirm(msg, {btn: ['确定','取消']},
-	function(){//确定事件
-		if(typeof(callback) === "function"){
-			callback("ok");
-		}
-	});
-}
-
 //判断是否为空
 function isBlank(value) {
     return !value || !/\S/.test(value)
@@ -58,18 +38,3 @@ function getParameters(url) {
 	}
 	return arrParam;
 }
-
-//// 根据传递类型，获取数据字典
-//function initDictData(types) {
-//	var data;
-//	$.ajax({
-//		type: "GET",
-//		async:false,
-//	    url: baseURL + "sys/dict/dictCache/" + types,
-//        contentType: "application/json",
-//	    success: function(r){
-//	    	data = r;
-//		}
-//	});
-//	return data;
-//}
