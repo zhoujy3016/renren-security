@@ -38,7 +38,6 @@ public class BteResultController {
      * 列表
      */
     @RequestMapping("/list/{evalId}")
-    @RequiresPermissions("sys:bteresult:list")
     public R list(@PathVariable("evalId") Integer evalId, @RequestParam Map<String, Object> params){
     	// 通过测评evalId 将该测评下的课程查询
     	List<BteResultEntityExt> resultList = bteResultService.queryResultList(evalId);
@@ -53,7 +52,6 @@ public class BteResultController {
      * 信息
      */
     @RequestMapping("/info/{dataNo}")
-    @RequiresPermissions("sys:bteresult:info")
     public R info(@PathVariable("dataNo") Integer dataNo){
         BteResultEntity bteResult = bteResultService.selectById(dataNo);
 
@@ -64,7 +62,6 @@ public class BteResultController {
      * 保存
      */
     @RequestMapping("/save")
-    @RequiresPermissions("sys:bteresult:save")
     public R save(@RequestBody BteResultEntity bteResult){
         bteResultService.insert(bteResult);
 
@@ -75,7 +72,6 @@ public class BteResultController {
      * 修改
      */
     @RequestMapping("/update")
-    @RequiresPermissions("sys:bteresult:update")
     public R update(@RequestBody BteResultEntity bteResult){
         ValidatorUtils.validateEntity(bteResult);
         bteResultService.updateAllColumnById(bteResult);//全部更新
@@ -87,7 +83,6 @@ public class BteResultController {
      * 删除
      */
     @RequestMapping("/delete")
-    @RequiresPermissions("sys:bteresult:delete")
     public R delete(@RequestBody Integer[] dataNos){
         bteResultService.deleteBatchIds(Arrays.asList(dataNos));
 
