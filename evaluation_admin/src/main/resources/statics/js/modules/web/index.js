@@ -1,18 +1,5 @@
 $(function () {
-    $("#submint-btn").click(function(){
-		 var kvName = {}, allSelected = true;
-			 $(':checkbox,:radio').each(function () {
-			 if (kvName[this.name]) return true;
-		 if ($('[name="' + this.name + '"]:checked').length == 0) {
-			 $("#"+ this.name +"").addClass("err")
-			 this.focus(); 
-			
-			 }else{
-			$("#"+ this.name +"").removeClass("err") 
-		}
-			kvName[this.name] = true//标志此组已经检查过，剩余的不需要遍历了，上面的第一句直接继续检查下一组
-		});
-	});
+
 });
 
 var vm = new Vue({
@@ -45,18 +32,36 @@ var vm = new Vue({
 			});
 		},
 		saveEval:function() {
+			// 数据校验
+			this.checkData();
+			
+			
 			var index = 0;
 			// 课程类型
 			for(var i = 0; i < vm.lesson.length; i++, index++) {
-				vm.result[index] = {"questionTypeId" : 1, "evalId" : vm.evalId, "questionId" : vm.lesson[i].dataNo, "questionScore": $('input[name="question_1_'+ i +'"]:checked').val()};
+				var radioValue = $('input[name="question_1_'+ i +'"]:checked').val();
+				if(isBlank(radioValue)) {
+					alert("有未完成的试题！");
+					return;
+				}
+				vm.result[index] = {"questionTypeId" : 1, "evalId" : vm.evalId, "questionId" : vm.lesson[i].dataNo, "questionScore": radioValue};
 			}
 			// 常规试题
 			for(var i = 0; i < vm.question.length; i++, index++) {
 				var typeId = vm.question[i].questionTypeId;
 				if(typeId != 5) {
-					vm.result[index] = {"questionTypeId" : typeId, "evalId" : vm.evalId, "questionId" : vm.question[i].dataNo, "questionScore": $('input[name="question_'+ typeId +'_'+ i +'"]:checked').val()};	
+					var radioValue = $('input[name="question_'+ typeId +'_'+ i +'"]:checked').val()
+					if(isBlank(radioValue)) {
+						alert("有未完成的试题！");
+						return;
+					}
+					vm.result[index] = {"questionTypeId" : typeId, "evalId" : vm.evalId, "questionId" : vm.question[i].dataNo, "questionScore": radioValue};	
 				} else { // 其他建议
-					vm.result[index] = {"questionTypeId" : typeId, "evalId" : vm.evalId, "questionId" : vm.question[i].dataNo, "evalSuggest": $("#question_"+ typeId + "_" +  i).val()};
+					var suggest = $("#question_"+ typeId + "_" +  i).val();
+					if(isBlank(radioValue)) {
+						suggest = "";
+					}
+					vm.result[index] = {"questionTypeId" : typeId, "evalId" : vm.evalId, "questionId" : vm.question[i].dataNo, "evalSuggest": suggest};
 				}
 			}
 			
@@ -120,8 +125,22 @@ var vm = new Vue({
 				strQuestion += '</ul></div>';
 				$("#type_" + typeId).append(strQuestion);
 			}
+		},
+		checkData:function() {
+//			var kvName = {}, allSelected = true;
+//			 $(':radio').each(function () {
+//				 if (kvName[this.name]) return true;
+//				 if ($('[name="' + this.name + '"]:checked').length == 0) {
+//					 $("#"+ this.name +"").addClass("err")
+//					 this.focus(); 
+//				 }else{
+//				$("#"+ this.name +"").removeClass("err") 
+//			}
+//				kvName[this.name] = true//标志此组已经检查过，剩余的不需要遍历了，上面的第一句直接继续检查下一组
+//			});
 		}
 	},
+
 	created:function() {
 		var arrParam = getParameters(location.search);
 		this.getEvalPaper(arrParam['evalId']);
