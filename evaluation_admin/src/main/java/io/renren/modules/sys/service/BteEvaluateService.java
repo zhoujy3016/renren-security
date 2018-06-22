@@ -22,6 +22,6 @@ public interface BteEvaluateService extends IService<BteEvaluateEntity> {
     
     void insertEvaluate(BteEvaluateEntity bteEvaluate);
     
-    void downloadQr(Integer dataNo, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception;
+    String buildQrCode(Integer dataNo, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse);
 }
 

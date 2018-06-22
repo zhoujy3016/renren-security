@@ -19,7 +19,7 @@ $(function () {
 			{ label: '状态', name: 'evalStateName', index: 'evalStateName', width: 40 }, 
 			{ label: '二维码', name: '', index: '', width: 40,
 				formatter:function(cellvalue, options, rowObject){
-				    return '<a onclick="vm.downloadQr(' + rowObject.dataNo+ ')">下载</a>';
+				    return '<a onclick="vm.downloadQr(' + rowObject.dataNo+ ')">显示</a>';
 			  }	
 			}
         ],
@@ -139,16 +139,23 @@ var vm = new Vue({
 			$.ajax({
 				type: "POST",
 			    url: baseURL + "sys/bteevaluate/downloadQr/" + dataNo,
-                contentType: "application/json",
+	            contentType: "application/json",
 			    success: function(r){
-//					if(r.code == 0){
-//						alert('操作成功', function(index){
-//							$("#jqGrid").trigger("reloadGrid");
-//						});
-//					}else{
-//						alert(r.msg);
-//					}
+					if(r.code == 0){
+						console.log(r.qrCode);
+						$("#qrCode").attr("src", "data:image/png;base64," + r.qrCode);
+					}else{
+						alert(r.msg);
+					}
 				}
+			});
+			layer.open({
+				type: 1,
+				skin: 'layui-layer-molv',
+				title: "二维码",
+				area: ['300px', '350px'],
+				shadeClose: false,
+				content: jQuery("#qrLayer")
 			});
 		},
 		reload: function (event) {

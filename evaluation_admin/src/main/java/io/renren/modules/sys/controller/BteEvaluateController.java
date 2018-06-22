@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.renren.modules.sys.entity.BteEvaluateEntity;
 import io.renren.modules.sys.service.BteEvaluateService;
 import io.renren.common.utils.PageUtils;
+import io.renren.common.utils.QrcodeUtil;
 import io.renren.common.utils.R;
 
 
@@ -95,13 +96,9 @@ public class BteEvaluateController {
     
     @RequestMapping("/downloadQr/{dataNo}")
     public R downloadQr(@PathVariable("dataNo") Integer dataNo, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
-    	try {
-    		// 下载二维码
-    		this.bteEvaluateService.downloadQr(dataNo, httpServletRequest, httpServletResponse);
-    	} catch(Exception e) {
-    		return R.error(e.toString());
-    	}
-    	return R.ok();
+    	// 生成二维码
+    	String base64 = this.bteEvaluateService.buildQrCode(dataNo, httpServletRequest, httpServletResponse);
+    	return R.ok().put("qrCode", base64);
     }
 
 }

@@ -21,10 +21,12 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
+import com.qcloud.cos.http.HttpRequest;
 
 import io.renren.common.annotation.DataCreaterFilter;
 import io.renren.common.utils.Constant;
 import io.renren.common.utils.PageUtils;
+import io.renren.common.utils.QrcodeUtil;
 import io.renren.common.utils.Query;
 
 import io.renren.modules.sys.dao.BteEvaluateDao;
@@ -97,23 +99,10 @@ public class BteEvaluateServiceImpl extends ServiceImpl<BteEvaluateDao, BteEvalu
 	}
 
 	@Override
-	public void downloadQr(Integer dataNo, HttpServletRequest httpServletRequest,
-			HttpServletResponse httpServletResponse) throws Exception {
-		try {
-		String data = "www.baidu.com";
-//		String dataHandle = new String(data.getBytes("UTF_8"), "UTF_8");
-        BitMatrix bitMatrix = new MultiFormatWriter().encode(data, BarcodeFormat.QR_CODE, 300, 300);
-
-        httpServletResponse.reset();//清空输出流
-
-        OutputStream os = httpServletResponse.getOutputStream();//取得输出流
-        MatrixToImageWriter.writeToStream(bitMatrix, "png", os);//写入文件刷新
-
-        os.flush();
-        os.close();//关闭输出流
-		} catch(Exception e) {
-			System.out.println(e.toString());
-		}
+	public String buildQrCode(Integer dataNo, HttpServletRequest httpServletRequest,
+			HttpServletResponse httpServletResponse){
+		String url = httpServletRequest.getScheme() + "://" + httpServletRequest.getLocalAddr() + ":" + httpServletRequest.getServerPort() + "/eva/modules/web/index.html?evalId=" + dataNo;
+		return QrcodeUtil.getBase64QRCode(url, 300, 300);
 	}
 
 }
