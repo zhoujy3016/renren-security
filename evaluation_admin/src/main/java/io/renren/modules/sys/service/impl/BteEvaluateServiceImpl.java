@@ -1,6 +1,8 @@
 package io.renren.modules.sys.service.impl;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,6 +55,11 @@ public class BteEvaluateServiceImpl extends ServiceImpl<BteEvaluateDao, BteEvalu
 	@Autowired
 	private BteEvalrefquestionService bteEvalrefquestionService;
 	
+
+    // 公网ip
+    @Value("${eva.ip}")
+    public String ipAddress;
+	
     @Override
     @DataCreaterFilter
     public PageUtils queryPage(Map<String, Object> params) {
@@ -102,7 +109,14 @@ public class BteEvaluateServiceImpl extends ServiceImpl<BteEvaluateDao, BteEvalu
 	@Override
 	public String buildQrCode(Integer dataNo, HttpServletRequest httpServletRequest,
 			HttpServletResponse httpServletResponse){
-		String url = httpServletRequest.getScheme() + "://" + httpServletRequest.getLocalAddr() + ":" + httpServletRequest.getServerPort() + "/eva/modules/web/index.html?evalId=" + dataNo;
+		String ipAddr = null; 
+		// 有公网ip使用公网，没有使用服务器ip
+		if(StringUtils.isNotBlank(ipAddress)) {
+			ipAddr = ipAddress;
+		} else {
+			ipAddr = httpServletRequest.getLocalAddr();
+		}
+		String url = httpServletRequest.getScheme() + "://" + ipAddr  + ":" + httpServletRequest.getServerPort() + "/eva/modules/web/index.html?evalId=" + dataNo;
 		return QrcodeUtil.getBase64QRCode(url, 300, 300);
 	}
 

@@ -16,6 +16,8 @@
 
 package io.renren.common.utils;
 
+import org.springframework.beans.factory.annotation.Value;
+
 /**
  * 常量
  *
@@ -27,7 +29,6 @@ public class Constant {
 	public static final int SUPER_ADMIN = 1;
     /** 数据权限过滤 */
 	public static final String SQL_FILTER = "sql_filter";
-
 
 	/**
 	 * 菜单类型

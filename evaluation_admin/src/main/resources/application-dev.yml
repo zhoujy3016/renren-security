@@ -36,3 +36,6 @@ spring:
                 wall:
                     config:
                         multi-statement-allow: true
+#公网ip
+eva:
+    ip: 
