@@ -17,6 +17,15 @@
 			<#if shiro.hasPermission("sys:bteevaluate:delete")>
             <a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
 			</#if>
+			<#if shiro.hasPermission("sys:bteevaluate:nostart")>
+            	<a class="btn btn-primary" @click="nostart"><i class="fa fa-lock"></i>&nbsp;未开始</a>
+			</#if>
+			<#if shiro.hasPermission("sys:bteevaluate:start")>
+            	<a class="btn btn-primary" @click="start"><i class="fa fa-play"></i>&nbsp;开始</a>
+			</#if>
+			<#if shiro.hasPermission("sys:bteevaluate:over")>
+            	<a class="btn btn-primary" @click="over"><i class="fa fa-stop"></i>&nbsp;结束</a>
+			</#if>
         </div>
         <table id="jqGrid"></table>
         <div id="jqGridPager"></div>

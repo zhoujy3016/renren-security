@@ -158,6 +158,40 @@ var vm = new Vue({
 				content: jQuery("#qrLayer")
 			});
 		},
+		// 点击未开始
+		nostart:function() {
+			this.changeState(baseURL + "sys/bteevaluate/nostart/0");
+		},
+		// 点击开始
+		start:function() {
+			this.changeState(baseURL + "sys/bteevaluate/start/1");
+		},
+		over:function() {
+			this.changeState(baseURL + "sys/bteevaluate/over/2");
+		},
+		changeState:function(_url) {
+			var dataNos = getSelectedRows();
+			if(dataNos == null){
+				return ;
+			}
+			confirm('确定要变更选中的记录的状态？', function(){
+				$.ajax({
+					type: "POST",
+				    url: _url,
+                    contentType: "application/json",
+				    data: JSON.stringify(dataNos),
+				    success: function(r){
+						if(r.code == 0){
+							alert('操作成功', function(index){
+								$("#jqGrid").trigger("reloadGrid");
+							});
+						}else{
+							alert(r.msg);
+						}
+					}
+				});
+			});
+		},
 		reload: function (event) {
 			vm.showList = true;
 			vm.showState = true;

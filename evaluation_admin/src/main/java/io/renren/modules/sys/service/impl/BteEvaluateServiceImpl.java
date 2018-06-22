@@ -105,4 +105,14 @@ public class BteEvaluateServiceImpl extends ServiceImpl<BteEvaluateDao, BteEvalu
 		return QrcodeUtil.getBase64QRCode(url, 300, 300);
 	}
 
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void changeEvalStage(Integer toState, Integer[] dataNos) {
+		for(int dataNo:dataNos) {
+			BteEvaluateEntity evalEntity = this.selectById(dataNo);
+			evalEntity.setEvalStateId(toState);
+			this.updateAllColumnById(evalEntity);
+		}
+	}
+
 }
