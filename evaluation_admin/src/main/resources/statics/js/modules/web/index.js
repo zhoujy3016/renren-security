@@ -32,16 +32,11 @@ var vm = new Vue({
 			});
 		},
 		saveEval:function() {
-			// 数据校验
-			this.checkData();
-			
-			
 			var index = 0;
 			// 课程类型
 			for(var i = 0; i < vm.lesson.length; i++, index++) {
 				var radioValue = $('input[name="question_1_'+ i +'"]:checked').val();
-				if(isBlank(radioValue)) {
-					alert("有未完成的试题！");
+				if(!this.checkData($("#question_1_"+ i), radioValue)) {
 					return;
 				}
 				vm.result[index] = {"questionTypeId" : 1, "evalId" : vm.evalId, "questionId" : vm.lesson[i].dataNo, "questionScore": radioValue};
@@ -51,8 +46,7 @@ var vm = new Vue({
 				var typeId = vm.question[i].questionTypeId;
 				if(typeId != 5) {
 					var radioValue = $('input[name="question_'+ typeId +'_'+ i +'"]:checked').val()
-					if(isBlank(radioValue)) {
-						alert("有未完成的试题！");
+					if(!this.checkData($("#question_"+ typeId +'_'+ i), radioValue)) {
 						return;
 					}
 					vm.result[index] = {"questionTypeId" : typeId, "evalId" : vm.evalId, "questionId" : vm.question[i].dataNo, "questionScore": radioValue};	
@@ -93,7 +87,7 @@ var vm = new Vue({
 			var strLesson = '';
 			for(var i = 0; i < vm.lesson.length; i++) {
 				var lesson = vm.lesson[i];
-				strLesson += '<div class="question" id="q1">';
+				strLesson += '<div class="question" id="question_1_'+ i +'">';
 				strLesson += '<div class="question-title">'+ (row++) + ' . ' + lesson.lessonTitle + '（' + lesson.lessonTeacherName +'）</div>';
 				strLesson += '<ul  class="question-option list-inline">';
 				strLesson += '<li><label><input type="radio" name="question_1_'+ i +'" value="5" id="RadioGroup1_0"> 5</label></li>';
@@ -109,7 +103,7 @@ var vm = new Vue({
 				var question = vm.question[i];
 				var typeId = question.questionTypeId;
 				var strQuestion = '';
-				strQuestion += '<div class="question" id="q1">';
+				strQuestion += '<div class="question" id="question_'+ typeId +'_'+ i +'">';
 				strQuestion += '<div class="question-title">'+ (row++) + ' . ' + question.questionTitle +'</div>';
 				strQuestion += '<ul  class="question-option list-inline">';
 				// 非其他建议的情况下
@@ -126,18 +120,14 @@ var vm = new Vue({
 				$("#type_" + typeId).append(strQuestion);
 			}
 		},
-		checkData:function() {
-//			var kvName = {}, allSelected = true;
-//			 $(':radio').each(function () {
-//				 if (kvName[this.name]) return true;
-//				 if ($('[name="' + this.name + '"]:checked').length == 0) {
-//					 $("#"+ this.name +"").addClass("err")
-//					 this.focus(); 
-//				 }else{
-//				$("#"+ this.name +"").removeClass("err") 
-//			}
-//				kvName[this.name] = true//标志此组已经检查过，剩余的不需要遍历了，上面的第一句直接继续检查下一组
-//			});
+		checkData:function(question, radioValue) {
+			if(isBlank(radioValue)) {
+				question.addClass("err");
+				return false;
+			} else {
+				question.removeClass("err");
+				return true;
+			}
 		}
 	},
 
