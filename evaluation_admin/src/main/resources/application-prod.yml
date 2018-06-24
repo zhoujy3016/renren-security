@@ -1,3 +1,6 @@
+#生产环境用80端口
+server:
+    port: 80
 spring:
     datasource:
         type: com.alibaba.druid.pool.DruidDataSource
@@ -36,6 +39,6 @@ spring:
                 wall:
                     config:
                         multi-statement-allow: true
-#公网ip
+#生产环境公网ip
 eva:
     ip: 124.93.236.5
