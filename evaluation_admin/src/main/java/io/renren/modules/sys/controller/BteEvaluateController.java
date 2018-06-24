@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import io.renren.modules.sys.entity.BteEvaluateEntity;
 import io.renren.modules.sys.service.BteEvaluateService;
 import io.renren.common.utils.PageUtils;
-import io.renren.common.utils.QrcodeUtil;
 import io.renren.common.utils.R;
 
 
