@@ -30,16 +30,11 @@ import io.renren.modules.sys.entity.BteQuestionEntity;
 import io.renren.modules.sys.service.BteEvalrefquestionService;
 import io.renren.modules.sys.service.BteEvaluateService;
 import io.renren.modules.sys.service.BteQuestionService;
-import io.renren.modules.sys.service.SysDictService;
 import io.renren.modules.sys.shiro.ShiroUtils;
 
 
 @Service("bteEvaluateService")
 public class BteEvaluateServiceImpl extends ServiceImpl<BteEvaluateDao, BteEvaluateEntity> implements BteEvaluateService {
-	
-	@Autowired
-	private SysDictService sysDictService;
-	
 	@Autowired
 	private BteQuestionService bteQuestionService;
 	

@@ -13,7 +13,22 @@
         <result property="lessonPid" column="lesson_pid"/>
         <result property="createDate" column="create_date"/>
         <result property="createUserId" column="create_user_id"/>
+        <result property="lessonTypeName" column="lessonTypeName"/>
     </resultMap>
 
+	<select id="selectBteLessonList" resultMap="bteLessonMap">
+		SELECT  bl.data_no,
+				bl.eval_id,
+				bl.lesson_title,
+				bl.lesson_type_id,
+				bl.lesson_teacher_name,
+				bl.lesson_pid,
+				bl.create_date,
+				bl.create_user_id,
+				d1.value as lessonTypeName
+		FROM bte_lesson bl
+		LEFT JOIN sys_dict d1 ON d1.code = bl.lesson_type_id AND d1.type = 'kclx'
+		WHERE bl.eval_id = #{evalId}
+	</select>
 
 </mapper>
