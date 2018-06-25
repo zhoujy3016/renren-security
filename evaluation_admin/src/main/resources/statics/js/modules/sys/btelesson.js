@@ -8,6 +8,7 @@ $(function () {
         colModel: [			
 			{ label: 'dataNo', name: 'dataNo', index: 'data_no', width: 50, key: true, hidden:true },
 			{ label: '课程名称', name: 'lessonTitle', index: 'lesson_title', width: 80 }, 			
+			{ label: '课程分类', name: 'lessonCategoryName', index: 'lessonCategoryName', width: 40 }, 			
 			{ label: '课程类型', name: 'lessonTypeName', index: 'lessonTypeName', width: 40 }, 			
 			{ label: '教官姓名', name: 'lessonTeacherName', index: 'lesson_teacher_name', width: 40 }, 			
 			{ label: '教官身份证号', name: 'lessonPid', index: 'lesson_pid', width: 40 }	
@@ -37,14 +38,8 @@ $(function () {
         	$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" }); 
         },
         loadComplete: function(data) {
-        	console.log(data);
         	setDictList(data.userdata);
         	vm.evalId = data.evalId;
-        	// 公共类
-        	vm.dictGgl = data.ggl;
-        	// 专业类
-        	vm.dictZyl = data.zyl;
-        	
         }
     });
 
@@ -62,8 +57,7 @@ var vm = new Vue({
 		bteLesson: {},
 		dictKcfl:{},
 		evalId:null,
-		dictGgl:{},
-		dictZyl:{}
+		dictKclx:{}
 	},
 	methods: {
 		query: function () {
@@ -87,8 +81,6 @@ var vm = new Vue({
 		saveOrUpdate: function (event) {
 			var url = vm.bteLesson.dataNo == null ? "sys/btelesson/save" : "sys/btelesson/update";
 			vm.bteLesson.evalId = vm.evalId; // 测评信息id
-//			console.log(vm.bteLesson.lessonTypeId);
-			
 			$.ajax({
 				type: "POST",
 			    url: baseURL + url,
@@ -132,32 +124,21 @@ var vm = new Vue({
 		getInfo: function(dataNo){
 			$.get(baseURL + "sys/btelesson/info/"+dataNo, function(r){
                 vm.bteLesson = r.bteLesson;
-                if(vm.bteLesson.lessonCategoryId == 1) {
-                	$(".div_gg").show();
-                	
-                	$(".sel_ggl").find("option[value='3']").prop("selected",true);
-                	alert('1111');
-                } else {
-                	$(".div_zy").show();
-                	alert(2);
-                	$(".sel_zyl").find("option[value='49']").prop("selected",true);
-                }
             });
 		},
 		back: function (event) {
 			history.go(-1);
 		},
+		// 分类下拉菜单变化时
 		selectOnChange:function() {
 	    	 var categoryId = this.bteLesson.lessonCategoryId;
-	    	 if(categoryId == 1) {
-	    		 $(".div_gg").show();
-	    		 $(".div_zy").hide();
-	    	 } else if(categoryId == 2) {
-	    		 $(".div_gg").hide();
-	    		 $(".div_zy").show();
+	    	 // 根据分类变化，后台查询相应分类的课程类型
+	    	 if(!isBlank(categoryId)) {
+	 			$.get(baseURL + "sys/btelesson/lessonType/"+categoryId, function(r){
+	 				vm.dictKclx = r.kclx;
+	 			});
 	    	 } else {
-	    		 $(".div_gg").hide();
-	    		 $(".div_zy").hide();
+	    		 vm.dictKclx = '';
 	    	 }
 		},
 		reload: function (event) {

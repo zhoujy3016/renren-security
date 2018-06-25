@@ -18,17 +18,7 @@ public interface BteLessonTypeService extends IService<BteLessonTypeEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
     
-    /**
-     * 公共类
-     * @return
-     */
-    
-    List<BteLessonTypeEntity> queryLessonTypeByCategory1();
-    /**
-     * 专业类
-     * @return
-     */
-    List<BteLessonTypeEntity> queryLessonTypeByCategory2();
+    List<BteLessonTypeEntity> queryLessonTypeByCategory(Integer categoryId);
     
 }
 

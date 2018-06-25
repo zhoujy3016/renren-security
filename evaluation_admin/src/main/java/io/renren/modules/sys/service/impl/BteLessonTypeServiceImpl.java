@@ -29,15 +29,9 @@ public class BteLessonTypeServiceImpl extends ServiceImpl<BteLessonTypeDao, BteL
     }
 
 	@Override
-	public List<BteLessonTypeEntity> queryLessonTypeByCategory1() {
-		// 查询公共类别的课程类型
-		return baseMapper.queryLessonTypeByCategory(1);
+	public List<BteLessonTypeEntity> queryLessonTypeByCategory(Integer categoryId) {
+		return baseMapper.queryLessonTypeByCategory(categoryId);
 	}
 
-	@Override
-	public List<BteLessonTypeEntity> queryLessonTypeByCategory2() {
-		// 查询专业类别的课程类型
-		return baseMapper.queryLessonTypeByCategory(2);
-	}
 
 }

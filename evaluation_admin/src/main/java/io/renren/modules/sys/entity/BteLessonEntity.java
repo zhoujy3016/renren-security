@@ -42,9 +42,13 @@ public class BteLessonEntity implements Serializable {
 	@NotNull(message="请选择课程分类！")
 	private Integer lessonCategoryId;
 	
+	@TableField(exist=false)
+	private String lessonCategoryName;
+	
 	/**
 	 * 
 	 */
+	@NotNull(message="请选择课程类型！")
 	private Integer lessonTypeId;
 	/**
 	 * 
@@ -179,6 +183,12 @@ public class BteLessonEntity implements Serializable {
 	}
 	public void setLessonTypeName(String lessonTypeName) {
 		this.lessonTypeName = lessonTypeName;
+	}
+	public String getLessonCategoryName() {
+		return lessonCategoryName;
+	}
+	public void setLessonCategoryName(String lessonCategoryName) {
+		this.lessonCategoryName = lessonCategoryName;
 	}
 	
 }

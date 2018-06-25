@@ -49,11 +49,13 @@ public class BteLessonController {
     	map.put("userdata", DictComponent.getDictCacheDataByTypes("kcfl"));
     	// 测评编号
     	map.put("evalId", evalId);
-    	// 公共类
-    	map.put("ggl", bteLessonTypeService.queryLessonTypeByCategory1());
-    	// 专业类
-    	map.put("zyl", bteLessonTypeService.queryLessonTypeByCategory2());
     	return R.ok(map);
+    }
+    
+    @RequestMapping("/lessonType/{categoryId}")
+    public R lessonType(@PathVariable("categoryId") Integer categoryId) {
+    	// 根据分类取出课程类型
+    	return R.ok().put("kclx", this.bteLessonTypeService.queryLessonTypeByCategory(categoryId));
     }
 
 

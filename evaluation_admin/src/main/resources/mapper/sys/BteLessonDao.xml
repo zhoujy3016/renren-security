@@ -14,6 +14,7 @@
         <result property="createDate" column="create_date"/>
         <result property="createUserId" column="create_user_id"/>
         <result property="lessonTypeName" column="lessonTypeName"/>
+        <result property="lessonCategoryName" column="lessonCategoryName" />
     </resultMap>
 
 	<select id="selectBteLessonList" resultMap="bteLessonMap">
@@ -25,9 +26,11 @@
 				bl.lesson_pid,
 				bl.create_date,
 				bl.create_user_id,
-				lt.type_name as lessonTypeName
+				lt.type_name as lessonTypeName,
+				d1.value as lessonCategoryName
 		FROM bte_lesson bl
 		LEFT JOIN bte_lesson_type lt ON lt.data_no = bl.lesson_type_id
+		LEFT JOIN sys_dict d1 on d1.code = bl.lesson_category_id and d1.type = 'kcfl'
 		WHERE bl.eval_id = #{evalId}
 	</select>
 
