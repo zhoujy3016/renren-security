@@ -134,10 +134,13 @@ var vm = new Vue({
                 vm.bteLesson = r.bteLesson;
                 if(vm.bteLesson.lessonCategoryId == 1) {
                 	$(".div_gg").show();
-                	$(".sel_ggl").find("option[text='3']").prop("selected",true);
+                	
+                	$(".sel_ggl").find("option[value='3']").prop("selected",true);
+                	alert('1111');
                 } else {
                 	$(".div_zy").show();
-                	$(".sel_zyl").find("option[text='49']").prop("selected",true);
+                	alert(2);
+                	$(".sel_zyl").find("option[value='49']").prop("selected",true);
                 }
             });
 		},
