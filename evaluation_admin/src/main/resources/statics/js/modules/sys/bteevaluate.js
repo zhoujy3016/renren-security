@@ -3,21 +3,21 @@ $(function () {
         url: baseURL + 'sys/bteevaluate/list',
         datatype: "json",
         colModel: [			
-			{ label: 'dataNo', name: 'dataNo', index: 'data_no', width: 50, key: true, hidden:true },
+			{ label: 'dataNo', name: 'dataNo', index: 'data_no', width: 20, key: true, hidden:true },
 			{ label: '测评名称', name: 'evalTitle', index: 'eval_title', width: 80 }, 			
 			{ label: '测评说明', name: 'evalMemo', index: 'eval_memo', width: 80 }, 			
-			{ label: '课程设置', name: '', index: '', width: 40, 
+			{ label: '课程设置', name: '', index: '', width: 20, 
 				  formatter:function(cellvalue, options, rowObject){
 					    return '<a onclick="vm.lessonList(' + rowObject.dataNo+ ')">设置</a>';
 				  }	
 			}, 			
-			{ label: '查看结果', name: '', index: '', width: 40,
+			{ label: '查看结果', name: '', index: '', width: 20,
 				  formatter:function(cellvalue, options, rowObject){
 					    return '<a onclick="vm.resultList(' + rowObject.dataNo+ ')">查看</a>';
 				  }		
 			},
-			{ label: '状态', name: 'evalStateName', index: 'evalStateName', width: 40 }, 
-			{ label: '二维码', name: '', index: '', width: 40,
+			{ label: '状态', name: 'evalStateName', index: 'evalStateName', width: 20 }, 
+			{ label: '二维码', name: '', index: '', width: 20,
 				formatter:function(cellvalue, options, rowObject){
 				    return '<a onclick="vm.downloadQr(' + rowObject.dataNo+ ')">显示</a>';
 			  }	
