@@ -35,10 +35,16 @@ public class BteLessonEntity implements Serializable {
 	 */
 	@NotBlank(message="课程名称不能为空")
 	private String lessonTitle;
+	
+	/**
+	 * 课程分类
+	 */
+	@NotNull(message="请选择课程分类！")
+	private Integer lessonCategoryId;
+	
 	/**
 	 * 
 	 */
-	@NotNull(message="请选择课程类型！")
 	private Integer lessonTypeId;
 	/**
 	 * 
@@ -100,6 +106,13 @@ public class BteLessonEntity implements Serializable {
 	 */
 	public String getLessonTitle() {
 		return lessonTitle;
+	}
+	
+	public Integer getLessonCategoryId() {
+		return lessonCategoryId;
+	}
+	public void setLessonCategoryId(Integer lessonCategoryId) {
+		this.lessonCategoryId = lessonCategoryId;
 	}
 	/**
 	 * 设置：

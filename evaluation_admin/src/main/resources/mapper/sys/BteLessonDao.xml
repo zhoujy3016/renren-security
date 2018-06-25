@@ -25,9 +25,9 @@
 				bl.lesson_pid,
 				bl.create_date,
 				bl.create_user_id,
-				d1.value as lessonTypeName
+				lt.type_name as lessonTypeName
 		FROM bte_lesson bl
-		LEFT JOIN sys_dict d1 ON d1.code = bl.lesson_type_id AND d1.type = 'kclx'
+		LEFT JOIN bte_lesson_type lt ON lt.data_no = bl.lesson_type_id
 		WHERE bl.eval_id = #{evalId}
 	</select>
 

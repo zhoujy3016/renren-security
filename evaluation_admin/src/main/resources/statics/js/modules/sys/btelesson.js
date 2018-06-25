@@ -37,14 +37,21 @@ $(function () {
         	$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" }); 
         },
         loadComplete: function(data) {
+        	console.log(data);
         	setDictList(data.userdata);
         	vm.evalId = data.evalId;
+        	// 公共类
+        	vm.dictGgl = data.ggl;
+        	// 专业类
+        	vm.dictZyl = data.zyl;
+        	
         }
     });
+
 });
 
 function setDictList(r) {
-	vm.dictKclx = r.kclx;
+	vm.dictKcfl = r.kcfl;
 }
 
 var vm = new Vue({
@@ -53,8 +60,10 @@ var vm = new Vue({
 		showList: true,
 		title: null,
 		bteLesson: {},
-		dictKclx:{},
+		dictKcfl:{},
 		evalId:null,
+		dictGgl:{},
+		dictZyl:{}
 	},
 	methods: {
 		query: function () {
@@ -78,6 +87,8 @@ var vm = new Vue({
 		saveOrUpdate: function (event) {
 			var url = vm.bteLesson.dataNo == null ? "sys/btelesson/save" : "sys/btelesson/update";
 			vm.bteLesson.evalId = vm.evalId; // 测评信息id
+//			console.log(vm.bteLesson.lessonTypeId);
+			
 			$.ajax({
 				type: "POST",
 			    url: baseURL + url,
@@ -121,10 +132,30 @@ var vm = new Vue({
 		getInfo: function(dataNo){
 			$.get(baseURL + "sys/btelesson/info/"+dataNo, function(r){
                 vm.bteLesson = r.bteLesson;
+                if(vm.bteLesson.lessonCategoryId == 1) {
+                	$(".div_gg").show();
+                	$(".sel_ggl").find("option[text='3']").prop("selected",true);
+                } else {
+                	$(".div_zy").show();
+                	$(".sel_zyl").find("option[text='49']").prop("selected",true);
+                }
             });
 		},
 		back: function (event) {
 			history.go(-1);
+		},
+		selectOnChange:function() {
+	    	 var categoryId = this.bteLesson.lessonCategoryId;
+	    	 if(categoryId == 1) {
+	    		 $(".div_gg").show();
+	    		 $(".div_zy").hide();
+	    	 } else if(categoryId == 2) {
+	    		 $(".div_gg").hide();
+	    		 $(".div_zy").show();
+	    	 } else {
+	    		 $(".div_gg").hide();
+	    		 $(".div_zy").hide();
+	    	 }
 		},
 		reload: function (event) {
 			vm.showList = true;

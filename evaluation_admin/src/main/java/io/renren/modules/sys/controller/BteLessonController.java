@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.renren.modules.sys.entity.BteLessonEntity;
 import io.renren.modules.sys.service.BteLessonService;
+import io.renren.modules.sys.service.BteLessonTypeService;
 import io.renren.common.component.DictComponent;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.R;
@@ -33,6 +34,8 @@ public class BteLessonController {
     @Autowired
     private BteLessonService bteLessonService;
 
+    @Autowired 
+    private BteLessonTypeService bteLessonTypeService;
     /**
      * 列表
      */
@@ -42,8 +45,14 @@ public class BteLessonController {
         PageUtils page = bteLessonService.queryPage(params, evalId);
         Map<String, Object> map = new HashMap<>();
     	map.put("page", page);
-    	map.put("userdata", DictComponent.getDictCacheDataByTypes("kclx"));
+    	// 数据字典
+    	map.put("userdata", DictComponent.getDictCacheDataByTypes("kcfl"));
+    	// 测评编号
     	map.put("evalId", evalId);
+    	// 公共类
+    	map.put("ggl", bteLessonTypeService.queryLessonTypeByCategory1());
+    	// 专业类
+    	map.put("zyl", bteLessonTypeService.queryLessonTypeByCategory2());
     	return R.ok(map);
     }
 
