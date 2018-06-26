@@ -64,7 +64,7 @@ var vm = new Vue({
 		},
 		// 具体建议导出
 		exportSuggest:function() {
-			
+			window.location.href = baseURL + "sys/bteresult/exportSuggest/" + vm.evalId;
 		}
 	}
 });

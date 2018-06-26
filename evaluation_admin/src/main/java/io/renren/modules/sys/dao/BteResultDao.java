@@ -2,8 +2,11 @@ package io.renren.modules.sys.dao;
 
 import io.renren.modules.sys.entity.BteResultEntity;
 import io.renren.modules.sys.entity.BteResultEntityExt;
+import io.renren.modules.sys.entity.BteResultEntitySuggest;
 
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
@@ -20,12 +23,19 @@ public interface BteResultDao extends BaseMapper<BteResultEntity> {
 	 * @param evalId
 	 * @return
 	 */
-    List<BteResultEntityExt> queryQuestionResultList(Integer evalId);
+    List<BteResultEntityExt> queryQuestionResultList(@Param("evalId") Integer evalId);
     
     /**
      * 以课程信息表为主表统计数据
      * @param evalId
      * @return
      */
-    List<BteResultEntityExt> queryLessonResultList(Integer evalId);
+    List<BteResultEntityExt> queryLessonResultList(@Param("evalId") Integer evalId);
+    
+    /**
+     * 查找建议结果
+     * @param evalId
+     * @return
+     */
+    List<BteResultEntitySuggest> querySuggestList(@Param("evalId") Integer evalId);
 }

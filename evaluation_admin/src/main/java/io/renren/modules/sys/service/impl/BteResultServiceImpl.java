@@ -9,7 +9,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -21,9 +20,9 @@ import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.Query;
 import io.renren.modules.sys.dao.BteResultDao;
 import io.renren.modules.sys.entity.BteEvaluateEntity;
-import io.renren.modules.sys.entity.BteLessonEntity;
 import io.renren.modules.sys.entity.BteResultEntity;
 import io.renren.modules.sys.entity.BteResultEntityExt;
+import io.renren.modules.sys.entity.BteResultEntitySuggest;
 import io.renren.modules.sys.service.BteEvaluateService;
 import io.renren.modules.sys.service.BteResultService;
 
@@ -96,6 +95,15 @@ public class BteResultServiceImpl extends ServiceImpl<BteResultDao, BteResultEnt
 		String excelName = evalEntity.getEvalTitle() + "结果";
 		List<BteResultEntityExt> resultList = this.queryResultList(evalId);
 		ExcelUtil.exportExcel(resultList, excelName, "测评结果", BteResultEntityExt.class, excelName + ".xls", httpServletResponse);
+	}
+
+	@Override
+	public void exportSuggest(Integer evalId, HttpServletResponse httpServletResponse) {
+		// 测评信息
+		BteEvaluateEntity evalEntity = bteEvaluateService.selectById(evalId);
+		String excelName = evalEntity.getEvalTitle() + "建议";
+		List<BteResultEntitySuggest> resultList = this.baseMapper.querySuggestList(evalId);
+		ExcelUtil.exportExcel(resultList, excelName, "其他建议", BteResultEntitySuggest.class, excelName + ".xls", httpServletResponse);
 	}
 
 }

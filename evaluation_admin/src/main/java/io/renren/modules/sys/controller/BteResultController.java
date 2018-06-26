@@ -102,6 +102,14 @@ public class BteResultController {
     	this.bteResultService.exportResult(evalId, httpServletResponse);
     }
     
+    /**
+     * 导出具体建议
+     * @param evalId
+     * @param httpServletResponse
+     */
+    @RequestMapping("/exportSuggest/{evalId}")
+    public void exportSuggest(@PathVariable("evalId") Integer evalId, HttpServletResponse httpServletResponse) {
+    	this.bteResultService.exportSuggest(evalId, httpServletResponse);
+    }
     
-
 }

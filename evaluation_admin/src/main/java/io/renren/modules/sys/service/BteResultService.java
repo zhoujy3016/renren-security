@@ -27,5 +27,7 @@ public interface BteResultService extends IService<BteResultEntity> {
     void insertResultBatch(Map<String, Object> resultMap);
     
     void exportResult(Integer evalId, HttpServletResponse httpServletResponse);
+    
+    void exportSuggest(Integer evalId, HttpServletResponse httpServletResponse);
 }
 
