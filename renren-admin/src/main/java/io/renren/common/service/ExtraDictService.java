@@ -1,6 +1,7 @@
 package io.renren.common.service;
 
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import io.renren.common.config.YmlConfig;
+import io.renren.modules.sys.entity.ExtraDictEntity;
 
 
 @Service
@@ -19,9 +21,6 @@ public class ExtraDictService {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
-	
 	private Map<String, Object> extraMap;
 	
 	public void init() {
@@ -30,8 +29,8 @@ public class ExtraDictService {
 		Map<String, String> sqlMap = ymlConfig.getExtraDict();
 		for (String keys : sqlMap.keySet()) {
 			String sql = sqlMap.get(keys);
-			System.out.println(keys + ":" + sql);
-			
+			List<ExtraDictEntity> extraDictList = this.sqlSession.selectList("extraDictMapper.excuteSelectExtraDictSql", sql);
+			extraMap.put(keys, extraDictList);
 		}
 	}
 	
