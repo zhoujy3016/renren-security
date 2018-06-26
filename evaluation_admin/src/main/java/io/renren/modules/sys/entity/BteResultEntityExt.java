@@ -3,6 +3,8 @@ package io.renren.modules.sys.entity;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 
+import cn.afterturn.easypoi.excel.annotation.Excel;
+
 import java.io.Serializable;
 
 /**
@@ -20,48 +22,56 @@ public class BteResultEntityExt extends BteResultEntity implements Serializable 
 	 * 题干名称
 	 */
 	@TableField(exist=false)
+	@Excel(name = "题干名称", orderNum = "0")
 	private String questionTitle;
 	
 	/**
 	 * 提交人数
 	 */
 	@TableField(exist=false)
+	@Excel(name = "提交人数", orderNum = "1")
 	private Integer evaPersonNum;
 	
 	/**
 	 * 1分人数
 	 */
 	@TableField(exist=false)
+	@Excel(name = "1分人数", orderNum = "2")
 	private Integer score1;
 	
 	/**
 	 * 2分人数
 	 */
 	@TableField(exist=false)
+	@Excel(name = "2分人数", orderNum = "3")
 	private Integer score2;
 	
 	/**
 	 * 3分人数
 	 */
 	@TableField(exist=false)
+	@Excel(name = "3分人数", orderNum = "4")
 	private Integer score3;
 	
 	/**
 	 * 4分人数
 	 */
 	@TableField(exist=false)
+	@Excel(name = "4分人数", orderNum = "5")
 	private Integer score4;
 	
 	/**
 	 * 5分人数
 	 */
 	@TableField(exist=false)
+	@Excel(name = "5分人数", orderNum = "6")
 	private Integer score5;
 	
 	/**
 	 * 平均分
 	 */
 	@TableField(exist=false)
+	@Excel(name = "平均分", orderNum = "7")
 	private Integer avgScore;
 
 

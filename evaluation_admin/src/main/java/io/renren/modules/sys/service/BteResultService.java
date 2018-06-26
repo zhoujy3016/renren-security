@@ -8,6 +8,9 @@ import io.renren.modules.sys.entity.BteResultEntityExt;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * 
  *
@@ -22,5 +25,7 @@ public interface BteResultService extends IService<BteResultEntity> {
     List<BteResultEntityExt> queryResultList(Integer evalId);
     
     void insertResultBatch(Map<String, Object> resultMap);
+    
+    void exportResult(Integer evalId, HttpServletResponse httpServletResponse);
 }
 

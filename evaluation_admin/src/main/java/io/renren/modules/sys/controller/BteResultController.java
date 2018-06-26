@@ -5,8 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import io.renren.common.validator.ValidatorUtils;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -88,5 +90,18 @@ public class BteResultController {
 
         return R.ok();
     }
+    
+    /**
+     * 导出测评结果
+     * @param evalId
+     * @return
+     */
+    @RequestMapping("/exportResult/{evalId}")
+    public void exportResult(@PathVariable("evalId") Integer evalId, HttpServletResponse httpServletResponse) {
+    	// 导出测评结果
+    	this.bteResultService.exportResult(evalId, httpServletResponse);
+    }
+    
+    
 
 }

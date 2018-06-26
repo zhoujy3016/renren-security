@@ -57,78 +57,14 @@ var vm = new Vue({
 	methods: {
 		back: function (event) {
 			history.go(-1);
+		}, 
+		// 测评结果导出
+		exportResult:function() {
+			window.location.href = baseURL + "sys/bteresult/exportResult/" + vm.evalId;
+		},
+		// 具体建议导出
+		exportSuggest:function() {
+			
 		}
-//		query: function () {
-//			vm.reload();
-//		},
-//		add: function(){
-//			vm.showList = false;
-//			vm.title = "新增";
-//			vm.bteResult = {};
-//		},
-//		update: function (event) {
-//			var dataNo = getSelectedRow();
-//			if(dataNo == null){
-//				return ;
-//			}
-//			vm.showList = false;
-//            vm.title = "修改";
-//            
-//            vm.getInfo(dataNo)
-//		},
-//		saveOrUpdate: function (event) {
-//			var url = vm.bteResult.dataNo == null ? "sys/bteresult/save" : "sys/bteresult/update";
-//			$.ajax({
-//				type: "POST",
-//			    url: baseURL + url,
-//                contentType: "application/json",
-//			    data: JSON.stringify(vm.bteResult),
-//			    success: function(r){
-//			    	if(r.code === 0){
-//						alert('操作成功', function(index){
-//							vm.reload();
-//						});
-//					}else{
-//						alert(r.msg);
-//					}
-//				}
-//			});
-//		},
-//		del: function (event) {
-//			var dataNos = getSelectedRows();
-//			if(dataNos == null){
-//				return ;
-//			}
-//			
-//			confirm('确定要删除选中的记录？', function(){
-//				$.ajax({
-//					type: "POST",
-//				    url: baseURL + "sys/bteresult/delete",
-//                    contentType: "application/json",
-//				    data: JSON.stringify(dataNos),
-//				    success: function(r){
-//						if(r.code == 0){
-//							alert('操作成功', function(index){
-//								$("#jqGrid").trigger("reloadGrid");
-//							});
-//						}else{
-//							alert(r.msg);
-//						}
-//					}
-//				});
-//			});
-//		},
-//		getInfo: function(dataNo){
-//			$.get(baseURL + "sys/bteresult/info/"+dataNo, function(r){
-//                vm.bteResult = r.bteResult;
-//            });
-//		},
-//		reload: function (event) {
-//			vm.showList = true;
-//			var page = $("#jqGrid").jqGrid('getGridParam','page');
-//			$("#jqGrid").jqGrid('setGridParam',{ 
-//                page:page
-//            }).trigger("reloadGrid");
-//		}
 	}
 });

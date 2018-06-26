@@ -17,6 +17,9 @@ import java.util.Date;
 public class BteResultEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	public BteResultEntity() {
+		
+	}
 	/**
 	 * 
 	 */
