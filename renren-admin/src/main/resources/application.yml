@@ -43,6 +43,10 @@ renren:
         open: true  # 是否开启redis缓存  true开启   false关闭
     shiro:
         redis: false # true表示shiro session存到redis里，需要开启redis，才会生效【分布式场景】
+        
+    #sys_dict以外需要放入缓存中的数据
+    dictionary:
+        person: https://blog.csdn.net/gaolu/article/details/52708177
 
 #mybatis
 mybatis-plus:
@@ -80,3 +84,7 @@ logging:
   level.io.renren: debug
   path: logs/
   file: admin.log
+  
+
+
+  

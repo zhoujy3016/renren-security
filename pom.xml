@@ -41,6 +41,9 @@
         <commons.codec.version>1.10</commons.codec.version>
         <fastjson.version>1.2.45</fastjson.version>
         <joda.time.version>2.9.9</joda.time.version>
+        <easypoi.base.version>3.0.3</easypoi.base.version>
+        <easypoi.web.version>3.0.3</easypoi.web.version>
+        <easypoi.annotation.version>3.0.3</easypoi.annotation.version>
     </properties>
 
     <dependencies>
@@ -153,17 +156,17 @@
 		<dependency>
             <groupId>cn.afterturn</groupId>
             <artifactId>easypoi-base</artifactId>
-            <version>3.0.3</version>
+            <version>${easypoi.base.version}</version>
         </dependency>
         <dependency>
             <groupId>cn.afterturn</groupId>
             <artifactId>easypoi-web</artifactId>
-            <version>3.0.3</version>
+            <version>${easypoi.web.version}</version>
         </dependency>
         <dependency>
             <groupId>cn.afterturn</groupId>
             <artifactId>easypoi-annotation</artifactId>
-            <version>3.0.3</version>
+            <version>${easypoi.annotation.version}</version>
         </dependency>
     </dependencies>
 
