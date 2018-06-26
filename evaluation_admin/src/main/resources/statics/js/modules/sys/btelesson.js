@@ -123,6 +123,7 @@ var vm = new Vue({
 		},
 		getInfo: function(dataNo){
 			$.get(baseURL + "sys/btelesson/info/"+dataNo, function(r){
+				vm.dictKclx = r.kclx;
                 vm.bteLesson = r.bteLesson;
             });
 		},

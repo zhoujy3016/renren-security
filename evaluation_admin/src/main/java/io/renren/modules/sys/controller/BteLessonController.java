@@ -64,9 +64,11 @@ public class BteLessonController {
      */
     @RequestMapping("/info/{dataNo}")
     public R info(@PathVariable("dataNo") Integer dataNo){
+    	Map<String, Object> map = new HashMap<>();
         BteLessonEntity bteLesson = bteLessonService.selectById(dataNo);
-
-        return R.ok().put("bteLesson", bteLesson);
+        map.put("bteLesson", bteLesson);
+        map.put("kclx", this.bteLessonTypeService.queryLessonTypeByCategory(bteLesson.getLessonCategoryId()));
+        return R.ok(map);
     }
 
     /**
