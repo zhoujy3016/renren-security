@@ -30,7 +30,7 @@
 	<select id="queryQuestionResultList" resultMap="bteResultMapExt">
 		SELECT
 		  bq.question_title,
-		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_type_id IN (2,3,4,5)) AS evaPersonNum,
+		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_type_id IN (2,3,4)) AS evaPersonNum,
 		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_score = 1) AS score1,
 		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_score = 2) AS score2,
 		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_score = 3) AS score3,
@@ -44,6 +44,7 @@
 		WHERE bq.data_no = ref.question_id
 		  AND  be.data_no = ref.eval_id
 		  AND be.data_no = #{evalId}
+		  AND bq.question_type_id in (2,3,4)
 	</select>
 	
 	<!-- 统计测评信息（课程） -->
