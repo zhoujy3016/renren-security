@@ -71,6 +71,7 @@ public class DictComponent {
     	Map<String, Object> resultMap = new HashMap<>();
     	String[] arrType = types.split(",");
 		for(String type : arrType) {
+			type = type.trim();
 			resultMap.put(type, dictComponent.redisUtils.get(type, ArrayList.class));
 		}
     	return resultMap;
