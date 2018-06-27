@@ -49,7 +49,6 @@ function setDictList(r) {
 	vm.dictKcfl = r.kcfl;
 	vm.gglx = r.gglx;
 	vm.zylx = r.zylx;
-	console.log(r);
 }
 
 var vm = new Vue({
@@ -128,9 +127,13 @@ var vm = new Vue({
 		},
 		getInfo: function(dataNo){
 			$.get(baseURL + "sys/btelesson/info/"+dataNo, function(r){
-				vm.dictKclx = r.kclx;
+	            if(r.bteLesson.lessonCategoryId == "1") {
+	            	vm.dictKclx = vm.gglx;
+	            } else {
+	            	vm.dictKclx = vm.zylx;
+	            }
                 vm.bteLesson = r.bteLesson;
-            });
+			});
 		},
 		back: function (event) {
 			history.go(-1);

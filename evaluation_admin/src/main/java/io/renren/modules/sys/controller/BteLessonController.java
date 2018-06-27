@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.renren.modules.sys.entity.BteLessonEntity;
 import io.renren.modules.sys.service.BteLessonService;
-import io.renren.modules.sys.service.BteLessonTypeService;
 import io.renren.common.component.DictComponent;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.R;
@@ -34,8 +33,6 @@ public class BteLessonController {
     @Autowired
     private BteLessonService bteLessonService;
 
-    @Autowired 
-    private BteLessonTypeService bteLessonTypeService;
     /**
      * 列表
      */
@@ -51,24 +48,14 @@ public class BteLessonController {
     	map.put("evalId", evalId);
     	return R.ok(map);
     }
-    
-    @RequestMapping("/lessonType/{categoryId}")
-    public R lessonType(@PathVariable("categoryId") Integer categoryId) {
-    	// 根据分类取出课程类型
-    	return R.ok().put("kclx", this.bteLessonTypeService.queryLessonTypeByCategory(categoryId));
-    }
-
 
     /**
      * 信息
      */
     @RequestMapping("/info/{dataNo}")
     public R info(@PathVariable("dataNo") Integer dataNo){
-    	Map<String, Object> map = new HashMap<>();
         BteLessonEntity bteLesson = bteLessonService.selectById(dataNo);
-        map.put("bteLesson", bteLesson);
-        map.put("kclx", this.bteLessonTypeService.queryLessonTypeByCategory(bteLesson.getLessonCategoryId()));
-        return R.ok(map);
+        return R.ok().put("bteLesson", bteLesson);
     }
 
     /**
