@@ -12,14 +12,14 @@ server:
 spring:
     # 环境 dev|test|prod
     profiles:
-        active: dev
+        active: test
     servlet:
         multipart:
             max-file-size: 100MB
             max-request-size: 100MB
             enabled: true
     redis:
-        database: 1
+        database: 0
         host: 127.0.0.1
         port: 6379
         password:      # 密码（默认为空）
