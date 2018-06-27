@@ -32,11 +32,14 @@ var vm = new Vue({
 			});
 		},
 		saveEval:function() {
+			
+			console.log($("question_5_14").val())
+			
 			var index = 0;
 			// 课程类型
 			for(var i = 0; i < vm.lesson.length; i++, index++) {
 				var radioValue = $('input[name="question_1_'+ i +'"]:checked').val();
-				if(!this.checkData($("#question_1_"+ i), radioValue)) {
+				if(!this.checkData($(".question_1_"+ i), radioValue)) {
 					return;
 				}
 				vm.result[index] = {"questionTypeId" : 1, "evalId" : vm.evalId, "questionId" : vm.lesson[i].dataNo, "questionScore": radioValue};
@@ -46,13 +49,14 @@ var vm = new Vue({
 				var typeId = vm.question[i].questionTypeId;
 				if(typeId != 5) {
 					var radioValue = $('input[name="question_'+ typeId +'_'+ i +'"]:checked').val()
-					if(!this.checkData($("#question_"+ typeId +'_'+ i), radioValue)) {
+					if(!this.checkData($(".question_"+ typeId +'_'+ i), radioValue)) {
 						return;
 					}
 					vm.result[index] = {"questionTypeId" : typeId, "evalId" : vm.evalId, "questionId" : vm.question[i].dataNo, "questionScore": radioValue};	
 				} else { // 其他建议
-					var suggest = $("#question_"+ typeId + "_" +  i).val();
-					if(isBlank(radioValue)) {
+					var suggest = $("#question_"+ typeId + '_' +  i).val();
+					console.log(suggest);
+					if(isBlank(suggest)) {
 						suggest = "";
 					}
 					vm.result[index] = {"questionTypeId" : typeId, "evalId" : vm.evalId, "questionId" : vm.question[i].dataNo, "evalSuggest": suggest};
@@ -87,7 +91,7 @@ var vm = new Vue({
 			var strLesson = '';
 			for(var i = 0; i < vm.lesson.length; i++) {
 				var lesson = vm.lesson[i];
-				strLesson += '<div class="question" id="question_1_'+ i +'">';
+				strLesson += '<div class="question question_1_'+ i +'">';
 				strLesson += '<div class="question-title">'+ (row++) + ' . ' + lesson.lessonTitle + '（' + lesson.lessonTeacherName +'）</div>';
 				strLesson += '<ul  class="question-option list-inline">';
 				strLesson += '<li><label><input type="radio" name="question_1_'+ i +'" value="5" id="RadioGroup1_0"> 5</label></li>';
@@ -103,7 +107,7 @@ var vm = new Vue({
 				var question = vm.question[i];
 				var typeId = question.questionTypeId;
 				var strQuestion = '';
-				strQuestion += '<div class="question" id="question_'+ typeId +'_'+ i +'">';
+				strQuestion += '<div class="question question_'+ typeId +'_'+ i +'">';
 				strQuestion += '<div class="question-title">'+ (row++) + ' . ' + question.questionTitle +'</div>';
 				strQuestion += '<ul  class="question-option list-inline">';
 				// 非其他建议的情况下
@@ -114,7 +118,7 @@ var vm = new Vue({
 					strQuestion += '<li><label><input type="radio" name="question_'+ typeId + '_'+ i +'" value="2" id="RadioGroup1_0"> 2</label></li>';
 					strQuestion += '<li><label><input type="radio" name="question_'+ typeId +'_'+ i +'" value="1" id="RadioGroup1_0"> 1</label></li>';
 				}  else { // 其他建议用textarea
-					strQuestion += '<textarea class="form-control" rows="5" cols="100" id="question_'+ typeId +'_'+ i +'" />';
+					strQuestion += '<textarea class="form-control"  rows="5" cols="100" id="question_'+ typeId +'_'+ i +'" />';
 				}
 				strQuestion += '</ul></div>';
 				$("#type_" + typeId).append(strQuestion);
@@ -122,12 +126,14 @@ var vm = new Vue({
 		},
 		checkData:function(question, radioValue) {
 			if(isBlank(radioValue)) {
+				alert("有未选择的试题。")
 				question.addClass("err");
 				return false;
 			} else {
 				question.removeClass("err");
 				return true;
 			}
+			return true;
 		}
 	},
 
