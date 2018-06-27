@@ -95,8 +95,13 @@ public class BteEvaluateController {
     
     @RequestMapping("/downloadQr/{dataNo}")
     public R downloadQr(@PathVariable("dataNo") Integer dataNo, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
-    	// 生成二维码
-    	String base64 = this.bteEvaluateService.buildQrCode(dataNo, httpServletRequest, httpServletResponse);
+    	String base64 = null;
+    	try {
+	    	// 生成二维码
+	    	base64 = this.bteEvaluateService.buildQrCode(dataNo, httpServletRequest, httpServletResponse);
+    	} catch(Exception e) {
+    		return R.error(e.toString());
+    	}
     	return R.ok().put("qrCode", base64);
     }
     

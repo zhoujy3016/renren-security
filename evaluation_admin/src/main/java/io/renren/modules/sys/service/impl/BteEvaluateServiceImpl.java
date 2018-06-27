@@ -19,6 +19,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 
 import io.renren.common.annotation.DataCreaterFilter;
+import io.renren.common.utils.AesUtil;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.QrcodeUtil;
 import io.renren.common.utils.Query;
@@ -81,7 +82,7 @@ public class BteEvaluateServiceImpl extends ServiceImpl<BteEvaluateDao, BteEvalu
 
 	@Override
 	public String buildQrCode(Integer dataNo, HttpServletRequest httpServletRequest,
-			HttpServletResponse httpServletResponse){
+			HttpServletResponse httpServletResponse) throws Exception{
 		String ipAddr = null; 
 		// 有公网ip使用公网，没有使用服务器ip
 		if(StringUtils.isNotBlank(ipAddress)) {
@@ -89,7 +90,9 @@ public class BteEvaluateServiceImpl extends ServiceImpl<BteEvaluateDao, BteEvalu
 		} else {
 			ipAddr = httpServletRequest.getLocalAddr();
 		}
-		String url = httpServletRequest.getScheme() + "://" + ipAddr  + ":" + httpServletRequest.getServerPort() + "/eva/modules/web/index.html?evalId=" + dataNo;
+		// 将参数加密
+		String enCode = AesUtil.Encrypt(String.valueOf(dataNo), AesUtil.CKEY);
+		String url = httpServletRequest.getScheme() + "://" + ipAddr  + ":" + httpServletRequest.getServerPort() + "/eva/modules/web/index.html?evalId=" + enCode;
 		return QrcodeUtil.getBase64QRCode(url, 300, 300);
 	}
 
