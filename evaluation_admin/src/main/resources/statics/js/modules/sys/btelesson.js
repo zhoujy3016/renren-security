@@ -47,6 +47,9 @@ $(function () {
 
 function setDictList(r) {
 	vm.dictKcfl = r.kcfl;
+	vm.gglx = r.gglx;
+	vm.zylx = r.zylx;
+	console.log(r);
 }
 
 var vm = new Vue({
@@ -57,7 +60,9 @@ var vm = new Vue({
 		bteLesson: {},
 		dictKcfl:{},
 		evalId:null,
-		dictKclx:{}
+		dictKclx:{},
+		gglx:{},
+		zylx:{}
 	},
 	methods: {
 		query: function () {
@@ -135,9 +140,11 @@ var vm = new Vue({
 	    	 var categoryId = this.bteLesson.lessonCategoryId;
 	    	 // 根据分类变化，后台查询相应分类的课程类型
 	    	 if(!isBlank(categoryId)) {
-	 			$.get(baseURL + "sys/btelesson/lessonType/"+categoryId, function(r){
-	 				vm.dictKclx = r.kclx;
-	 			});
+	 			if(categoryId == "1") {
+	 				vm.dictKclx = vm.gglx;
+	 			} else {
+	 				vm.dictKclx = vm.zylx;
+	 			}
 	    	 } else {
 	    		 vm.dictKclx = '';
 	    	 }

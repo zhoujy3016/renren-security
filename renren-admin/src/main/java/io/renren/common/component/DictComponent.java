@@ -9,10 +9,9 @@ import javax.annotation.PostConstruct;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import io.renren.common.service.DictCacheService;
+import io.renren.common.service.ExtraDictService;
 import io.renren.common.utils.RedisUtils;
 import io.renren.modules.sys.entity.SysDictEntity;
 import io.renren.modules.sys.service.SysDictService;
@@ -25,22 +24,18 @@ public class DictComponent {
     @Autowired
     private RedisUtils redisUtils;
 	
+    @Autowired
+    private ExtraDictService extraDictService;
+    
     public static DictComponent dictComponent;
     
-    //是否开启redis缓存  true开启   false关闭
-    @Value("${renren.redis.open}")
-    private boolean open;
-
     
-    @Autowired
-    private DictCacheService dictCacheService;
     
     @PostConstruct
     private void init() {
     	dictComponent = this;
     	dictComponent.redisUtils = this.redisUtils;
     	dictComponent.sysDictService = this.sysDictService;
-    	dictComponent.open = this.open;
     }
     
     /**
@@ -48,11 +43,7 @@ public class DictComponent {
      */
     public static void initDictCacheData() {
     	List<SysDictEntity> typeList = dictComponent.sysDictService.getSysDictEntityGroupByType();
-    	if(dictComponent.open == true) {
-    		loadDictDataToRedis(typeList);
-    	} else {
-    		loadDictDataToMap(typeList);
-    	}
+    	loadDictDataToRedis(typeList);
     }
     
     /**
@@ -64,27 +55,12 @@ public class DictComponent {
 			String type = typeList.get(i).getType();
 			// 根据类型查询每种数据字典，添加到map中
 			List<SysDictEntity> dictList = dictComponent.sysDictService.getSysDictEntity(type);
-			insertEmpty(dictList, typeList.get(i));
+			insertEmpty(dictList);
 			dictComponent.redisUtils.set(type, dictList);
 		}
+		// 合并数据字典缓存
+		mergeExtraDict();
     }
-    
-    /**
-     * 数据放入到map中
-     * @param typeList
-     */
-    
-    private static void loadDictDataToMap(List<SysDictEntity> typeList) {
-		Map<String, Object> cacheMap = dictComponent.dictCacheService.getCacheMap(); 
-		for(int i = 0; i < typeList.size(); i++) {
-			String type = typeList.get(i).getType();
-			// 根据类型查询每种数据字典，添加到map中
-			List<SysDictEntity> dictList = dictComponent.sysDictService.getSysDictEntity(type);
-			insertEmpty(dictList, typeList.get(i));
-			cacheMap.put(type, dictList);
-		}
-    }
-    
     
     /**
      * 通过types从redis缓存中查出数据放入一个map中
@@ -94,16 +70,9 @@ public class DictComponent {
     public static Map<String, Object> getDictCacheDataByTypes(String types) {
     	Map<String, Object> resultMap = new HashMap<>();
     	String[] arrType = types.split(",");
-    	if(dictComponent.open == true) {
-    		for(String type : arrType) {
-    			resultMap.put(type, dictComponent.redisUtils.get(type, ArrayList.class));
-    		}
-    	} else {
-    		Map<String, Object> dictMap = dictComponent.dictCacheService.getCacheMap();
-    		for(String type: arrType) {
-    			resultMap.put(type, dictMap.get(type));
-    		}
-    	}
+		for(String type : arrType) {
+			resultMap.put(type, dictComponent.redisUtils.get(type, ArrayList.class));
+		}
     	return resultMap;
     }
     
@@ -114,7 +83,7 @@ public class DictComponent {
      */
     public static void reloadDictCacheData(String type, List<SysDictEntity> dictList) {
     	dictComponent.redisUtils.delete(type);
-    	insertEmpty(dictList, null);
+    	insertEmpty(dictList);
     	dictComponent.redisUtils.set(type, dictList);
     }
     
@@ -131,11 +100,23 @@ public class DictComponent {
      * list第一位存放一个空值
      * @param dictList
      */
-    private static void insertEmpty(List<SysDictEntity> dictList, SysDictEntity typeObject) {
+    private static void insertEmpty(List<SysDictEntity> dictList) {
     	SysDictEntity empty = new SysDictEntity();
     	empty.setCode(StringUtils.EMPTY);
     	empty.setValue(StringUtils.EMPTY);
     	dictList.add(0, empty);
+    }
+    
+    /**
+     * 将配置文件中针对特殊的表需要放入数据字典的map,放入redis 数据字典缓存中
+     */
+    private static void mergeExtraDict() {
+    	Map<String, Object> extrMap = dictComponent.extraDictService.getExtraMap();
+    	for (String keys : extrMap.keySet()) {
+			List<SysDictEntity> dictList = (List<SysDictEntity>) extrMap.get(keys);
+	    	insertEmpty(dictList);
+	    	dictComponent.redisUtils.set(keys, dictList);
+		}
     }
     
 }

@@ -46,7 +46,7 @@ public class BteLessonController {
         Map<String, Object> map = new HashMap<>();
     	map.put("page", page);
     	// 数据字典
-    	map.put("userdata", DictComponent.getDictCacheDataByTypes("kcfl"));
+    	map.put("userdata", DictComponent.getDictCacheDataByTypes("kcfl, gglx, zylx"));
     	// 测评编号
     	map.put("evalId", evalId);
     	return R.ok(map);

@@ -9,4 +9,11 @@
 		</foreach>
 		group by type
 	</select>
+	
+	
+	
+	<!-- 查询额外的key value放入字典中 -->
+	<select id="excuteSelectExtraDictSql" parameterType="java.lang.String" resultType="io.renren.modules.sys.entity.SysDictEntity">
+		${value}
+	</select>
 </mapper>

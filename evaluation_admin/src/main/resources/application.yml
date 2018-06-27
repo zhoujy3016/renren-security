@@ -40,10 +40,15 @@ spring:
 
 renren:
     redis:
-        open: false  # 是否开启redis缓存  true开启   false关闭
+        open: true  # 是否开启redis缓存  true开启   false关闭
     shiro:
         redis: false # true表示shiro session存到redis里，需要开启redis，才会生效【分布式场景】
 
+    #sys_dict以外需要放入缓存中的数据
+    extra-open: false
+    extra-dict:
+        gglx:  select data_no as code, type_name as value from bte_lesson_type where category_id = 1
+        zylx : select data_no as code, type_name as value from bte_lesson_type where category_id = 2
 #mybatis
 mybatis-plus:
   mapper-locations: classpath*:mapper/**/*.xml
@@ -71,7 +76,7 @@ mybatis-plus:
     sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
   configuration:
     map-underscore-to-camel-case: true
-    cache-enabled: false
+    cache-enabled: true
     call-setters-on-nulls: true
 
 
