@@ -13,7 +13,11 @@ import org.springframework.core.io.ClassPathResource;
 @ConfigurationProperties(prefix="dictionary")
 @Configuration
 public class DictYmlConfig {
+	// 读取配置文件， 存放key与sql语句的map
 	private Map<String, String> extraDict = new HashMap<>();
+	
+	// mapper.xml中 namespace.id
+	private String statement;
 
 	public Map<String, String> getExtraDict() {
 		return extraDict;
@@ -23,6 +27,14 @@ public class DictYmlConfig {
 		this.extraDict = extraDict;
 	}
 	
+	public String getStatement() {
+		return statement;
+	}
+
+	public void setStatement(String statement) {
+		this.statement = statement;
+	}
+
 	/*
 	 * 加载sql查询形式的数据字典配置文件
 	 */

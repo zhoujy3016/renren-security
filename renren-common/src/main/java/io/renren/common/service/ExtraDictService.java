@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import io.renren.common.config.DictYmlConfig;
-import io.renren.modules.sys.entity.SysDictEntity;
 
 
 @Service
@@ -28,11 +27,13 @@ public class ExtraDictService {
 		System.out.println("配置文件形式加载数据字典bean初始化");
 		extraMap = new HashMap<>();
 		Map<String, String> sqlMap = dictYmlConfig.getExtraDict();
+		System.out.println("####extra-dict start:");
 		for (String keys : sqlMap.keySet()) {
 			String sql = sqlMap.get(keys);
-			List<SysDictEntity> extraDictList = this.sqlSession.selectList("io.renren.modules.sys.dao.SysDictDao.excuteSelectExtraDictSql", sql);
+			List<?> extraDictList = this.sqlSession.selectList(dictYmlConfig.getStatement(), sql);
 			extraMap.put(keys, extraDictList);
 		}
+		System.out.println("####extra-dict end:");
 	}
 	
 	public ExtraDictService() {
