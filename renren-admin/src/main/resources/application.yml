@@ -44,11 +44,7 @@ renren:
     shiro:
         redis: false # true表示shiro session存到redis里，需要开启redis，才会生效【分布式场景】
         
-    #sys_dict以外需要放入缓存中的数据
-    extra-open: false
-    extra-dict:
-        ryxx: select info_id as code , info_title as value from tbl_info
-        xxfb : select person_id as code, person_name as value from tbl_person
+
 
 #mybatis
 mybatis-plus:

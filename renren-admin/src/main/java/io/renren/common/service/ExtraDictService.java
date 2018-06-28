@@ -8,7 +8,8 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import io.renren.common.config.YmlConfig;
+
+import io.renren.common.config.DictYmlConfig;
 import io.renren.modules.sys.entity.SysDictEntity;
 
 
@@ -16,7 +17,7 @@ import io.renren.modules.sys.entity.SysDictEntity;
 public class ExtraDictService {
 	
 	@Autowired
-	private YmlConfig ymlConfig;
+	private DictYmlConfig dictYmlConfig;
 	
 	@Autowired
 	private SqlSession sqlSession;
@@ -26,7 +27,7 @@ public class ExtraDictService {
 	public void init() {
 		System.out.println("配置文件形式加载数据字典bean初始化");
 		extraMap = new HashMap<>();
-		Map<String, String> sqlMap = ymlConfig.getExtraDict();
+		Map<String, String> sqlMap = dictYmlConfig.getExtraDict();
 		for (String keys : sqlMap.keySet()) {
 			String sql = sqlMap.get(keys);
 			List<SysDictEntity> extraDictList = this.sqlSession.selectList("io.renren.modules.sys.dao.SysDictDao.excuteSelectExtraDictSql", sql);

@@ -12,7 +12,7 @@ server:
 spring:
     # 环境 dev|test|prod
     profiles:
-        active: test
+        active: dev
     servlet:
         multipart:
             max-file-size: 100MB
@@ -44,11 +44,6 @@ renren:
     shiro:
         redis: false # true表示shiro session存到redis里，需要开启redis，才会生效【分布式场景】
 
-    #sys_dict以外需要放入缓存中的数据
-    extra-open: false
-    extra-dict:
-        gglx:  select data_no as code, type_name as value from bte_lesson_type where category_id = 1
-        zylx : select data_no as code, type_name as value from bte_lesson_type where category_id = 2
 #mybatis
 mybatis-plus:
   mapper-locations: classpath*:mapper/**/*.xml
