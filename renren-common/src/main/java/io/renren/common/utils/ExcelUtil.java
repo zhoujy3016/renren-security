@@ -69,7 +69,8 @@ public class ExcelUtil {
         List<T> list = null;
         try {
             list = ExcelImportUtil.importExcel(new File(filePath), pojoClass, params);
-        }catch (NoSuchElementException e){
+        } catch (NoSuchElementException e){
+        	
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -86,8 +87,10 @@ public class ExcelUtil {
         List<T> list = null;
         try {
             list = ExcelImportUtil.importExcel(file.getInputStream(), pojoClass, params);
-        }catch (NoSuchElementException e){
+        } catch (NoSuchElementException e){
+        	
         } catch (Exception e) {
+        	
         }
         return list;
     }
