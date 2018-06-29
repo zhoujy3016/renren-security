@@ -93,7 +93,7 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictDao, SysDictEntity> i
 	public void deleteDict(Long[] ids) {
         this.deleteBatchIds(Arrays.asList(ids));
         // 更新数据字典
-        DictComponent.reloadDictCacheDataBatch(ids);
+        DictComponent.reloadDictCacheData(ids);
 	}
 
 }

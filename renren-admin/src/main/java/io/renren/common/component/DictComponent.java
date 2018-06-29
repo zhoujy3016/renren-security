@@ -92,9 +92,9 @@ public class DictComponent {
      * 删除数据字典时，更新缓存
      * @param ids
      */
-    public static void reloadDictCacheDataBatch(Long[] ids) {
-    	List<SysDictEntity> delList = dictComponent.sysDictService.getSysDictEntityGroupByType(ids);
-    	loadDictDataToRedis(delList);
+    public static void reloadDictCacheData(Long[] ids) {
+    	List<SysDictEntity> delTypeList = dictComponent.sysDictService.getSysDictEntityGroupByType(ids);
+    	loadDictDataToRedis(delTypeList);
     }
     
     /**
