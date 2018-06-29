@@ -168,7 +168,13 @@
             <artifactId>easypoi-annotation</artifactId>
             <version>${easypoi.annotation.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.15-beta2</version>
+        </dependency>
     </dependencies>
+
 
     <!-- 阿里云maven仓库 -->
     <repositories>
