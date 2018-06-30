@@ -44,6 +44,8 @@ public class DictComponent {
     public static void initDictCacheData() {
     	List<SysDictEntity> typeList = dictComponent.sysDictService.getSysDictEntityGroupByType();
     	loadDictDataToRedis(typeList);
+		// 额外的数据字典载入到redis
+		loadExtraDictDataToRedis();
     }
     
     /**
@@ -58,8 +60,6 @@ public class DictComponent {
 			insertEmpty(dictList);
 			dictComponent.redisUtils.set(type, dictList);
 		}
-		// 合并数据字典缓存
-		mergeExtraDict();
     }
     
     /**
@@ -80,11 +80,14 @@ public class DictComponent {
     /**
      * 增、改数据字典时，更新缓存
      * @param type
-     * @param dictList
      */
-    public static void reloadDictCacheData(String type, List<SysDictEntity> dictList) {
+    public static void reloadDictCacheData(String type) {
+    	// 查询当前type中的数据字典列表
+		List<SysDictEntity> dictList = dictComponent.sysDictService.getSysDictEntity(type);
+		// redis中删除
     	dictComponent.redisUtils.delete(type);
     	insertEmpty(dictList);
+    	// 重新载入到redis中
     	dictComponent.redisUtils.set(type, dictList);
     }
     
@@ -96,7 +99,7 @@ public class DictComponent {
     	List<SysDictEntity> delTypeList = dictComponent.sysDictService.getSysDictEntityGroupByType(ids);
     	loadDictDataToRedis(delTypeList);
     }
-    
+
     /**
      * list第一位存放一个空值
      * @param dictList
@@ -111,7 +114,7 @@ public class DictComponent {
     /**
      * 将配置文件中针对特殊的表需要放入数据字典的map,放入redis 数据字典缓存中
      */
-    private static void mergeExtraDict() {
+    private static void loadExtraDictDataToRedis() {
     	Map<String, Object> extrMap = dictComponent.extraDictService.getExtraMap();
     	for (String keys : extrMap.keySet()) {
 			List<SysDictEntity> dictList = (List<SysDictEntity>) extrMap.get(keys);
