@@ -58,7 +58,7 @@ public class DictComponent {
 			// 根据类型查询每种数据字典，添加到map中
 			List<SysDictEntity> dictList = dictComponent.sysDictService.getSysDictEntity(type);
 			insertEmpty(dictList);
-			dictComponent.redisUtils.set(type, dictList);
+			dictComponent.redisUtils.set(type, dictList, RedisUtils.NOT_EXPIRE);
 		}
 	}
 
@@ -88,7 +88,7 @@ public class DictComponent {
 		dictComponent.redisUtils.delete(type);
 		insertEmpty(dictList);
 		// 重新载入到redis中
-		dictComponent.redisUtils.set(type, dictList);
+		dictComponent.redisUtils.set(type, dictList, RedisUtils.NOT_EXPIRE);
 	}
 
 	/**
@@ -119,7 +119,7 @@ public class DictComponent {
 		for (String keys : extrMap.keySet()) {
 			List<SysDictEntity> dictList = (List<SysDictEntity>) extrMap.get(keys);
 			insertEmpty(dictList);
-			dictComponent.redisUtils.set(keys, dictList);
+			dictComponent.redisUtils.set(keys, dictList, RedisUtils.NOT_EXPIRE);
 		}
 	}
 
