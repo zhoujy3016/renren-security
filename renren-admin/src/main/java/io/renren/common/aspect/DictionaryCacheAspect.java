@@ -2,19 +2,32 @@ package io.renren.common.aspect;
 
 import io.renren.common.annotation.DictionaryCache;
 import io.renren.common.component.DictComponent;
+import io.renren.common.config.DictYmlConfig;
 import io.renren.common.exception.RRException;
+import io.renren.common.service.ExtraDictService;
 import io.renren.modules.sys.entity.SysDictEntity;
+import org.apache.commons.lang.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Aspect
 @Component
 public class DictionaryCacheAspect {
+
+    @Autowired
+    private ExtraDictService extraDictService;
+
+    @Autowired
+    private DictYmlConfig dictYmlConfig;
 
     @Pointcut("@annotation(io.renren.common.annotation.DictionaryCache)")
     public void dataFilterCut() {
@@ -69,6 +82,19 @@ public class DictionaryCacheAspect {
      * @param param
      */
     private void updateExtraDictCache(DictionaryCache dataFilter, Object param) {
-
+        String strKyes = dataFilter.dictKey();
+        if(StringUtils.isEmpty(strKyes)) {
+            throw new RRException("数据字典参数为NULL，请指定key");
+        }
+        String[] arrKeys = strKyes.split(",");
+        Map<String, Object> extraMap = new HashMap<>();
+        // 配置文件中取得sql
+        Map<String, String> sqlMap = dictYmlConfig.getExtraDict();
+        for(String key:arrKeys) {
+            key = key.trim();
+            // 根据key重新查询，并放入map中
+            extraMap.put(key, extraDictService.excuteQuery(sqlMap.get(key)));
+        }
+        DictComponent.loadExtraDictDataToRedis(extraMap);
     }
 }
