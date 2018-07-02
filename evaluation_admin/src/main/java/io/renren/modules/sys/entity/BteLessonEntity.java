@@ -33,7 +33,7 @@ public class BteLessonEntity implements Serializable {
 	/**
 	 * 
 	 */
-	@NotBlank(message="课程名称不能为空")
+	@NotBlank(message="课程名称不能为空！")
 	private String lessonTitle;
 	
 	/**

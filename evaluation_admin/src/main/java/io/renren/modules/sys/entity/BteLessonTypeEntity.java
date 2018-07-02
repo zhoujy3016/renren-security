@@ -2,16 +2,21 @@ package io.renren.modules.sys.entity;
 
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableLogic;
 import com.baomidou.mybatisplus.annotations.TableName;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 
  * 
  * @author chenshun
  * @email sunlightcs@gmail.com
- * @date 2018-06-25 13:29:14
+ * @date 2018-07-02 09:44:42
  */
 @TableName("bte_lesson_type")
 public class BteLessonTypeEntity implements Serializable {
@@ -25,15 +30,27 @@ public class BteLessonTypeEntity implements Serializable {
 	/**
 	 * 1:公共类 2：专业类
 	 */
+
+	@NotNull(message = "请选择所属分类！")
 	private Integer categoryId;
+
+	/**
+	 * 课程分类名称
+	 */
+	@TableField(exist=false)
+	private String categoryName;
+
+	@TableLogic
+	private Integer delFlag;
 	/**
 	 * 
 	 */
+	@NotEmpty(message = "课程类型不能为空！")
 	private String typeName;
-	
+
 	@TableField(exist=false)
 	private Integer code;
-	
+
 	@TableField(exist=false)
 	private String value;
 
@@ -73,6 +90,7 @@ public class BteLessonTypeEntity implements Serializable {
 	public String getTypeName() {
 		return typeName;
 	}
+
 	public Integer getCode() {
 		return code;
 	}
@@ -85,5 +103,20 @@ public class BteLessonTypeEntity implements Serializable {
 	public void setValue(String value) {
 		this.value = value;
 	}
-	
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
+	public Integer getDelFlag() {
+		return delFlag;
+	}
+
+	public void setDelFlag(Integer delFlag) {
+		this.delFlag = delFlag;
+	}
 }

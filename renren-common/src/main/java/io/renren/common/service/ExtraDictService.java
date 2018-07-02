@@ -64,7 +64,7 @@ public class ExtraDictService {
 	 * @param sql
 	 * @return
 	 */
-	private List<?> excuteQuery(String sql) {
+	public List<?> excuteQuery(String sql) {
 		return this.sqlSession.selectList(dictYmlConfig.getStatement(), sql);
 	}
 }

@@ -45,7 +45,7 @@ public class DictComponent {
     	List<SysDictEntity> typeList = dictComponent.sysDictService.getSysDictEntityGroupByType();
     	loadDictDataToRedis(typeList);
 		// 额外的数据字典载入到redis
-		loadExtraDictDataToRedis();
+		loadExtraDictDataToRedis(dictComponent.extraDictService.getExtraMap());
     }
     
     /**
@@ -114,10 +114,9 @@ public class DictComponent {
     /**
      * 将配置文件中针对特殊的表需要放入数据字典的map,放入redis 数据字典缓存中
      */
-    private static void loadExtraDictDataToRedis() {
-    	Map<String, Object> extrMap = dictComponent.extraDictService.getExtraMap();
-    	for (String keys : extrMap.keySet()) {
-			List<SysDictEntity> dictList = (List<SysDictEntity>) extrMap.get(keys);
+    public static void loadExtraDictDataToRedis(Map<String, Object> extraMap) {
+    	for (String keys : extraMap.keySet()) {
+			List<SysDictEntity> dictList = (List<SysDictEntity>) extraMap.get(keys);
 	    	insertEmpty(dictList);
 	    	dictComponent.redisUtils.set(keys, dictList, RedisUtils.NOT_EXPIRE);
 		}

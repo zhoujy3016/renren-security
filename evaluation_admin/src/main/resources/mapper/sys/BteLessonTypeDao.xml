@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.modules.sys.dao.BteLessonTypeDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.renren.modules.sys.entity.BteLessonTypeEntity" id="bteLessonTypeMap">
+        <result property="dataNo" column="data_no"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="typeName" column="type_name"/>
+        <result property="categoryName" column="categoryName"/>
+    </resultMap>
+
+    <select id="queryLessonTypeList" resultMap="bteLessonTypeMap">
+        select data_no,
+                category_id,
+                type_name,
+                d1.value as categoryName
+        from bte_lesson_type lt
+            left join sys_dict d1 on d1.code = lt.category_id and d1.type = 'kcfl'
+            <where>
+                <if test="params.categoryId!=null and params.categoryId!=''">
+                    and lt.category_Id = #{params.categoryId}
+                </if>
+                and lt.del_flag != -1
+            </where>
+    </select>
+
+</mapper>
