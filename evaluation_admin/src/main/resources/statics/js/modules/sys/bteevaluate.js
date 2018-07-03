@@ -8,18 +8,18 @@ $(function () {
 			{ label: '测评说明', name: 'evalMemo', index: 'eval_memo', width: 80 }, 			
 			{ label: '课程设置', name: '', index: '', width: 20, 
 				  formatter:function(cellvalue, options, rowObject){
-					    return '<a onclick="vm.lessonList(' + rowObject.dataNo+ ')">设置</a>';
+					    return '<a style="cursor: pointer" onclick="vm.lessonList(' + rowObject.dataNo+ ')">设置</a>';
 				  }	
 			}, 			
 			{ label: '查看结果', name: '', index: '', width: 20,
 				  formatter:function(cellvalue, options, rowObject){
-					    return '<a onclick="vm.resultList(' + rowObject.dataNo+ ')">查看</a>';
+					    return '<a style="cursor: pointer" onclick="vm.resultList(' + rowObject.dataNo+ ')">查看</a>';
 				  }		
 			},
 			{ label: '状态', name: 'evalStateName', index: 'evalStateName', width: 20 }, 
 			{ label: '二维码', name: '', index: '', width: 20,
 				formatter:function(cellvalue, options, rowObject){
-				    return '<a onclick="vm.downloadQr(' + rowObject.dataNo+ ')">显示</a>';
+				    return '<a style="cursor: pointer" onclick="vm.downloadQr(' + rowObject.dataNo+ ')">显示</a>';
 			  }	
 			}
         ],
