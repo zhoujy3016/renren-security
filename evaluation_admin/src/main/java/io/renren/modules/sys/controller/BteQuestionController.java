@@ -34,6 +34,9 @@ public class BteQuestionController {
     @Autowired
     private BteQuestionService bteQuestionService;
 
+    @Autowired
+    private DictComponent dictComponent;
+
     /**
      * 列表
      */
@@ -43,7 +46,7 @@ public class BteQuestionController {
         PageUtils page = bteQuestionService.queryPage(params);
         Map<String, Object> map = new HashMap<>();
     	map.put("page", page);
-    	map.put("userdata", DictComponent.getDictCacheDataByTypes("stlx"));
+    	map.put("userdata", dictComponent.getDictCacheDataByTypes("stlx"));
     	return R.ok(map);
     }
 

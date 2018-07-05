@@ -25,7 +25,7 @@ import io.renren.common.component.DictComponent;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.Query;
 import io.renren.modules.sys.dao.SysDictDao;
-import io.renren.modules.sys.entity.SysDictEntity;
+import io.renren.common.entity.SysDictEntity;
 import io.renren.modules.sys.service.SysDictService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;

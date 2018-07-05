@@ -33,6 +33,9 @@ public class BteLessonController {
     @Autowired
     private BteLessonService bteLessonService;
 
+    @Autowired
+    private DictComponent dictComponent;
+
     /**
      * 列表
      */
@@ -43,7 +46,7 @@ public class BteLessonController {
         Map<String, Object> map = new HashMap<>();
     	map.put("page", page);
     	// 数据字典
-    	map.put("userdata", DictComponent.getDictCacheDataByTypes("kcfl, gglx, zylx"));
+    	map.put("userdata", dictComponent.getDictCacheDataByTypes("kcfl, gglx, zylx"));
     	// 测评编号
     	map.put("evalId", evalId);
     	return R.ok(map);

@@ -16,7 +16,7 @@
 
 package io.renren.modules.sys.dao;
 
-import io.renren.modules.sys.entity.SysDictEntity;
+import io.renren.common.entity.SysDictEntity;
 
 import java.util.List;
 
