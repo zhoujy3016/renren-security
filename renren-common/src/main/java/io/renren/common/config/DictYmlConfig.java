@@ -10,6 +10,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.ClassPathResource;
 
+/**
+ * 读取自定义数据字典配置文件类
+ */
+
 @ConfigurationProperties(prefix="dictionary")
 @Configuration
 public class DictYmlConfig {

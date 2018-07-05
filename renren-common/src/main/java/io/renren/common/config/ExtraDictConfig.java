@@ -7,6 +7,9 @@ import org.springframework.context.annotation.Configuration;
 
 import io.renren.common.service.ExtraDictService;
 
+/**
+ * 自定义数据字典配置类
+ */
 
 @Configuration
 @ConditionalOnClass(ExtraDictService.class)

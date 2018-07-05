@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import io.renren.common.config.DictYmlConfig;
 
+/**
+ * 自定义数据字典service
+ */
 
 @Service
 public class ExtraDictService {

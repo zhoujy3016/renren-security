@@ -13,6 +13,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 数据字典缓存操作类
+ */
+
 @Component
 public class DictComponent {
     @Autowired
