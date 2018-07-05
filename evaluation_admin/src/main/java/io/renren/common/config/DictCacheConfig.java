@@ -12,13 +12,13 @@ import org.springframework.context.annotation.Configuration;
  */
 
 @Configuration
+@ConditionalOnBean(SysDictService.class)
 public class DictCacheConfig {
 
 	@Autowired
 	private  SysDictService sysDictService;
 
 	@Bean
-	@ConditionalOnBean(SysDictService.class)
 	DictComponent dictComponent() {
 		DictComponent dictComponent = new DictComponent();
 		dictComponent.setSysDictService(sysDictService);
