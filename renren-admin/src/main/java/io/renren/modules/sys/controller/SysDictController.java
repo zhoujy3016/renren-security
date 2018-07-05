@@ -16,11 +16,10 @@
 
 package io.renren.modules.sys.controller;
 
-import io.renren.common.component.DictComponent;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.R;
 import io.renren.common.validator.ValidatorUtils;
-import io.renren.modules.sys.entity.SysDictEntity;
+import io.renren.common.entity.SysDictEntity;
 import io.renren.modules.sys.service.SysDictService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,8 +28,6 @@ import io.swagger.annotations.ApiParam;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import com.alibaba.fastjson.JSONObject;
 
 import java.util.HashMap;
 import java.util.List;

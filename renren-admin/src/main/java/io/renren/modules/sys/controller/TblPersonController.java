@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.renren.common.component.DictComponent;
 import io.renren.common.validator.ValidatorUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,6 @@ import io.renren.modules.sys.entity.TblPersonEntity;
 import io.renren.modules.sys.service.TblPersonService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.renren.common.component.DictComponent;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.R;
 
@@ -37,6 +37,10 @@ import io.renren.common.utils.R;
 public class TblPersonController extends AbstractController{
     @Autowired
     private TblPersonService tblPersonService;
+
+    @Autowired
+    private DictComponent dictComponent;
+
     /**
      * 列表
      */
@@ -54,7 +58,7 @@ public class TblPersonController extends AbstractController{
     	
     	Map<String, Object> map = new HashMap<>();
     	map.put("page", page);
-    	map.put("userdata", DictComponent.getDictCacheDataByTypes("mz,area"));
+    	map.put("userdata", dictComponent.getDictCacheDataByTypes("mz,area"));
         return R.ok(map);
     }
     

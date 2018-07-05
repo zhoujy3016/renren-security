@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.renren.common.component.DictComponent;
 import io.renren.common.validator.ValidatorUtils;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.renren.modules.sys.entity.TblInfoEntity;
 import io.renren.modules.sys.service.TblInfoService;
-import io.renren.common.component.DictComponent;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.R;
 
@@ -35,6 +35,9 @@ public class TblInfoController {
     @Autowired
     private TblInfoService tblInfoService;
 
+    @Autowired
+    private DictComponent dictComponent;
+
     /**
      * 列表
      */
@@ -45,7 +48,7 @@ public class TblInfoController {
         
     	Map<String, Object> map = new HashMap<>();
     	map.put("page", page);
-    	map.put("userdata", DictComponent.getDictCacheDataByTypes("xwlx"));
+    	map.put("userdata", dictComponent.getDictCacheDataByTypes("xwlx"));
         return R.ok(map);
     }
 

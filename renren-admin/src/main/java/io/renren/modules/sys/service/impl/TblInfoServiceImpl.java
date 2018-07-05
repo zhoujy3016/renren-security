@@ -14,7 +14,7 @@ import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.Query;
 
 import io.renren.modules.sys.dao.TblInfoDao;
-import io.renren.modules.sys.entity.SysDictEntity;
+import io.renren.common.entity.SysDictEntity;
 import io.renren.modules.sys.entity.TblInfoEntity;
 import io.renren.modules.sys.service.SysDictService;
 import io.renren.modules.sys.service.TblInfoService;
