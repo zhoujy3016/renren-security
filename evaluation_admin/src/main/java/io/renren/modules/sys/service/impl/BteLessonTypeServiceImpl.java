@@ -1,5 +1,6 @@
 package io.renren.modules.sys.service.impl;
 
+import io.renren.common.annotation.DictOperation;
 import io.renren.common.annotation.DictionaryCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,19 +28,19 @@ public class BteLessonTypeServiceImpl extends ServiceImpl<BteLessonTypeDao, BteL
     }
 
     @Override
-    @DictionaryCache(dictType = "extra", dictKey = "gglx,zylx")
+    @DictionaryCache(dictType = DictOperation.T_EXTRA, dictKey = "gglx,zylx")
     public void insertLessonType(BteLessonTypeEntity bteLessonType) {
         this.insert(bteLessonType);
     }
 
     @Override
-    @DictionaryCache(dictType = "extra", dictKey = "gglx,zylx")
+    @DictionaryCache(dictType = DictOperation.T_EXTRA, dictKey = "gglx,zylx")
     public void updateLessonType(BteLessonTypeEntity bteLessonType) {
         this.updateAllColumnById(bteLessonType);
     }
 
     @Override
-    @DictionaryCache(dictType = "extra", dictKey = "gglx,zylx")
+    @DictionaryCache(dictType = DictOperation.T_EXTRA, dictKey = "gglx,zylx")
     public void deleteLessonType(Integer[] ids) {
         this.deleteBatchIds(Arrays.asList(ids));
     }

@@ -1,5 +1,6 @@
 package io.renren.common.aspect;
 
+import io.renren.common.annotation.DictOperation;
 import io.renren.common.annotation.DictionaryCache;
 import io.renren.common.component.DictComponent;
 import io.renren.common.config.DictYmlConfig;
@@ -13,7 +14,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -47,11 +47,11 @@ public class DictionaryCacheAspect {
         DictionaryCache dataFilter = signature.getMethod().getAnnotation(DictionaryCache.class);
         Object param = point.getArgs()[0];
         // 数据字典类型：常规，额外
-        String dicType = dataFilter.dictType();
+        DictOperation dicType = dataFilter.dictType();
         if(param != null) {
-            if (dicType.equals("normal")) {
+            if (dicType == DictOperation.T_NORMAL) {
                 updateDictionaryCache(dataFilter, param);
-            } else if(dicType.equals("extra")) {
+            } else { // 自定义数据字典类型(DictOperationType.T_EXTRA)
                 updateExtraDictCache(dataFilter, param);
             }
         } else {
@@ -66,16 +66,16 @@ public class DictionaryCacheAspect {
      * @param param
      */
     private void updateDictionaryCache(DictionaryCache dataFilter, Object param) {
-        String operation = dataFilter.operation();
+        DictOperation operation = dataFilter.operation();
         switch (operation) {
-            case "insert":
-            case "update":
+            case OP_INSERT:
+            case OP_UPDATE:
                     SysDictEntity sysDictEntity = (SysDictEntity) param;
                     String type = sysDictEntity.getType();
                     // 将该类型重新载入缓存中
                     dictComponent.reloadDictCacheData(type);
                 break;
-            case "delete":
+            case OP_DELETE:
                     Long[] ids = (Long[]) param;
                     dictComponent.reloadDictCacheData(ids);
                 break;

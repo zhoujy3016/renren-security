@@ -20,6 +20,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 
+import io.renren.common.annotation.DictOperation;
 import io.renren.common.annotation.DictionaryCache;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.Query;
@@ -74,19 +75,19 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictDao, SysDictEntity> i
 	}
 
 	@Override
-	@DictionaryCache(operation = "insert")
+	@DictionaryCache(operation = DictOperation.OP_INSERT)
     public void insertDict(SysDictEntity sysDictEntity) {
 		this.insert(sysDictEntity);
 	}
 
 	@Override
-	@DictionaryCache(operation = "update")
+	@DictionaryCache(operation = DictOperation.OP_UPDATE)
     public void updateDict(SysDictEntity sysDictEntity) {
 		this.updateById(sysDictEntity);
 	}
 
 	@Override
-	@DictionaryCache(operation = "delete")
+	@DictionaryCache(operation = DictOperation.OP_DELETE)
     public void deleteDict(Long[] ids) {
 		this.deleteBatchIds(Arrays.asList(ids));
 	}
