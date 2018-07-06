@@ -28,15 +28,6 @@ public class DictComponent {
     @Autowired
     private ExtraDictService extraDictService;
 
-
-	public IDictService getSysDictService() {
-		return sysDictService;
-	}
-
-	public void setSysDictService(IDictService sysDictService) {
-		this.sysDictService = sysDictService;
-	}
-
 	/**
      * 系统初始化加载数据字典缓存
      */
