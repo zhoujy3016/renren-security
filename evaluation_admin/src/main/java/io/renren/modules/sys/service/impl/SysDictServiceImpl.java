@@ -22,11 +22,11 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 
 import io.renren.common.annotation.DictOperation;
 import io.renren.common.annotation.DictionaryCache;
-import io.renren.common.component.DictComponent;
+import io.renren.common.service.IDictService;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.Query;
 import io.renren.modules.sys.dao.SysDictDao;
-import io.renren.common.entity.SysDictEntity;
+import io.renren.modules.sys.entity.SysDictEntity;
 import io.renren.modules.sys.service.SysDictService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
@@ -37,7 +37,7 @@ import java.util.Map;
 
 
 @Service("sysDictService")
-public class SysDictServiceImpl extends ServiceImpl<SysDictDao, SysDictEntity> implements SysDictService {
+public class SysDictServiceImpl extends ServiceImpl<SysDictDao, SysDictEntity> implements SysDictService, IDictService {
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -54,25 +54,25 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictDao, SysDictEntity> i
     }
 
 	@Override
-	public List<SysDictEntity> getSysDictEntity(String type) {
+	public List<Map<String, Object>> getSysDictEntity(String type) {
 		EntityWrapper<SysDictEntity> ew = new EntityWrapper<>();
 		ew.eq("type", type);
-		List<SysDictEntity> sysDictEntityList = this.selectList(ew);
-		return sysDictEntityList;
+		List<Map<String, Object>> sysDictEntityMap = this.selectMaps(ew);
+		return sysDictEntityMap;
 	}
 
 	@Override
-	public List<SysDictEntity> getSysDictEntityGroupByType() {
+	public List<Map<String, Object>> getSysDictEntityGroupByType() {
 		EntityWrapper<SysDictEntity> ew = new EntityWrapper<>();
 		ew.groupBy("type");
-		List<SysDictEntity> sysDictEntityList = this.selectList(ew);
-		return sysDictEntityList;
+		List<Map<String, Object>> sysDictEntityMap = this.selectMaps(ew);
+		return sysDictEntityMap;
 	}
 
 	@Override
-	public List<SysDictEntity> getSysDictEntityGroupByType(Long[] ids) {
-		List<SysDictEntity> sysDictEntityList = this.baseMapper.getSysDictEntityGroupByType(ids);
-		return sysDictEntityList;
+	public List<Map<String, Object>> getSysDictEntityGroupByType(Long[] ids) {
+		List<Map<String, Object>> sysDictEntityMap = this.baseMapper.getSysDictEntityGroupByType(ids);
+		return sysDictEntityMap;
 	}
 
 	@Override

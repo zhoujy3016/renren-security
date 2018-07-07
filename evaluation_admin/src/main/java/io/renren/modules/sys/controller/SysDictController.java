@@ -20,7 +20,7 @@ import io.renren.common.component.DictComponent;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.R;
 import io.renren.common.validator.ValidatorUtils;
-import io.renren.common.entity.SysDictEntity;
+import io.renren.modules.sys.entity.SysDictEntity;
 import io.renren.modules.sys.service.SysDictService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -58,12 +58,9 @@ public class SysDictController {
     @ApiOperation(value="数据字典列表", notes="返回数据字典列表")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = sysDictService.queryPage(params);
-        // 画面数据字典类型下拉菜单
-        List<SysDictEntity> typeList = sysDictService.getSysDictEntityGroupByType();
         // 结果map
         Map<String, Object> map = new HashMap<>();
         map.put("page", page);
-        map.put("userdata", typeList);
         return R.ok(map);
     }
 

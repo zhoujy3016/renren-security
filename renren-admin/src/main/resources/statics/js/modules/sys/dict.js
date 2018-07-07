@@ -35,7 +35,7 @@ $(function () {
         	$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" }); 
         },
         loadComplete: function(data) {
-        	vm.dictType = data.userdata;
+        	// vm.dictType = data.userdata;
         }
     });
 });

@@ -4,9 +4,9 @@ import io.renren.common.annotation.DictOperation;
 import io.renren.common.annotation.DictionaryCache;
 import io.renren.common.component.DictComponent;
 import io.renren.common.config.DictYmlConfig;
-import io.renren.common.entity.SysDictEntity;
 import io.renren.common.exception.RRException;
 import io.renren.common.service.ExtraDictService;
+import io.renren.common.utils.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
@@ -70,10 +70,10 @@ public class DictionaryCacheAspect {
         switch (operation) {
             case OP_INSERT:
             case OP_UPDATE:
-                    SysDictEntity sysDictEntity = (SysDictEntity) param;
-                    String type = sysDictEntity.getType();
+                    // 将实体类型转为map类型
+                    Map<String, Object> dictEntity = MapUtils.transEntity2Map(param);
                     // 将该类型重新载入缓存中
-                    dictComponent.reloadDictCacheData(type);
+                    dictComponent.reloadDictCacheData((String) dictEntity.get("type"));
                 break;
             case OP_DELETE:
                     Long[] ids = (Long[]) param;

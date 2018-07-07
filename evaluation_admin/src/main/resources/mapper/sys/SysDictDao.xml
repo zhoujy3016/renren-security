@@ -2,18 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="io.renren.modules.sys.dao.SysDictDao">
-	<select id="getSysDictEntityGroupByType" resultType="io.renren.common.entity.SysDictEntity">
+
+	<resultMap id="dictMap" type="java.util.HashMap">
+		<result column="id" property="id"/>
+		<result column="type" property="type" />
+		<result column="code" property="code" />
+		<result column="value" property="value" />
+	</resultMap>
+
+	<select id="getSysDictEntityGroupByType" resultMap="dictMap">
 		select * from sys_dict where del_flag = -1 AND id in
 		<foreach item="ids" collection="array" open="(" separator="," close=")">
 			#{ids}
 		</foreach>
 		group by type
 	</select>
-	
-	
-	
+
+
+
 	<!-- 查询额外的key value放入字典中 -->
-	<select id="excuteSelectExtraDictSql" parameterType="java.lang.String" resultType="io.renren.common.entity.SysDictEntity">
+	<select id="excuteSelectExtraDictSql" parameterType="java.lang.String" resultMap="dictMap">
 		${value}
 	</select>
 </mapper>

@@ -17,9 +17,8 @@
 package io.renren.modules.sys.service;
 
 import com.baomidou.mybatisplus.service.IService;
-import io.renren.common.service.IDictService;
 import io.renren.common.utils.PageUtils;
-import io.renren.common.entity.SysDictEntity;
+import io.renren.modules.sys.entity.SysDictEntity;
 
 import java.util.List;
 import java.util.Map;
@@ -30,7 +29,7 @@ import java.util.Map;
  * @author Mark sunlightcs@gmail.com
  * @since 3.1.0 2018-01-27
  */
-public interface SysDictService extends IDictService {
+public interface SysDictService extends IService<SysDictEntity> {
 	
 	void insertDict(SysDictEntity sysDictEntity);
 	

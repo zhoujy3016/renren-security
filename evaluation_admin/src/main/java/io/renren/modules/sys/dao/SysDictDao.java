@@ -16,11 +16,12 @@
 
 package io.renren.modules.sys.dao;
 
-import io.renren.common.entity.SysDictEntity;
 
 import java.util.List;
+import java.util.Map;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import io.renren.modules.sys.entity.SysDictEntity;
 
 /**
  * 数据字典
@@ -30,5 +31,5 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  */
 public interface SysDictDao extends BaseMapper<SysDictEntity> {
     // 删除数据字典 查出待删除的id所在的type分组
-    List<SysDictEntity> getSysDictEntityGroupByType(Long[] ids);
+    List<Map<String, Object>> getSysDictEntityGroupByType(Long[] ids);
 }

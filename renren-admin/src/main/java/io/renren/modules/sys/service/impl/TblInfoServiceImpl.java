@@ -1,5 +1,6 @@
 package io.renren.modules.sys.service.impl;
 
+import io.renren.modules.sys.entity.SysDictEntity;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,6 @@ import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.Query;
 
 import io.renren.modules.sys.dao.TblInfoDao;
-import io.renren.common.entity.SysDictEntity;
 import io.renren.modules.sys.entity.TblInfoEntity;
 import io.renren.modules.sys.service.SysDictService;
 import io.renren.modules.sys.service.TblInfoService;
