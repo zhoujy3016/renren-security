@@ -8,7 +8,7 @@ public class DictionaryCondition implements Condition {
 
 	@Override
 	public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-		return context.getEnvironment().getProperty("renren.redis.open").equals("false");
+		return context.getEnvironment().getProperty("extra-dict-open").equals("true");
 	}
 
 }
