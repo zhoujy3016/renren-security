@@ -111,17 +111,5 @@ public class SysDictController {
     	sysDictService.deleteDict(ids);
         return R.ok();
     }
-
-//    /**
-//     * 传递多个type类型返回画面所需要的数据字典
-//     * @param types
-//     * @return
-//     */
-//    @RequestMapping(value="/dictCache/{types}", method=RequestMethod.GET)
-//    @ApiOperation(value="取得页面所需数据字典", notes="传递多个type类型返回画面所需要的数据字典")
-//    public R dictList(@PathVariable("types") String types) {
-//    	Map<String, Object> resultMap = DictComponent.getDictCacheDataByTypes(types);
-//    	return R.ok(resultMap);
-//    }
     
 }
