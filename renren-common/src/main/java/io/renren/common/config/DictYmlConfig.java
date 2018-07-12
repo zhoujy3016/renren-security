@@ -12,8 +12,11 @@ import org.springframework.core.io.ClassPathResource;
 
 /**
  * 读取自定义数据字典配置文件类
+ *
+ * @author zhoujunyi
+ * @email zhoujunyi-110@163.com
+ * @date 2018-07-12 22:00
  */
-
 @ConfigurationProperties(prefix="dictionary")
 @Configuration
 public class DictYmlConfig {
@@ -46,6 +49,7 @@ public class DictYmlConfig {
     public static PropertySourcesPlaceholderConfigurer properties() {
         PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = new PropertySourcesPlaceholderConfigurer();
         YamlPropertiesFactoryBean yaml = new YamlPropertiesFactoryBean();
+        // 设置自定义数据字典文件目录
         yaml.setResources(new ClassPathResource("config/dictionary-config.yml"));
         propertySourcesPlaceholderConfigurer.setProperties(yaml.getObject());
         return propertySourcesPlaceholderConfigurer;

@@ -5,9 +5,11 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
 /**
+ * aes加密
  *
- * @author Administrator
- *
+ * @author zhoujunyi
+ * @email zhoujunyi-110@163.com
+ * @date 2018-07-12 22:00
  */
 public class AesUtil {
 

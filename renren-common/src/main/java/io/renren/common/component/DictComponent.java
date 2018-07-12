@@ -14,8 +14,11 @@ import java.util.Map;
 
 /**
  * 数据字典缓存操作类
+ *
+ * @author zhoujunyi
+ * @email zhoujunyi-110@163.com
+ * @date 2018-07-12 22:00
  */
-
 @Component
 public class DictComponent {
     @Autowired

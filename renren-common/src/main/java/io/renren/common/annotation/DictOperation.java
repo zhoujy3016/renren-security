@@ -1,5 +1,12 @@
 package io.renren.common.annotation;
 
+/**
+ * 数据字典类型枚举类
+ *
+ * @author zhoujunyi
+ * @email zhoujunyi-110@163.com
+ * @date 2018-07-12 22:00
+ */
 public enum DictOperation {
     /**
      * 插入操作

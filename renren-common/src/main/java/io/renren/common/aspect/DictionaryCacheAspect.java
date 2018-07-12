@@ -20,9 +20,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 数据字典切面操作类
+ * 数据字典切面处理类
+ *
+ * @author zhoujunyi
+ * @email zhoujunyi-110@163.com
+ * @date 2018-07-12 22:00
  */
-
 @Aspect
 @Component
 public class DictionaryCacheAspect {

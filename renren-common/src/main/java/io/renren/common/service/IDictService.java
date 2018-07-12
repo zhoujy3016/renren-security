@@ -9,10 +9,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 数据字典
+ * 数据字典component调用接口
  *
- * @author Mark sunlightcs@gmail.com
- * @since 3.1.0 2018-01-27
+ * @author zhoujunyi
+ * @email zhoujunyi-110@163.com
+ * @date 2018-07-12 22:00
  */
 public interface IDictService {
 
@@ -24,13 +25,13 @@ public interface IDictService {
     List<Map<String, Object>> getSysDictEntity(String type);
 
     /**
-     * 根据类型分组
+     * 查询所有数据字典类型
      * @return
      */
     List<Map<String, Object>> getSysDictEntityGroupByType();
 
     /**
-     * 删除数据字典 查出待删除的id所在的type分组
+     * 通过id数组查询数据字典类型
      * @param ids
      * @return
      */

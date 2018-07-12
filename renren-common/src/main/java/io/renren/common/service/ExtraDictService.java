@@ -13,8 +13,11 @@ import io.renren.common.config.DictYmlConfig;
 
 /**
  * 自定义数据字典service
+ *
+ * @author zhoujunyi
+ * @email zhoujunyi-110@163.com
+ * @date 2018-07-12 22:00
  */
-
 @Service
 public class ExtraDictService {
 	

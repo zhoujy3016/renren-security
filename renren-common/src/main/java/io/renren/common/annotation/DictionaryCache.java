@@ -4,6 +4,10 @@ import java.lang.annotation.*;
 
 /**
  * 数据字典注解
+ *
+ * @author zhoujunyi
+ * @email zhoujunyi-110@163.com
+ * @date 2018-07-12 22:00
  */
 
 @Documented

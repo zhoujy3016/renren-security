@@ -6,11 +6,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import io.renren.common.service.ExtraDictService;
-
 /**
  * 自定义数据字典配置类
+ *
+ * @author zhoujunyi
+ * @email zhoujunyi-110@163.com
+ * @date 2018-07-12 22:00
  */
-
 @Configuration
 @ConditionalOnClass(ExtraDictService.class)
 @EnableAutoConfiguration
