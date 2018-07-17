@@ -4,12 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import io.renren.common.utils.AesUtil;
 import io.renren.common.utils.R;
@@ -36,9 +31,10 @@ public class HomeController extends AbstractController {
 	@Autowired
 	private BteResultService bteResultService;
 	
-	@RequestMapping("/evalPaper/{deCode}")
-	public R evalPaper(@PathVariable("deCode") String deCode) {
+	@RequestMapping("/evalPaper")
+	public R evalPaper(@RequestParam Map<String, Object> params) {
 		try {
+			String deCode = String.valueOf(params.get("deCode"));
 			// 对参数进行解密
 			Integer evalId = Integer.parseInt(AesUtil.Decrypt(deCode, AesUtil.CKEY));
 			Map<String, Object> map;

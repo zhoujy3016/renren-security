@@ -19,8 +19,9 @@ var vm = new Vue({
 		getEvalPaper:function(evalId) {
 			$.ajax({
 				type: "POST",
-			    url: baseURL + "home/evalPaper/" + evalId,
+			    url: baseURL + "home/evalPaper",
 			    dataType: "json",
+				data: {"deCode" : evalId},
 			    success: function(result){
 					if(result.code == 0){
 						vm.setEvalData(result);
