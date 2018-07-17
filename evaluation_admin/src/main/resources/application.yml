@@ -19,7 +19,7 @@ spring:
             max-request-size: 100MB
             enabled: true
     redis:
-        database: 0
+        database: 1
         host: 127.0.0.1
         port: 6379
         password:      # 密码（默认为空）

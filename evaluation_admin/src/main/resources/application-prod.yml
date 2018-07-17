@@ -41,4 +41,5 @@ spring:
                         multi-statement-allow: true
 #生产环境公网ip
 eva:
+    evac-port: 8001
     ip: 124.93.236.5

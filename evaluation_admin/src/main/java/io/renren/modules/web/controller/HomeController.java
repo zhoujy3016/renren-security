@@ -59,7 +59,7 @@ public class HomeController extends AbstractController {
 	}
 	
 	@RequestMapping(value="/saveEval", method=RequestMethod.POST)
-	public @ResponseBody R saveEval(@RequestBody Map<String, Object> resultMap) {
+	public R saveEval(@RequestBody Map<String, Object> resultMap) {
 		this.bteResultService.insertResultBatch(resultMap);
 		return R.ok();
 	}

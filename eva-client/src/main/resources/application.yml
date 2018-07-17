@@ -7,6 +7,8 @@ server:
   servlet:
     context-path: /evac
 spring:
+    profiles:
+          active: dev
     freemarker:
       suffix: .html
       request-context-attribute: request

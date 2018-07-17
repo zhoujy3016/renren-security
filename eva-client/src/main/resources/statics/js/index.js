@@ -19,10 +19,11 @@ var vm = new Vue({
 		getEvalPaper:function(evalId) {
 			$.ajax({
 				type: "POST",
-			    url: baseURL + "home/evalPaper/" + evalId,
-			    dataType: "json",
+			    url: "evalPaper/" + evalId,
+			    dataType: "application/json;charset=UTF-8",
 			    success: function(result){
 					if(result.code == 0){
+						console.log(result);
 						vm.setEvalData(result);
 					}else{
 						vm.error = true;
@@ -65,7 +66,7 @@ var vm = new Vue({
 			
 			$.ajax({
 				type: "POST",
-			    url: baseURL + "home/saveEval",
+			    url: "saveEval",
 			    contentType: "application/json",
 			    data: JSON.stringify(vm.result),
 			    success: function(result){

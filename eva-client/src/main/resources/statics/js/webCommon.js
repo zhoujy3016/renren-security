@@ -1,4 +1,4 @@
-var baseURL = "../../";
+var baseURL = "../";
 
 //工具集合Tools
 window.T = {};
