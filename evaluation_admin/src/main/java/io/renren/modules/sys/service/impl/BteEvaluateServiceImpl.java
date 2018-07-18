@@ -97,6 +97,7 @@ public class BteEvaluateServiceImpl extends ServiceImpl<BteEvaluateDao, BteEvalu
 		// 将参数加密
 		String enCode = AesUtil.Encrypt(String.valueOf(dataNo), AesUtil.CKEY);
 		String url = httpServletRequest.getScheme() + "://" + ipAddr  + ":" + clientPort  + "/evac/index.html?evalId=" + enCode;
+		System.out.println("url:" + url);
 		return QrcodeUtil.getBase64QRCode(url, 300, 300);
 	}
 

@@ -34,7 +34,6 @@ function getParameters(url) {
 		for(var i = 0; i < strs.length; i ++) {
 			arrParam[strs[i].split("=")[0]]=(strs[i].split("=")[1]);
 		}
-		console.log(arrParam);//此时的theRequest就是我们需要的参数；
 	}
 	return arrParam;
 }

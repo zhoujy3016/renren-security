@@ -19,11 +19,12 @@ var vm = new Vue({
 		getEvalPaper:function(evalId) {
 			$.ajax({
 				type: "POST",
-			    url: "evalPaper/" + evalId,
-			    dataType: "application/json;charset=UTF-8",
-			    success: function(result){
+			    url: "evalPaper",
+			    dataType: "json",
+			    data:{"deCode":evalId},
+				success: function(result){
+                    console.log(result);
 					if(result.code == 0){
-						console.log(result);
 						vm.setEvalData(result);
 					}else{
 						vm.error = true;
@@ -33,9 +34,9 @@ var vm = new Vue({
 			});
 		},
 		saveEval:function() {
-			
+
 			console.log($("question_5_14").val())
-			
+
 			var index = 0;
 			// 课程类型
 			for(var i = 0; i < vm.lesson.length; i++, index++) {

@@ -1,5 +1,6 @@
 package io.renren.controller;
 
+import io.renren.common.utils.AesUtil;
 import io.renren.common.utils.R;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,12 +33,19 @@ public class EvaClientController {
 
     /**
      * 测评问卷显示调用
-     * @param evalId
+     * @param
      * @return
      */
-    @PostMapping(value="/evalPaper/{evalId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public R evalPaper(@PathVariable("evalId") String evalId, HttpServletRequest request) {
-        return this.restTemplate.getForObject(request.getScheme() + "://" + ipAddress + ":"+ port +"/eva/home/evalPaper/" + evalId, R.class);
+    @PostMapping(value="/evalPaper")
+    public R evalPaper(@RequestParam Map<String, Object> params, HttpServletRequest request) {
+        try {
+            String deCode = String.valueOf(params.get("deCode"));
+            String evalId = AesUtil.Decrypt(deCode, AesUtil.CKEY);
+            return this.restTemplate.getForObject(request.getScheme() + "://" + ipAddress + ":"+ port +"/eva/home/evalPaper/" + evalId, R.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.error();
+        }
     }
 
     /**

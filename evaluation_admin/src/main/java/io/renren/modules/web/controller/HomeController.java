@@ -36,11 +36,9 @@ public class HomeController extends AbstractController {
 	@Autowired
 	private BteResultService bteResultService;
 	
-	@RequestMapping("/evalPaper/{deCode}")
-	public R evalPaper(@PathVariable("deCode") String deCode) {
+	@RequestMapping("/evalPaper/{evalId}")
+	public R evalPaper(@PathVariable("evalId") Integer evalId) {
 		try {
-			// 对参数进行解密
-			Integer evalId = Integer.parseInt(AesUtil.Decrypt(deCode, AesUtil.CKEY));
 			Map<String, Object> map;
 			// 查看当前测评是否开启
 			BteEvaluateEntity eval = this.bteEvaluateService.selectById(evalId);
