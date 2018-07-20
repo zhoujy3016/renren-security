@@ -17,20 +17,14 @@ var vm = new Vue({
 	},
 	methods: {
 		getEvalPaper:function(evalId) {
-			$.ajax({
-				type: "POST",
-			    url: baseURL + "home/evalPaper",
-			    dataType: "json",
-				data: {"deCode" : evalId},
-			    success: function(result){
-					if(result.code == 0){
-						vm.setEvalData(result);
-					}else{
-						vm.error = true;
-						vm.errorMsg = result.msg;
-					}
-				}
-			});
+            $.get(baseURL + "home/evalPaper", {"deCode":evalId}, function(result){
+                if(result.code == 0){
+                    vm.setEvalData(result);
+                }else{
+                    vm.error = true;
+                    vm.errorMsg = result.msg;
+                }
+            }, 'json');
 		},
 		saveEval:function() {
 			

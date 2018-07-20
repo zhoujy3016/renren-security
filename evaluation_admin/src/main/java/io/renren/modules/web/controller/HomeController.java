@@ -31,7 +31,7 @@ public class HomeController extends AbstractController {
 	@Autowired
 	private BteResultService bteResultService;
 	
-	@RequestMapping("/evalPaper")
+	@GetMapping(value="/evalPaper")
 	public R evalPaper(@RequestParam Map<String, Object> params) {
 		try {
 			String deCode = String.valueOf(params.get("deCode"));
