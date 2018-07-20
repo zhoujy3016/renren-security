@@ -36,7 +36,7 @@ public class EvaClientController {
      * @param
      * @return
      */
-    @PostMapping(value="/evalPaper")
+    @GetMapping(value="/evalPaper")
     public R evalPaper(@RequestParam Map<String, Object> params, HttpServletRequest request) {
         try {
             String deCode = String.valueOf(params.get("deCode"));
