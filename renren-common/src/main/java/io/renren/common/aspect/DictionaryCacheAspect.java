@@ -92,11 +92,11 @@ public class DictionaryCacheAspect {
      * @param param
      */
     private void updateExtraDictCache(DictionaryCache dataFilter, Object param) {
-        String strKyes = dataFilter.dictKey();
-        if(StringUtils.isEmpty(strKyes)) {
+        String strKeys = dataFilter.dictKey();
+        if(StringUtils.isEmpty(strKeys)) {
             throw new RRException("数据字典参数为NULL，请指定key");
         }
-        String[] arrKeys = strKyes.split(",");
+        String[] arrKeys = strKeys.split(",");
         Map<String, Object> extraMap = new HashMap<>();
         // 配置文件中取得sql
         Map<String, String> sqlMap = dictYmlConfig.getExtraDict();
