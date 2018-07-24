@@ -18,25 +18,22 @@ import io.renren.modules.sys.service.BteResultService;
 @RestController
 @RequestMapping("home")
 public class HomeController extends AbstractController {
-	
+
 	@Autowired
 	private BteQuestionService beQuestionService;
-	
+
 	@Autowired
 	private BteLessonService bteLessonService;
-	
+
 	@Autowired
 	private BteEvaluateService bteEvaluateService;
-	
+
 	@Autowired
 	private BteResultService bteResultService;
-	
-	@GetMapping(value="/evalPaper")
-	public R evalPaper(@RequestParam Map<String, Object> params) {
+
+	@RequestMapping("/evalPaper/{evalId}")
+	public R evalPaper(@PathVariable("evalId") Integer evalId) {
 		try {
-			String deCode = String.valueOf(params.get("deCode"));
-			// 对参数进行解密
-			Integer evalId = Integer.parseInt(AesUtil.Decrypt(deCode, AesUtil.CKEY));
 			Map<String, Object> map;
 			// 查看当前测评是否开启
 			BteEvaluateEntity eval = this.bteEvaluateService.selectById(evalId);
@@ -53,9 +50,9 @@ public class HomeController extends AbstractController {
 			return R.error(e.toString());
 		}
 	}
-	
+
 	@RequestMapping(value="/saveEval", method=RequestMethod.POST)
-	public @ResponseBody R saveEval(@RequestBody Map<String, Object> resultMap) {
+	public R saveEval(@RequestBody Map<String, Object> resultMap) {
 		this.bteResultService.insertResultBatch(resultMap);
 		return R.ok();
 	}

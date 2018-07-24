@@ -38,4 +38,5 @@ spring:
                         multi-statement-allow: true
 #公网ip
 eva:
+    evac-port: 8001
     ip: 
