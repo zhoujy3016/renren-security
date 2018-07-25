@@ -36,19 +36,12 @@ $(function () {
         gridComplete:function(){
         	//隐藏grid底部滚动条
         	$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" }); 
-        },
-        loadComplete: function(data) {
-        	setDictList(data.userdata);
         }
     });
     
     CKEDITOR.replace('ckeditor');
 });
 
-
-function setDictList(r) {
-	vm.dictXwlx = r.xwlx;
-}
 
 var vm = new Vue({
 	el:'#rrapp',
@@ -59,8 +52,7 @@ var vm = new Vue({
 		},
 		showList: true,
 		title: null,
-		tblInfo: {},
-		dictXwlx:{}
+		tblInfo: {}
 	},
 	methods: {
 		query: function () {

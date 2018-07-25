@@ -48,7 +48,6 @@ public class TblInfoController {
         
     	Map<String, Object> map = new HashMap<>();
     	map.put("page", page);
-    	map.put("userdata", dictComponent.getDictCacheDataByTypes("xwlx"));
         return R.ok(map);
     }
 

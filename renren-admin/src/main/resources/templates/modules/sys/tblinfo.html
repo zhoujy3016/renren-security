@@ -13,9 +13,11 @@
             </div>
             <div class="form-group col-sm-2">
                   <select class="form-control" v-model="q.type">
-                  	<option v-for="option in dictXwlx" v-bind:value="option.code">  
-  						{{ option.value }}  
-					</option>  
+                      <@dictCache id="xwlx">
+                        <#list dictList as dict>
+                              <option value="${dict.code}">${dict.value}</option>
+                        </#list>
+                     </@dictCache>
                   </select>
             </div>
             <a class="btn btn-default" @click="query">查询</a>
@@ -46,9 +48,11 @@
                         <div class="col-sm-2 control-label">类型</div>
                         <div class="col-sm-10">
                             <select class="form-control" v-model="tblInfo.infoType" >
-                            	<option v-for="option in dictXwlx" v-bind:value="option.code">  
-								    {{ option.value }}  
-								</option>  
+                                <@dictCache id="xwlx">
+                                    <#list dictList as dict>
+                                        <option value="${dict.code}">${dict.value}</option>
+                                    </#list>
+                                </@dictCache>
                             </select>
                         </div>
                     </div>

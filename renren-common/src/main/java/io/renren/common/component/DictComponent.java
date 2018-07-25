@@ -69,6 +69,15 @@ public class DictComponent {
 		}
     	return resultMap;
     }
+
+	/**
+	 * 通过某种类型从redis缓存中查出一个类型的数据字典List
+	 * @param type
+	 * @return
+	 */
+	public List getDictCacheDataByType(String type) {
+		return this.redisUtils.get(type.trim(), ArrayList.class);
+	}
     
     /**
      * 增、改数据字典时，更新缓存

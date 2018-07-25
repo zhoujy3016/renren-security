@@ -34,19 +34,10 @@ $(function () {
         gridComplete:function(){
         	//隐藏grid底部滚动条
         	$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" }); 
-        },
-        loadComplete: function(data) {
-        	setDictList(data.userdata);
         }
     });
 
 });
-
-// 初始化数据字典
-function setDictList(r) {
-	vm.dictMz = r.mz;
-	vm.dictArea = r.area;
-}
 
 var vm = new Vue({
 	el:'#rrapp',
@@ -58,9 +49,7 @@ var vm = new Vue({
         },
 		showList: true,
 		title: null,
-		tblPerson: {},
-		dictMz:{},
-		dictArea:{}
+		tblPerson: {}
 	},
 	methods: {
 		query: function () {

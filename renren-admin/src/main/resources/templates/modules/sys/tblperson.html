@@ -2,21 +2,16 @@
 <html>
 <head>
     <title></title>
-		<#include "/header.html">
+    <#include "/header.html">
 </head>
 <body>
 <div id="rrapp" v-cloak>
     <div v-show="showList">
-        <select class="grid-btn">
+        <div class="grid-btn">
             <div class="form-group col-sm-2">
                 <input type="text" class="form-control" v-model="q.name" @keyup.enter="query" placeholder="姓名">
             </div>
             <div class="form-group col-sm-2">
-                  <!--<select class="form-control" v-model="q.nationality">-->
-                  	<!--<option v-for="option in dictMz" v-bind:value="option.code">  -->
-  						<!--{{ option.value }}  -->
-					<!--</option>  -->
-                  <!--</select>-->
                 <select class="form-control" v-model="q.nationality">
                     <@dictCache id="mz">
                         <#list dictList as dict>
@@ -26,75 +21,81 @@
                 </select>
             </div>
             <div class="form-group col-sm-2">
-                  <select class="form-control" v-model="q.area">
-                  	<option v-for="option in dictArea" v-bind:value="option.code">  
-  						{{ option.value }}  
-					</option>  
-                  </select>
+                <select class="form-control" v-model="q.area">
+                    <@dictCache id="area">
+                        <#list dictList as dict>
+                            <option value="${dict.code}">${dict.value}</option>
+                        </#list>
+                </@dictCache>
+                </select>
             </div>
             <a class="btn btn-default" @click="query">查询</a>
-			<#if shiro.hasPermission("sys:tblperson:save")>
+            <#if shiro.hasPermission("sys:tblperson:save")>
             <a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
-			</#if>
-			<#if shiro.hasPermission("sys:tblperson:update")>
-            <a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
-			</#if>
-			<#if shiro.hasPermission("sys:tblperson:delete")>
-            <a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
-			</#if>
-        </div>
-        <table id="jqGrid"></table>
-        <div id="jqGridPager"></div>
-    </div>
+        </#if>
+        <#if shiro.hasPermission("sys:tblperson:update")>
+        <a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+    </#if>
+    <#if shiro.hasPermission("sys:tblperson:delete")>
+    <a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+</#if>
+</div>
+<table id="jqGrid"></table>
+<div id="jqGridPager"></div>
+</div>
 
-    <div v-show="!showList" class="panel panel-default">
-        <div class="panel-heading">{{title}}</div>
-        <form class="form-horizontal">
-														                    <div class="form-group">
-                        <div class="col-sm-2 control-label">姓名</div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="tblPerson.personName" placeholder=""/>
-                        </div>
-                    </div>
-											                    <div class="form-group">
-                        <div class="col-sm-2 control-label">民族</div>
-                        <div class="col-sm-10">
-                             <select class="form-control" v-model="tblPerson.nationality" >
-                            	<option v-for="option in dictMz" v-bind:value="option.code">  
-								    {{ option.value }}  
-								</option>  
-                            </select>
-                        </div>
-                    </div>
-											                    <div class="form-group">
-                        <div class="col-sm-2 control-label">地区</div>
-                        <div class="col-sm-10">
-                            <select class="form-control" v-model="tblPerson.area" >
-                            	<option v-for="option in dictArea" v-bind:value="option.code">  
-								    {{ option.value }}  
-								</option>  
-                            </select>
-                        </div>
-                       </div>
-											                    <div class="form-group">
-                        <div class="col-sm-2 control-label">电话</div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="tblPerson.telephone" placeholder=""/>
-                        </div>
-                    </div>
-											                    <div class="form-group">
-                        <div class="col-sm-2 control-label">备注</div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="tblPerson.remark" placeholder=""/>
-                        </div>
-                    </div>
-							            <div class="form-group">
-                <div class="col-sm-2 control-label"></div>
-                <input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
-                &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+<div v-show="!showList" class="panel panel-default">
+    <div class="panel-heading">{{title}}</div>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-2 control-label">姓名</div>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" v-model="tblPerson.personName" placeholder=""/>
             </div>
-        </form>
-    </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2 control-label">民族</div>
+            <div class="col-sm-10">
+                <select class="form-control" v-model="tblPerson.nationality" >
+                    <@dictCache id="mz">
+                        <#list dictList as dict>
+                            <option value="${dict.code}">${dict.value}</option>
+                        </#list>
+                    </@dictCache>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2 control-label">地区</div>
+            <div class="col-sm-10">
+                <select class="form-control" v-model="tblPerson.area" >
+                    <@dictCache id="area">
+                        <#list dictList as dict>
+                            <option value="${dict.code}">${dict.value}</option>
+                        </#list>
+                    </@dictCache>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2 control-label">电话</div>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" v-model="tblPerson.telephone" placeholder=""/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2 control-label">备注</div>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" v-model="tblPerson.remark" placeholder=""/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2 control-label"></div>
+            <input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
+            &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+        </div>
+    </form>
+</div>
 </div>
 
 <script src="${request.contextPath}/statics/js/modules/sys/tblperson.js?_${.now?long}"></script>

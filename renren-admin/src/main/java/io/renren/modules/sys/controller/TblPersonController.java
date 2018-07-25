@@ -58,7 +58,6 @@ public class TblPersonController extends AbstractController{
     	
     	Map<String, Object> map = new HashMap<>();
     	map.put("page", page);
-    	map.put("userdata", dictComponent.getDictCacheDataByTypes("mz,area"));
         return R.ok(map);
     }
     

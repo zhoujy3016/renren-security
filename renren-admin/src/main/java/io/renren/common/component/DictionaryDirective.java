@@ -31,19 +31,7 @@ public class DictionaryDirective implements TemplateDirectiveModel {
     @Override
     public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
         String id = params.get("id").toString();
-
-        List<SysDictEntity> list = new ArrayList<>();
-
-        SysDictEntity  sysDictEntity = new SysDictEntity();
-        sysDictEntity.setCode("1");
-        sysDictEntity.setValue("周骏翻");
-        list.add(sysDictEntity);
-
-        sysDictEntity = new SysDictEntity();
-        sysDictEntity.setCode("2");
-        sysDictEntity.setValue("赵家人");
-        list.add(sysDictEntity);
-
+        List<SysDictEntity> list = dictComponent.getDictCacheDataByType(id);
         env.setVariable("dictList", getBeansWrapper().wrap(list));
         body.render(env.getOut());
     }
