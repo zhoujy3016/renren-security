@@ -4,14 +4,10 @@ import freemarker.core.Environment;
 import freemarker.ext.beans.BeansWrapper;
 import freemarker.ext.beans.BeansWrapperBuilder;
 import freemarker.template.*;
-import io.renren.common.component.DictComponent;
-import io.renren.modules.sys.entity.SysDictEntity;
-import org.apache.catalina.LifecycleState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -31,8 +27,8 @@ public class DictionaryDirective implements TemplateDirectiveModel {
     @Override
     public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
         String id = params.get("id").toString();
-        List<SysDictEntity> list = dictComponent.getDictCacheDataByType(id);
-        env.setVariable("dictList", getBeansWrapper().wrap(list));
+        List dictList = dictComponent.getDictCacheDataByType(id);
+        env.setVariable("dictList", getBeansWrapper().wrap(dictList));
         body.render(env.getOut());
     }
 

@@ -30,18 +30,9 @@ $(function () {
         gridComplete:function(){
         	//隐藏grid底部滚动条
         	$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" }); 
-        },
-        loadComplete: function(data) {
-            setDictList(data.userdata);
-
         }
     });
 });
-
-function setDictList(r) {
-    vm.dictKcfl = r.kcfl;
-}
-
 
 var vm = new Vue({
 	el:'#rrapp',
@@ -49,7 +40,6 @@ var vm = new Vue({
 		showList: true,
 		title: null,
 		bteLessonType: {},
-		dictKcfl:{},
         q:{
             category:null
         }

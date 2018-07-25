@@ -31,24 +31,16 @@ $(function () {
         gridComplete:function(){
         	//隐藏grid底部滚动条
         	$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" }); 
-        },
-        loadComplete: function(data) {
-        	setDictList(data.userdata);
         }
     });
 });
-
-function setDictList(r) {
-	vm.dictStlx = r.stlx;
-}
 
 var vm = new Vue({
 	el:'#rrapp',
 	data:{
 		showList: true,
 		title: null,
-		bteQuestion: {},
-		dictStlx:{}
+		bteQuestion: {}
 	},
 	methods: {
 		query: function () {

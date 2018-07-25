@@ -30,9 +30,11 @@
                         <div class="col-sm-2 control-label">课程分类</div>
                         <div class="col-sm-10">
                             <select class="form-control kcfl" v-model="bteLesson.lessonCategoryId" @change="selectOnChange">
-                            	<option v-for="option in dictKcfl" v-bind:value="option.code">  
-								    {{ option.value }}  
-								</option>  
+                                <@dictCache id="kcfl">
+                                    <#list dictList as dict>
+                                        <option value="${dict.code}">${dict.value}</option>
+                                    </#list>
+                                </@dictCache>
                             </select>
                         </div>
                     </div>

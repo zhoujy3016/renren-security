@@ -46,7 +46,6 @@ $(function () {
 });
 
 function setDictList(r) {
-	vm.dictKcfl = r.kcfl;
 	vm.gglx = r.gglx;
 	vm.zylx = r.zylx;
 }
@@ -57,7 +56,6 @@ var vm = new Vue({
 		showList: true,
 		title: null,
 		bteLesson: {},
-		dictKcfl:{},
 		evalId:null,
 		dictKclx:{},
 		gglx:{},

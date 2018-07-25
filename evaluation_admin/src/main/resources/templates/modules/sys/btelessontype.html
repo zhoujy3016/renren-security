@@ -10,9 +10,11 @@
         <div class="grid-btn">
             <div class="form-group col-sm-2">
                 <select class="form-control" v-model="q.category">
-                    <option v-for="option in dictKcfl" v-bind:value="option.code">
-                        {{ option.value }}
-                    </option>
+                    <@dictCache id="kcfl">
+                        <#list dictList as dict>
+                            <option value="${dict.code}">${dict.value}</option>
+                        </#list>
+                    </@dictCache>
                 </select>
             </div>
             <a class="btn btn-default" @click="query">查询</a>
@@ -38,9 +40,11 @@
                         <div class="col-sm-2 control-label">课程所属分类</div>
                         <div class="col-sm-10">
                             <select class="form-control" v-model="bteLessonType.categoryId">
-                                <option v-for="option in dictKcfl" v-bind:value="option.code">
-                                    {{ option.value }}
-                                </option>
+                                <@dictCache id="kcfl">
+                                    <#list dictList as dict>
+                                        <option value="${dict.code}">${dict.value}</option>
+                                    </#list>
+                                </@dictCache>
                             </select>
                         </div>
                     </div>

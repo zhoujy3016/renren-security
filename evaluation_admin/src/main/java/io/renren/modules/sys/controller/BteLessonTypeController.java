@@ -46,8 +46,6 @@ public class BteLessonTypeController {
         PageUtils page = bteLessonTypeService.queryPage(params);
         Map<String, Object> map = new HashMap<>();
         map.put("page", page);
-        // 数据字典
-        map.put("userdata", dictComponent.getDictCacheDataByTypes("kcfl"));
         return R.ok(map);
     }
 

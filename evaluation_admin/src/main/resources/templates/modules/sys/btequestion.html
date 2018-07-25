@@ -40,9 +40,11 @@
                         <div class="col-sm-10">
                 
                             <select class="form-control" v-model="bteQuestion.questionTypeId" >
-                            	<option v-for="option in dictStlx" v-bind:value="option.code">  
-								    {{ option.value }}  
-								</option>  
+                                <@dictCache id="stlx">
+                                    <#list dictList as dict>
+                                        <option value="${dict.code}">${dict.value}</option>
+                                    </#list>
+                                </@dictCache>
                             </select>
                         </div>
                     </div>
