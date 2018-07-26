@@ -29,13 +29,7 @@
 											                    <div class="form-group">
                         <div class="col-sm-2 control-label">课程分类</div>
                         <div class="col-sm-10">
-                            <select class="form-control kcfl" v-model="bteLesson.lessonCategoryId" @change="selectOnChange">
-                                <@dictCache id="kcfl">
-                                    <#list dictList as dict>
-                                        <option value="${dict.code}">${dict.value}</option>
-                                    </#list>
-                                </@dictCache>
-                            </select>
+                            <@items.select cacheId="kcfl" class="form-control" model="bteLesson.lessonCategoryId" onChange="selectOnChange"/>
                         </div>
                     </div>
                     
