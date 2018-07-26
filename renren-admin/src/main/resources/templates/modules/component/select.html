@@ -1,0 +1,9 @@
+<#macro select id="" class="" model="" cacheId="" onChange="">
+    <select id="${id}" class="${class}" v-model="${model}" @change="${onChange}">
+            <@dictCache id="${cacheId}">
+                <#list dictList as dict>
+                    <option value="${dict.code}">${dict.value}</option>
+                </#list>
+            </@dictCache>
+    </select>
+</#macro>

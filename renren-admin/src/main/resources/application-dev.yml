@@ -5,8 +5,8 @@ spring:
         druid:
             first:  #数据源1
                 url: jdbc:mysql://58.154.128.238:3306/renren_security?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
-                username: eva
-                password: 123456
+                username: root
+                password: root
             second:  #数据源2
                 url: jdbc:mysql://10.10.168.18:3306/renren_security?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
                 username: renren

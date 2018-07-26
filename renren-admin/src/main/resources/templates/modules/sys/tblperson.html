@@ -12,22 +12,10 @@
                 <input type="text" class="form-control" v-model="q.name" @keyup.enter="query" placeholder="姓名">
             </div>
             <div class="form-group col-sm-2">
-                <select class="form-control" v-model="q.nationality">
-                    <@dictCache id="mz">
-                        <#list dictList as dict>
-                            <option value="${dict.code}">${dict.value}</option>
-                        </#list>
-                    </@dictCache>
-                </select>
+                <@items.select cacheId="mz" class="form-control" model="q.nationality"/>
             </div>
             <div class="form-group col-sm-2">
-                <select class="form-control" v-model="q.area">
-                    <@dictCache id="area">
-                        <#list dictList as dict>
-                            <option value="${dict.code}">${dict.value}</option>
-                        </#list>
-                </@dictCache>
-                </select>
+                <@items.select cacheId="area" class="form-control" model="q.area"/>
             </div>
             <a class="btn btn-default" @click="query">查询</a>
             <#if shiro.hasPermission("sys:tblperson:save")>
@@ -56,25 +44,13 @@
         <div class="form-group">
             <div class="col-sm-2 control-label">民族</div>
             <div class="col-sm-10">
-                <select class="form-control" v-model="tblPerson.nationality" >
-                    <@dictCache id="mz">
-                        <#list dictList as dict>
-                            <option value="${dict.code}">${dict.value}</option>
-                        </#list>
-                    </@dictCache>
-                </select>
+                <@items.select cacheId="mz" class="form-control" model="tblPerson.nationality"/>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-2 control-label">地区</div>
             <div class="col-sm-10">
-                <select class="form-control" v-model="tblPerson.area" >
-                    <@dictCache id="area">
-                        <#list dictList as dict>
-                            <option value="${dict.code}">${dict.value}</option>
-                        </#list>
-                    </@dictCache>
-                </select>
+                <@items.select cacheId="area" class="form-control" model="tblPerson.area"/>
             </div>
         </div>
         <div class="form-group">
