@@ -4,7 +4,7 @@ $(function () {
         datatype: "json",
         colModel: [			
 			{ label: 'dataNo', name: 'dataNo', index: 'data_no', width: 20, key: true, hidden:true },
-			{ label: '测评名称', name: 'evalTitle', index: 'eval_title', width: 80 }, 			
+			{ label: '测评名称', name: 'evalTitle', index: 'eval_title', width: 70 },
 			{ label: '测评说明', name: 'evalMemo', index: 'eval_memo', width: 80 }, 			
 			{ label: '课程设置', name: '', index: '', width: 20, 
 				  formatter:function(cellvalue, options, rowObject){
@@ -21,7 +21,8 @@ $(function () {
 				formatter:function(cellvalue, options, rowObject){
 				    return '<a style="cursor: pointer" onclick="vm.downloadQr(' + rowObject.dataNo+ ')">显示</a>';
 			  }	
-			}
+			},
+            { label: '创建时间', name: 'createDate', index: 'createDate', width: 30 }
         ],
 		viewrecords: true,
         height: 385,
