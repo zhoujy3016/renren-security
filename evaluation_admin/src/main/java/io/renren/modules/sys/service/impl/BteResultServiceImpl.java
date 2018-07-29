@@ -1,5 +1,6 @@
 package io.renren.modules.sys.service.impl;
 
+import io.renren.common.utils.OptionalUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -72,15 +73,15 @@ public class BteResultServiceImpl extends ServiceImpl<BteResultDao, BteResultEnt
 	private BteResultEntity makeResultEntity(Map<String, Object> map) {
 		BteResultEntity resultEntity = new BteResultEntity();
 		// 测评id
-		resultEntity.setEvalId(Integer.parseInt(String.valueOf(map.get("evalId"))));
+		resultEntity.setEvalId(OptionalUtils.stringToInt(String.valueOf(map.get("evalId"))));
 		// 测评类型
-		resultEntity.setQuestionTypeId(Integer.parseInt(String.valueOf(map.get("questionTypeId"))));
+		resultEntity.setQuestionTypeId(OptionalUtils.stringToInt(String.valueOf(map.get("questionTypeId"))));
 		// 问题编号
-		resultEntity.setQuestionId(Integer.parseInt(String.valueOf(map.get("questionId"))));
+		resultEntity.setQuestionId(OptionalUtils.stringToInt(String.valueOf(map.get("questionId"))));
 		// 类型：5 为其他建议
 		if(resultEntity.getQuestionTypeId() != 5) {
 			// 测评分数
-			resultEntity.setQuestionScore(Integer.parseInt(String.valueOf(map.get("questionScore"))));
+			resultEntity.setQuestionScore(OptionalUtils.stringToInt(String.valueOf(map.get("questionScore"))));
 		} else { // 具体意见
 			resultEntity.setEvalSuggest(String.valueOf(map.get("evalSuggest")));
 		}
