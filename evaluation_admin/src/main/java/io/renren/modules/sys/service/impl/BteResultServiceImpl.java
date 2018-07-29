@@ -15,7 +15,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 
-import io.renren.common.utils.ExcelUtil;
+import io.renren.common.utils.ExcelUtils;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.Query;
 import io.renren.modules.sys.dao.BteResultDao;
@@ -94,7 +94,7 @@ public class BteResultServiceImpl extends ServiceImpl<BteResultDao, BteResultEnt
 		BteEvaluateEntity evalEntity = bteEvaluateService.selectById(evalId);
 		String excelName = evalEntity.getEvalTitle() + "结果";
 		List<BteResultEntityExt> resultList = this.queryResultList(evalId);
-		ExcelUtil.exportExcel(resultList, excelName, "测评结果", BteResultEntityExt.class, excelName + ".xls", httpServletResponse);
+		ExcelUtils.exportExcel(resultList, excelName, "测评结果", BteResultEntityExt.class, excelName + ".xls", httpServletResponse);
 	}
 
 	@Override
@@ -103,7 +103,7 @@ public class BteResultServiceImpl extends ServiceImpl<BteResultDao, BteResultEnt
 		BteEvaluateEntity evalEntity = bteEvaluateService.selectById(evalId);
 		String excelName = evalEntity.getEvalTitle() + "建议";
 		List<BteResultEntitySuggest> resultList = this.baseMapper.querySuggestList(evalId);
-		ExcelUtil.exportExcel(resultList, excelName, "其他建议", BteResultEntitySuggest.class, excelName + ".xls", httpServletResponse);
+		ExcelUtils.exportExcel(resultList, excelName, "其他建议", BteResultEntitySuggest.class, excelName + ".xls", httpServletResponse);
 	}
 
 }

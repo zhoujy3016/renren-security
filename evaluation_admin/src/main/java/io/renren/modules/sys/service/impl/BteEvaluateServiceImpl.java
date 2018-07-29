@@ -19,7 +19,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 
 import io.renren.common.annotation.DataCreaterFilter;
-import io.renren.common.utils.AesUtil;
+import io.renren.common.utils.AesUtils;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.QrcodeUtil;
 import io.renren.common.utils.Query;
@@ -95,7 +95,7 @@ public class BteEvaluateServiceImpl extends ServiceImpl<BteEvaluateDao, BteEvalu
 			ipAddr = httpServletRequest.getLocalAddr();
 		}
 		// 将参数加密
-		String enCode = AesUtil.Encrypt(String.valueOf(dataNo), AesUtil.CKEY);
+		String enCode = AesUtils.Encrypt(String.valueOf(dataNo), AesUtils.CKEY);
 		String url = httpServletRequest.getScheme() + "://" + ipAddr  + ":" + clientPort  + "/evac/index.html?evalId=" + enCode;
 		System.out.println("url:" + url);
 		return QrcodeUtil.getBase64QRCode(url, 300, 300);

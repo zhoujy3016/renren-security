@@ -1,11 +1,10 @@
 package io.renren.controller;
 
-import io.renren.common.utils.AesUtil;
+import io.renren.common.utils.AesUtils;
 import io.renren.common.utils.R;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -40,7 +39,7 @@ public class EvaClientController {
     public R evalPaper(@RequestParam Map<String, Object> params, HttpServletRequest request) {
         try {
             String deCode = String.valueOf(params.get("deCode"));
-            String evalId = AesUtil.Decrypt(deCode, AesUtil.CKEY);
+            String evalId = AesUtils.Decrypt(deCode, AesUtils.CKEY);
             return this.restTemplate.getForObject(request.getScheme() + "://" + ipAddress + ":"+ port +"/eva/home/evalPaper/" + evalId, R.class);
         } catch (Exception e) {
             e.printStackTrace();

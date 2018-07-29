@@ -12,7 +12,7 @@ import javax.crypto.spec.SecretKeySpec;
  * @email zhoujunyi-110@163.com
  * @date 2018-07-12 22:00
  */
-public class AesUtil {
+public class AesUtils {
 
 	public static String CKEY = "1234567890123456";
 	

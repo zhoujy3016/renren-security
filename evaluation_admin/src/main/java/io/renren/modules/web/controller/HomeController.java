@@ -6,7 +6,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import io.renren.common.utils.AesUtil;
 import io.renren.common.utils.R;
 import io.renren.modules.sys.controller.AbstractController;
 import io.renren.modules.sys.entity.BteEvaluateEntity;
