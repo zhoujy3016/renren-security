@@ -46,7 +46,6 @@ public class BteQuestionController {
         PageUtils page = bteQuestionService.queryPage(params);
         Map<String, Object> map = new HashMap<>();
     	map.put("page", page);
-    	map.put("userdata", dictComponent.getDictCacheDataByTypes("stlx"));
     	return R.ok(map);
     }
 
