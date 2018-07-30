@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.renren.common.utils.j8DateUtils;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.validation.constraints.NotBlank;
@@ -50,8 +52,8 @@ public class TblInfoEntity implements Serializable {
 	/**
 	 * 	创建时间
 	 */
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
-	private Date infoCreateTime;
+	@JsonFormat(pattern = j8DateUtils.DATE_TIME_PATTERN)
+	private LocalDateTime infoCreateTime;
 
 	/**
 	 * 设置：
@@ -107,10 +109,10 @@ public class TblInfoEntity implements Serializable {
 	public void setInfoTypeName(String infoTypeName) {
 		this.infoTypeName = infoTypeName;
 	}
-	public Date getInfoCreateTime() {
+	public LocalDateTime getInfoCreateTime() {
 		return infoCreateTime;
 	}
-	public void setInfoCreateTime(Date infoCreateTime) {
+	public void setInfoCreateTime(LocalDateTime infoCreateTime) {
 		this.infoCreateTime = infoCreateTime;
 	}
 	

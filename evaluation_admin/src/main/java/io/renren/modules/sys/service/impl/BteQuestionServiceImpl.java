@@ -3,6 +3,7 @@ package io.renren.modules.sys.service.impl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +30,7 @@ public class BteQuestionServiceImpl extends ServiceImpl<BteQuestionDao, BteQuest
 
 	@Override
 	public void insertQuestion(BteQuestionEntity bteQuestion) {
-		bteQuestion.setCreateDate(new Date());
+		bteQuestion.setCreateDate(LocalDateTime.now());
 		bteQuestion.setCreateUserId(ShiroUtils.getUserId());
 		this.insert(bteQuestion);
 	}

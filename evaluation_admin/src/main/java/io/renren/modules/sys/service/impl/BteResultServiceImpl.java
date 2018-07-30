@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -85,7 +86,7 @@ public class BteResultServiceImpl extends ServiceImpl<BteResultDao, BteResultEnt
 		} else { // 具体意见
 			resultEntity.setEvalSuggest(String.valueOf(map.get("evalSuggest")));
 		}
-		resultEntity.setCreateDate(new Date());
+		resultEntity.setCreateDate(LocalDateTime.now());
 		return resultEntity;
 	}
 

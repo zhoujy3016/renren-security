@@ -5,6 +5,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Map;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -54,7 +55,7 @@ public class TblInfoServiceImpl extends ServiceImpl<TblInfoDao, TblInfoEntity> i
 
 	@Override
 	public void saveInfo(TblInfoEntity infoEntity) {
-		infoEntity.setInfoCreateTime(new Date());
+		infoEntity.setInfoCreateTime(LocalDateTime.now());
 		this.insert(infoEntity);
 		
 	}

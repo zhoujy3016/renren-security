@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.renren.common.utils.j8DateUtils;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.validation.constraints.NotBlank;
@@ -42,8 +44,8 @@ public class BteEvaluateEntity implements Serializable {
 	/**
 	 * 
 	 */
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	private Date createDate;
+	@JsonFormat(pattern = j8DateUtils.DATE_TIME_PATTERN)
+	private LocalDateTime createDate;
 	/**
 	 * 
 	 */
@@ -106,13 +108,13 @@ public class BteEvaluateEntity implements Serializable {
 	/**
 	 * 设置：
 	 */
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(LocalDateTime createDate) {
 		this.createDate = createDate;
 	}
 	/**
 	 * 获取：
 	 */
-	public Date getCreateDate() {
+	public LocalDateTime getCreateDate() {
 		return createDate;
 	}
 	/**

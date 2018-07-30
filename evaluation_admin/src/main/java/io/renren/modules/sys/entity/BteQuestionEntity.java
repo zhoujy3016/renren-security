@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.validation.constraints.NotBlank;
@@ -43,7 +44,7 @@ public class BteQuestionEntity implements Serializable {
 	/**
 	 * 
 	 */
-	private Date createDate;
+	private LocalDateTime createDate;
 	/**
 	 * 
 	 */
@@ -112,13 +113,13 @@ public class BteQuestionEntity implements Serializable {
 	/**
 	 * 设置：
 	 */
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(LocalDateTime createDate) {
 		this.createDate = createDate;
 	}
 	/**
 	 * 获取：
 	 */
-	public Date getCreateDate() {
+	public LocalDateTime getCreateDate() {
 		return createDate;
 	}
 	/**

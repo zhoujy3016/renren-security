@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -65,7 +66,7 @@ public class BteEvaluateServiceImpl extends ServiceImpl<BteEvaluateDao, BteEvalu
 		// 查询当前开启状态的试题
 		List<BteQuestionEntity> questionList = bteQuestionService.selectList(new EntityWrapper<BteQuestionEntity>().eq("question_state_id", "1"));
 		// 创建日期
-		bteEvaluate.setCreateDate(new Date());
+		bteEvaluate.setCreateDate(LocalDateTime.now());
 		// 创建人
 		bteEvaluate.setCreateUserId(ShiroUtils.getUserId());
 		this.insert(bteEvaluate);

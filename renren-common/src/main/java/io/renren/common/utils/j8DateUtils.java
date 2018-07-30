@@ -1,7 +1,6 @@
 package io.renren.common.utils;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.tomcat.jni.Local;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
