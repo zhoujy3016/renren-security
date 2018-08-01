@@ -1,3 +1,8 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8081/eureka/
+
 server:
   port: 8001
   tomcat:
@@ -6,9 +11,13 @@ server:
       min-spare-threads: 30
   servlet:
     context-path: /evac
+
 spring:
     profiles:
           active: dev
     freemarker:
       suffix: .html
       request-context-attribute: request
+    application:
+      name: eva-client
+

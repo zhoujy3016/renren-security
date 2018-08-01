@@ -5,9 +5,12 @@ import io.renren.common.utils.R;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -30,6 +33,9 @@ public class EvaClientController {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    private DiscoveryClient discoveryClient;
+
     /**
      * 测评问卷显示调用
      * @param
@@ -37,6 +43,9 @@ public class EvaClientController {
      */
     @GetMapping(value="/evalPaper")
     public R evalPaper(@RequestParam Map<String, Object> params, HttpServletRequest request) {
+
+        List<ServiceInstance> serviceInstanceList = discoveryClient.getInstances("STORES");
+        System.out.println(serviceInstanceList.size());
         try {
             String deCode = String.valueOf(params.get("deCode"));
             String evalId = AesUtils.Decrypt(deCode, AesUtils.CKEY);
