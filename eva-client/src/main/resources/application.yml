@@ -1,8 +1,3 @@
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8081/eva/eureka/
-
 server:
   port: 8001
   tomcat:

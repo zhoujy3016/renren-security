@@ -1,9 +1,15 @@
+#服务注册中心配置
 eureka:
   client:
     register-with-eureka: true
     fetch-registry: false
     service-url:
-      defaultZone: http://localhost:8081/eva/eureka/
+      defaultZone: http://127.0.0.1:${server.port}/eva/eureka/
+  instance:
+    metadata-map:
+      info1: test1
+      info2: test2
+
 # Tomcat
 server:
     tomcat:

@@ -1,3 +1,7 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${eva.ip}:${eva.port}/eva/eureka/
 #公网ip
 eva:
     port: 8081
