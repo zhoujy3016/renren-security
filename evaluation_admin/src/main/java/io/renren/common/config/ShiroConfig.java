@@ -93,6 +93,8 @@ public class ShiroConfig {
         filterMap.put("/captcha.jpg", "anon");
         // 对测评requestMapping路径不拦截
         filterMap.put("/home/**", "anon");
+        // 对eureka不拦截
+        filterMap.put("/eureka/**", "anon");
         filterMap.put("/**", "authc");
         shiroFilter.setFilterChainDefinitionMap(filterMap);
 
