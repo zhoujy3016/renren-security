@@ -39,6 +39,12 @@ spring:
                 wall:
                     config:
                         multi-statement-allow: true
+                        
+#生产环境defaultZone配置
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:${server.port}/eva/eureka/
 #生产环境公网ip
 eva:
     evac-port: 8001

@@ -1,8 +1,8 @@
+eva:
+    port: 8081
+    ip: 127.0.0.1
+
 eureka:
   client:
     service-url:
       defaultZone: http://${eva.ip}:${eva.port}/eva/eureka/
-#公网ip
-eva:
-    port: 8081
-    ip: 127.0.0.1

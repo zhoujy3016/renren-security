@@ -1,9 +1,10 @@
-eureka:
-  client:
-    service-url:
-      defaultZone: http://${eva.ip}:${eva.port}/eva/eureka/
 #生产环境公网ip
 eva:
     port: 80
 #    ip: 124.93.236.5
     ip: 127.0.0.1
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${eva.ip}:${eva.port}/eva/eureka/
