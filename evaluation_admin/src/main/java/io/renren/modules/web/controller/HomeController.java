@@ -30,7 +30,7 @@ public class HomeController extends AbstractController {
 	@Autowired
 	private BteResultService bteResultService;
 
-	@RequestMapping("/evalPaper/{evalId}")
+	@RequestMapping(value = "/evalPaper/{evalId}", method = RequestMethod.GET)
 	public R evalPaper(@PathVariable("evalId") Integer evalId) {
 		try {
 			Map<String, Object> map;
@@ -50,7 +50,7 @@ public class HomeController extends AbstractController {
 		}
 	}
 
-	@RequestMapping(value="/saveEval", method=RequestMethod.POST)
+	@RequestMapping(value="/saveEval", method = RequestMethod.POST)
 	public R saveEval(@RequestBody Map<String, Object> resultMap) {
 		this.bteResultService.insertResultBatch(resultMap);
 		return R.ok();
