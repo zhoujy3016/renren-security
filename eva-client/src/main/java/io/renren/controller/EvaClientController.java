@@ -42,11 +42,11 @@ public class EvaClientController {
             String deCode = String.valueOf(params.get("deCode"));
             // 解密
             Integer evalId = Integer.parseInt(AesUtils.Decrypt(deCode, AesUtils.CKEY));
-            // 获取服务注册中心信息
-            InstanceInfo info = eurekaServerUtils.getServerInstance();
-            return this.restTemplate.getForObject(request.getScheme() + "://" + info.getIPAddr() + ":"+ info.getPort() +"/eva/home/evalPaper/{1}", R.class, evalId);
+//            // 获取服务注册中心信息
+//            InstanceInfo info = eurekaServerUtils.getServerInstance();
+//            return this.restTemplate.getForObject(request.getScheme() + "://" + info.getIPAddr() + ":"+ info.getPort() +"/eva/home/evalPaper/{1}", R.class, evalId);
             // feign调用方式
-//            return evaluteFeignService.evalPaper(evalId);
+            return evaluteFeignService.evalPaper(evalId);
         } catch (Exception e) {
             e.printStackTrace();
             return R.error();
@@ -60,10 +60,10 @@ public class EvaClientController {
      */
     @PostMapping(value="/saveEval")
     public R saveEval(@RequestBody Map<String, Object> resultMap, HttpServletRequest request) {
-        // 获取服务注册中心信息
-        InstanceInfo info = eurekaServerUtils.getServerInstance();
-        return this.restTemplate.postForObject(request.getScheme() + "://" + info.getIPAddr() + ":"+ info.getPort() + "/eva/home/saveEval", resultMap, R.class);
+//        // 获取服务注册中心信息
+//        InstanceInfo info = eurekaServerUtils.getServerInstance();
+//        return this.restTemplate.postForObject(request.getScheme() + "://" + info.getIPAddr() + ":"+ info.getPort() + "/eva/home/saveEval", resultMap, R.class);
         // feign调用方式
-//        return evaluteFeignService.saveEval(resultMap);
+        return evaluteFeignService.saveEval(resultMap);
     }
 }

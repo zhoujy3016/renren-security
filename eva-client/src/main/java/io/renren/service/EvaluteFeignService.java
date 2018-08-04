@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.Map;
 
-@FeignClient(name="eva-admin", url = "http://localhost:8081/eva/home/")
+@FeignClient(name="eva-admin", url = "http://${eva.ip}:${eva.port}/eva/home/")
 public interface EvaluteFeignService {
 
     /**
