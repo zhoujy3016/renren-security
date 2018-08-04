@@ -46,7 +46,7 @@ public class EvaClientController {
             InstanceInfo info = eurekaServerUtils.getServerInstance();
             String deCode = String.valueOf(params.get("deCode"));
             String evalId = AesUtils.Decrypt(deCode, AesUtils.CKEY);
-            return this.restTemplate.getForObject(request.getScheme() + "://" + info.getIPAddr() + ":"+ info.getPort() +"/eva/home/evalPaper/" + evalId, R.class);
+            return this.restTemplate.getForObject(request.getScheme() + "://" + info.getIPAddr() + ":"+ info.getPort() +"/eva/home/evalPaper/{1}", R.class, evalId);
         } catch (Exception e) {
             e.printStackTrace();
             return R.error();
@@ -62,7 +62,6 @@ public class EvaClientController {
     public R saveEval(@RequestBody Map<String, Object> resultMap, HttpServletRequest request) {
         // 获取服务注册中心信息
         InstanceInfo info = eurekaServerUtils.getServerInstance();
-        this.restTemplate.postForObject(request.getScheme() + "://" + info.getIPAddr() + ":"+ info.getPort() + "/eva/home/saveEval", resultMap, String.class);
-        return R.ok();
+        return this.restTemplate.postForObject(request.getScheme() + "://" + info.getIPAddr() + ":"+ info.getPort() + "/eva/home/saveEval", resultMap, R.class);
     }
 }
