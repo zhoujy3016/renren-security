@@ -16,3 +16,7 @@ spring:
     application:
       name: eva-client
 
+logging:
+  level:
+    io.renren.service.EvaluteFeignService: DEBUG
+

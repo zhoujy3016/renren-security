@@ -1,5 +1,6 @@
 package io.renren.service;
 
+import io.renren.common.config.FeignConfiguration;
 import io.renren.common.utils.R;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.Map;
 
-@FeignClient(name="eva-admin", url = "http://${eva.ip}:${eva.port}/eva/home/")
+@FeignClient(name="eva-admin", url = "http://${eva.ip}:${eva.port}/eva/home/", configuration = FeignConfiguration.class)
 public interface EvaluteFeignService {
 
     /**
