@@ -48,7 +48,6 @@ public class DictYmlConfig {
 	 * 加载sql查询形式的数据字典配置文件
 	 */
     @Bean
-
     public static PropertySourcesPlaceholderConfigurer properties() {
         PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = new PropertySourcesPlaceholderConfigurer();
         YamlPropertiesFactoryBean yaml = new YamlPropertiesFactoryBean();
