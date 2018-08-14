@@ -117,11 +117,13 @@ public class DictComponent {
      * 将配置文件中针对特殊的表需要放入数据字典的map,放入redis 数据字典缓存中
      */
     public void loadExtraDictDataToRedis(Map<String, Object> extraMap) {
-    	for (String keys : extraMap.keySet()) {
-			List<Map<String, Object>> dictMapList = (List<Map<String, Object>>) extraMap.get(keys);
-	    	insertEmpty(dictMapList);
-			this.redisUtils.set(keys, dictMapList, RedisUtils.NOT_EXPIRE);
+    	if(extraMap != null) {
+			for (String keys : extraMap.keySet()) {
+				List<Map<String, Object>> dictMapList = (List<Map<String, Object>>) extraMap.get(keys);
+				insertEmpty(dictMapList);
+				this.redisUtils.set(keys, dictMapList, RedisUtils.NOT_EXPIRE);
+			}
 		}
     }
-    
+
 }

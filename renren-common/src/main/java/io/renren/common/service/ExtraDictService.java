@@ -21,7 +21,7 @@ import io.renren.common.config.DictYmlConfig;
 @Service
 public class ExtraDictService {
 	
-	@Autowired
+	@Autowired(required = false)
 	private DictYmlConfig dictYmlConfig;
 	
 	@Autowired
@@ -42,15 +42,17 @@ public class ExtraDictService {
 	 */
 	private void init() {
 		System.out.println("配置文件形式加载数据字典bean初始化");
-		extraMap = new HashMap<>();
-		Map<String, String> sqlMap = dictYmlConfig.getExtraDict();
-		System.out.println("####extra-dict start:");
-		for (String keys : sqlMap.keySet()) {
-			String sql = sqlMap.get(keys);
-			List<?> extraDictList = this.excuteQuery(sql);
-			extraMap.put(keys, extraDictList);
+		if(dictYmlConfig != null) {
+			extraMap = new HashMap<>(20);
+			Map<String, String> sqlMap = dictYmlConfig.getExtraDict();
+			System.out.println("####extra-dict start:");
+			for (String keys : sqlMap.keySet()) {
+				String sql = sqlMap.get(keys);
+				List<?> extraDictList = this.excuteQuery(sql);
+				extraMap.put(keys, extraDictList);
+			}
+			System.out.println("####extra-dict end:");
 		}
-		System.out.println("####extra-dict end:");
 	}
 	
 	public ExtraDictService() {

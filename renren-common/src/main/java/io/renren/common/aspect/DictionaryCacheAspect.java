@@ -33,7 +33,7 @@ public class DictionaryCacheAspect {
     @Autowired
     private ExtraDictService extraDictService;
 
-    @Autowired
+    @Autowired(required = false)
     private DictYmlConfig dictYmlConfig;
 
     @Autowired

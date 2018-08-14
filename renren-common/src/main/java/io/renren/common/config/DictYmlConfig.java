@@ -18,8 +18,9 @@ import org.springframework.core.io.ClassPathResource;
  * @email zhoujunyi-110@163.com
  * @date 2018-07-12 22:00
  */
-@ConfigurationProperties(prefix="dictionary")
 @Configuration
+@ConditionalOnResource(resources = "config/dictionary-config.yml")
+@ConfigurationProperties(prefix="dictionary")
 public class DictYmlConfig {
 	// 读取配置文件， 存放key与sql语句的map
 	private Map<String, String> extraDict = new HashMap<>();
@@ -47,7 +48,7 @@ public class DictYmlConfig {
 	 * 加载sql查询形式的数据字典配置文件
 	 */
     @Bean
-	@ConditionalOnResource(resources = "config/dictionary-config.yml")
+
     public static PropertySourcesPlaceholderConfigurer properties() {
         PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = new PropertySourcesPlaceholderConfigurer();
         YamlPropertiesFactoryBean yaml = new YamlPropertiesFactoryBean();
