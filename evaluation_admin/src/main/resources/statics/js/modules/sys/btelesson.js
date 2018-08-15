@@ -8,8 +8,8 @@ $(function () {
         colModel: [			
 			{ label: 'dataNo', name: 'dataNo', index: 'data_no', width: 50, key: true, hidden:true },
 			{ label: '课程名称', name: 'lessonTitle', index: 'lesson_title', width: 80 }, 			
-			{ label: '课程分类', name: 'lessonCategoryName', index: 'lessonCategoryName', width: 40 }, 			
-			{ label: '课程类型', name: 'lessonTypeName', index: 'lessonTypeName', width: 40 }, 			
+			{ label: '课程分类', name: 'lessonCategoryName', index: 'lessonCategoryName', width: 40 },
+			{ label: '课程类型', name: 'bteLessonTypeEntity.typeName', index: 'lessonTypeName', width: 40 },
 			{ label: '教官姓名', name: 'lessonTeacherName', index: 'lesson_teacher_name', width: 40 }, 			
 			{ label: '教官身份证号', name: 'lessonPid', index: 'lesson_pid', width: 40 }	
         ],

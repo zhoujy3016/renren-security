@@ -71,10 +71,10 @@ public class BteLessonEntity implements Serializable {
 	private Integer createUserId;
 	
 	/**
-	 * 课程类型名称
+	 * 课程类型嵌套类
 	 */
 	@TableField(exist=false)
-	private String lessonTypeName;
+	private BteLessonTypeEntity bteLessonTypeEntity;
 
 	/**
 	 * 设置：
@@ -179,17 +179,20 @@ public class BteLessonEntity implements Serializable {
 	public Integer getCreateUserId() {
 		return createUserId;
 	}
-	public String getLessonTypeName() {
-		return lessonTypeName;
-	}
-	public void setLessonTypeName(String lessonTypeName) {
-		this.lessonTypeName = lessonTypeName;
-	}
+
 	public String getLessonCategoryName() {
 		return lessonCategoryName;
 	}
+	
 	public void setLessonCategoryName(String lessonCategoryName) {
 		this.lessonCategoryName = lessonCategoryName;
 	}
-	
+
+	public void setBteLessonTypeEntity(BteLessonTypeEntity bteLessonTypeEntity) {
+		this.bteLessonTypeEntity = bteLessonTypeEntity;
+	}
+
+	public BteLessonTypeEntity getBteLessonTypeEntity() {
+		return bteLessonTypeEntity;
+	}
 }
