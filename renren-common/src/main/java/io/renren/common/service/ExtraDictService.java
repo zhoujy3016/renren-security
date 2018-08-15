@@ -43,7 +43,7 @@ public class ExtraDictService {
 	private void init() {
 		System.out.println("配置文件形式加载数据字典bean初始化");
 		if(dictYmlConfig != null) {
-			extraMap = new HashMap<>(20);
+			extraMap = new HashMap<>(10);
 			Map<String, String> sqlMap = dictYmlConfig.getExtraDict();
 			System.out.println("####extra-dict start:");
 			for (String keys : sqlMap.keySet()) {

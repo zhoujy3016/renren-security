@@ -97,7 +97,7 @@ public class DictionaryCacheAspect {
             throw new RRException("数据字典参数为NULL，请指定key");
         }
         String[] arrKeys = strKeys.split(",");
-        Map<String, Object> extraMap = new HashMap<>();
+        Map<String, Object> extraMap = new HashMap<>(10);
         // 配置文件中取得sql
         Map<String, String> sqlMap = dictYmlConfig.getExtraDict();
         for(String key:arrKeys) {
