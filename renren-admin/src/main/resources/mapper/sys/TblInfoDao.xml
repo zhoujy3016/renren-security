@@ -4,7 +4,7 @@
 <mapper namespace="io.renren.modules.sys.dao.TblInfoDao">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="io.renren.modules.sys.entity.TblInfoEntity" id="tblInfoMap">
+    <resultMap type="TblInfoEntity" id="tblInfoMap">
         <result property="infoId" column="info_id"/>
         <result property="infoTitle" column="info_title"/>
         <result property="infoType" column="info_type"/>

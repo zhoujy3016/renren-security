@@ -4,7 +4,7 @@
 <mapper namespace="io.renren.modules.sys.dao.TblPersonDao">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="io.renren.modules.sys.entity.TblPersonEntity" id="tblPersonMap">
+    <resultMap type="TblPersonEntity" id="tblPersonMap">
         <result property="personId" column="person_id"/>
         <result property="personName" column="person_name"/>
         <result property="nationality" column="nationality"/>

@@ -4,7 +4,7 @@
 <mapper namespace="io.renren.modules.sys.dao.BteEvaluateDao">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="io.renren.modules.sys.entity.BteEvaluateEntity" id="bteEvaluateMap">
+    <resultMap type="BteEvaluateEntity" id="bteEvaluateMap">
         <result property="dataNo" column="data_no"/>
         <result property="evalTitle" column="eval_title"/>
         <result property="evalMemo" column="eval_memo"/>
@@ -14,7 +14,7 @@
         <result property="evalStateName" column="evalStateName"/>
     </resultMap>
 
-	<select id="selectBteEvalList" resultMap="bteEvaluateMap" parameterType="Map">
+	<select id="selectBteEvalList" resultMap="bteEvaluateMap" parameterType="map">
 		SELECT  be.data_no,
 				be.eval_title,
 				be.eval_memo,

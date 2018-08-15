@@ -4,7 +4,7 @@
 <mapper namespace="io.renren.modules.sys.dao.BteLessonTypeDao">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="io.renren.modules.sys.entity.BteLessonTypeEntity" id="bteLessonTypeMap">
+    <resultMap type="BteLessonTypeEntity" id="bteLessonTypeMap">
         <result property="dataNo" column="data_no"/>
         <result property="categoryId" column="category_id"/>
         <result property="typeName" column="type_name"/>

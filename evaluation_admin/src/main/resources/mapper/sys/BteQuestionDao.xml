@@ -4,7 +4,7 @@
 <mapper namespace="io.renren.modules.sys.dao.BteQuestionDao">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="io.renren.modules.sys.entity.BteQuestionEntity" id="bteQuestionMap">
+    <resultMap type="BteQuestionEntity" id="bteQuestionMap">
         <result property="dataNo" column="data_no"/>
         <result property="questionTitle" column="question_title"/>
         <result property="questionTypeId" column="question_type_id"/>

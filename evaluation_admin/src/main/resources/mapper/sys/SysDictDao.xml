@@ -3,7 +3,7 @@
 
 <mapper namespace="io.renren.modules.sys.dao.SysDictDao">
 
-	<resultMap id="dictMap" type="java.util.HashMap">
+	<resultMap id="dictMap" type="hashmap">
 		<result column="id" property="id"/>
 		<result column="type" property="type" />
 		<result column="code" property="code" />
@@ -21,7 +21,7 @@
 
 
 	<!-- 查询额外的key value放入字典中 -->
-	<select id="excuteSelectExtraDictSql" parameterType="java.lang.String" resultMap="dictMap">
+	<select id="excuteSelectExtraDictSql" parameterType="string" resultMap="dictMap">
 		${value}
 	</select>
 </mapper>
