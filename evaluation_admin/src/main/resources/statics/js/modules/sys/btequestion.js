@@ -6,7 +6,15 @@ $(function () {
 			{ label: 'dataNo', name: 'dataNo', index: 'data_no', width: 50, key: true, hidden:true },
 			{ label: '题干名称', name: 'questionTitle', index: 'questionTitle', width: 80 }, 			
 			{ label: '所属分类', name: 'questionTypeName', index: 'questionTypeName', width: 80 }, 			
-			{ label: '启用状态', name: 'questionStateName', index: 'questionStateName', width: 40 }
+			{ label: '启用状态', name: 'questionStateName', index: 'questionStateName', width: 40 , formatter: function(value, options, row){
+                    var state = "";
+                    if (row.questionStateId == 0) {
+                    	state= 'danger'
+                    } else {
+                    	state= 'success';
+                    }
+                    return '<span class="label label-'+ state +'">'+value+'</span>';
+			}}
         ],
 		viewrecords: true,
         height: 385,

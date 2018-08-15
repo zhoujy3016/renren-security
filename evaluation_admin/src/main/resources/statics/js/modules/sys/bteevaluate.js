@@ -7,16 +7,25 @@ $(function () {
 			{ label: '测评名称', name: 'evalTitle', index: 'eval_title', width: 70 },
 			{ label: '测评说明', name: 'evalMemo', index: 'eval_memo', width: 80 }, 			
 			{ label: '课程设置', name: '', index: '', width: 20, 
-				  formatter:function(cellvalue, options, rowObject){
+				  formatter:function(value, options, rowObject){
 					    return '<a style="cursor: pointer" onclick="vm.lessonList(' + rowObject.dataNo+ ')">设置</a>';
 				  }	
 			}, 			
 			{ label: '查看结果', name: '', index: '', width: 20,
-				  formatter:function(cellvalue, options, rowObject){
+				  formatter:function(value, options, rowObject){
 					    return '<a style="cursor: pointer" onclick="vm.resultList(' + rowObject.dataNo+ ')">查看</a>';
 				  }		
 			},
-			{ label: '状态', name: 'evalStateName', index: 'evalStateName', width: 20 }, 
+			{ label: '状态', name: 'evalStateName', index: 'evalStateName', width: 20, formatter: function(value, options, row){
+					var state = "";
+                    switch (row.evalStateId) {
+						case 0 : state= 'warning'; break;
+						case 1 : state= 'success'; break;
+						case 2 : state= 'danger'; break;
+						default: break;
+                    }
+                    return '<span class="label label-'+ state +'">'+value+'</span>';
+			}},
 			{ label: '二维码', name: '', index: '', width: 20,
 				formatter:function(cellvalue, options, rowObject){
 				    return '<a style="cursor: pointer" onclick="vm.downloadQr(' + rowObject.dataNo+ ')">显示</a>';
