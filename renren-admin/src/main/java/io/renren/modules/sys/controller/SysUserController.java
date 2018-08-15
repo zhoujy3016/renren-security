@@ -18,6 +18,7 @@ package io.renren.modules.sys.controller;
 
 
 import io.renren.common.annotation.SysLog;
+import io.renren.common.utils.Constant;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.R;
 import io.renren.common.validator.Assert;
@@ -143,7 +144,7 @@ public class SysUserController extends AbstractController {
 	@RequestMapping("/delete")
 	@RequiresPermissions("sys:user:delete")
 	public R delete(@RequestBody Long[] userIds){
-		if(ArrayUtils.contains(userIds, 1L)){
+		if(ArrayUtils.contains(userIds, Constant.SUPER_ADMIN)){
 			return R.error("系统管理员不能删除");
 		}
 		
@@ -160,7 +161,7 @@ public class SysUserController extends AbstractController {
 	@RequestMapping("/passwordReset")
 	@RequiresPermissions("sys:user:psdreset")
 	public R passwordReset(@RequestBody Long[] userIds) {
-		if(ArrayUtils.contains(userIds, 1L)) {
+		if(ArrayUtils.contains(userIds, Constant.SUPER_ADMIN)) {
 			return R.error("系统管理员密码无法更改");
 		}
 		// 批量重置密码
