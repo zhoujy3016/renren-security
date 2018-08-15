@@ -28,7 +28,6 @@ var vm = new Vue({
 		},
 
 		saveEval:function() {
-			console.log($("question_5_14").val())
 			var index = 0;
 			// 课程类型
 			for(var i = 0; i < vm.lesson.length; i++, index++) {
@@ -41,7 +40,7 @@ var vm = new Vue({
 			// 常规试题
 			for(var i = 0; i < vm.question.length; i++, index++) {
 				var typeId = vm.question[i].questionTypeId;
-				if(typeId != 5) {
+				if(typeId != 4) {
 					var radioValue = $('input[name="question_'+ typeId +'_'+ i +'"]:checked').val()
 					if(!this.checkData($(".question_"+ typeId +'_'+ i), radioValue)) {
 						return;
@@ -49,7 +48,6 @@ var vm = new Vue({
 					vm.result[index] = {"questionTypeId" : typeId, "evalId" : vm.evalId, "questionId" : vm.question[i].dataNo, "questionScore": radioValue};	
 				} else { // 其他建议
 					var suggest = $("#question_"+ typeId + '_' +  i).val();
-					console.log(suggest);
 					if(isBlank(suggest)) {
 						suggest = "";
 					}
@@ -105,7 +103,7 @@ var vm = new Vue({
 				strQuestion += '<div class="question-title">'+ (row++) + ' . ' + question.questionTitle +'</div>';
 				strQuestion += '<ul  class="question-option list-inline">';
 				// 非其他建议的情况下
-				if(typeId != 5) {
+				if(typeId != 4) {
 					strQuestion += '<li><label><input type="radio" name="question_'+ typeId +'_'+ i +'" value="5" id="RadioGroup1_0"> 5</label></li>';
 					strQuestion += '<li><label><input type="radio" name="question_'+ typeId +'_'+ i +'" value="4" id="RadioGroup1_0"> 4</label></li>';
 					strQuestion += '<li><label><input type="radio" name="question_'+ typeId+ '_'+ i +'" value="3" id="RadioGroup1_0"> 3</label></li>';
