@@ -66,7 +66,7 @@ public class DataCreaterFilterAspect {
 		List<Long> roleIdList = sysUserRoleService.queryRoleIdList(user.getUserId());
 		boolean isGab = false;
 		for(Long id : roleIdList) {
-			if(id == 1) {
+			if(id == Constant.SUPER_ADMIN) { // 超级管理员
 				isGab = true;
 			}
 		}
