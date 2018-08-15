@@ -5,7 +5,7 @@
 
 	<!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="BteEvaluateEntity" id="bteEvaluateMap">
-        <result property="dataNo" column="data_no"/>
+        <id property="dataNo" column="data_no"/>
         <result property="evalTitle" column="eval_title"/>
         <result property="evalMemo" column="eval_memo"/>
         <result property="evalStateId" column="eval_state_id"/>

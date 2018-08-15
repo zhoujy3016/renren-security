@@ -5,7 +5,7 @@
 
 	<!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="TblPersonEntity" id="tblPersonMap">
-        <result property="personId" column="person_id"/>
+        <id property="personId" column="person_id"/>
         <result property="personName" column="person_name"/>
         <result property="nationality" column="nationality"/>
         <result property="nationalityName" column="nationalityName"/>

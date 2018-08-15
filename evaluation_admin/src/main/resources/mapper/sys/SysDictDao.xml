@@ -4,7 +4,7 @@
 <mapper namespace="io.renren.modules.sys.dao.SysDictDao">
 
 	<resultMap id="dictMap" type="hashmap">
-		<result column="id" property="id"/>
+		<id column="id" property="id"/>
 		<result column="type" property="type" />
 		<result column="code" property="code" />
 		<result column="value" property="value" />

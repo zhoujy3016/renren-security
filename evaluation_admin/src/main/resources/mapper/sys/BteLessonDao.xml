@@ -5,7 +5,7 @@
 
 	<!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="BteLessonEntity" id="bteLessonMap">
-        <result property="dataNo" column="data_no"/>
+        <id property="dataNo" column="data_no"/>
         <result property="evalId" column="eval_id"/>
         <result property="lessonTitle" column="lesson_title"/>
         <result property="lessonTypeId" column="lesson_type_id"/>
