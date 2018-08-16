@@ -83,6 +83,7 @@ logging:
   path: logs/
   file: admin.log
   
-
+#皮肤 AdminLTE & Layui
+skin: AdminLTE
 
   

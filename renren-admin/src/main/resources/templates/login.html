@@ -101,7 +101,11 @@ var vm = new Vue({
 			    dataType: "json",
 			    success: function(result){
 					if(result.code == 0){//登录成功
-						parent.location.href ='index.html';
+                        if(result.skin == "AdminLTE") {
+                            parent.location.href ='index.html';
+                        } else if(result.skin == "Layui") {
+                            parent.location.href ='index1.html';
+                        }
 					}else{
 						vm.error = true;
 						vm.errorMsg = result.msg;

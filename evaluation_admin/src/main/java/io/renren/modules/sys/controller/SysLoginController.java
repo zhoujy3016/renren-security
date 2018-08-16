@@ -24,6 +24,7 @@ import io.renren.modules.sys.shiro.ShiroUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -46,6 +47,9 @@ import java.io.IOException;
 public class SysLoginController {
 	@Autowired
 	private Producer producer;
+
+	@Value("${skin}")
+	private String skin;
 	
 	@RequestMapping("captcha.jpg")
 	public void captcha(HttpServletResponse response)throws IOException {
@@ -85,7 +89,7 @@ public class SysLoginController {
 		}catch (AuthenticationException e) {
 			return R.error("账户验证失败");
 		}
-		return R.ok();
+		return R.ok().put("skin", skin);
 	}
 	
 	/**
