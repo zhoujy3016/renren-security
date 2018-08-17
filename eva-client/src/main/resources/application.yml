@@ -17,6 +17,8 @@ spring:
       name: eva-client
 
 logging:
+  path: logs/
+  file: eva-client.log
   level:
+    root: info
     io.renren.service.EvaluteFeignService: DEBUG
-

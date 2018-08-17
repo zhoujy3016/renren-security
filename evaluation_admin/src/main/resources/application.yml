@@ -92,7 +92,7 @@ logging:
   level: debug
   level.io.renren: debug
   path: logs/
-  file: admin.log
+  file: eva-admin.log
 
 #皮肤 AdminLTE & Layui
 skin: AdminLTE
