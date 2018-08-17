@@ -4,10 +4,10 @@
 <mapper namespace="io.renren.modules.sys.dao.SysDictDao">
 
 	<resultMap id="dictMap" type="hashmap">
-		<id column="id" property="id"/>
-		<result column="type" property="type" />
-		<result column="code" property="code" />
-		<result column="value" property="value" />
+		<id column="id" property="id" javaType="Long"/>
+		<result column="type" property="type" javaType="String"/>
+		<result column="code" property="code" javaType="String"/>
+		<result column="value" property="value" javaType="String"/>
 	</resultMap>
 
 	<select id="getSysDictEntityGroupByType" resultMap="dictMap">
