@@ -19,7 +19,7 @@
         from bte_lesson_type lt
             left join sys_dict d1 on d1.code = lt.category_id and d1.type = 'kcfl'
             <where>
-                <if test="params.categoryId!=null and params.categoryId!=''">
+                <if test="@org.apache.commons.lang.StringUtils@isNotEmpty(params.categoryId)">
                     and lt.category_Id = #{params.categoryId}
                 </if>
                 and lt.del_flag != -1
