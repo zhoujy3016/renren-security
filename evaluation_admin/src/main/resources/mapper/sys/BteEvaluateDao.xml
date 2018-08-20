@@ -25,7 +25,8 @@
 		FROM bte_evaluate be
 		LEFT JOIN sys_dict d1 ON d1.code = be.eval_state_id AND d1.type = 'cpzt'
 		<where>
-			<if test="params.sql_filter != null and params.sql_filter !=''">
+			<!--<if test="params.sql_filter != null and params.sql_filter !=''">-->
+			<if test="@org.apache.commons.lang.StringUtils@isNotEmpty(params.sql_filter)">
 				 AND ${params.sql_filter}
 			</if>
 		</where>
