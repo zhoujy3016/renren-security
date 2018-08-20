@@ -15,9 +15,9 @@
         <result property="createUserId" column="create_user_id"/>
         <result property="lessonCategoryName" column="lessonCategoryName" />
 		<!-- 嵌套类 -->
-		<association property="bteLessonTypeEntity" javaType="BteLessonTypeEntity">
-			<id column="typeDataNo" property="dataNo"/>
-			<result column="lessonTypeName" property="typeName"/>
+		<association property="bteLessonTypeEntity" javaType="BteLessonTypeEntity" columnPrefix="lt_">
+			<id column="dataNo" property="dataNo"/>
+			<result column="typeName" property="typeName"/>
 		</association>
     </resultMap>
 
@@ -30,8 +30,8 @@
 				bl.lesson_pid,
 				bl.create_date,
 				bl.create_user_id,
-				lt.data_no as typeDataNo,
-				lt.type_name as lessonTypeName,
+				lt.data_no as lt_dataNo,
+				lt.type_name as lt_typeName,
 				d1.value as lessonCategoryName
 		FROM bte_lesson bl
 		LEFT JOIN bte_lesson_type lt ON lt.data_no = bl.lesson_type_id
