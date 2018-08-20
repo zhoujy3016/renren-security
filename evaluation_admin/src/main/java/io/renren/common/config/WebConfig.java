@@ -1,6 +1,8 @@
 package io.renren.common.config;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import org.springframework.context.annotation.Configuration;
@@ -34,6 +36,10 @@ public class WebConfig implements WebMvcConfigurer {
         simpleModule.addSerializer(Long.class, ToStringSerializer.instance);
         simpleModule.addSerializer(Long.TYPE, ToStringSerializer.instance);
         objectMapper.registerModule(simpleModule);
+
+//        // 懒加载配置，否则抛出异常
+//        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+//        objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 
         jackson2HttpMessageConverter.setObjectMapper(objectMapper);
         converters.add(0, jackson2HttpMessageConverter);
