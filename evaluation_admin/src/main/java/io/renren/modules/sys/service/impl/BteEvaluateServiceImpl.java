@@ -104,7 +104,7 @@ public class BteEvaluateServiceImpl extends ServiceImpl<BteEvaluateDao, BteEvalu
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public void changeEvalStage(Integer toState, Integer[] dataNos) {
+	public void changeEvalState(Integer toState, Integer[] dataNos) {
 		for(int dataNo:dataNos) {
 			BteEvaluateEntity evalEntity = this.selectById(dataNo);
 			evalEntity.setEvalStateId(toState);
