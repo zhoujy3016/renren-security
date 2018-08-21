@@ -106,41 +106,15 @@ public class BteEvaluateController {
     }
     
     /**
-     * 选中数据变为未开始状态
+     * 改变测评状态
      * @param toState
      * @param dataNos
      * @return
      */
-    @RequestMapping("/nostart/{toState}")
-    @RequiresPermissions("sys:bteevaluate:nostart")
-    public R noStart(@PathVariable("toState") Integer toState, @RequestBody Integer[] dataNos) {
-    	bteEvaluateService.changeEvalStage(toState, dataNos);
-    	return R.ok();
-    }
-
-    /**
-     * 选中数据变为开始状态
-     * @param toState
-     * @param dataNos
-     * @return
-     */
-    @RequestMapping("/start/{toState}")
-    @RequiresPermissions("sys:bteevaluate:start")
-    public R starting(@PathVariable("toState") Integer toState, @RequestBody Integer[] dataNos) {
-    	bteEvaluateService.changeEvalStage(toState, dataNos);
+    @RequestMapping(value={"/nostart/{toState}", "/start/{toState}", "/over/{toState}"})
+    public R changeState(@PathVariable("toState") Integer toState, @RequestBody Integer[] dataNos) {
+    	bteEvaluateService.changeEvalState(toState, dataNos);
     	return R.ok();
     }
     
-    /**
-     * 选中数据变为结束状态
-     * @param toState
-     * @param dataNos
-     * @return
-     */
-    @RequestMapping("/over/{toState}")
-    @RequiresPermissions("sys:bteevaluate:over")
-    public R over(@PathVariable("toState") Integer toState, @RequestBody Integer[] dataNos) {
-    	bteEvaluateService.changeEvalStage(toState, dataNos);
-    	return R.ok();
-    }
 }
