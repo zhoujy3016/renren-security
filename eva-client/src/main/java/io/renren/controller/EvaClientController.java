@@ -1,6 +1,8 @@
 package io.renren.controller;
 
 import com.netflix.appinfo.InstanceInfo;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import io.renren.common.utils.AesUtils;
 import io.renren.common.utils.EurekaServerUtils;
 import io.renren.common.utils.R;
@@ -36,6 +38,7 @@ public class EvaClientController {
      * @return
      */
     @GetMapping(value="/evalPaper")
+    @HystrixCommand(fallbackMethod = "fallbackEvalPaper", commandProperties = @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="5000"))
     public R evalPaper(@RequestParam Map<String, Object> params, HttpServletRequest request) {
         try {
             // 取得加密的测评id号
@@ -54,16 +57,39 @@ public class EvaClientController {
     }
 
     /**
+     * 测评问卷读取断路器fallback函数
+     * @param params
+     * @param request
+     * @return
+     */
+    public R fallbackEvalPaper(@RequestParam Map<String, Object> params, HttpServletRequest request) {
+        return R.error(303, "连接超时，无法取得测评问卷数据！");
+    }
+
+
+    /**
      * 保存测评问卷答案
      * @param resultMap
      * @return
      */
     @PostMapping(value="/saveEval")
+    @HystrixCommand(fallbackMethod = "fallbackSaveEval", commandProperties = @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="5000"))
     public R saveEval(@RequestBody Map<String, Object> resultMap, HttpServletRequest request) {
 //        // 获取服务注册中心信息
 //        InstanceInfo info = eurekaServerUtils.getServerInstance();
 //        return this.restTemplate.postForObject(request.getScheme() + "://" + info.getIPAddr() + ":"+ info.getPort() + "/eva/home/saveEval", resultMap, R.class);
         // feign调用方式
-        return evaluteFeignService.saveEval(resultMap);
+        R result =  evaluteFeignService.saveEval(resultMap);
+        return result;
+    }
+
+    /**
+     * 测评问卷提交断路器fallback函数
+     * @param resultMap
+     * @param request
+     * @return
+     */
+    public R fallbackSaveEval(@RequestBody Map<String, Object> resultMap, HttpServletRequest request) {
+        return R.error(304, "连接超时，无法提交测评问卷数据！");
     }
 }
