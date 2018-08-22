@@ -42,7 +42,7 @@
 		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_score = 3) AS score3,
 		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_score = 4) AS score4,
 		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_score = 5) AS score5,
-		  (SELECT AVG(question_score) FROM bte_result WHERE eval_id = #{evalId} AND bq.data_no = question_id) AS avgScore
+		  (SELECT cast(AVG(question_score) as decimal(10, 1)) FROM bte_result WHERE eval_id = #{evalId} AND bq.data_no = question_id) AS avgScore
 		FROM
 		  bte_question bq,
 		  bte_evalrefquestion ref,
@@ -63,7 +63,7 @@
 		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bl.data_no = question_id AND question_score = 3 AND question_type_id = 1) AS score3,
 		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bl.data_no = question_id AND question_score = 4 AND question_type_id = 1) AS score4,
 		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bl.data_no = question_id AND question_score = 5 AND question_type_id = 1) AS score5,
-		  (SELECT AVG(question_score) FROM bte_result WHERE eval_id = #{evalId} AND bl.data_no = question_id) AS avgScore
+		  (SELECT cast(AVG(question_score) as decimal(10, 1)) FROM bte_result WHERE eval_id = #{evalId} AND bl.data_no = question_id) AS avgScore
 		FROM bte_lesson bl
 			where bl.eval_id = #{evalId}
 	</select>

@@ -72,7 +72,7 @@ public class BteResultEntityExt extends BteResultEntity implements Serializable 
 	 */
 	@TableField(exist=false)
 	@Excel(name = "平均分", orderNum = "7")
-	private Integer avgScore;
+	private Double avgScore;
 
 
 	public String getQuestionTitle() {
@@ -118,10 +118,10 @@ public class BteResultEntityExt extends BteResultEntity implements Serializable 
 	public void setScore5(Integer score5) {
 		this.score5 = score5;
 	}
-	public Integer getAvgScore() {
+	public Double getAvgScore() {
 		return avgScore;
 	}
-	public void setAvgScore(Integer avgScore) {
+	public void setAvgScore(Double avgScore) {
 		this.avgScore = avgScore;
 	}
 	
