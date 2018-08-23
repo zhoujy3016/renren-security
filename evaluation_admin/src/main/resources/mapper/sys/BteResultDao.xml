@@ -75,6 +75,6 @@
 		FROM bte_result br
 		LEFT JOIN  bte_question bq on bq.data_no = br.question_id
 		WHERE br.eval_Id = #{evalId}
-		AND   br.question_type_id = 5
+		AND   br.question_type_id = 4
 	</select>
 </mapper>
