@@ -79,8 +79,8 @@ public class BteResultServiceImpl extends ServiceImpl<BteResultDao, BteResultEnt
 		resultEntity.setQuestionTypeId(OptionalUtils.stringToInt(String.valueOf(map.get("questionTypeId"))));
 		// 问题编号
 		resultEntity.setQuestionId(OptionalUtils.stringToInt(String.valueOf(map.get("questionId"))));
-		// 类型：5 为其他建议
-		if(resultEntity.getQuestionTypeId() != 5) {
+		// 类型：4 为其他建议
+		if(resultEntity.getQuestionTypeId() != 4) {
 			// 测评分数
 			resultEntity.setQuestionScore(OptionalUtils.stringToInt(String.valueOf(map.get("questionScore"))));
 		} else { // 具体意见
