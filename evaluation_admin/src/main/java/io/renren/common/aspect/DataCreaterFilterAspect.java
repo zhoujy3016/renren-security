@@ -66,8 +66,9 @@ public class DataCreaterFilterAspect {
 		List<Long> roleIdList = sysUserRoleService.queryRoleIdList(user.getUserId());
 		boolean isGab = false;
 		for(Long id : roleIdList) {
-			if(id == 1) { // 部级id号
+			if(id == 1) { // 部级角色id号
 				isGab = true;
+				break;
 			}
 		}
 		if(!isGab) {	// 非部级角色，查询自己的
