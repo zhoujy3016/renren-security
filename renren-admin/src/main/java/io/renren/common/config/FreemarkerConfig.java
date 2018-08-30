@@ -16,9 +16,8 @@
 
 package io.renren.common.config;
 
-import io.renren.common.component.DictionaryDirective;
+import io.renren.dictionary.component.DictionaryDirective;
 import io.renren.modules.sys.shiro.ShiroTag;
-import oracle.jdbc.proxy.annotation.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

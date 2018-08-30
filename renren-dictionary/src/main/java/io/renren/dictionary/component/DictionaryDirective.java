@@ -1,4 +1,4 @@
-package io.renren.common.component;
+package io.renren.dictionary.component;
 
 import freemarker.core.Environment;
 import freemarker.ext.beans.BeansWrapper;

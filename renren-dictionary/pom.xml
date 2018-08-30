@@ -5,10 +5,21 @@
 		<version>3.2.0</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>renren-common</artifactId>
+	<artifactId>renren-dictionary</artifactId>
 	<packaging>jar</packaging>
-	<description>renren-common</description>
+	<description>renren-dictionary</description>
 
+	<dependencies>
+		<dependency>
+			<groupId>io.renren</groupId>
+			<artifactId>renren-common</artifactId>
+			<version>3.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-freemarker</artifactId>
+		</dependency>
+	</dependencies>
 	<build>
 		<finalName>${project.artifactId}</finalName>
 	</build>

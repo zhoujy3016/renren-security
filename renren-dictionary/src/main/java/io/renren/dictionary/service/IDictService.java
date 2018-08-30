@@ -2,7 +2,7 @@
  * 数据字典接口
  */
 
-package io.renren.common.service;
+package io.renren.dictionary.service;
 
 
 import java.util.List;

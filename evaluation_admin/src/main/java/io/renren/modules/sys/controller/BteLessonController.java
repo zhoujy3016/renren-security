@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.renren.modules.sys.entity.BteLessonEntity;
 import io.renren.modules.sys.service.BteLessonService;
-import io.renren.common.component.DictComponent;
+import io.renren.dictionary.component.DictComponent;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.R;
 

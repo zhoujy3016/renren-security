@@ -1,11 +1,11 @@
-package io.renren.common.aspect;
+package io.renren.dictionary.aspect;
 
-import io.renren.common.annotation.DictOperation;
-import io.renren.common.annotation.DictionaryCache;
-import io.renren.common.component.DictComponent;
-import io.renren.common.config.DictYmlConfig;
+import io.renren.dictionary.annotation.DictOperation;
+import io.renren.dictionary.annotation.DictionaryCache;
+import io.renren.dictionary.component.DictComponent;
+import io.renren.dictionary.config.DictYmlConfig;
 import io.renren.common.exception.RRException;
-import io.renren.common.service.ExtraDictService;
+import io.renren.dictionary.service.ExtraDictService;
 import io.renren.common.utils.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.aspectj.lang.JoinPoint;
@@ -39,7 +39,7 @@ public class DictionaryCacheAspect {
     @Autowired
     DictComponent dictComponent;
 
-    @Pointcut("@annotation(io.renren.common.annotation.DictionaryCache)")
+    @Pointcut("@annotation(io.renren.dictionary.annotation.DictionaryCache)")
     public void dataFilterCut() {
 
     }

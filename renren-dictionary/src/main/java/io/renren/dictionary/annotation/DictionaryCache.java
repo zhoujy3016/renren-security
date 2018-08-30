@@ -1,4 +1,5 @@
-package io.renren.common.annotation;
+package io.renren.dictionary.annotation;
+
 
 import java.lang.annotation.*;
 

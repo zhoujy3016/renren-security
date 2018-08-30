@@ -1,5 +1,6 @@
 package io.renren.common.component;
 
+import io.renren.dictionary.component.DictComponent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;

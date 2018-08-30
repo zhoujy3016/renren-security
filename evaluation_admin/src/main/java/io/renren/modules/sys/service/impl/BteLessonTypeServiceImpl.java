@@ -1,8 +1,7 @@
 package io.renren.modules.sys.service.impl;
 
-import io.renren.common.annotation.DictOperation;
-import io.renren.common.annotation.DictionaryCache;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.renren.dictionary.annotation.DictOperation;
+import io.renren.dictionary.annotation.DictionaryCache;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;

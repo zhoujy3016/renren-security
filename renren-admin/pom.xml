@@ -22,7 +22,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>io.renren</groupId>
-			<artifactId>renren-common</artifactId>
+			<artifactId>renren-dictionary</artifactId>
 			<version>3.2.0</version>
 		</dependency>
 		<dependency>

@@ -20,9 +20,9 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 
-import io.renren.common.annotation.DictOperation;
-import io.renren.common.annotation.DictionaryCache;
-import io.renren.common.service.IDictService;
+import io.renren.dictionary.annotation.DictOperation;
+import io.renren.dictionary.annotation.DictionaryCache;
+import io.renren.dictionary.service.IDictService;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.Query;
 import io.renren.modules.sys.dao.SysDictDao;

@@ -1,8 +1,8 @@
-package io.renren.common.component;
+package io.renren.dictionary.component;
 
-import io.renren.common.service.ExtraDictService;
-import io.renren.common.service.IDictService;
 import io.renren.common.utils.RedisUtils;
+import io.renren.dictionary.service.ExtraDictService;
+import io.renren.dictionary.service.IDictService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

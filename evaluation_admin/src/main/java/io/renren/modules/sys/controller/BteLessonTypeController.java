@@ -1,10 +1,9 @@
 package io.renren.modules.sys.controller;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import io.renren.common.component.DictComponent;
+import io.renren.dictionary.component.DictComponent;
 import io.renren.common.validator.ValidatorUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;

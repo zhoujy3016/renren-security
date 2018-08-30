@@ -1,4 +1,4 @@
-package io.renren.common.annotation;
+package io.renren.dictionary.annotation;
 
 /**
  * 数据字典类型枚举类
