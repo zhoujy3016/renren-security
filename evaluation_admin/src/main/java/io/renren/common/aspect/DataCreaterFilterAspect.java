@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -24,10 +26,7 @@ import io.renren.modules.sys.shiro.ShiroUtils;
 @Aspect
 @Component
 public class DataCreaterFilterAspect {
-	
-	@Autowired
-	private SysUserRoleService sysUserRoleService;
-	
+
 	@Pointcut("@annotation(io.renren.common.annotation.DataCreaterFilter)")
 	public void dataFilterCut() {
 		
@@ -61,16 +60,12 @@ public class DataCreaterFilterAspect {
 		if(StringUtils.isNotBlank(tableAlias)) {
 			tableAlias += ".";
 		}
-		StringBuilder sqlFilter = new StringBuilder();
-		// 取得权限列表id
-		List<Long> roleIdList = sysUserRoleService.queryRoleIdList(user.getUserId());
+		Subject subject = SecurityUtils.getSubject();
 		boolean isGab = false;
-		for(Long id : roleIdList) {
-			if(id == 1) { // 部级角色id号
-				isGab = true;
-				break;
-			}
+		if(subject.hasRole("1")) { // 是否拥有部级权限
+			isGab = true;
 		}
+		StringBuilder sqlFilter = new StringBuilder();
 		if(!isGab) {	// 非部级角色，查询自己的
 			sqlFilter.append(tableAlias).append(dataFilter.userId()).append("=").append(user.getUserId());
 		}
