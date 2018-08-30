@@ -61,13 +61,9 @@ public class DataCreaterFilterAspect {
 			tableAlias += ".";
 		}
 		Subject subject = SecurityUtils.getSubject();
-		boolean isGab = false;
-		if(subject.hasRole("1")) { // 是否拥有部级权限
-			isGab = true;
-		}
-		StringBuilder sqlFilter = new StringBuilder();
-		if(!isGab) {	// 非部级角色，查询自己的
-			sqlFilter.append(tableAlias).append(dataFilter.userId()).append("=").append(user.getUserId());
+        StringBuilder sqlFilter = new StringBuilder();
+		if(!subject.hasRole("1")) { // 非部级权限用户，查询自己创建的数据
+            sqlFilter.append(tableAlias).append(dataFilter.userId()).append("=").append(user.getUserId());
 		}
 		return sqlFilter.toString();
 	}
