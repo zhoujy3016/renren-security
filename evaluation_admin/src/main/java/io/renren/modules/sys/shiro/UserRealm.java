@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Set;
 
 import io.renren.common.utils.Constant;
+import io.renren.modules.sys.dao.SysUserRoleDao;
 import io.renren.modules.sys.entity.SysUserEntity;
 import io.renren.modules.sys.dao.SysMenuDao;
 import io.renren.modules.sys.dao.SysUserDao;
@@ -53,6 +54,8 @@ public class UserRealm extends AuthorizingRealm {
     private SysUserDao sysUserDao;
     @Autowired
     private SysMenuDao sysMenuDao;
+	@Autowired
+	private SysUserRoleDao sysUserRoleDao;
     
     /**
      * 授权(验证权限时调用)
@@ -86,6 +89,14 @@ public class UserRealm extends AuthorizingRealm {
 		
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 		info.setStringPermissions(permsSet);
+		// 用户角色列表
+		Set<String> roleSet = new HashSet<>();
+		List<Long> roleIdList = sysUserRoleDao.queryRoleIdList(userId);
+		for(Long roleId : roleIdList) {
+			roleSet.add(String.valueOf(roleId));
+		}
+		info.setRoles(roleSet);
+
 		return info;
 	}
 
