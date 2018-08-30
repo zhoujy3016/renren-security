@@ -1,6 +1,5 @@
 package io.renren.controller;
 
-import com.netflix.appinfo.InstanceInfo;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import io.renren.common.utils.AesUtils;
