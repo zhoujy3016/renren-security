@@ -1,5 +1,6 @@
 package io.renren.modules.sys.service.impl;
 
+import io.renren.common.utils.*;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,10 +21,6 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 
 import io.renren.common.annotation.DataCreaterFilter;
-import io.renren.common.utils.AesUtils;
-import io.renren.common.utils.PageUtils;
-import io.renren.common.utils.QrcodeUtil;
-import io.renren.common.utils.Query;
 
 import io.renren.modules.sys.dao.BteEvaluateDao;
 import io.renren.modules.sys.entity.BteEvalrefquestionEntity;
@@ -93,7 +90,7 @@ public class BteEvaluateServiceImpl extends ServiceImpl<BteEvaluateDao, BteEvalu
 		if(StringUtils.isNotBlank(ipAddress)) {
 			ipAddr = ipAddress;
 		} else {
-			ipAddr = httpServletRequest.getLocalAddr();
+			ipAddr = IPUtils.getIpAddr(httpServletRequest);
 		}
 		// 将参数加密
 		String enCode = AesUtils.Encrypt(String.valueOf(dataNo), AesUtils.CKEY);
