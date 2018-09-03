@@ -1,4 +1,9 @@
 spring:
+    redis:
+        database: 1
+        host: 67.209.187.223
+        port: 6379
+        password: 12346789     # 密码（默认为空）
     datasource:
         type: com.alibaba.druid.pool.DruidDataSource
         driverClassName: com.mysql.jdbc.Driver
