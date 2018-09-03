@@ -24,54 +24,83 @@ public class BteResultEntityExt extends BteResultEntity implements Serializable 
 	@TableField(exist=false)
 	@Excel(name = "题干名称", orderNum = "0")
 	private String questionTitle;
+
+	/**
+	 * 课程分类
+	 */
+	@TableField(exist=false)
+	@Excel(name = "课程分类", orderNum = "1")
+	private String lessonCategoryName;
+
+	/**
+	 * 课程类型
+	 */
+	@TableField(exist=false)
+	@Excel(name = "课程类型", orderNum = "2")
+	private String lessonTypeName;
+
+
+	/**
+	 * 教官姓名
+	 */
+	@TableField(exist=false)
+	@Excel(name = "教官姓名", orderNum = "3")
+	private String lessonTeacherName;
+
+	/**
+	 * 教官身份证
+	 */
+	@TableField(exist=false)
+	@Excel(name = "教官身份证号", orderNum = "4")
+	private String lessonPid;
 	
 	/**
 	 * 提交人数
 	 */
 	@TableField(exist=false)
-	@Excel(name = "提交人数", orderNum = "1")
+	@Excel(name = "提交人数", orderNum = "5")
 	private Integer evaPersonNum;
 	
 	/**
 	 * 1分人数
 	 */
 	@TableField(exist=false)
-	@Excel(name = "1分人数", orderNum = "2")
+	@Excel(name = "1分人数", orderNum = "6")
 	private Integer score1;
 	
 	/**
 	 * 2分人数
 	 */
 	@TableField(exist=false)
-	@Excel(name = "2分人数", orderNum = "3")
+	@Excel(name = "2分人数", orderNum = "7")
 	private Integer score2;
 	
 	/**
 	 * 3分人数
 	 */
 	@TableField(exist=false)
-	@Excel(name = "3分人数", orderNum = "4")
+	@Excel(name = "3分人数", orderNum = "8")
 	private Integer score3;
 	
 	/**
 	 * 4分人数
 	 */
 	@TableField(exist=false)
-	@Excel(name = "4分人数", orderNum = "5")
+	@Excel(name = "4分人数", orderNum = "9")
 	private Integer score4;
 	
 	/**
 	 * 5分人数
 	 */
 	@TableField(exist=false)
-	@Excel(name = "5分人数", orderNum = "6")
+	@Excel(name = "5分人数", orderNum = "10")
 	private Integer score5;
 	
 	/**
 	 * 平均分
 	 */
 	@TableField(exist=false)
-	@Excel(name = "平均分", orderNum = "7")
+	@Excel(name = "平均分", orderNum = "11")
 	private Double avgScore;
 
 
@@ -124,6 +153,36 @@ public class BteResultEntityExt extends BteResultEntity implements Serializable 
 	public void setAvgScore(Double avgScore) {
 		this.avgScore = avgScore;
 	}
-	
-	
+
+	public String getLessonCategoryName() {
+		return lessonCategoryName;
+	}
+
+	public void setLessonCategoryName(String lessonCategoryName) {
+		this.lessonCategoryName = lessonCategoryName;
+	}
+
+	public String getLessonTypeName() {
+		return lessonTypeName;
+	}
+
+	public void setLessonTypeName(String lessonTypeName) {
+		this.lessonTypeName = lessonTypeName;
+	}
+
+	public String getLessonTeacherName() {
+		return lessonTeacherName;
+	}
+
+	public void setLessonTeacherName(String lessonTeacherName) {
+		this.lessonTeacherName = lessonTeacherName;
+	}
+
+	public String getLessonPid() {
+		return lessonPid;
+	}
+
+	public void setLessonPid(String lessonPid) {
+		this.lessonPid = lessonPid;
+	}
 }
