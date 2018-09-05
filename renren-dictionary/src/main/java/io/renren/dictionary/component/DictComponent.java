@@ -7,10 +7,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 数据字典缓存操作类
@@ -63,10 +60,7 @@ public class DictComponent {
     public Map<String, Object> getDictCacheDataByTypes(String types) {
     	Map<String, Object> resultMap = new HashMap<>();
     	String[] arrType = types.split(",");
-		for(String type : arrType) {
-			type = type.trim();
-			resultMap.put(type, this.redisUtils.get(type, ArrayList.class));
-		}
+		Arrays.stream(arrType).forEach((type) -> resultMap.put(type.trim(), redisUtils.get(type.trim(), ArrayList.class)));
     	return resultMap;
     }
 
