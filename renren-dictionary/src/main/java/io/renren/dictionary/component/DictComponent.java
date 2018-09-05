@@ -60,7 +60,10 @@ public class DictComponent {
     public Map<String, Object> getDictCacheDataByTypes(String types) {
     	Map<String, Object> resultMap = new HashMap<>();
     	String[] arrType = types.split(",");
-		Arrays.stream(arrType).forEach((type) -> resultMap.put(type.trim(), redisUtils.get(type.trim(), ArrayList.class)));
+		Arrays.stream(arrType).forEach(type -> {
+			type = type.trim();
+			resultMap.put(type, redisUtils.get(type, ArrayList.class));
+		});
     	return resultMap;
     }
 
