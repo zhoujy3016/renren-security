@@ -48,7 +48,7 @@ var vm = new Vue({
 	data:{
 		q:{
 			title:null,
-			type:null
+			type:''
 		},
 		showList: true,
 		title: null,
@@ -61,7 +61,7 @@ var vm = new Vue({
 		add: function(){
 			vm.showList = false;
 			vm.title = "新增";
-			vm.tblInfo = {};
+			vm.tblInfo = {infoType:''};
 		},
 		update: function (event) {
 			var infoId = getSelectedRow();

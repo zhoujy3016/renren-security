@@ -57,7 +57,7 @@ var vm = new Vue({
 		add: function(){
 			vm.showList = false;
 			vm.title = "新增";
-			vm.bteQuestion = {};
+			vm.bteQuestion = {questionTypeId:''};
 		},
 		update: function (event) {
 			console.log(dataNo);

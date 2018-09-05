@@ -47,7 +47,6 @@ public class DictComponent {
 			String type = (String) typeMap.get("type");
 			// 根据类型查询每种数据字典，添加到map中
 			List<Map<String, Object>> dictMapList = this.sysDictService.getSysDictEntity(type);
-			insertEmpty(dictMapList);
 			this.redisUtils.set(type, dictMapList, RedisUtils.NOT_EXPIRE);
 		}
     }
@@ -85,7 +84,6 @@ public class DictComponent {
 		List<Map<String, Object>> dictMapList = this.sysDictService.getSysDictEntity(type);
 		// redis中删除
 		this.redisUtils.delete(type);
-    	insertEmpty(dictMapList);
     	// 重新载入到redis中
 		this.redisUtils.set(type, dictMapList, RedisUtils.NOT_EXPIRE);
     }
@@ -103,6 +101,7 @@ public class DictComponent {
      * list第一位存放一个空值
      * @param dictMapList
      */
+    @Deprecated
     private void insertEmpty(List<Map<String, Object>> dictMapList) {
     	Map<String, Object> emptyMap = new HashMap<>();
 		emptyMap.put("code", StringUtils.EMPTY);
@@ -115,11 +114,9 @@ public class DictComponent {
      */
     public void loadExtraDictDataToRedis(Map<String, Object> extraMap) {
     	if(extraMap != null) {
-			for (String keys : extraMap.keySet()) {
-				List<Map<String, Object>> dictMapList = (List<Map<String, Object>>) extraMap.get(keys);
-				insertEmpty(dictMapList);
-				this.redisUtils.set(keys, dictMapList, RedisUtils.NOT_EXPIRE);
-			}
+			extraMap.keySet().stream().forEach(key -> {
+				this.redisUtils.set(key, extraMap.get(key), RedisUtils.NOT_EXPIRE);
+			});
 		}
     }
 

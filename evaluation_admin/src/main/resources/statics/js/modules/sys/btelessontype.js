@@ -41,7 +41,7 @@ var vm = new Vue({
 		title: null,
 		bteLessonType: {},
         q:{
-            category:null
+            category:''
         }
 
 	},
@@ -52,7 +52,7 @@ var vm = new Vue({
 		add: function(){
 			vm.showList = false;
 			vm.title = "新增";
-			vm.bteLessonType = {};
+			vm.bteLessonType = {categoryId:''};
 		},
 		update: function (event) {
 			var dataNo = getSelectedRow();

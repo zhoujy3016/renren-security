@@ -44,8 +44,8 @@ var vm = new Vue({
 	data:{
         q:{
         	name: null,
-        	nationality:null,
-        	area:null
+        	nationality:'',
+        	area:''
         },
 		showList: true,
 		title: null,
@@ -58,7 +58,7 @@ var vm = new Vue({
 		add: function(){
 			vm.showList = false;
 			vm.title = "新增";
-			vm.tblPerson = {};
+			vm.tblPerson = {nationality:'', area:''};
 		},
 		update: function (event) {
 			var personId = getSelectedRow();
