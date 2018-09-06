@@ -56,7 +56,7 @@ public class DictComponent {
     public Map<String, Object> getDictCacheDataByTypes(String types) {
     	Map<String, Object> resultMap = new HashMap<>();
 		Arrays.stream(types.split(","))
-				.map(type -> type = type.trim())
+				.map(type -> type.trim())
 				.forEach(type -> { resultMap.put(type, redisUtils.get(type, ArrayList.class)); });
     	return resultMap;
     }
