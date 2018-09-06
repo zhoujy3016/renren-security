@@ -16,6 +16,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -100,11 +101,9 @@ public class DictionaryCacheAspect {
         Map<String, Object> extraMap = new HashMap<>(10);
         // 配置文件中取得sql
         Map<String, String> sqlMap = dictYmlConfig.getExtraDict();
-        for(String key:arrKeys) {
-            key = key.trim();
-            // 根据key重新查询，并放入map中
-            extraMap.put(key, extraDictService.excuteQuery(sqlMap.get(key)));
-        }
+        Arrays.stream(arrKeys)
+                .map(key -> key = key.trim())
+                .forEach(key-> extraMap.put(key, extraDictService.excuteQuery(sqlMap.get(key))));
         dictComponent.loadExtraDictDataToRedis(extraMap);
     }
 }
