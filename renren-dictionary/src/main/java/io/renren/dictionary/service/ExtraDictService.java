@@ -45,11 +45,8 @@ public class ExtraDictService {
 			extraMap = new HashMap<>(10);
 			Map<String, String> sqlMap = dictYmlConfig.getExtraDict();
 			System.out.println("####extra-dict start:");
-			for (String keys : sqlMap.keySet()) {
-				String sql = sqlMap.get(keys);
-				List<?> extraDictList = this.excuteQuery(sql);
-				extraMap.put(keys, extraDictList);
-			}
+			// 循环sqlMap， 将每一个key对应的sql语句进行查询，并放入到extraMap中
+			sqlMap.keySet().stream().forEach(key -> collectExtraData(sqlMap, key));
 			System.out.println("####extra-dict end:");
 		}
 	}
@@ -73,5 +70,16 @@ public class ExtraDictService {
 	 */
 	public List<?> excuteQuery(String sql) {
 		return this.sqlSession.selectList(dictYmlConfig.getStatement(), sql);
+	}
+
+	/**
+	 * 额外数据字典查询，并放入到extraMap中
+	 * @param sqlMap
+	 * @param key
+	 */
+	private void collectExtraData(Map<String, String> sqlMap, String key) {
+		String sql = sqlMap.get(key);
+		List<?> extraDictList = this.excuteQuery(sql);
+		extraMap.put(key, extraDictList);
 	}
 }
