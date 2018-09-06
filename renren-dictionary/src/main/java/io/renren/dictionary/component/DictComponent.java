@@ -42,13 +42,10 @@ public class DictComponent {
      * @param typeList
      */
     private void loadDictDataToRedis(List<Map<String, Object>> typeList) {
-		for(int i = 0; i < typeList.size(); i++) {
-			Map<String, Object> typeMap = typeList.get(i);
-			String type = (String) typeMap.get("type");
-			// 根据类型查询每种数据字典，添加到map中
-			List<Map<String, Object>> dictMapList = this.sysDictService.getSysDictEntity(type);
-			this.redisUtils.set(type, dictMapList, RedisUtils.NOT_EXPIRE);
-		}
+		typeList.stream().forEach(typeMap -> {
+			String type = (String)typeMap.get("type");
+			this.redisUtils.set(type, this.sysDictService.getSysDictEntity(type), RedisUtils.NOT_EXPIRE);
+		});
     }
     
     /**
@@ -58,11 +55,9 @@ public class DictComponent {
      */
     public Map<String, Object> getDictCacheDataByTypes(String types) {
     	Map<String, Object> resultMap = new HashMap<>();
-    	String[] arrType = types.split(",");
-		Arrays.stream(arrType).forEach(type -> {
-			type = type.trim();
-			resultMap.put(type, redisUtils.get(type, ArrayList.class));
-		});
+		Arrays.stream(types.split(","))
+				.map(type -> type = type.trim())
+				.forEach(type -> { resultMap.put(type, redisUtils.get(type, ArrayList.class)); });
     	return resultMap;
     }
 
