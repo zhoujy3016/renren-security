@@ -1,10 +1,12 @@
 <#macro select id="" class="" model="" cacheId="" onChange="">
     <select id="${id}" class="${class}" v-model="${model}" @change="${onChange}">
-            <@dictCache id="${cacheId}">
-                <option value="">请选择</option>
+        <@dictCache id="${cacheId}">
+            <option value="">请选择</option>
+            <#if dictList?? && (dictList?size > 0) >
                 <#list dictList as dict>
                     <option value="${dict.code}">${dict.value}</option>
                 </#list>
-            </@dictCache>
+            </#if>
+        </@dictCache>
     </select>
 </#macro>

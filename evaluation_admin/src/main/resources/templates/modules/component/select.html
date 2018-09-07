@@ -2,9 +2,11 @@
     <select id="${id}" class="${class}" v-model="${model}" @change="${onChange}">
             <@dictCache id="${cacheId}">
                 <option value="">请选择</option>
-                <#list dictList as dict>
-                    <option value="${dict.code}">${dict.value}</option>
-                </#list>
+                <#if dictList?? && (dictList?size > 0) >
+                    <#list dictList as dict>
+                        <option value="${dict.code}">${dict.value}</option>
+                    </#list>
+                </#if>
             </@dictCache>
     </select>
 </#macro>
