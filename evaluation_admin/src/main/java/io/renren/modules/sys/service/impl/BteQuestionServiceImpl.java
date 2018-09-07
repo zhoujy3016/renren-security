@@ -41,13 +41,8 @@ public class BteQuestionServiceImpl extends ServiceImpl<BteQuestionDao, BteQuest
 		for(int id:dataNos) {
 			BteQuestionEntity bteQuestionEntity = this.selectById(id);
 			int state = bteQuestionEntity.getQuestionStateId();
-			// 切换状态
-			if(state == 0) {
-				state = 1;
-			} else {
-				state = 0;
-			}
-			bteQuestionEntity.setQuestionStateId(state);
+			// 状态切换
+			bteQuestionEntity.setQuestionStateId(state == 0 ? 1 : 0);
 			this.updateAllColumnById(bteQuestionEntity);
 		}
 	}
