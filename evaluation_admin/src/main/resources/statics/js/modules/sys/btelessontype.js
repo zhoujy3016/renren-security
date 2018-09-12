@@ -52,7 +52,7 @@ var vm = new Vue({
 		add: function(){
 			vm.showList = false;
 			vm.title = "新增";
-			vm.bteLessonType = {categoryId:''};
+			vm.bteLessonType = {categoryId:''}; // 默认选中“请选择”
 		},
 		update: function (event) {
 			var dataNo = getSelectedRow();

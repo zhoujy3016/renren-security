@@ -57,7 +57,7 @@ var vm = new Vue({
 		add: function(){
 			vm.showList = false;
 			vm.title = "新增";
-			vm.bteQuestion = {questionTypeId:''};
+			vm.bteQuestion = {questionTypeId:''}; // 默认选中“请选择”
 		},
 		update: function (event) {
 			console.log(dataNo);

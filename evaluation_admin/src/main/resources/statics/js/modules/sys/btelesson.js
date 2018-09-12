@@ -68,7 +68,8 @@ var vm = new Vue({
 		add: function(){
 			vm.showList = false;
 			vm.title = "新增";
-			vm.bteLesson = {lessonCategoryId:''};
+			vm.bteLesson = {lessonCategoryId:''}; // 默认选中“请选择”
+            vm.dictKclx = {}; // 课程类型下拉菜单数据清空
 		},
 		update: function (event) {
 			var dataNo = getSelectedRow();
