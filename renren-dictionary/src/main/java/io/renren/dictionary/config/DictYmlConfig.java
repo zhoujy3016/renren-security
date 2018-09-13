@@ -22,10 +22,10 @@ import org.springframework.core.io.ClassPathResource;
 @ConditionalOnResource(resources = "config/dictionary-config.yml")
 @ConfigurationProperties(prefix="dictionary")
 public class DictYmlConfig {
-	// 读取配置文件， 存放key与sql语句的map
+	/** 读取配置文件， 存放key与sql语句的map */
 	private Map<String, String> extraDict = new HashMap<>();
-	
-	// mapper.xml中 namespace.id
+
+	/** mapper.xml中 namespace.id */
 	private String statement;
 
 	public Map<String, String> getExtraDict() {
@@ -44,9 +44,7 @@ public class DictYmlConfig {
 		this.statement = statement;
 	}
 
-	/*
-	 * 加载sql查询形式的数据字典配置文件
-	 */
+	/** 加载sql查询形式的数据字典配置文件 */
     @Bean
     public static PropertySourcesPlaceholderConfigurer properties() {
         PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = new PropertySourcesPlaceholderConfigurer();

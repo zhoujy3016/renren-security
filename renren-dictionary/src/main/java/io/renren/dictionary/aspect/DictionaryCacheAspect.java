@@ -83,6 +83,8 @@ public class DictionaryCacheAspect {
                     Long[] ids = (Long[]) param;
                     dictComponent.reloadDictCacheData(ids);
                 break;
+            default:
+                break;
         }
 
     }

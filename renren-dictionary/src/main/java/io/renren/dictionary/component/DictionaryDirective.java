@@ -12,10 +12,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * class:
- * description：
- * author:zhoujy
- * date:2018/7/24
+ * 用户Token
+ *
+ * @author zhoujy
+ * @email
+ * @date 2017-07-24
  */
 
 @Component

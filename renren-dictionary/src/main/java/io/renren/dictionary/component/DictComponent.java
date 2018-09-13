@@ -54,7 +54,7 @@ public class DictComponent {
      * @return
      */
     public Map<String, Object> getDictCacheDataByTypes(String types) {
-    	Map<String, Object> resultMap = new HashMap<>();
+    	Map<String, Object> resultMap = new HashMap<>(20);
 		Arrays.stream(types.split(","))
 				.map(type -> type.trim())
 				.forEach(type -> { resultMap.put(type, redisUtils.get(type, ArrayList.class)); });
@@ -98,7 +98,7 @@ public class DictComponent {
      */
     @Deprecated
     private void insertEmpty(List<Map<String, Object>> dictMapList) {
-    	Map<String, Object> emptyMap = new HashMap<>();
+    	Map<String, Object> emptyMap = new HashMap<>(1);
 		emptyMap.put("code", StringUtils.EMPTY);
 		emptyMap.put("value", StringUtils.EMPTY);
 		dictMapList.add(0, emptyMap);
