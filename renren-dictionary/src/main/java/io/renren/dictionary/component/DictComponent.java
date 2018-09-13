@@ -98,7 +98,7 @@ public class DictComponent {
      */
     @Deprecated
     private void insertEmpty(List<Map<String, Object>> dictMapList) {
-    	Map<String, Object> emptyMap = new HashMap<>(1);
+    	Map<String, Object> emptyMap = new HashMap<>(2);
 		emptyMap.put("code", StringUtils.EMPTY);
 		emptyMap.put("value", StringUtils.EMPTY);
 		dictMapList.add(0, emptyMap);
