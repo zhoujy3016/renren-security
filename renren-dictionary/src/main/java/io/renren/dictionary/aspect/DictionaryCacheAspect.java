@@ -104,7 +104,7 @@ public class DictionaryCacheAspect {
         // 配置文件中取得sql
         Map<String, String> sqlMap = dictYmlConfig.getExtraDict();
         Arrays.stream(arrKeys)
-                .map(key -> key.trim())
+                .map(String::trim)
                 .forEach(key-> extraMap.put(key, extraDictService.excuteQuery(sqlMap.get(key))));
         dictComponent.loadExtraDictDataToRedis(extraMap);
     }

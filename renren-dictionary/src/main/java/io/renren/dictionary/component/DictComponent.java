@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * 数据字典缓存操作类
@@ -42,10 +43,9 @@ public class DictComponent {
      * @param typeList
      */
     private void loadDictDataToRedis(List<Map<String, Object>> typeList) {
-		typeList.stream().forEach(typeMap -> {
-			String type = (String)typeMap.get("type");
-			this.redisUtils.set(type, this.sysDictService.getSysDictEntity(type), RedisUtils.NOT_EXPIRE);
-		});
+		typeList.stream()
+                .map(typeMap-> (String) typeMap.get("type"))
+                .forEach(type -> this.redisUtils.set(type, this.sysDictService.getSysDictEntity(type), RedisUtils.NOT_EXPIRE));
     }
     
     /**
@@ -56,7 +56,7 @@ public class DictComponent {
     public Map<String, Object> getDictCacheDataByTypes(String types) {
     	Map<String, Object> resultMap = new HashMap<>(20);
 		Arrays.stream(types.split(","))
-				.map(type -> type.trim())
+				.map(String::trim)
 				.forEach(type -> { resultMap.put(type, redisUtils.get(type, ArrayList.class)); });
     	return resultMap;
     }
@@ -109,9 +109,8 @@ public class DictComponent {
      */
     public void loadExtraDictDataToRedis(Map<String, Object> extraMap) {
     	if(extraMap != null) {
-			extraMap.keySet().stream().forEach(key -> {
-				this.redisUtils.set(key, extraMap.get(key), RedisUtils.NOT_EXPIRE);
-			});
+			extraMap.keySet().stream()
+                    .forEach(key -> this.redisUtils.set(key, extraMap.get(key), RedisUtils.NOT_EXPIRE));
 		}
     }
 
