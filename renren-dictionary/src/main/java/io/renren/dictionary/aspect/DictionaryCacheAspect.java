@@ -106,6 +106,6 @@ public class DictionaryCacheAspect {
         Arrays.stream(arrKeys)
                 .map(String::trim)
                 .forEach(key-> extraMap.put(key, extraDictService.excuteQuery(sqlMap.get(key))));
-        dictComponent.loadExtraDictDataToRedis(extraMap);
+        dictComponent.reloadExtraCacheData(extraMap);
     }
 }

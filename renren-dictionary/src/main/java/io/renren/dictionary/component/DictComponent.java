@@ -33,7 +33,8 @@ public class DictComponent {
      */
     public void initDictCacheData() {
 		List<Map<String, Object>> typeList = this.sysDictService.getSysDictEntityGroupByType();
-    	loadDictDataToRedis(typeList);
+		// 数据字典载入到redis
+		loadDictDataToRedis(typeList);
 		// 额外的数据字典载入到redis
 		loadExtraDictDataToRedis(this.extraDictService.getExtraMap());
     }
@@ -45,7 +46,7 @@ public class DictComponent {
     private void loadDictDataToRedis(List<Map<String, Object>> typeList) {
 		typeList.stream()
                 .map(typeMap-> (String) typeMap.get("type"))
-                .forEach(type -> this.redisUtils.set(type, this.sysDictService.getSysDictEntity(type), RedisUtils.NOT_EXPIRE));
+                .forEach(type -> setDictMapToRedis(type));
     }
     
     /**
@@ -57,7 +58,7 @@ public class DictComponent {
     	Map<String, Object> resultMap = new HashMap<>(20);
 		Arrays.stream(types.split(","))
 				.map(String::trim)
-				.forEach(type -> { resultMap.put(type, redisUtils.get(type, ArrayList.class)); });
+				.forEach(type -> getDictMapFromRedis(type, resultMap));
     	return resultMap;
     }
 
@@ -71,7 +72,7 @@ public class DictComponent {
 	}
     
     /**
-     * 增、改数据字典时，更新缓存
+     * 增、改数据字典时，更新redis数据
      * @param type
      */
     public void reloadDictCacheData(String type) {
@@ -84,7 +85,7 @@ public class DictComponent {
     }
     
     /**
-     * 删除数据字典时，更新缓存
+     * 删除数据字典时，更新redis数据
      * @param ids
      */
     public void reloadDictCacheData(Long[] ids) {
@@ -107,11 +108,50 @@ public class DictComponent {
     /**
      * 将配置文件中针对特殊的表需要放入数据字典的map,放入redis 数据字典缓存中
      */
-    public void loadExtraDictDataToRedis(Map<String, Object> extraMap) {
+    private void loadExtraDictDataToRedis(Map<String, Object> extraMap) {
     	if(extraMap != null) {
 			extraMap.keySet().stream()
-                    .forEach(key -> this.redisUtils.set(key, extraMap.get(key), RedisUtils.NOT_EXPIRE));
+                    .forEach(key -> setExtraMapToRedis(key, extraMap));
 		}
     }
+
+	/**
+	 * 根据传入的map, 重新加载额外的数据字典到redis中
+	 * @param extraMap
+	 */
+	public void reloadExtraCacheData(Map<String, Object> extraMap) {
+    	this.loadExtraDictDataToRedis(extraMap);
+	}
+
+	/**
+	 * 根据type查询对应的数据字典，set到redis中
+	 * @param type
+	 */
+	private void setDictMapToRedis(String type) {
+		List<Map<String, Object>> list = this.sysDictService.getSysDictEntity(type);
+		this.redisUtils.set(type, list, RedisUtils.NOT_EXPIRE);
+	}
+
+	/**
+	 * 根据type从redis中取得List，put到结果map中
+	 * @param type
+	 * @param resultMap
+	 */
+	private void getDictMapFromRedis(String type, Map<String, Object> resultMap) {
+		List list = redisUtils.get(type, ArrayList.class);
+		resultMap.put(type, list);
+	}
+
+
+	/**
+	 * 将extra数据字典set到redis中
+	 * @param key
+	 * @param extraMap
+	 */
+	private void setExtraMapToRedis(String key, Map<String, Object> extraMap) {
+		// ArrayList类型
+		Object list = extraMap.get(key);
+		this.redisUtils.set(key, list, RedisUtils.NOT_EXPIRE);
+	}
 
 }
