@@ -13,7 +13,7 @@ import java.time.format.DateTimeFormatter;
  * @email zhoujunyi-110@163.com
  * @date 2018-07-30
  */
-public class j8DateUtils {
+public class J8DateUtils {
     /** 时间格式(yyyy-MM-dd) */
     public final static String DATE_PATTERN = "yyyy-MM-dd";
     /** 时间格式(yyyy-MM-dd HH:mm:ss) */
