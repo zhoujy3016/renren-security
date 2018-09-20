@@ -30,6 +30,10 @@ import io.renren.modules.sys.entity.SysDictEntity;
  * @since 3.1.0 2018-01-27
  */
 public interface SysDictDao extends BaseMapper<SysDictEntity> {
-    // 删除数据字典 查出待删除的id所在的type分组
+    /**
+     * 通过id集合查出已经删除的数据字典，并通过type分组
+     * @param ids
+     * @return
+     */
     List<Map<String, Object>> getSysDictEntityGroupByType(Long[] ids);
 }

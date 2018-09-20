@@ -18,6 +18,13 @@ import java.util.Map;
 public interface IDictService {
 
     /**
+     * 查询所有数据字典数据
+     * @param
+     * @return
+     */
+    List<Map<String, Object>> getAllSysDictEntity();
+
+    /**
      * 通过类型查询数据字典list
      * @param type
      * @return
@@ -25,16 +32,10 @@ public interface IDictService {
     List<Map<String, Object>> getSysDictEntity(String type);
 
     /**
-     * 查询所有数据字典类型
-     * @return
-     */
-    List<Map<String, Object>> getSysDictEntityGroupByType();
-
-    /**
-     * 通过id数组查询数据字典类型
+     * 通过id数组查询数据字典（批量删除时候调用）
      * @param ids
      * @return
      */
-    List<Map<String, Object>> getSysDictEntityGroupByType(Long[] ids);
+    List<Map<String, Object>> getSysDictEntityAfterDelete(Long[] ids);
 }
 

@@ -34,6 +34,7 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Service("sysDictService")
@@ -54,25 +55,28 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictDao, SysDictEntity> i
     }
 
 	@Override
+	public List<Map<String, Object>> getAllSysDictEntity() {
+		EntityWrapper<SysDictEntity> ew = new EntityWrapper<>();
+		List<Map<String, Object>> sysDictEntityMap = this.baseMapper.selectMaps(ew);
+		return sysDictEntityMap;
+	}
+
+	@Override
 	public List<Map<String, Object>> getSysDictEntity(String type) {
 		EntityWrapper<SysDictEntity> ew = new EntityWrapper<>();
 		ew.eq("type", type);
-		List<Map<String, Object>> sysDictEntityMap = this.selectMaps(ew);
-		return sysDictEntityMap;
+		return this.selectMaps(ew);
 	}
 
 	@Override
-	public List<Map<String, Object>> getSysDictEntityGroupByType() {
-		EntityWrapper<SysDictEntity> ew = new EntityWrapper<>();
-		ew.groupBy("type");
-		List<Map<String, Object>> sysDictEntityMap = this.selectMaps(ew);
-		return sysDictEntityMap;
-	}
-
-	@Override
-	public List<Map<String, Object>> getSysDictEntityGroupByType(Long[] ids) {
+	public List<Map<String, Object>> getSysDictEntityAfterDelete(Long[] ids) {
 		List<Map<String, Object>> sysDictEntityMap = this.baseMapper.getSysDictEntityGroupByType(ids);
-		return sysDictEntityMap;
+		// 提取type集合
+		List<String> typeList = sysDictEntityMap.stream().map(dictMap -> (String)dictMap.get("type")).collect(Collectors.toList());
+		EntityWrapper<SysDictEntity> ew = new EntityWrapper<>();
+		// 将删除的type集合为参数，查询更新后的集合
+		ew.in("type", typeList);
+		return this.selectMaps(ew);
 	}
 
 	@Override

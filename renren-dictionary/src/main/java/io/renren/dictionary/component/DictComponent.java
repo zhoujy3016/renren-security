@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 /**
  * 数据字典缓存操作类
@@ -32,21 +32,28 @@ public class DictComponent {
      * 系统初始化加载数据字典缓存
      */
     public void initDictCacheData() {
-		List<Map<String, Object>> typeList = this.sysDictService.getSysDictEntityGroupByType();
+		// 根据type分组，生成一个新的map
+		Map<String, List<Map<String, Object>>> dictMapGroup = getMapByGroup(this.sysDictService.getAllSysDictEntity());
 		// 数据字典载入到redis
-		loadDictDataToRedis(typeList);
+		loadDictDataToRedis(dictMapGroup);
 		// 额外的数据字典载入到redis
 		loadExtraDictDataToRedis(this.extraDictService.getExtraMap());
     }
+
+	/**
+	 * 一个集合，通过type分组，生成一个map
+	 * @param list
+	 */
+    public Map<String, List<Map<String, Object>>> getMapByGroup(List<Map<String, Object>> list) {
+    	return list.stream().collect(Collectors.groupingBy(map-> (String)map.get("type")));
+	}
     
     /**
      * 数据放到redis数据库中
-     * @param typeList
+     * @param dictMapGroup
      */
-    private void loadDictDataToRedis(List<Map<String, Object>> typeList) {
-		typeList.stream()
-                .map(typeMap-> (String) typeMap.get("type"))
-                .forEach(type -> setDictMapToRedis(type));
+    private void loadDictDataToRedis(Map<String, List<Map<String, Object>>> dictMapGroup) {
+		dictMapGroup.keySet().stream().forEach(key -> setDictMapToRedis(key, dictMapGroup.get(key)));
     }
     
     /**
@@ -89,8 +96,9 @@ public class DictComponent {
      * @param ids
      */
     public void reloadDictCacheData(Long[] ids) {
-    	List<Map<String, Object>> delTypeList = this.sysDictService.getSysDictEntityGroupByType(ids);
-    	loadDictDataToRedis(delTypeList);
+    	// id数组查询数据字典集合并用type分组
+		Map<String, List<Map<String, Object>>> dictMapGroup = getMapByGroup(this.sysDictService.getSysDictEntityAfterDelete(ids));
+		loadDictDataToRedis(dictMapGroup);
     }
 
     /**
@@ -127,8 +135,7 @@ public class DictComponent {
 	 * 根据type查询对应的数据字典，set到redis中
 	 * @param type
 	 */
-	private void setDictMapToRedis(String type) {
-		List<Map<String, Object>> list = this.sysDictService.getSysDictEntity(type);
+	private void setDictMapToRedis(String type, List<Map<String, Object>> list) {
 		this.redisUtils.set(type, list, RedisUtils.NOT_EXPIRE);
 	}
 
