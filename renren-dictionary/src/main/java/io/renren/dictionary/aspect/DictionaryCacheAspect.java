@@ -106,7 +106,7 @@ public class DictionaryCacheAspect {
         Map<String, String> sqlMap = dictYmlConfig.getExtraDict();
         Arrays.stream(arrKeys)
                 .map(String::trim)
-                .forEach(key-> extraMap.put(key, extraDictService.excuteQuery(sqlMap.get(key))));
+                .forEach(key-> extraMap.put(key, extraDictService.executeQuery(sqlMap.get(key))));
         dictComponent.reloadExtraCacheData(extraMap);
     }
 }

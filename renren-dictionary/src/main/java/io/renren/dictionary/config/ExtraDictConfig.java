@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableAutoConfiguration
 public class ExtraDictConfig {
 	
-	@Bean(initMethod="init", destroyMethod="destory")
+	@Bean(initMethod="init", destroyMethod="destroy")
 	ExtraDictService extraDictService() {
 		return new ExtraDictService();
 	}

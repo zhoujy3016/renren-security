@@ -59,7 +59,7 @@ public class ExtraDictService {
 	/**
 	 * destroy
 	 */
-	private void destory() {
+	private void destroy() {
 		System.out.println("配置文件形式加载数据字典bean销毁");
 	}
 
@@ -68,7 +68,7 @@ public class ExtraDictService {
 	 * @param sql
 	 * @return
 	 */
-	public List<?> excuteQuery(String sql) {
+	public List<?> executeQuery(String sql) {
 		return this.sqlSession.selectList(dictYmlConfig.getStatement(), sql);
 	}
 
@@ -79,7 +79,7 @@ public class ExtraDictService {
 	 */
 	private void collectExtraData(Map<String, String> sqlMap, String key) {
 		String sql = sqlMap.get(key);
-		List<?> extraDictList = this.excuteQuery(sql);
+		List<?> extraDictList = this.executeQuery(sql);
 		extraMap.put(key, extraDictList);
 	}
 }
