@@ -3,6 +3,7 @@ package io.renren.dictionary.component;
 import io.renren.common.utils.RedisUtils;
 import io.renren.dictionary.service.ExtraDictService;
 import io.renren.dictionary.service.IDictService;
+import io.renren.dictionary.utils.DictConstant;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -45,7 +46,7 @@ public class DictComponent {
 	 * @param list
 	 */
     public Map<String, List<Map<String, Object>>> getMapByGroup(List<Map<String, Object>> list) {
-    	return list.stream().collect(Collectors.groupingBy(map-> (String)map.get("type")));
+    	return list.stream().collect(Collectors.groupingBy(map-> (String)map.get(DictConstant.DICT_TYPE)));
 	}
     
     /**
@@ -108,8 +109,8 @@ public class DictComponent {
     @Deprecated
     private void insertEmpty(List<Map<String, Object>> dictMapList) {
     	Map<String, Object> emptyMap = new HashMap<>(2);
-		emptyMap.put("code", StringUtils.EMPTY);
-		emptyMap.put("value", StringUtils.EMPTY);
+		emptyMap.put(DictConstant.DICT_CODE, StringUtils.EMPTY);
+		emptyMap.put(DictConstant.DICT_TYPE, StringUtils.EMPTY);
 		dictMapList.add(0, emptyMap);
     }
     

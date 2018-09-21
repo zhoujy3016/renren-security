@@ -25,6 +25,7 @@ import io.renren.dictionary.annotation.DictionaryCache;
 import io.renren.dictionary.service.IDictService;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.Query;
+import io.renren.dictionary.utils.DictConstant;
 import io.renren.modules.sys.dao.SysDictDao;
 import io.renren.modules.sys.entity.SysDictEntity;
 import io.renren.modules.sys.service.SysDictService;
@@ -64,7 +65,7 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictDao, SysDictEntity> i
 	@Override
 	public List<Map<String, Object>> getSysDictEntity(String type) {
 		EntityWrapper<SysDictEntity> ew = new EntityWrapper<>();
-		ew.eq("type", type);
+		ew.eq(DictConstant.DICT_TYPE, type);
 		return this.selectMaps(ew);
 	}
 
@@ -72,10 +73,10 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictDao, SysDictEntity> i
 	public List<Map<String, Object>> getSysDictEntityAfterDelete(Long[] ids) {
 		List<Map<String, Object>> sysDictEntityMap = this.baseMapper.getSysDictEntityGroupByType(ids);
 		// 提取type集合
-		List<String> typeList = sysDictEntityMap.stream().map(dictMap -> (String)dictMap.get("type")).collect(Collectors.toList());
+		List<String> typeList = sysDictEntityMap.stream().map(dictMap -> (String)dictMap.get(DictConstant.DICT_TYPE)).collect(Collectors.toList());
 		EntityWrapper<SysDictEntity> ew = new EntityWrapper<>();
 		// 将删除的type集合为参数，查询更新后的集合
-		ew.in("type", typeList);
+		ew.in(DictConstant.DICT_TYPE, typeList);
 		return this.selectMaps(ew);
 	}
 	@Override

@@ -3,6 +3,7 @@ package io.renren.dictionary.config;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.renren.dictionary.utils.DictConstant;
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnResource;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -19,8 +20,8 @@ import org.springframework.core.io.ClassPathResource;
  * @date 2018-07-12 22:00
  */
 @Configuration
-@ConditionalOnResource(resources = "config/dictionary-config.yml")
-@ConfigurationProperties(prefix="dictionary")
+@ConditionalOnResource(resources=DictConstant.DICT_CONFIG_PATH)
+@ConfigurationProperties(prefix=DictConstant.DICT_PREFIX)
 public class DictYmlConfig {
 	/** 读取配置文件， 存放key与sql语句的map */
 	private Map<String, String> extraDict = new HashMap<>();
@@ -50,7 +51,7 @@ public class DictYmlConfig {
         PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = new PropertySourcesPlaceholderConfigurer();
         YamlPropertiesFactoryBean yaml = new YamlPropertiesFactoryBean();
         // 设置自定义数据字典文件目录
-        yaml.setResources(new ClassPathResource("config/dictionary-config.yml"));
+        yaml.setResources(new ClassPathResource(DictConstant.DICT_CONFIG_PATH));
         propertySourcesPlaceholderConfigurer.setProperties(yaml.getObject());
         return propertySourcesPlaceholderConfigurer;
     }

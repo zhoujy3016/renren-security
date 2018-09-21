@@ -7,6 +7,7 @@ import io.renren.dictionary.config.DictYmlConfig;
 import io.renren.common.exception.RRException;
 import io.renren.dictionary.service.ExtraDictService;
 import io.renren.common.utils.MapUtils;
+import io.renren.dictionary.utils.DictConstant;
 import org.apache.commons.lang.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
@@ -77,7 +78,7 @@ public class DictionaryCacheAspect {
                     // 将实体类型转为map类型
                     Map<String, Object> dictEntity = MapUtils.transEntity2Map(param);
                     // 将该类型重新载入缓存中
-                    dictComponent.reloadDictCacheData((String) dictEntity.get("type"));
+                    dictComponent.reloadDictCacheData((String) dictEntity.get(DictConstant.DICT_TYPE));
                 break;
             case OP_DELETE:
                     Long[] ids = (Long[]) param;
