@@ -1,6 +1,8 @@
 package io.renren.dictionary.annotation;
 
 
+import io.renren.dictionary.utils.DictConstant;
+
 import java.lang.annotation.*;
 
 /**
@@ -19,8 +21,8 @@ public @interface DictionaryCache {
 	// 需要更新的数据字典key
 	String dictKey() default "";
 	// 操作：增、删、改
-	DictOperation operation() default DictOperation.OP_INSERT;
+	DictConstant.DictOperation operation() default DictConstant.DictOperation.OP_INSERT;
 	// 数据字典：常规、额外
-	DictOperation dictType()  default DictOperation.T_NORMAL;
+	DictConstant.DictOperation dictType()  default DictConstant.DictOperation.T_NORMAL;
 
 }

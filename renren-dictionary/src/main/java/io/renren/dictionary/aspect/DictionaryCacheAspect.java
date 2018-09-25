@@ -1,6 +1,5 @@
 package io.renren.dictionary.aspect;
 
-import io.renren.dictionary.annotation.DictOperation;
 import io.renren.dictionary.annotation.DictionaryCache;
 import io.renren.dictionary.component.DictComponent;
 import io.renren.dictionary.config.DictYmlConfig;
@@ -52,9 +51,9 @@ public class DictionaryCacheAspect {
         DictionaryCache dataFilter = signature.getMethod().getAnnotation(DictionaryCache.class);
         Object param = point.getArgs()[0];
         // 数据字典类型：常规，额外
-        DictOperation dicType = dataFilter.dictType();
+        DictConstant.DictOperation dicType = dataFilter.dictType();
         if(param != null) {
-            if (dicType == DictOperation.T_NORMAL) {
+            if (dicType == DictConstant.DictOperation.T_NORMAL) {
                 updateDictionaryCache(dataFilter, param);
             } else { // 自定义数据字典类型(DictOperationType.T_EXTRA)
                 updateExtraDictCache(dataFilter, param);
@@ -71,7 +70,7 @@ public class DictionaryCacheAspect {
      * @param param
      */
     private void updateDictionaryCache(DictionaryCache dataFilter, Object param) {
-        DictOperation operation = dataFilter.operation();
+        DictConstant.DictOperation operation = dataFilter.operation();
         switch (operation) {
             case OP_INSERT:
             case OP_UPDATE:
