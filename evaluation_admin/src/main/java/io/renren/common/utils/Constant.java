@@ -29,6 +29,9 @@ public class Constant {
 	public static final int SUPER_ADMIN = 1;
     /** 数据权限过滤 */
 	public static final String SQL_FILTER = "sql_filter";
+	/** 部级 */
+    public static final String ROLE_MINISTERIAL = "1";
+
 
 	/**
 	 * 菜单类型

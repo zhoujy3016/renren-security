@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +19,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 
-import io.renren.common.annotation.DataCreaterFilter;
+import io.renren.common.annotation.DataCreatorFilter;
 
 import io.renren.modules.sys.dao.BteEvaluateDao;
 import io.renren.modules.sys.entity.BteEvalrefquestionEntity;
@@ -39,18 +38,22 @@ public class BteEvaluateServiceImpl extends ServiceImpl<BteEvaluateDao, BteEvalu
 	
 	@Autowired
 	private BteEvalrefquestionService bteEvalrefquestionService;
-	
 
-    // 公网ip
-    @Value("${eva.ip}")
+
+	/**
+	 * 公网ip
+ 	 */
+	@Value("${eva.ip}")
     private String ipAddress;
 
-    // 测评client端口号
-    @Value("${eva.evac-port}")
+	/**
+	 * 测评client端口号
+	 */
+	@Value("${eva.evac-port}")
     private String clientPort;
 	
     @Override
-    @DataCreaterFilter(tableAlias="be")
+    @DataCreatorFilter(tableAlias="be")
     public PageUtils queryPage(Map<String, Object> params) {
 		Page<BteEvaluateEntity> page = new Query<BteEvaluateEntity>(params).getPage();
 		page.setRecords(baseMapper.selectBteEvalList(page, params));
