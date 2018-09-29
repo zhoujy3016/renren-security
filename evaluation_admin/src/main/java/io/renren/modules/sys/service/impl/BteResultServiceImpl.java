@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -58,10 +57,9 @@ public class BteResultServiceImpl extends ServiceImpl<BteResultDao, BteResultEnt
 	@Transactional(rollbackFor=Exception.class)
 	public void insertResultBatch(Map<String, Object> resultMap) {
 		List<BteResultEntity> resultList = new ArrayList<>();
-		for (String keys : resultMap.keySet()) {
-			Map<String, Object> map = (Map<String, Object>) resultMap.get(keys);
-			resultList.add(this.makeResultEntity(map));
-		}
+		resultMap.keySet().stream()
+				.map(key->(Map<String, Object>)resultMap.get(key))
+				.forEach(map -> resultList.add(this.makeResultEntity(map)));
 		// 批量插入结果
 		this.insertBatch(resultList);
 	}
