@@ -9,7 +9,7 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     #MySQL配置
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://58.154.128.238:3306/eva_admin?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://58.154.128.238:3306/eva_admin?useUnicode=true&characterEncoding=UTF-8&useSSL=false
     username: root
     password: root
     #oracle配置
