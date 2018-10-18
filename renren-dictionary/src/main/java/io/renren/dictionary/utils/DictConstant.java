@@ -29,6 +29,21 @@ public class DictConstant {
     public final static String DICT_PREFIX = "dictionary";
 
     /**
+     * 自定义标签名称
+     */
+    public final static String TAG_CACHE = "dictCache";
+
+    /**
+     * 自定义标签属性：id
+     */
+    public final static String PROPERTY_ID = "id";
+
+    /**
+     * execute中environment的key
+     */
+    public final static String KEY_DICTLIST = "dictList";
+
+    /**
      * 数据字典类型枚举类
      *
      * @author zhoujunyi

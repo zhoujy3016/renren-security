@@ -17,6 +17,7 @@
 package io.renren.common.config;
 
 import io.renren.dictionary.component.DictionaryDirective;
+import io.renren.dictionary.utils.DictConstant;
 import io.renren.modules.sys.shiro.ShiroTag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -61,7 +62,7 @@ public class FreemarkerConfig {
     @PostConstruct
     public void setSharedVariable() {
         // 标签名
-        configuration.setSharedVariable("dictCache", dictionaryDirective);
+        configuration.setSharedVariable(DictConstant.TAG_CACHE, dictionaryDirective);
     }
 
 }

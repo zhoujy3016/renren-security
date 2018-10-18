@@ -4,6 +4,7 @@ import freemarker.core.Environment;
 import freemarker.ext.beans.BeansWrapper;
 import freemarker.ext.beans.BeansWrapperBuilder;
 import freemarker.template.*;
+import io.renren.dictionary.utils.DictConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,9 +28,9 @@ public class DictionaryDirective implements TemplateDirectiveModel {
 
     @Override
     public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
-        String id = params.get("id").toString();
+        String id = params.get(DictConstant.PROPERTY_ID).toString();
         List dictList = dictComponent.getDictCacheDataByType(id);
-        env.setVariable("dictList", getBeansWrapper().wrap(dictList));
+        env.setVariable(DictConstant.KEY_DICTLIST, getBeansWrapper().wrap(dictList));
         body.render(env.getOut());
     }
 
