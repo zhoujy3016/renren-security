@@ -36,10 +36,11 @@ public class HomeController extends AbstractController {
 			Map<String, Object> map;
 			// 查看当前测评是否开启
 			BteEvaluateEntity eval = this.bteEvaluateService.selectById(evalId);
-			if(eval.getEvalStateId() != 1) { // 当前测评状态非“进行中”
+			// 当前测评状态非“进行中”
+			if(eval.getEvalStateId() != 1) {
 				return R.error("当前测评未开始或已结束！");
 			} else {
-				map = new HashMap<>();
+				map = new HashMap<>(3);
 				map.put("lesson", bteLessonService.queryLessonsByEvalId(evalId));
 				map.put("question", beQuestionService.queryQuestionByEvalRelation(evalId));
 				map.put("evalId", evalId);
