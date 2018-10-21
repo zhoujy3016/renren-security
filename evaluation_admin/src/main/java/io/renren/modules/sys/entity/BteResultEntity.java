@@ -50,6 +50,11 @@ public class BteResultEntity implements Serializable {
 	 * 
 	 */
 	private String evalSuggest;
+
+	/**
+	 * 客户端ip地址
+	 */
+	private String ipAddr;
 	
 	/**
 	 * 设置：
@@ -136,4 +141,11 @@ public class BteResultEntity implements Serializable {
 		return evalSuggest;
 	}
 
+	public String getIpAddr() {
+		return ipAddr;
+	}
+
+	public void setIpAddr(String ipAddr) {
+		this.ipAddr = ipAddr;
+	}
 }

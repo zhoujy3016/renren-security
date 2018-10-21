@@ -1,6 +1,6 @@
 package io.renren.modules.sys.service.impl;
 
-import io.renren.common.utils.OptionalUtils;
+import io.renren.common.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,15 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 
-import io.renren.common.utils.ExcelUtils;
-import io.renren.common.utils.PageUtils;
-import io.renren.common.utils.Query;
 import io.renren.modules.sys.dao.BteResultDao;
 import io.renren.modules.sys.entity.BteEvaluateEntity;
 import io.renren.modules.sys.entity.BteResultEntity;
@@ -33,6 +31,9 @@ public class BteResultServiceImpl extends ServiceImpl<BteResultDao, BteResultEnt
 	
 	@Autowired
 	private BteEvaluateService bteEvaluateService;
+
+	@Autowired
+	private HttpServletRequest request;
 	
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -84,7 +85,10 @@ public class BteResultServiceImpl extends ServiceImpl<BteResultDao, BteResultEnt
 		} else { // 具体意见
 			resultEntity.setEvalSuggest(String.valueOf(map.get("evalSuggest")));
 		}
+		// 创建日期
 		resultEntity.setCreateDate(LocalDateTime.now());
+		// 客户端ip
+		resultEntity.setIpAddr(IPUtils.getIpAddr(request));
 		return resultEntity;
 	}
 
