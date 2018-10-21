@@ -93,7 +93,7 @@ public class BteEvaluateServiceImpl extends ServiceImpl<BteEvaluateDao, BteEvalu
 		if(StringUtils.isNotBlank(ipAddress)) {
 			ipAddr = ipAddress;
 		} else {
-			ipAddr = IPUtils.getIpAddr(httpServletRequest);
+			ipAddr = httpServletRequest.getLocalAddr();
 		}
 		// 将参数加密
 		String enCode = AesUtils.Encrypt(String.valueOf(dataNo), AesUtils.CKEY);
