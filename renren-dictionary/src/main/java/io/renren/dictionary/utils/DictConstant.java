@@ -73,4 +73,13 @@ public class DictConstant {
         T_EXTRA
     }
 
+    /**
+     * 数据字典redis缓存中的key
+     * @param key
+     * @return
+     */
+    public static String getDictionaryKey(String key){
+        return "dictionary:" + key;
+    }
+
 }

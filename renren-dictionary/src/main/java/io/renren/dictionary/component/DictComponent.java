@@ -76,7 +76,7 @@ public class DictComponent {
 	 * @return
 	 */
 	public List getDictCacheDataByType(String type) {
-		return this.redisUtils.get(type.trim(), ArrayList.class);
+		return this.redisUtils.get(DictConstant.getDictionaryKey(type.trim()), ArrayList.class);
 	}
     
     /**
@@ -87,9 +87,9 @@ public class DictComponent {
     	// 查询当前type中的数据字典列表
 		List<Map<String, Object>> dictMapList = this.sysDictService.getSysDictEntity(type);
 		// redis中删除
-		this.redisUtils.delete(type);
+		this.redisUtils.delete(DictConstant.getDictionaryKey(type));
     	// 重新载入到redis中
-		this.redisUtils.set(type, dictMapList, RedisUtils.NOT_EXPIRE);
+		this.redisUtils.set(DictConstant.getDictionaryKey(type), dictMapList, RedisUtils.NOT_EXPIRE);
     }
     
     /**
@@ -137,7 +137,7 @@ public class DictComponent {
 	 * @param type
 	 */
 	private void setDictMapToRedis(String type, List<Map<String, Object>> list) {
-		this.redisUtils.set(type, list, RedisUtils.NOT_EXPIRE);
+		this.redisUtils.set(DictConstant.getDictionaryKey(type), list, RedisUtils.NOT_EXPIRE);
 	}
 
 	/**
@@ -146,7 +146,7 @@ public class DictComponent {
 	 * @param resultMap
 	 */
 	private void getDictMapFromRedis(String type, Map<String, Object> resultMap) {
-		List list = redisUtils.get(type, ArrayList.class);
+		List list = redisUtils.get(DictConstant.getDictionaryKey(type), ArrayList.class);
 		resultMap.put(type, list);
 	}
 
@@ -159,7 +159,7 @@ public class DictComponent {
 	private void setExtraMapToRedis(String key, Map<String, Object> extraMap) {
 		// ArrayList类型
 		Object list = extraMap.get(key);
-		this.redisUtils.set(key, list, RedisUtils.NOT_EXPIRE);
+		this.redisUtils.set(DictConstant.getDictionaryKey(key), list, RedisUtils.NOT_EXPIRE);
 	}
 
 }
