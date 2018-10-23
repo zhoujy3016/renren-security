@@ -1,5 +1,6 @@
 package io.renren.modules.sys.entity;
 
+import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
@@ -36,28 +37,36 @@ public class TblPersonEntity implements Serializable {
 	 */
 	@NotBlank(message="{person.name.isEmpty}")
 	@ApiModelProperty(name="姓名")
+	@Excel(name = "姓名", orderNum = "0")
 	private String personName;
 	/**
 	 * 
 	 */
 	@NotNull(message="{person.nationality.isNull}")
 	@ApiModelProperty(name="民族")
+	@Excel(name = "民族", orderNum = "1")
 	private Integer nationality;
 	/**
 	 * 
 	 */
 	@NotNull(message="{person.area.isNull}")
 	@ApiModelProperty(name="地区")
+	@Excel(name = "地区", orderNum = "2")
 	private Integer area;
+
+	/**
+	 *
+	 */
+	@ApiModelProperty(name="电话")
+	@Excel(name = "电话", orderNum = "3")
+	private String telephone;
 	/**
 	 * 
 	 */
 	@ApiModelProperty(name="备注")
+	@Excel(name = "备注", orderNum = "4")
 	private String remark;
-	
-	@ApiModelProperty(name="电话")
-	private String telephone;
-	
+
 	/**
 	 * 民族名称
 	 */

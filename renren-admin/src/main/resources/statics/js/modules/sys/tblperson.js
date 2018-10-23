@@ -37,6 +37,27 @@ $(function () {
         }
     });
 
+    new AjaxUpload('#import', {
+        action: baseURL + "sys/tblperson/importUsers",
+        name: 'file',
+        autoSubmit:true,
+        responseType:"json",
+        onSubmit:function(file, extension){
+            // if (!(extension && /^(jpg|jpeg|png|gif)$/.test(extension.toLowerCase()))){
+            //     alert('只支持jpg、png、gif格式的图片！');
+            //     return false;
+            // }
+        },
+        onComplete : function(file, r){
+            if(r.code == 0){
+                alert(r.url);
+                vm.reload();
+            }else{
+                alert(r.msg);
+            }
+        }
+    });
+
 });
 
 var vm = new Vue({

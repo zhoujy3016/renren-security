@@ -2,8 +2,11 @@ package io.renren.modules.sys.controller;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import io.renren.common.exception.RRException;
+import io.renren.common.utils.ExcelUtils;
 import io.renren.dictionary.component.DictComponent;
 import io.renren.common.validator.ValidatorUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -21,7 +24,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.R;
-
+import org.springframework.web.multipart.MultipartFile;
 
 
 /**
@@ -109,6 +112,16 @@ public class TblPersonController extends AbstractController{
         tblPersonService.deleteBatchIds(Arrays.asList(personIds));
 
         return R.ok();
+    }
+
+
+    @RequestMapping("/importUsers")
+    public R importUsers(@RequestParam("file") MultipartFile file) {
+        if (file.isEmpty()) {
+            throw new RRException("上传文件不能为空");
+        }
+        List personList = ExcelUtils.importExcel(file, 0, 1, TblPersonEntity.class);
+        return R.ok("人员导入成功！");
     }
 
 }
