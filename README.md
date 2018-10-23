@@ -4,5 +4,5 @@
   一、数据字典表
   二、需要当做数据字典的业务表。
   增加数据字典增删改切面更新。
-  页面使用freemaker macro 直接读取redis数据。
+  页面使用freemarker macro 直接读取redis数据。
 
