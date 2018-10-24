@@ -43,18 +43,16 @@ $(function () {
         autoSubmit:true,
         responseType:"json",
         onSubmit:function(file, extension){
-            // if (!(extension && /^(jpg|jpeg|png|gif)$/.test(extension.toLowerCase()))){
-            //     alert('只支持jpg、png、gif格式的图片！');
-            //     return false;
-            // }
+            if (!(extension && /^(xlsx|xls)$/.test(extension.toLowerCase()))){
+                alert('只支持xlsx,xls格式');
+                return false;
+            }
         },
         onComplete : function(file, r){
             if(r.code == 0){
-                alert(r.url);
                 vm.reload();
-            }else{
-                alert(r.msg);
             }
+            alert(r.msg);
         }
     });
 

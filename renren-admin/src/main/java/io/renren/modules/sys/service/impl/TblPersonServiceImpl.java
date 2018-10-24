@@ -1,10 +1,13 @@
 package io.renren.modules.sys.service.impl;
 
+import io.renren.common.exception.RRException;
+import io.renren.common.utils.ExcelUtils;
 import io.renren.modules.sys.entity.SysDictEntity;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -16,6 +19,7 @@ import io.renren.modules.sys.dao.TblPersonDao;
 import io.renren.modules.sys.entity.TblPersonEntity;
 import io.renren.modules.sys.service.SysDictService;
 import io.renren.modules.sys.service.TblPersonService;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Service("tblPersonService")
@@ -72,6 +76,11 @@ public class TblPersonServiceImpl extends ServiceImpl<TblPersonDao, TblPersonEnt
 	}
 
 
+	@Override
+	public void importUsers(MultipartFile file) {
+		List<TblPersonEntity> personList = ExcelUtils.importExcel(file, 0, 1, TblPersonEntity.class);
+		this.insertBatch(personList);
+	}
 
 //	@Override
 //	public List<TblPersonEntity> queryPersonList() {

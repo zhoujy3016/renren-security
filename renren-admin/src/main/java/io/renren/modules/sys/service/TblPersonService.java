@@ -5,7 +5,7 @@ import java.util.Map;
 import com.baomidou.mybatisplus.service.IService;
 import io.renren.common.utils.PageUtils;
 import io.renren.modules.sys.entity.TblPersonEntity;
-
+import org.springframework.web.multipart.MultipartFile;
 
 
 /**
@@ -27,5 +27,9 @@ public interface TblPersonService extends IService<TblPersonEntity> {
      * @return
      */
     PageUtils selectPersonList(Map<String, Object> params);
+
+
+    void importUsers(MultipartFile file);
+
 }
 

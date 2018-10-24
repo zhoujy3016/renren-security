@@ -117,10 +117,7 @@ public class TblPersonController extends AbstractController{
 
     @RequestMapping("/importUsers")
     public R importUsers(@RequestParam("file") MultipartFile file) {
-        if (file.isEmpty()) {
-            throw new RRException("上传文件不能为空");
-        }
-        List personList = ExcelUtils.importExcel(file, 0, 1, TblPersonEntity.class);
+        tblPersonService.importUsers(file);
         return R.ok("人员导入成功！");
     }
 
