@@ -114,7 +114,7 @@ public class TblPersonController extends AbstractController{
         return R.ok();
     }
 
-
+    @RequiresPermissions("sys:tblperson:import")
     @RequestMapping("/importUsers")
     public R importUsers(@RequestParam("file") MultipartFile file) {
         tblPersonService.importUsers(file);
