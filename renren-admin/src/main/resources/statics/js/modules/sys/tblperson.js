@@ -37,9 +37,10 @@ $(function () {
         }
     });
 
+    // 人员导入
     new AjaxUpload('#import', {
         action: baseURL + "sys/tblperson/importUsers",
-        name: 'file',
+        name: 'excel_users',
         autoSubmit:true,
         responseType:"json",
         onSubmit:function(file, extension){
@@ -49,10 +50,31 @@ $(function () {
             }
         },
         onComplete : function(file, r){
+            console.log(r);
             if(r.code == 0){
                 vm.reload();
             }
             alert(r.msg);
+        }
+    });
+
+    // 上传照片
+    new AjaxUpload('#uploadImage', {
+        action: baseURL + "sys/tblperson/uploadUserImage",
+        name: 'img_user',
+        autoSubmit:true,
+        responseType:"json",
+        onSubmit:function(file, extension){
+            if (!(extension && /^(jpg|jpeg|png|gif)$/.test(extension.toLowerCase()))){
+                alert('只支持jpg、png、gif格式的图片！');
+                return false;
+            }
+        },
+        onComplete : function(file, r){
+            console.log(r);
+        	console.log(r.headImg);
+            $("#headImage").attr("src", baseURL + "sys/tblperson/showImage/" + r.headImg);
+
         }
     });
 

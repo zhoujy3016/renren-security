@@ -1,22 +1,18 @@
 package io.renren.modules.sys.controller;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
 
-import io.renren.common.exception.RRException;
-import io.renren.common.utils.ExcelUtils;
 import io.renren.dictionary.component.DictComponent;
 import io.renren.common.validator.ValidatorUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import io.renren.modules.sys.entity.TblPersonEntity;
 import io.renren.modules.sys.service.TblPersonService;
@@ -116,9 +112,85 @@ public class TblPersonController extends AbstractController{
 
     @RequiresPermissions("sys:tblperson:import")
     @RequestMapping("/importUsers")
-    public R importUsers(@RequestParam("file") MultipartFile file) {
+    public R importUsers(@RequestParam("excel_users") MultipartFile file) {
+//        // 获取文件名
+//        String fileName = file.getOriginalFilename();
+//        logger.info("上传的文件名为：" + fileName);
+//        // 获取文件的后缀名
+//        String suffixName = fileName.substring(fileName.lastIndexOf("."));
+//        logger.info("上传的后缀名为：" + suffixName);
+//        // 文件上传后的路径
+//        String filePath = "E://UsersExcels//";
+//        // 解决中文问题，liunx下中文路径，图片显示问题
+//        // fileName = UUID.randomUUID() + suffixName;
+//        File dest = new File(filePath + fileName);
+//        // 检测是否存在目录
+//        if (!dest.getParentFile().exists()) {
+//            dest.getParentFile().mkdirs();
+//        }
+//        try {
+//            file.transferTo(dest);
+//        } catch (IllegalStateException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         tblPersonService.importUsers(file);
         return R.ok("人员导入成功！");
+    }
+
+
+
+
+
+
+    public static final String ROOT = "upload-dir";
+
+    private final ResourceLoader resourceLoader;
+
+    @Autowired
+    public TblPersonController(ResourceLoader resourceLoader) {
+        this.resourceLoader = resourceLoader;
+    }
+
+
+    @RequestMapping("/uploadUserImage")
+    public R uploadUserImage(@RequestParam("img_user") MultipartFile file) {
+
+        // 获取文件名
+        String fileName = file.getOriginalFilename();
+        logger.info("上传的文件名为：" + fileName);
+        // 获取文件的后缀名
+        String suffixName = fileName.substring(fileName.lastIndexOf("."));
+        logger.info("上传的后缀名为：" + suffixName);
+        // 文件上传后的路径
+        String filePath = "E:/UsersImages/";
+        // 解决中文问题，liunx下中文路径，图片显示问题
+        // fileName = UUID.randomUUID() + suffixName;
+        File dest = new File(filePath + fileName);
+        // 检测是否存在目录
+        if (!dest.getParentFile().exists()) {
+            dest.getParentFile().mkdirs();
+        }
+        try {
+            file.transferTo(dest);
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return R.ok().put("headImg", fileName);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/showImage/{filename}")
+    public ResponseEntity<?> showImage(@PathVariable("filename") String filename) {
+
+        try {
+            return ResponseEntity.ok(resourceLoader.getResource("file:" + "E:/UsersImages/" + filename));
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }
