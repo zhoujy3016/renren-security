@@ -26,10 +26,10 @@
 				<bind name="nameLike" value="'%' + name + '%'"/>
 				and p.person_Name like #{nameLike}
 			</if>
-			<if test="nationality!=null and nationality!=''">
+			<if test="@org.apache.commons.lang.StringUtils@isNotEmpty(nationality)">
 				and p.nationality = #{nationality}
 			</if>
-			<if test="area!=null and area!=''">
+			<if test="@org.apache.commons.lang.StringUtils@isNotEmpty(area)">
 				and p.area = #{area}
 			</if>
 		</where>
