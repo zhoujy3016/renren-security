@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.*;
 
 import io.renren.common.utils.R;
 import io.renren.modules.sys.controller.AbstractController;
-import io.renren.modules.sys.entity.BteEvaluateEntity;
-import io.renren.modules.sys.service.BteEvaluateService;
-import io.renren.modules.sys.service.BteLessonService;
-import io.renren.modules.sys.service.BteQuestionService;
-import io.renren.modules.sys.service.BteResultService;
+import io.renren.modules.eva.entity.BteEvaluateEntity;
+import io.renren.modules.eva.service.BteEvaluateService;
+import io.renren.modules.eva.service.BteLessonService;
+import io.renren.modules.eva.service.BteQuestionService;
+import io.renren.modules.eva.service.BteResultService;
 
 @RestController
 @RequestMapping("home")

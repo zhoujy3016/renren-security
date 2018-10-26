@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.modules.eva.dao.BteResultDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="BteResultEntity" id="bteResultMap">
+        <id property="dataNo" column="data_no"/>
+        <result property="evalId" column="eval_id"/>
+        <result property="questionTypeId" column="question_type_id"/>
+        <result property="questionId" column="question_id"/>
+        <result property="questionScore" column="question_score"/>
+        <result property="createDate" column="create_date"/>
+        <result property="evalSuggest" column="eval_suggest"/>
+    </resultMap>
+
+	<!-- 继承结果entity -->
+    <resultMap type="BteResultEntityExt" extends="bteResultMap" id="bteResultMapExt">
+        <result property="questionTitle" column="question_title"/>
+		<result property="lessonCategoryName" column="lesson_category_name" />
+		<result property="lessonTypeName" column="lesson_type_name" />
+		<result property="lessonTeacherName" column="lesson_teacher_name" />
+		<result property="lessonPid" column="lesson_pid" />
+        <result property="evaPersonNum" column="evaPersonNum"/>
+        <result property="score1" column="score1"/>
+        <result property="score2" column="score2"/>
+        <result property="score3" column="score3"/>
+        <result property="score4" column="score4"/>
+        <result property="score5" column="score5"/>
+        <result property="avgScore" column="avgScore"/>
+    </resultMap>
+    
+    <!-- 存放建议题目的entity，与结果没有联系 -->
+    <resultMap type="BteResultEntitySuggest" id="bteResultMapSuggest">
+		<result property="questionTitle" column="question_title"/>
+        <result property="evalSuggest" column="eval_suggest"/>
+    </resultMap>
+	
+	<!-- 统计测评信息（试题） -->
+	<select id="queryQuestionResultList" resultMap="bteResultMapExt">
+		SELECT
+		  bq.question_title,
+		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_type_id IN (2,3)) AS evaPersonNum,
+		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_score = 1 AND question_type_id IN (2,3)) AS score1,
+		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_score = 2 AND question_type_id IN (2,3)) AS score2,
+		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_score = 3 AND question_type_id IN (2,3)) AS score3,
+		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_score = 4 AND question_type_id IN (2,3)) AS score4,
+		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_score = 5 AND question_type_id IN (2,3)) AS score5,
+		  (SELECT cast(AVG(question_score) as decimal(10, 1)) FROM bte_result WHERE eval_id = #{evalId} AND bq.data_no = question_id) AS avgScore
+		FROM
+		  bte_question bq,
+		  bte_evalrefquestion ref,
+		  bte_evaluate be
+		WHERE bq.data_no = ref.question_id
+		  AND  be.data_no = ref.eval_id
+		  AND be.data_no = #{evalId}
+		  AND bq.question_type_id in (2,3)
+	</select>
+	
+	<!-- 统计测评信息（课程） -->
+	<select id="queryLessonResultList" resultMap="bteResultMapExt">
+		SELECT 
+		  bl.lesson_title AS question_title,
+		  d1.value AS lesson_category_name,
+		  blt.type_name AS lesson_type_name,
+		  bl.lesson_teacher_name,
+		  bl.lesson_pid,
+		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bl.data_no = question_id AND question_type_id = 1) AS evaPersonNum,
+		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bl.data_no = question_id AND question_score = 1 AND question_type_id = 1) AS score1,
+		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bl.data_no = question_id AND question_score = 2 AND question_type_id = 1) AS score2,
+		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bl.data_no = question_id AND question_score = 3 AND question_type_id = 1) AS score3,
+		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bl.data_no = question_id AND question_score = 4 AND question_type_id = 1) AS score4,
+		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bl.data_no = question_id AND question_score = 5 AND question_type_id = 1) AS score5,
+		  (SELECT cast(AVG(question_score) as decimal(10, 1)) FROM bte_result WHERE eval_id = #{evalId} AND bl.data_no = question_id) AS avgScore
+		FROM bte_lesson bl
+			LEFT JOIN bte_lesson_type blt on blt.data_no = bl.lesson_type_id
+			LEFT JOIN sys_dict d1 on d1.code = bl.lesson_category_id and d1.type = 'kcfl'
+			WHERE bl.eval_id = #{evalId}
+	</select>
+	
+	
+	<select id="querySuggestList" resultMap="bteResultMapSuggest">
+		SELECT br.eval_suggest,
+			   bq.question_title
+		FROM bte_result br
+		LEFT JOIN  bte_question bq on bq.data_no = br.question_id
+		WHERE br.eval_Id = #{evalId}
+		AND   br.question_type_id = 4
+	</select>
+</mapper>
