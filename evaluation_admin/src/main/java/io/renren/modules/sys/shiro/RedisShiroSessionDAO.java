@@ -83,11 +83,5 @@ public class RedisShiroSessionDAO extends EnterpriseCacheSessionDAO {
         //60分钟过期
         redisTemplate.expire(key, 60, TimeUnit.MINUTES);
     }
-
-    // 取得redis session 方法 待整理
-    //        String sessionId = ShiroUtils.getSession().getId().toString();
-//        Session session =  (Session)redisTemplate.opsForValue().get(RedisKeys.getShiroSessionKey(sessionId));
-//        SimplePrincipalCollection simplePrincipalCollection = (SimplePrincipalCollection)session.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY);
-//        SysUserEntity sysUserEntity = (SysUserEntity) simplePrincipalCollection.getPrimaryPrincipal();
-
+    
 }
