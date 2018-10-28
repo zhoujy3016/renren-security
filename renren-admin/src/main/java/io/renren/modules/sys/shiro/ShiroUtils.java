@@ -17,12 +17,20 @@
 package io.renren.modules.sys.shiro;
 
 import io.renren.common.exception.RRException;
+import io.renren.common.utils.RedisKeys;
 import io.renren.modules.sys.entity.SysUserEntity;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.subject.support.DefaultSubjectContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
 
 /**
  * Shiro工具类
@@ -31,7 +39,19 @@ import org.apache.shiro.subject.Subject;
  * @email sunlightcs@gmail.com
  * @date 2016年11月12日 上午9:49:19
  */
+@Component
 public class ShiroUtils {
+
+	@Autowired
+	private RedisTemplate redisTemplate;
+
+	private static RedisTemplate staticRedisTemplate;
+
+	@PostConstruct
+	public void init() {
+		staticRedisTemplate = this.redisTemplate;
+	}
+
 	/**  加密算法 */
 	public final static String hashAlgorithmName = "SHA-256";
 	/**  循环次数 */
@@ -88,4 +108,24 @@ public class ShiroUtils {
 		return kaptcha.toString();
 	}
 
+	/**
+	 * 从redis中取得Session对象
+	 * @return
+	 */
+	private static Session getRedisSession(String sessionId) {
+        Session session =  (Session)staticRedisTemplate.opsForValue().get(RedisKeys.getShiroSessionKey(sessionId));
+		return session;
+	}
+
+	/**
+	 * 从redis session中取得SysUserEntity对象
+	 * @return
+	 */
+	public static SysUserEntity getUserEntityFromRedisSession(String sessionId) {
+		Session session = getRedisSession(sessionId);
+		SimplePrincipalCollection simplePrincipalCollection = (SimplePrincipalCollection)session.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY);
+		return (SysUserEntity) simplePrincipalCollection.getPrimaryPrincipal();
+	}
+	// 调用方法
+	// SysUserEntity sysUserEntity = ShiroUtils.getUserEntityFromRedisSession(CookieUtils.getSessionId(request));
 }
