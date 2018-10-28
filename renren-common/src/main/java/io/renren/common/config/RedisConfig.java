@@ -41,18 +41,24 @@ public class RedisConfig {
     @Autowired
     private RedisConnectionFactory factory;
 
+
+    /**
+     * GenericToStringSerializer: 可以将任何对象泛化为字符串并序列化
+     * Jackson2JsonRedisSerializer: 跟JacksonJsonRedisSerializer实际上是一样的
+     * JacksonJsonRedisSerializer: 序列化object对象为json字符串
+     * JdkSerializationRedisSerializer: 序列化java对象（被序列化的对象必须实现Serializable接口）
+     * StringRedisSerializer: 简单的字符串序列化
+     * GenericToStringSerializer:类似StringRedisSerializer的字符串序列化
+     * GenericJackson2JsonRedisSerializer:类似Jackson2JsonRedisSerializer，但使用时构造函数不用特定的类参考以上序列化,自定义序列化类; 
+     */
     @Bean
     public RedisTemplate<String, Object> redisTemplate() {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setHashKeySerializer(new StringRedisSerializer());
         redisTemplate.setHashValueSerializer(new StringRedisSerializer());
-  //      redisTemplate.setValueSerializer(new JdkSerializationRedisSerializer());
-        redisTemplate.setConnectionFactory(factory);
-
-        // JSON 序列化
         redisTemplate.setDefaultSerializer(new GenericJackson2JsonRedisSerializer());
-
+        redisTemplate.setConnectionFactory(factory);
         return redisTemplate;
     }
 
