@@ -16,9 +16,9 @@
 
 package io.renren.modules.sys.service.impl;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import io.renren.dictionary.annotation.DictionaryCache;
 import io.renren.dictionary.service.IDictService;
@@ -44,28 +44,28 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictDao, SysDictEntity> i
     public PageUtils queryPage(Map<String, Object> params) {
         String name = (String)params.get("name");
         String type = (String)params.get("type");
-        Page<SysDictEntity> page = this.selectPage(
+        Page<SysDictEntity> page = (Page<SysDictEntity>) this.baseMapper.selectPage(
                 new Query<SysDictEntity>(params).getPage(),
-                new EntityWrapper<SysDictEntity>()
+                new QueryWrapper<SysDictEntity>()
                     .like(StringUtils.isNotBlank(name),"name", name)
                     .eq(StringUtils.isNotBlank(type), "type", type)
-                    .orderBy("type")
+                    .orderByAsc("type")
         );
         return new PageUtils(page);
     }
 
 	@Override
 	public List<Map<String, Object>> getAllSysDictEntity() {
-		EntityWrapper<SysDictEntity> ew = new EntityWrapper<>();
+		QueryWrapper<SysDictEntity> ew = new QueryWrapper<>();
 		List<Map<String, Object>> sysDictEntityMap = this.baseMapper.selectMaps(ew);
 		return sysDictEntityMap;
 	}
 
 	@Override
 	public List<Map<String, Object>> getSysDictEntity(String type) {
-		EntityWrapper<SysDictEntity> ew = new EntityWrapper<>();
+		QueryWrapper<SysDictEntity> ew = new QueryWrapper<>();
 		ew.eq(DictConstant.DICT_TYPE, type);
-		return this.selectMaps(ew);
+		return this.baseMapper.selectMaps(ew);
 	}
 
 	@Override
@@ -73,15 +73,15 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictDao, SysDictEntity> i
 		List<Map<String, Object>> sysDictEntityMap = this.baseMapper.getSysDictEntityGroupByType(ids);
 		// 提取type集合
 		List<String> typeList = sysDictEntityMap.stream().map(dictMap -> (String)dictMap.get(DictConstant.DICT_TYPE)).collect(Collectors.toList());
-		EntityWrapper<SysDictEntity> ew = new EntityWrapper<>();
+		QueryWrapper<SysDictEntity> ew = new QueryWrapper<>();
 		// 将删除的type集合为参数，查询更新后的集合
 		ew.in(DictConstant.DICT_TYPE, typeList);
-		return this.selectMaps(ew);
+		return this.baseMapper.selectMaps(ew);
 	}
 	@Override
 	@DictionaryCache(operation = DictConstant.DictOperation.OP_INSERT)
     public void insertDict(SysDictEntity sysDictEntity) {
-		this.insert(sysDictEntity);
+		this.baseMapper.insert(sysDictEntity);
 	}
 
 	@Override
@@ -93,7 +93,7 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictDao, SysDictEntity> i
 	@Override
 	@DictionaryCache(operation = DictConstant.DictOperation.OP_DELETE)
     public void deleteDict(Long[] ids) {
-		this.deleteBatchIds(Arrays.asList(ids));
+		this.baseMapper.deleteBatchIds(Arrays.asList(ids));
 	}
 
 }

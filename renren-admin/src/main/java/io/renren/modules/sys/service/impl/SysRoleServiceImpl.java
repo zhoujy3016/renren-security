@@ -16,9 +16,9 @@
 
 package io.renren.modules.sys.service.impl;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.renren.common.annotation.DataFilter;
 import io.renren.common.utils.Constant;
 import io.renren.common.utils.PageUtils;
@@ -60,15 +60,14 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleDao, SysRoleEntity> i
 	public PageUtils queryPage(Map<String, Object> params) {
 		String roleName = (String)params.get("roleName");
 
-		Page<SysRoleEntity> page = this.selectPage(
+		Page<SysRoleEntity> page = (Page<SysRoleEntity>) this.baseMapper.selectPage(
 			new Query<SysRoleEntity>(params).getPage(),
-			new EntityWrapper<SysRoleEntity>()
+			new QueryWrapper<SysRoleEntity>()
 				.like(StringUtils.isNotBlank(roleName),"role_name", roleName)
-				.addFilterIfNeed(params.get(Constant.SQL_FILTER) != null, (String)params.get(Constant.SQL_FILTER))
-		);
+					.apply(params.get(Constant.SQL_FILTER) != null, (String)params.get(Constant.SQL_FILTER)));
 
 		for(SysRoleEntity sysRoleEntity : page.getRecords()){
-			SysDeptEntity sysDeptEntity = sysDeptService.selectById(sysRoleEntity.getDeptId());
+			SysDeptEntity sysDeptEntity = sysDeptService.getById(sysRoleEntity.getDeptId());
 			if(sysDeptEntity != null){
 				sysRoleEntity.setDeptName(sysDeptEntity.getName());
 			}
@@ -79,9 +78,9 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleDao, SysRoleEntity> i
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public void save(SysRoleEntity role) {
+	public void saveRole(SysRoleEntity role) {
 		role.setCreateTime(new Date());
-		this.insert(role);
+		this.save(role);
 
 		//保存角色与菜单关系
 		sysRoleMenuService.saveOrUpdate(role.getRoleId(), role.getMenuIdList());
@@ -93,7 +92,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleDao, SysRoleEntity> i
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public void update(SysRoleEntity role) {
-		this.updateAllColumnById(role);
+		this.updateById(role);
 
 		//更新角色与菜单关系
 		sysRoleMenuService.saveOrUpdate(role.getRoleId(), role.getMenuIdList());
@@ -106,7 +105,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleDao, SysRoleEntity> i
 	@Transactional(rollbackFor = Exception.class)
 	public void deleteBatch(Long[] roleIds) {
 		//删除角色
-		this.deleteBatchIds(Arrays.asList(roleIds));
+		this.baseMapper.deleteBatchIds(Arrays.asList(roleIds));
 
 		//删除角色与菜单关联
 		sysRoleMenuService.deleteBatch(roleIds);

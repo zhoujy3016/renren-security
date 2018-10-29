@@ -69,7 +69,7 @@ public class SysDictController {
     @RequiresPermissions("sys:dict:info")
     @ApiOperation(value="查询数据字典", notes="通过id查询数据字典")
     public R info(@ApiParam(required=true) @PathVariable("id") Long id){
-        SysDictEntity dict = sysDictService.selectById(id);
+        SysDictEntity dict = sysDictService.getById(id);
 
         return R.ok().put("dict", dict);
     }

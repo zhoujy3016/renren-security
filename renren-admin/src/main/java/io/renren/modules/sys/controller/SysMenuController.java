@@ -60,9 +60,9 @@ public class SysMenuController extends AbstractController {
 	@RequestMapping("/list")
 	@RequiresPermissions("sys:menu:list")
 	public List<SysMenuEntity> list(){
-		List<SysMenuEntity> menuList = sysMenuService.selectList(null);
+		List<SysMenuEntity> menuList = sysMenuService.list(null);
 		for(SysMenuEntity sysMenuEntity : menuList){
-			SysMenuEntity parentMenuEntity = sysMenuService.selectById(sysMenuEntity.getParentId());
+			SysMenuEntity parentMenuEntity = sysMenuService.getById(sysMenuEntity.getParentId());
 			if(parentMenuEntity != null){
 				sysMenuEntity.setParentName(parentMenuEntity.getName());
 			}
@@ -97,7 +97,7 @@ public class SysMenuController extends AbstractController {
 	@RequestMapping("/info/{menuId}")
 	@RequiresPermissions("sys:menu:info")
 	public R info(@PathVariable("menuId") Long menuId){
-		SysMenuEntity menu = sysMenuService.selectById(menuId);
+		SysMenuEntity menu = sysMenuService.getById(menuId);
 		return R.ok().put("menu", menu);
 	}
 	
@@ -111,7 +111,7 @@ public class SysMenuController extends AbstractController {
 		//数据校验
 		verifyForm(menu);
 		
-		sysMenuService.insert(menu);
+		sysMenuService.save(menu);
 		
 		return R.ok();
 	}
@@ -175,7 +175,7 @@ public class SysMenuController extends AbstractController {
 		//上级菜单类型
 		int parentType = Constant.MenuType.CATALOG.getValue();
 		if(menu.getParentId() != 0){
-			SysMenuEntity parentMenu = sysMenuService.selectById(menu.getParentId());
+			SysMenuEntity parentMenu = sysMenuService.getById(menu.getParentId());
 			parentType = parentMenu.getType();
 		}
 		

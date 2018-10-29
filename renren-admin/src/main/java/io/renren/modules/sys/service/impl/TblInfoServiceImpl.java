@@ -1,16 +1,15 @@
 package io.renren.modules.sys.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.renren.modules.sys.entity.SysDictEntity;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Map;
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.Query;
@@ -34,19 +33,19 @@ public class TblInfoServiceImpl extends ServiceImpl<TblInfoDao, TblInfoEntity> i
     	// 新闻类型
     	String type = (String) params.get("type");
     	
-        Page<TblInfoEntity> page = this.selectPage(
+        Page<TblInfoEntity> page = (Page<TblInfoEntity>) this.baseMapper.selectPage(
                 new Query<TblInfoEntity>(params).getPage(),
-                new EntityWrapper<TblInfoEntity>()
+                new QueryWrapper<TblInfoEntity>()
                 .like(StringUtils.isNotBlank(title) , "info_title", title)
                 .eq(StringUtils.isNotBlank(type), "info_type", type)
-                .orderBy("info_id", false)
+                .orderByDesc("info_id")
         );
 
         for(TblInfoEntity tblInfoEntity:page.getRecords()) {
-        	EntityWrapper<SysDictEntity> ew = new EntityWrapper<>();
+        	QueryWrapper<SysDictEntity> ew = new QueryWrapper<>();
         	ew.eq("type", "xwlx");
         	ew.eq("code", tblInfoEntity.getInfoType());
-        	SysDictEntity sysDictEntity = sysDictService.selectOne(ew);
+        	SysDictEntity sysDictEntity = sysDictService.getOne(ew);
         	tblInfoEntity.setInfoTypeName(sysDictEntity.getValue());
         }
         
@@ -56,7 +55,7 @@ public class TblInfoServiceImpl extends ServiceImpl<TblInfoDao, TblInfoEntity> i
 	@Override
 	public void saveInfo(TblInfoEntity infoEntity) {
 		infoEntity.setInfoCreateTime(LocalDateTime.now());
-		this.insert(infoEntity);
+		this.save(infoEntity);
 		
 	}
 

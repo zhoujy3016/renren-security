@@ -20,7 +20,7 @@ package io.renren.modules.sys.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import io.renren.modules.sys.entity.SysDictEntity;
 
 /**

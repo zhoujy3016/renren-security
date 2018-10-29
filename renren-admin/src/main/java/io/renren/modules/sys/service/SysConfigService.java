@@ -17,7 +17,7 @@
 package io.renren.modules.sys.service;
 
 
-import com.baomidou.mybatisplus.service.IService;
+import com.baomidou.mybatisplus.extension.service.IService;
 import io.renren.common.utils.PageUtils;
 import io.renren.modules.sys.entity.SysConfigEntity;
 
@@ -30,14 +30,14 @@ import java.util.Map;
  * @email sunlightcs@gmail.com
  * @date 2016年12月4日 下午6:49:01
  */
-public interface SysConfigService extends IService<SysConfigEntity>  {
+public interface SysConfigService extends IService<SysConfigEntity> {
 
 	PageUtils queryPage(Map<String, Object> params);
 	
 	/**
 	 * 保存配置信息
 	 */
-	public void save(SysConfigEntity config);
+	public void saveConfig(SysConfigEntity config);
 	
 	/**
 	 * 更新配置信息

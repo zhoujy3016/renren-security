@@ -67,7 +67,7 @@ public class TblPersonController extends AbstractController{
     @RequiresPermissions("sys:tblperson:info")
     @ApiOperation(value="查询人员", notes="通过id查询人员")
     public R info(@PathVariable("personId") Integer personId){
-        TblPersonEntity tblPerson = tblPersonService.selectById(personId);
+        TblPersonEntity tblPerson = tblPersonService.getById(personId);
         
         return R.ok().put("tblPerson", tblPerson);
     }
@@ -80,7 +80,7 @@ public class TblPersonController extends AbstractController{
     @ApiOperation(value="增加", notes="增加人员")
     public R save(@RequestBody TblPersonEntity tblPerson){
     	ValidatorUtils.validateEntity(tblPerson);
-        tblPersonService.insert(tblPerson);
+        tblPersonService.save(tblPerson);
         
         return R.ok();
     }
@@ -93,7 +93,7 @@ public class TblPersonController extends AbstractController{
     @ApiOperation(value="修改", notes="修改人员")
     public R update(@RequestBody TblPersonEntity tblPerson){
         ValidatorUtils.validateEntity(tblPerson);
-        tblPersonService.updateAllColumnById(tblPerson);//全部更新
+        tblPersonService.updateById(tblPerson);//全部更新
 
         return R.ok();
     }
@@ -105,7 +105,7 @@ public class TblPersonController extends AbstractController{
     @RequiresPermissions("sys:tblperson:delete")
     @ApiOperation(value="删除", notes="删除人员")
     public R delete(@RequestBody Integer[] personIds){
-        tblPersonService.deleteBatchIds(Arrays.asList(personIds));
+        tblPersonService.removeByIds(Arrays.asList(personIds));
 
         return R.ok();
     }

@@ -17,13 +17,13 @@
 package io.renren.modules.sys.service.impl;
 
 
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.renren.common.utils.Constant;
 import io.renren.common.utils.MapUtils;
 import io.renren.modules.sys.dao.SysMenuDao;
+import io.renren.modules.sys.dao.SysRoleMenuDao;
 import io.renren.modules.sys.entity.SysMenuEntity;
 import io.renren.modules.sys.service.SysMenuService;
-import io.renren.modules.sys.service.SysRoleMenuService;
 import io.renren.modules.sys.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,7 +37,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuDao, SysMenuEntity> i
 	@Autowired
 	private SysUserService sysUserService;
 	@Autowired
-	private SysRoleMenuService sysRoleMenuService;
+	private SysRoleMenuDao sysRoleMenuDao;
 	
 	@Override
 	public List<SysMenuEntity> queryListParentId(Long parentId, List<Long> menuIdList) {
@@ -80,9 +80,9 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuDao, SysMenuEntity> i
 	@Override
 	public void delete(Long menuId){
 		//删除菜单
-		this.deleteById(menuId);
+		this.baseMapper.deleteById(menuId);
 		//删除菜单与角色关联
-		sysRoleMenuService.deleteByMap(new MapUtils().put("menu_id", menuId));
+        sysRoleMenuDao.deleteByMap(new MapUtils().put("menu_id", menuId));
 	}
 
 	/**

@@ -16,9 +16,13 @@
 
 package io.renren.common.config;
 
-import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import javax.sql.DataSource;
 
 /**
  * mybatis-plus配置
@@ -35,5 +39,19 @@ public class MybatisPlusConfig {
     @Bean
     public PaginationInterceptor paginationInterceptor() {
         return new PaginationInterceptor();
+    }
+
+
+    @Bean
+    public MybatisSqlSessionFactoryBean sqlSessionFactory(
+            DataSource dataSource) {
+        MybatisSqlSessionFactoryBean sqlSessionFactoryBean = new MybatisSqlSessionFactoryBean();
+        sqlSessionFactoryBean.setDataSource(dataSource);
+        return sqlSessionFactoryBean;
+    }
+
+    @Bean
+    public SqlSession sqlSession(DataSource dataSource) throws Exception {
+        return sqlSessionFactory(dataSource).getObject().openSession();
     }
 }

@@ -58,7 +58,7 @@ public class TblInfoController {
     @RequestMapping("/info/{infoId}")
     @RequiresPermissions("sys:tblinfo:info")
     public R info(@PathVariable("infoId") Integer infoId){
-        TblInfoEntity tblInfo = tblInfoService.selectById(infoId);
+        TblInfoEntity tblInfo = tblInfoService.getById(infoId);
 
         return R.ok().put("tblInfo", tblInfo);
     }
@@ -82,7 +82,7 @@ public class TblInfoController {
     @RequiresPermissions("sys:tblinfo:update")
     public R update(@RequestBody TblInfoEntity tblInfo){
         ValidatorUtils.validateEntity(tblInfo);
-        tblInfoService.updateAllColumnById(tblInfo);//全部更新
+        tblInfoService.updateById(tblInfo);//全部更新
         
         return R.ok();
     }
@@ -93,7 +93,7 @@ public class TblInfoController {
     @RequestMapping("/delete")
     @RequiresPermissions("sys:tblinfo:delete")
     public R delete(@RequestBody Integer[] infoIds){
-        tblInfoService.deleteBatchIds(Arrays.asList(infoIds));
+        tblInfoService.removeByIds(Arrays.asList(infoIds));
 
         return R.ok();
     }

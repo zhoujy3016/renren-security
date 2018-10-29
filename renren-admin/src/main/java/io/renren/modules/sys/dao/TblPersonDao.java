@@ -1,13 +1,12 @@
 package io.renren.modules.sys.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.renren.modules.sys.entity.TblPersonEntity;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
-
-import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.baomidou.mybatisplus.plugins.pagination.Pagination;
 
 /**
  * 
@@ -25,6 +24,6 @@ public interface TblPersonDao extends BaseMapper<TblPersonEntity> {
 	 * @param page
 	 * @return
 	 */
-	List<TblPersonEntity> selectPersonList(Pagination page, @Param("name")String name, 
-			@Param("nationality") String nationality, @Param("area") String area);
+	List<TblPersonEntity> selectPersonList(Page page, @Param("name")String name,
+										   @Param("nationality") String nationality, @Param("area") String area);
 }

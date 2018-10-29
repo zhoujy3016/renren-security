@@ -1,6 +1,8 @@
 package io.renren.modules.sys.service.impl;
 
-import io.renren.common.exception.RRException;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.renren.common.utils.ExcelUtils;
 import io.renren.modules.sys.entity.SysDictEntity;
 import org.apache.commons.lang.StringUtils;
@@ -9,9 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.Query;
 
@@ -36,9 +35,9 @@ public class TblPersonServiceImpl extends ServiceImpl<TblPersonDao, TblPersonEnt
     	String nationality = (String)params.get("nationality");
     	// 地区
     	String area = (String) params.get("area");
-        Page<TblPersonEntity> page = this.selectPage(
+        Page<TblPersonEntity> page = (Page<TblPersonEntity>) this.baseMapper.selectPage(
                 new Query<TblPersonEntity>(params).getPage(),
-                new EntityWrapper<TblPersonEntity>()
+                new QueryWrapper<TblPersonEntity>()
                 .like(StringUtils.isNotBlank(name), "person_name", name)
                 .eq(StringUtils.isNotBlank(nationality), "nationality", nationality)
                 .eq(StringUtils.isNotBlank(area), "area", area)
@@ -47,19 +46,19 @@ public class TblPersonServiceImpl extends ServiceImpl<TblPersonDao, TblPersonEnt
         
         // 设置民族名称
         for(TblPersonEntity personEntity: page.getRecords()) {
-        	EntityWrapper<SysDictEntity> ew = new EntityWrapper<>();
+        	QueryWrapper<SysDictEntity> ew = new QueryWrapper<>();
         	ew.eq("type", "mz");
         	ew.eq("code", personEntity.getNationality());
-        	SysDictEntity sysDictEntity = sysDictService.selectOne(ew);
+        	SysDictEntity sysDictEntity = sysDictService.getOne(ew);
         	personEntity.setNationalityName(sysDictEntity.getValue());
         }
         
         // 设置地区
         for(TblPersonEntity personEntity: page.getRecords()) {
-        	EntityWrapper<SysDictEntity> ew = new EntityWrapper<>();
+			QueryWrapper<SysDictEntity> ew = new QueryWrapper<>();
         	ew.eq("type", "area");
         	ew.eq("code", personEntity.getArea());
-        	SysDictEntity sysDictEntity = sysDictService.selectOne(ew);
+        	SysDictEntity sysDictEntity = sysDictService.getOne(ew);
         	personEntity.setAreaName(sysDictEntity.getValue());
         }
 
@@ -79,7 +78,7 @@ public class TblPersonServiceImpl extends ServiceImpl<TblPersonDao, TblPersonEnt
 	@Override
 	public void importUsers(MultipartFile file) {
 		List<TblPersonEntity> personList = ExcelUtils.importExcel(file, 0, 1, TblPersonEntity.class);
-		this.insertBatch(personList);
+		this.saveBatch(personList);
 	}
 
 //	@Override

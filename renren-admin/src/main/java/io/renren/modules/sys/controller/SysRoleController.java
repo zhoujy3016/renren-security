@@ -65,7 +65,7 @@ public class SysRoleController extends AbstractController {
 	@RequestMapping("/select")
 	@RequiresPermissions("sys:role:select")
 	public R select(){
-		List<SysRoleEntity> list = sysRoleService.selectList(null);
+		List<SysRoleEntity> list = sysRoleService.list(null);
 		
 		return R.ok().put("list", list);
 	}
@@ -76,7 +76,7 @@ public class SysRoleController extends AbstractController {
 	@RequestMapping("/info/{roleId}")
 	@RequiresPermissions("sys:role:info")
 	public R info(@PathVariable("roleId") Long roleId){
-		SysRoleEntity role = sysRoleService.selectById(roleId);
+		SysRoleEntity role = sysRoleService.getById(roleId);
 		
 		//查询角色对应的菜单
 		List<Long> menuIdList = sysRoleMenuService.queryMenuIdList(roleId);

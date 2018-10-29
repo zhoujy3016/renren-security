@@ -16,9 +16,9 @@
 
 package io.renren.modules.sys.service.impl;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.gson.Gson;
 import io.renren.common.exception.RRException;
 import io.renren.common.utils.PageUtils;
@@ -44,9 +44,9 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigDao, SysConfigEnt
 	public PageUtils queryPage(Map<String, Object> params) {
 		String paramKey = (String)params.get("paramKey");
 
-		Page<SysConfigEntity> page = this.selectPage(
+		Page<SysConfigEntity> page = (Page<SysConfigEntity>) this.baseMapper.selectPage(
 				new Query<SysConfigEntity>(params).getPage(),
-				new EntityWrapper<SysConfigEntity>()
+				new QueryWrapper<SysConfigEntity>()
 					.like(StringUtils.isNotBlank(paramKey),"param_key", paramKey)
 					.eq("status", 1)
 		);
@@ -55,15 +55,15 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigDao, SysConfigEnt
 	}
 	
 	@Override
-	public void save(SysConfigEntity config) {
-		this.insert(config);
+	public void saveConfig(SysConfigEntity config) {
+		this.baseMapper.insert(config);
 		sysConfigRedis.saveOrUpdate(config);
 	}
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public void update(SysConfigEntity config) {
-		this.updateAllColumnById(config);
+		this.baseMapper.updateById(config);
 		sysConfigRedis.saveOrUpdate(config);
 	}
 
@@ -78,11 +78,11 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigDao, SysConfigEnt
 	@Transactional(rollbackFor = Exception.class)
 	public void deleteBatch(Long[] ids) {
 		for(Long id : ids){
-			SysConfigEntity config = this.selectById(id);
+			SysConfigEntity config = this.baseMapper.selectById(id);
 			sysConfigRedis.delete(config.getParamKey());
 		}
 
-		this.deleteBatchIds(Arrays.asList(ids));
+		this.baseMapper.deleteBatchIds(Arrays.asList(ids));
 	}
 
 	@Override

@@ -17,9 +17,10 @@
 package io.renren.modules.sys.service.impl;
 
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.renren.common.annotation.DataFilter;
 import io.renren.common.utils.Constant;
 import io.renren.common.utils.PageUtils;
@@ -67,15 +68,14 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
 	public PageUtils queryPage(Map<String, Object> params) {
 		String username = (String)params.get("username");
 
-		Page<SysUserEntity> page = this.selectPage(
+		Page<SysUserEntity> page = (Page<SysUserEntity>) this.baseMapper.selectPage(
 			new Query<SysUserEntity>(params).getPage(),
-			new EntityWrapper<SysUserEntity>()
+			new QueryWrapper<SysUserEntity>()
 				.like(StringUtils.isNotBlank(username),"username", username)
-				.addFilterIfNeed(params.get(Constant.SQL_FILTER) != null, (String)params.get(Constant.SQL_FILTER))
-		);
+					.apply(params.get(Constant.SQL_FILTER) != null, (String)params.get(Constant.SQL_FILTER)));
 
 		for(SysUserEntity sysUserEntity : page.getRecords()){
-			SysDeptEntity sysDeptEntity = sysDeptService.selectById(sysUserEntity.getDeptId());
+			SysDeptEntity sysDeptEntity = sysDeptService.getById(sysUserEntity.getDeptId());
 			sysUserEntity.setDeptName(sysDeptEntity.getName());
 		}
 
@@ -84,13 +84,13 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public void save(SysUserEntity user) {
+	public void saveUser(SysUserEntity user) {
 		user.setCreateTime(new Date());
 		//sha256加密
 		String salt = RandomStringUtils.randomAlphanumeric(20);
 		user.setSalt(salt);
 		user.setPassword(ShiroUtils.sha256(user.getPassword(), user.getSalt()));
-		this.insert(user);
+		this.save(user);
 		
 		//保存用户与角色关系
 		sysUserRoleService.saveOrUpdate(user.getUserId(), user.getRoleIdList());
@@ -116,13 +116,13 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
         SysUserEntity userEntity = new SysUserEntity();
         userEntity.setPassword(newPassword);
         return this.update(userEntity,
-                new EntityWrapper<SysUserEntity>().eq("user_id", userId).eq("password", password));
+                new UpdateWrapper<SysUserEntity>().eq("user_id", userId).eq("password", password));
     }
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public void passwordReset(Long[] userIds) {
-		List<SysUserEntity> userList = this.selectBatchIds(Arrays.asList(userIds));
+		List<SysUserEntity> userList = this.baseMapper.selectBatchIds(Arrays.asList(userIds));
 		for(SysUserEntity sysUserEntity:userList) {
 			//sha256加密
 			String salt = RandomStringUtils.randomAlphanumeric(20);
