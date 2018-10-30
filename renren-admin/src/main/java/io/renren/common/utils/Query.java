@@ -70,8 +70,14 @@ public class Query<T> extends LinkedHashMap<String, Object> {
 
         //排序
         if(StringUtils.isNotBlank(sidx) && StringUtils.isNotBlank(order)){
-//            this.page.setOrderByField(sidx);
-//            this.page.setAsc("ASC".equalsIgnoreCase(order));
+            System.out.println(sidx);
+            if("ASC".equalsIgnoreCase(order)) {
+                System.out.println(order);
+                this.page.setAsc(sidx);
+            } else {
+                System.out.println(order);
+                this.page.setDesc(sidx);
+            }
         }
 
     }

@@ -10,7 +10,7 @@ $(function () {
 			    return '<a onclick="vm.view(' + rowObject.infoId+ ')">'+cellvalue+'</a>';
 			  }
 			}, 			
-			{ label: '类型', name: 'infoTypeName', index: '', width: 40 },
+			{ label: '类型', name: 'infoTypeName', index: 'info_type', width: 40 },
 			{ label: '创建时间', name: 'infoCreateTime', index: 'info_create_time', width: 40 }
         ],
 		viewrecords: true,
