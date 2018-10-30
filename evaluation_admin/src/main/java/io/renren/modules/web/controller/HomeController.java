@@ -35,7 +35,7 @@ public class HomeController extends AbstractController {
 		try {
 			Map<String, Object> map;
 			// 查看当前测评是否开启
-			BteEvaluateEntity eval = this.bteEvaluateService.selectById(evalId);
+			BteEvaluateEntity eval = this.bteEvaluateService.getById(evalId);
 			// 当前测评状态非“进行中”
 			if(eval.getEvalStateId() != 1) {
 				return R.error("当前测评未开始或已结束！");

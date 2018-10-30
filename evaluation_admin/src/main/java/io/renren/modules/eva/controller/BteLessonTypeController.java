@@ -34,9 +34,6 @@ public class BteLessonTypeController extends AbstractController {
     @Autowired
     private BteLessonTypeService bteLessonTypeService;
 
-    @Autowired
-    private DictComponent dictComponent;
-
     /**
      * 列表
      */
@@ -56,7 +53,7 @@ public class BteLessonTypeController extends AbstractController {
     @RequestMapping("/info/{dataNo}")
     @RequiresPermissions("eva:btelessontype:info")
     public R info(@PathVariable("dataNo") Integer dataNo){
-        BteLessonTypeEntity bteLessonType = bteLessonTypeService.selectById(dataNo);
+        BteLessonTypeEntity bteLessonType = bteLessonTypeService.getById(dataNo);
 
         return R.ok().put("bteLessonType", bteLessonType);
     }

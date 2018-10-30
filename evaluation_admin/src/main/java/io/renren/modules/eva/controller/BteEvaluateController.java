@@ -54,7 +54,7 @@ public class BteEvaluateController extends AbstractController {
     @RequestMapping("/info/{dataNo}")
     @RequiresPermissions("eva:bteevaluate:info")
     public R info(@PathVariable("dataNo") Integer dataNo){
-        BteEvaluateEntity bteEvaluate = bteEvaluateService.selectById(dataNo);
+        BteEvaluateEntity bteEvaluate = bteEvaluateService.getById(dataNo);
 
         return R.ok().put("bteEvaluate", bteEvaluate);
     }
@@ -78,7 +78,8 @@ public class BteEvaluateController extends AbstractController {
     @RequiresPermissions("eva:bteevaluate:update")
     public R update(@RequestBody BteEvaluateEntity bteEvaluate){
         ValidatorUtils.validateEntity(bteEvaluate);
-        bteEvaluateService.updateAllColumnById(bteEvaluate);//全部更新
+        //全部更新
+        bteEvaluateService.updateById(bteEvaluate);
         
         return R.ok();
     }
@@ -89,7 +90,7 @@ public class BteEvaluateController extends AbstractController {
     @RequestMapping("/delete")
     @RequiresPermissions("eva:bteevaluate:delete")
     public R delete(@RequestBody Integer[] dataNos){
-        bteEvaluateService.deleteBatchIds(Arrays.asList(dataNos));
+        bteEvaluateService.removeByIds(Arrays.asList(dataNos));
 
         return R.ok();
     }

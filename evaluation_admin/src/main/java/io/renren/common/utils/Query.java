@@ -16,7 +16,7 @@
 
 package io.renren.common.utils;
 
-import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.renren.common.xss.SQLFilter;
 import org.apache.commons.lang.StringUtils;
 
@@ -30,7 +30,7 @@ import java.util.Map;
  * @since 2.0.0 2017-03-14
  */
 public class Query<T> extends LinkedHashMap<String, Object> {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
     /**
      * mybatis-plus分页参数
      */
@@ -70,8 +70,14 @@ public class Query<T> extends LinkedHashMap<String, Object> {
 
         //排序
         if(StringUtils.isNotBlank(sidx) && StringUtils.isNotBlank(order)){
-            this.page.setOrderByField(sidx);
-            this.page.setAsc("ASC".equalsIgnoreCase(order));
+            System.out.println(sidx);
+            if("ASC".equalsIgnoreCase(order)) {
+                System.out.println(order);
+                this.page.setAsc(sidx);
+            } else {
+                System.out.println(order);
+                this.page.setDesc(sidx);
+            }
         }
 
     }

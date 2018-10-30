@@ -23,6 +23,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.renren.common.utils.Constant;
 import io.renren.modules.sys.dao.SysUserRoleDao;
 import io.renren.modules.sys.entity.SysUserEntity;
@@ -111,7 +112,7 @@ public class UserRealm extends AuthorizingRealm {
 		//查询用户信息
 		SysUserEntity user = new SysUserEntity();
 		user.setUsername(token.getUsername());
-		user = sysUserDao.selectOne(user);
+		user = sysUserDao.selectOne(new QueryWrapper<SysUserEntity>().eq("username", user.getUsername()));
 
 		//账号不存在
 		if(user == null) {

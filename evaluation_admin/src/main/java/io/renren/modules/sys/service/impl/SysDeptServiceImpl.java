@@ -16,8 +16,8 @@
 
 package io.renren.modules.sys.service.impl;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.renren.common.annotation.DataFilter;
 import io.renren.common.utils.Constant;
 import io.renren.modules.sys.dao.SysDeptDao;
@@ -37,11 +37,11 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptDao, SysDeptEntity> i
 	@DataFilter(subDept = true, user = false)
 	public List<SysDeptEntity> queryList(Map<String, Object> params){
 		List<SysDeptEntity> deptList =
-			this.selectList(new EntityWrapper<SysDeptEntity>()
-			.addFilterIfNeed(params.get(Constant.SQL_FILTER) != null, (String)params.get(Constant.SQL_FILTER)));
+			this.baseMapper.selectList(new QueryWrapper<SysDeptEntity>()
+			.apply(params.get(Constant.SQL_FILTER) != null, (String)params.get(Constant.SQL_FILTER)));
 
 		for(SysDeptEntity sysDeptEntity : deptList){
-			SysDeptEntity parentDeptEntity =  this.selectById(sysDeptEntity.getParentId());
+			SysDeptEntity parentDeptEntity =  this.baseMapper.selectById(sysDeptEntity.getParentId());
 			if(parentDeptEntity != null){
 				sysDeptEntity.setParentName(parentDeptEntity.getName());
 			}

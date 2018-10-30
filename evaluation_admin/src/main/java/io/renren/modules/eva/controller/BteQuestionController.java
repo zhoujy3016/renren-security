@@ -35,8 +35,6 @@ public class BteQuestionController extends AbstractController {
     @Autowired
     private BteQuestionService bteQuestionService;
 
-    @Autowired
-    private DictComponent dictComponent;
 
     /**
      * 列表
@@ -57,7 +55,7 @@ public class BteQuestionController extends AbstractController {
     @RequestMapping("/info/{dataNo}")
     @RequiresPermissions("eva:btequestion:info")
     public R info(@PathVariable("dataNo") Integer dataNo){
-        BteQuestionEntity bteQuestion = bteQuestionService.selectById(dataNo);
+        BteQuestionEntity bteQuestion = bteQuestionService.getById(dataNo);
 
         return R.ok().put("bteQuestion", bteQuestion);
     }
@@ -83,7 +81,8 @@ public class BteQuestionController extends AbstractController {
     public R update(@RequestBody BteQuestionEntity bteQuestion){
     	// 校验
         ValidatorUtils.validateEntity(bteQuestion);
-        bteQuestionService.updateAllColumnById(bteQuestion);//全部更新
+        //全部更新
+        bteQuestionService.updateById(bteQuestion);
         
         return R.ok();
     }
@@ -94,7 +93,7 @@ public class BteQuestionController extends AbstractController {
     @RequestMapping("/delete")
     @RequiresPermissions("eva:btequestion:delete")
     public R delete(@RequestBody Integer[] dataNos){
-        bteQuestionService.deleteBatchIds(Arrays.asList(dataNos));
+        bteQuestionService.removeByIds(Arrays.asList(dataNos));
 
         return R.ok();
     }

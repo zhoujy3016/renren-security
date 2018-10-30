@@ -1,5 +1,6 @@
 package io.renren.modules.eva.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import io.renren.modules.eva.entity.BteResultEntity;
 import io.renren.modules.eva.entity.BteResultEntityExt;
 import io.renren.modules.eva.entity.BteResultEntitySuggest;
@@ -8,7 +9,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**
  * 

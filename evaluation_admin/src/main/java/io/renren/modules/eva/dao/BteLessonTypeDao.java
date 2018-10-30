@@ -1,6 +1,7 @@
 package io.renren.modules.eva.dao;
 
-import com.baomidou.mybatisplus.plugins.pagination.Pagination;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.renren.modules.eva.entity.BteLessonTypeEntity;
 
 import java.util.List;
@@ -8,7 +9,6 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**
  * 
@@ -23,5 +23,5 @@ public interface BteLessonTypeDao extends BaseMapper<BteLessonTypeEntity> {
 	 * @param params
 	 * @return
 	 */
-	List<BteLessonTypeEntity> queryLessonTypeList(Pagination page, @Param("params") Map params);
+	List<BteLessonTypeEntity> queryLessonTypeList(Page page, @Param("params") Map params);
 }

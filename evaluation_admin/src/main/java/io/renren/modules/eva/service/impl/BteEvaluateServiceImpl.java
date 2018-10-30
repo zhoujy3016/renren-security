@@ -1,5 +1,8 @@
 package io.renren.modules.eva.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.renren.common.utils.*;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +17,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 
 import io.renren.common.annotation.DataCreatorFilter;
 
@@ -64,12 +63,12 @@ public class BteEvaluateServiceImpl extends ServiceImpl<BteEvaluateDao, BteEvalu
 	@Transactional(rollbackFor = Exception.class)
 	public void insertEvaluate(BteEvaluateEntity bteEvaluate) {
 		// 查询当前开启状态的试题
-		List<BteQuestionEntity> questionList = bteQuestionService.selectList(new EntityWrapper<BteQuestionEntity>().eq("question_state_id", "1"));
+		List<BteQuestionEntity> questionList = bteQuestionService.list(new QueryWrapper<BteQuestionEntity>().eq("question_state_id", "1"));
 		// 创建日期
 		bteEvaluate.setCreateDate(LocalDateTime.now());
 		// 创建人
 		bteEvaluate.setCreateUserId(ShiroUtils.getUserId());
-		this.insert(bteEvaluate);
+		this.save(bteEvaluate);
 		Integer evalId = bteEvaluate.getDataNo();
 		
 		// 测评与试题关联数据
@@ -82,7 +81,7 @@ public class BteEvaluateServiceImpl extends ServiceImpl<BteEvaluateDao, BteEvalu
 			refList.add(ref);
 		}
 		// 批量插入关联数据
-		this.bteEvalrefquestionService.insertBatch(refList);
+		this.bteEvalrefquestionService.saveBatch(refList);
 	}
 
 	@Override
@@ -106,9 +105,9 @@ public class BteEvaluateServiceImpl extends ServiceImpl<BteEvaluateDao, BteEvalu
 	@Transactional(rollbackFor = Exception.class)
 	public void changeEvalState(Integer toState, Integer[] dataNos) {
 		for(int dataNo:dataNos) {
-			BteEvaluateEntity evalEntity = this.selectById(dataNo);
+			BteEvaluateEntity evalEntity = this.getById(dataNo);
 			evalEntity.setEvalStateId(toState);
-			this.updateAllColumnById(evalEntity);
+			this.updateById(evalEntity);
 		}
 	}
 

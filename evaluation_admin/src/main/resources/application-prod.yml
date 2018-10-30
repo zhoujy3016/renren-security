@@ -52,5 +52,5 @@ eureka:
       defaultZone: http://127.0.0.1:${server.port}/eva/eureka/
 #生产环境公网ip
 eva:
-    evac-port: 8001
+    evac-port: 8777
     ip: 124.93.236.5

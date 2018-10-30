@@ -1,7 +1,7 @@
 package io.renren.modules.eva.entity;
 
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.TableField;
 
 import cn.afterturn.easypoi.excel.annotation.Excel;
 

@@ -1,5 +1,8 @@
 package io.renren.modules.eva.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.renren.common.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,10 +15,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 
 import io.renren.modules.eva.dao.BteResultDao;
 import io.renren.modules.eva.entity.BteEvaluateEntity;
@@ -37,9 +36,9 @@ public class BteResultServiceImpl extends ServiceImpl<BteResultDao, BteResultEnt
 	
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-        Page<BteResultEntity> page = this.selectPage(
+        Page<BteResultEntity> page = (Page<BteResultEntity>) this.baseMapper.selectPage(
                 new Query<BteResultEntity>(params).getPage(),
-                new EntityWrapper<BteResultEntity>()
+                new QueryWrapper<BteResultEntity>()
         );
 
         return new PageUtils(page);
@@ -62,7 +61,7 @@ public class BteResultServiceImpl extends ServiceImpl<BteResultDao, BteResultEnt
 				.map(key->(Map<String, Object>)resultMap.get(key))
 				.forEach(map -> resultList.add(this.makeResultEntity(map)));
 		// 批量插入结果
-		this.insertBatch(resultList);
+		this.saveBatch(resultList);
 	}
 	
 	/**
@@ -95,7 +94,7 @@ public class BteResultServiceImpl extends ServiceImpl<BteResultDao, BteResultEnt
 	@Override
 	public void exportResult(Integer evalId, HttpServletResponse httpServletResponse) {
 		// 测评信息
-		BteEvaluateEntity evalEntity = bteEvaluateService.selectById(evalId);
+		BteEvaluateEntity evalEntity = bteEvaluateService.getById(evalId);
 		String excelName = evalEntity.getEvalTitle() + "结果";
 		List<BteResultEntityExt> resultList = this.queryResultList(evalId);
 		ExcelUtils.exportExcel(resultList, excelName, "测评结果", BteResultEntityExt.class, excelName + ".xls", httpServletResponse);
@@ -104,7 +103,7 @@ public class BteResultServiceImpl extends ServiceImpl<BteResultDao, BteResultEnt
 	@Override
 	public void exportSuggest(Integer evalId, HttpServletResponse httpServletResponse) {
 		// 测评信息
-		BteEvaluateEntity evalEntity = bteEvaluateService.selectById(evalId);
+		BteEvaluateEntity evalEntity = bteEvaluateService.getById(evalId);
 		String excelName = evalEntity.getEvalTitle() + "建议";
 		List<BteResultEntitySuggest> resultList = this.baseMapper.querySuggestList(evalId);
 		ExcelUtils.exportExcel(resultList, excelName, "其他建议", BteResultEntitySuggest.class, excelName + ".xls", httpServletResponse);

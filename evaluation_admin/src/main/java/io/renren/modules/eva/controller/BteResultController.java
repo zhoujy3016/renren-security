@@ -55,7 +55,7 @@ public class BteResultController extends AbstractController {
      */
     @RequestMapping("/info/{dataNo}")
     public R info(@PathVariable("dataNo") Integer dataNo){
-        BteResultEntity bteResult = bteResultService.selectById(dataNo);
+        BteResultEntity bteResult = bteResultService.getById(dataNo);
 
         return R.ok().put("bteResult", bteResult);
     }
@@ -65,7 +65,7 @@ public class BteResultController extends AbstractController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody BteResultEntity bteResult){
-        bteResultService.insert(bteResult);
+        bteResultService.save(bteResult);
 
         return R.ok();
     }
@@ -76,7 +76,8 @@ public class BteResultController extends AbstractController {
     @RequestMapping("/update")
     public R update(@RequestBody BteResultEntity bteResult){
         ValidatorUtils.validateEntity(bteResult);
-        bteResultService.updateAllColumnById(bteResult);//全部更新
+        //全部更新
+        bteResultService.updateById(bteResult);
         
         return R.ok();
     }
@@ -86,7 +87,7 @@ public class BteResultController extends AbstractController {
      */
     @RequestMapping("/delete")
     public R delete(@RequestBody Integer[] dataNos){
-        bteResultService.deleteBatchIds(Arrays.asList(dataNos));
+        bteResultService.removeByIds(Arrays.asList(dataNos));
 
         return R.ok();
     }

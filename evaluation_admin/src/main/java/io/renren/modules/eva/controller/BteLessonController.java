@@ -57,7 +57,7 @@ public class BteLessonController {
      */
     @RequestMapping("/info/{dataNo}")
     public R info(@PathVariable("dataNo") Integer dataNo){
-        BteLessonEntity bteLesson = bteLessonService.selectById(dataNo);
+        BteLessonEntity bteLesson = bteLessonService.getById(dataNo);
         return R.ok().put("bteLesson", bteLesson);
     }
 
@@ -67,7 +67,7 @@ public class BteLessonController {
     @RequestMapping("/save")
     public R save(@RequestBody BteLessonEntity bteLesson){
     	ValidatorUtils.validateEntity(bteLesson);
-        bteLessonService.insert(bteLesson);
+        bteLessonService.save(bteLesson);
 
         return R.ok();
     }
@@ -78,7 +78,8 @@ public class BteLessonController {
     @RequestMapping("/update")
     public R update(@RequestBody BteLessonEntity bteLesson){
         ValidatorUtils.validateEntity(bteLesson);
-        bteLessonService.updateAllColumnById(bteLesson);//全部更新
+        //全部更新
+        bteLessonService.updateById(bteLesson);
         
         return R.ok();
     }
@@ -88,7 +89,7 @@ public class BteLessonController {
      */
     @RequestMapping("/delete")
     public R delete(@RequestBody Integer[] dataNos){
-        bteLessonService.deleteBatchIds(Arrays.asList(dataNos));
+        bteLessonService.removeByIds(Arrays.asList(dataNos));
 
         return R.ok();
     }

@@ -1,5 +1,7 @@
 package io.renren.modules.eva.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.renren.modules.eva.entity.BteEvaluateEntity;
 
 import java.util.List;
@@ -7,8 +9,6 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.baomidou.mybatisplus.plugins.pagination.Pagination;
 
 /**
  * 
@@ -19,7 +19,7 @@ import com.baomidou.mybatisplus.plugins.pagination.Pagination;
  */
 public interface BteEvaluateDao extends BaseMapper<BteEvaluateEntity> {
 	
-	List<BteEvaluateEntity> selectBteEvalList(Pagination page, @Param("params") Map<String, Object> params);
+	List<BteEvaluateEntity> selectBteEvalList(Page page, @Param("params") Map<String, Object> params);
 	
 	
 }

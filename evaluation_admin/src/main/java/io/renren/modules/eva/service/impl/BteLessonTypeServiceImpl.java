@@ -1,13 +1,13 @@
 package io.renren.modules.eva.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.renren.dictionary.annotation.DictionaryCache;
 import io.renren.dictionary.utils.DictConstant;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.Map;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.Query;
 
@@ -29,18 +29,18 @@ public class BteLessonTypeServiceImpl extends ServiceImpl<BteLessonTypeDao, BteL
     @Override
     @DictionaryCache(dictType = DictConstant.DictOperation.T_EXTRA, dictKey = "gglx,zylx")
     public void insertLessonType(BteLessonTypeEntity bteLessonType) {
-        this.insert(bteLessonType);
+        this.save(bteLessonType);
     }
 
     @Override
     @DictionaryCache(dictType = DictConstant.DictOperation.T_EXTRA, dictKey = "gglx,zylx")
     public void updateLessonType(BteLessonTypeEntity bteLessonType) {
-        this.updateAllColumnById(bteLessonType);
+        this.updateById(bteLessonType);
     }
 
     @Override
     @DictionaryCache(dictType = DictConstant.DictOperation.T_EXTRA, dictKey = "gglx,zylx")
     public void deleteLessonType(Integer[] ids) {
-        this.deleteBatchIds(Arrays.asList(ids));
+        this.removeByIds(Arrays.asList(ids));
     }
 }

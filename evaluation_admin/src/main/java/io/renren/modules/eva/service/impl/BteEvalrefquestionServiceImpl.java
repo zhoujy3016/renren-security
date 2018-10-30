@@ -1,10 +1,10 @@
 package io.renren.modules.eva.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import java.util.Map;
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.Query;
 
@@ -18,9 +18,9 @@ public class BteEvalrefquestionServiceImpl extends ServiceImpl<BteEvalrefquestio
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-        Page<BteEvalrefquestionEntity> page = this.selectPage(
+        Page<BteEvalrefquestionEntity> page = (Page<BteEvalrefquestionEntity>) this.baseMapper.selectPage(
                 new Query<BteEvalrefquestionEntity>(params).getPage(),
-                new EntityWrapper<BteEvalrefquestionEntity>()
+                new QueryWrapper<BteEvalrefquestionEntity>()
         );
 
         return new PageUtils(page);

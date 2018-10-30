@@ -1,13 +1,13 @@
 package io.renren.modules.eva.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.renren.modules.eva.entity.BteQuestionEntity;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.baomidou.mybatisplus.plugins.pagination.Pagination;
 
 /**
  * 
@@ -18,7 +18,7 @@ import com.baomidou.mybatisplus.plugins.pagination.Pagination;
  */
 public interface BteQuestionDao extends BaseMapper<BteQuestionEntity> {
 	
-	List<BteQuestionEntity> selectBteQuestionList(Pagination page);
+	List<BteQuestionEntity> selectBteQuestionList(Page page);
 	
 	List<BteQuestionEntity> queryQuestionByEvalRelation(@Param("evalId") Integer evalId);
 }

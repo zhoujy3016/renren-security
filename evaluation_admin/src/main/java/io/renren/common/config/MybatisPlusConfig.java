@@ -16,7 +16,8 @@
 
 package io.renren.common.config;
 
-import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
+import com.baomidou.mybatisplus.extension.injector.LogicSqlInjector;
+import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -35,5 +36,14 @@ public class MybatisPlusConfig {
     @Bean
     public PaginationInterceptor paginationInterceptor() {
         return new PaginationInterceptor();
+    }
+
+    /**
+     * 逻辑注入器
+     * @return
+     */
+    @Bean
+    public LogicSqlInjector logicSqlInjector() {
+        return new LogicSqlInjector();
     }
 }
