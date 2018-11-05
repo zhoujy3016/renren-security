@@ -2,6 +2,7 @@ package io.renren.service;
 
 import io.renren.common.config.FeignConfiguration;
 import io.renren.common.utils.R;
+import io.renren.service.fallback.EvaluateFeignFallback;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.Map;
 
-@FeignClient(name="eva-admin", url = "http://${eva.ip}:${eva.port}/eva/home/", configuration = FeignConfiguration.class)
+@FeignClient(name="eva-admin", url = "http://${eva.ip}:${eva.port}/eva/home/", configuration = FeignConfiguration.class, fallback = EvaluateFeignFallback.class)
 public interface EvaluteFeignService {
 
     /**

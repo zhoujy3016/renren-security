@@ -15,6 +15,11 @@ spring:
       request-context-attribute: request
     application:
       name: eva-client
+#feign断路器开关
+feign:
+  hystrix:
+    enabled: true;
+
 
 logging:
   path: logs/
