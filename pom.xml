@@ -19,7 +19,7 @@
         <module>renren-common</module>
         <module>renren-dictionary</module>
         <module>renren-admin</module>
-        <module>renren-api</module>
+        <!--<module>renren-api</module>-->
         <module>renren-generator</module>
         <module>evaluation_admin</module>
         <module>eva-client</module>
