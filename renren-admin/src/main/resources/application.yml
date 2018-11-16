@@ -33,6 +33,12 @@ spring:
     messages:
       basename: ValidationMessages
       encoding: UTF-8
+    #自动配置排除掉SecurityAutoConfiguration，否则启动失败
+    autoconfigure:
+      exclude: org.activiti.spring.boot.SecurityAutoConfiguration
+    #activiti配置
+    activiti:
+      check-process-definitions: true
 
 renren:
     redis:
