@@ -5,13 +5,17 @@ import org.activiti.engine.ProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration;
 import org.activiti.spring.boot.AbstractProcessEngineAutoConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 
+@Configuration
 public class ActivitiConfig extends AbstractProcessEngineAutoConfiguration {
 
     @Autowired
+    @Qualifier("firstDataSource")
     private DataSource dataSource;
 
     @Bean
