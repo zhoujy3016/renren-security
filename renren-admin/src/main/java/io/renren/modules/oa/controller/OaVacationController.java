@@ -43,7 +43,7 @@ public class OaVacationController extends AbstractController {
      * 列表
      */
     @RequestMapping("/list")
-    @RequiresPermissions("sys:oavacation:list")
+    @RequiresPermissions("oa:oavacation:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = oaVacationService.queryPage(params);
 
@@ -55,7 +55,7 @@ public class OaVacationController extends AbstractController {
      * 信息
      */
     @RequestMapping("/info/{vaId}")
-    @RequiresPermissions("sys:oavacation:info")
+    @RequiresPermissions("oa:oavacation:info")
     public R info(@PathVariable("vaId") Integer vaId){
         OaVacationEntity oaVacation = oaVacationService.getById(vaId);
 
@@ -66,7 +66,7 @@ public class OaVacationController extends AbstractController {
      * 保存
      */
     @RequestMapping("/save")
-    @RequiresPermissions("sys:oavacation:save")
+    @RequiresPermissions("oa:oavacation:save")
     public R save(@RequestBody OaVacationEntity oaVacation){
         oaVacationService.startVacation(oaVacation, getUser());
 
@@ -77,7 +77,7 @@ public class OaVacationController extends AbstractController {
      * 修改
      */
     @RequestMapping("/update")
-    @RequiresPermissions("sys:oavacation:update")
+    @RequiresPermissions("oa:oavacation:update")
     public R update(@RequestBody OaVacationEntity oaVacation){
         ValidatorUtils.validateEntity(oaVacation);
         oaVacationService.updateById(oaVacation);//全部更新
@@ -89,7 +89,7 @@ public class OaVacationController extends AbstractController {
      * 删除
      */
     @RequestMapping("/delete")
-    @RequiresPermissions("sys:oavacation:delete")
+    @RequiresPermissions("oa:oavacation:delete")
     public R delete(@RequestBody Integer[] vaIds){
         oaVacationService.removeByIds(Arrays.asList(vaIds));
 
