@@ -33,6 +33,7 @@
         <jedis.version>2.9.0</jedis.version>
         <druid.version>1.1.10</druid.version>
 		<mybatisplus.spring.boot.version>3.0.5</mybatisplus.spring.boot.version>
+        <mybatis.typehandlers.version>1.0.1</mybatis.typehandlers.version>
         <mysql.version>5.1.38</mysql.version>
         <mssql.version>4.0</mssql.version>
         <oracle.version>11.2.0.3</oracle.version>
@@ -168,6 +169,11 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
             <version>3.15-beta2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-typehandlers-jsr310</artifactId>
+            <version>${mybatis.typehandlers.version}</version>
         </dependency>
     </dependencies>
 

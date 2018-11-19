@@ -39,13 +39,15 @@ spring:
     #activiti配置
     activiti:
       check-process-definitions: true
+      # 策略：先删除表，再创建（单元测试用）
+      #database-schema-update: drop-create
 
 renren:
     redis:
         open: true  # 是否开启redis缓存  true开启   false关闭
     shiro:
         redis: false # true表示shiro session存到redis里，需要开启redis，才会生效【分布式场景】
-        
+
 
 
 #mybatis
