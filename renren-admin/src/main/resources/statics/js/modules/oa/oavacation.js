@@ -48,7 +48,7 @@ var vm = new Vue({
 		add: function(){
 			vm.showList = false;
 			vm.title = "新增";
-			vm.oaVacation = {};
+			vm.oaVacation = {vaType : ''};
 		},
 		update: function (event) {
 			var vaId = getSelectedRow();

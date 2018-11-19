@@ -70,6 +70,7 @@ public class OaVacationServiceImpl extends ServiceImpl<OaVacationDao, OaVacation
         Map<String, Object> var2 = new HashMap<>();
         // 指定受理人
         var2.put("managerId", "1");
+        var2.put("days", oaVacationEntity.getVaDays());
         // 完成任务
         taskService.complete(task.getId(), var2);
         oaVacationEntity.setUserId(user.getUserId());
