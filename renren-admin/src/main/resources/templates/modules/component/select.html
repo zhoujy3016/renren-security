@@ -1,5 +1,5 @@
 <#macro select id="" class="" model="" disabled="" cacheId="" onChange="">
-    <select id="${id}" class="${class}" v-model="${model}" disabled="${disabled}" @change="${onChange}">
+    <select id="${id}" class="${class}" v-model="${model}" ${disabled} @change="${onChange}">
         <@dictCache id="${cacheId}">
             <option value="">请选择</option>
             <#if dictList?? && (dictList?size > 0) >
