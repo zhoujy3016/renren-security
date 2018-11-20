@@ -1,11 +1,11 @@
 $(function () {
     $("#jqGrid").jqGrid({
-        url: baseURL + 'oa/oavacationea/list',
+        url: baseURL + 'oa/oavacation/approvelist',
         datatype: "json",
         colModel: [
-            { label: 'vaId', name: 'vaId', index: 'va_id', width: 50, key: true,  hidden:true},
+            { label: 'processId', name: 'processId', index: 'processId', width: 50, key: true,  hidden:true},
             { label: '标题', name: 'title', index: 'title', width: 80 },
-            { label: '创建时间', name: 'createDateTime', index: 'createDateTime', width: 80 }
+            { label: '创建时间', name: 'requestDate', index: 'requestDate', width: 80 }
         ],
         viewrecords: true,
         height: 385,
@@ -45,31 +45,27 @@ var vm = new Vue({
         query: function () {
             vm.reload();
         },
-        add: function(){
-            vm.showList = false;
-            vm.title = "新增";
-            vm.oaVacation = {vaType : ''};
-        },
-        update: function (event) {
-            var vaId = getSelectedRow();
-            if(vaId == null){
+        approve: function (event) {
+            var processId = getSelectedRow();
+            if(processId == null){
                 return ;
             }
             vm.showList = false;
             vm.title = "修改";
 
-            vm.getInfo(vaId)
+            vm.getInfo(processId)
         },
-        saveOrUpdate: function (event) {
-            var url = vm.oaVacation.vaId == null ? "oa/oavacation/save" : "oa/oavacation/update";
+        saveApprove: function (event) {
+            var url = "oa/oavacation/saveApprove";
+
             $.ajax({
                 type: "POST",
                 url: baseURL + url,
                 contentType: "application/json",
-                data: JSON.stringify(vm.oaVacation),
+                data: JSON.stringify({"processId": vm.oaVacation.processId, "content": $("#content").val()}),
                 success: function(r){
                     if(r.code === 0){
-                        alert('操作成功', function(index){
+                        alert('审批成功', function(index){
                             vm.reload();
                         });
                     }else{
@@ -78,44 +74,9 @@ var vm = new Vue({
                 }
             });
         },
-        getTask:function(event) {
-            $.ajax({
-                type: "POST",
-                url: baseURL + "oa/oavacation/getTask/1",
-                contentType: "application/json",
-                success: function(r){
-                    if(r.code == 0){
 
-                    }
-                }
-            });
-        },
-        del: function (event) {
-            var vaIds = getSelectedRows();
-            if(vaIds == null){
-                return ;
-            }
-
-            confirm('确定要删除选中的记录？', function(){
-                $.ajax({
-                    type: "POST",
-                    url: baseURL + "oa/oavacation/delete",
-                    contentType: "application/json",
-                    data: JSON.stringify(vaIds),
-                    success: function(r){
-                        if(r.code == 0){
-                            alert('操作成功', function(index){
-                                $("#jqGrid").trigger("reloadGrid");
-                            });
-                        }else{
-                            alert(r.msg);
-                        }
-                    }
-                });
-            });
-        },
-        getInfo: function(vaId){
-            $.get(baseURL + "oa/oavacation/info/"+vaId, function(r){
+        getInfo: function(processId){
+            $.get(baseURL + "oa/oavacation/approveinfo/"+processId, function(r){
                 vm.oaVacation = r.oaVacation;
             });
         },

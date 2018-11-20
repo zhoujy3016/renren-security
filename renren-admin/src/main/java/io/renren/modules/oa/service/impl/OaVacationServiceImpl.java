@@ -4,24 +4,22 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.renren.common.annotation.DataCreatorFilter;
-import io.renren.common.utils.Constant;
-import io.renren.common.utils.J8DateUtils;
-import io.renren.modules.oa.entity.ProcessEntity;
+import io.renren.common.utils.*;
+
+import io.renren.modules.oa.entity.TaskEntity;
 import io.renren.modules.sys.entity.SysUserEntity;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
-import io.renren.common.utils.PageUtils;
-import io.renren.common.utils.Query;
 
 import io.renren.modules.oa.dao.OaVacationDao;
 import io.renren.modules.oa.entity.OaVacationEntity;
@@ -78,5 +76,38 @@ public class OaVacationServiceImpl extends ServiceImpl<OaVacationDao, OaVacation
         this.save(oaVacationEntity);
     }
 
+    @Override
+    public PageUtils queryTaskPage(Map<String, Object> params) {
+        List<Task> tasks = taskService.createTaskQuery()
+                .listPage(Integer.parseInt(String.valueOf(params.get("page"))) - 1,
+                        Integer.parseInt(String.valueOf(params.get("limit"))));
+        List<TaskEntity> result = new ArrayList<>(tasks.size());
+        for(Task task:tasks) {
+            ProcessInstance pi = runtimeService.createProcessInstanceQuery().processInstanceId(task.getProcessInstanceId()).singleResult();
+            TaskEntity taskEntity = new TaskEntity();
+            taskEntity.setProcessId(pi.getId());
+            taskEntity.setRequestDate(DateUtils.format(task.getCreateTime(), DateUtils.DATE_TIME_PATTERN));
+            taskEntity.setTaskId(task.getId());
+            taskEntity.setTitle((String) runtimeService.getVariable(pi.getId(), "title"));
+            result.add(taskEntity);
+        }
+        Page<TaskEntity> page = new Page<>();
+        page.setRecords(result);
+        return new PageUtils(page);
+    }
 
+    @Override
+    public OaVacationEntity getOneByProcessId(String processId) {
+        OaVacationEntity oaVacationEntity = this.getOne(new QueryWrapper<OaVacationEntity>().eq("process_id", processId));
+        return oaVacationEntity;
+    }
+
+    @Override
+    public void vacationApprove(Map<String, Object> params) {
+        String processId = (String) params.get("processId");
+        String content = (String) params.get("content");
+        Task task = this.taskService.createTaskQuery().processInstanceId(processId).singleResult();
+        taskService.addComment(task.getId(), processId, content);
+        taskService.complete(task.getId());
+    }
 }

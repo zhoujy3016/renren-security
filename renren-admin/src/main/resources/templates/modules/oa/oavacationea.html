@@ -8,16 +8,9 @@
 <div id="rrapp" v-cloak>
     <div v-show="showList">
         <div class="grid-btn">
-            <#if shiro.hasPermission("oa:oavacation:save")>
-            <a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
-        </#if>
-        <#if shiro.hasPermission("oa:oavacation:update")>
-        <a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+        <#if shiro.hasPermission("oa:oavacation:approve")>
+        <a class="btn btn-primary" @click="approve"><i class="fa fa-pencil-square-o"></i>&nbsp;审批</a>
     </#if>
-    <#if shiro.hasPermission("oa:oavacation:delete")>
-    <a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
-</#if>
-<a class="btn btn-primary" @click="getTask"><i class="fa fa-trash-o"></i>&nbsp;getTask</a>
 </div>
 <table id="jqGrid"></table>
 <div id="jqGridPager"></div>
@@ -29,42 +22,49 @@
         <div class="form-group">
             <div class="col-sm-2 control-label">休假天数</div>
             <div class="col-sm-10">
-                <input type="text" class="form-control" v-model="oaVacation.vaDays" placeholder="休假天数"/>
+                <input type="text" disabled class="form-control" v-model="oaVacation.vaDays" placeholder="休假天数"/>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-2 control-label">开始日期</div>
             <div class="col-sm-10">
-                <input type="text" class="form-control" v-model="oaVacation.vaBegin" placeholder="开始日期"/>
+                <input type="text" disabled class="form-control" v-model="oaVacation.vaBegin" placeholder="开始日期"/>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-2 control-label">结束日期</div>
             <div class="col-sm-10">
-                <input type="text" class="form-control" v-model="oaVacation.vaEnd" placeholder="结束日期"/>
+                <input type="text" disabled class="form-control" v-model="oaVacation.vaEnd" placeholder="结束日期"/>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-2 control-label">请假类型</div>
             <div class="col-sm-10">
-                <@items.select cacheId="xjlx" class="form-control" model="oaVacation.vaType"/>
+                <@items.select cacheId="xjlx" class="form-control" disabled="disabled" model="oaVacation.vaType"/>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-2 control-label">请假原因</div>
             <div class="col-sm-10">
-                <input type="textarea" class="form-control" v-model="oaVacation.vaReason" placeholder="请假原因"/>
+                <textarea class="form-control" disabled v-model="oaVacation.vaReason" placeholder="请假原因"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2 control-label">审批意见</div>
+            <div class="col-sm-10">
+                <textarea id="content" rows="5" class="form-control"  placeholder="">
+                </textarea>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-2 control-label"></div>
-            <input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
+            <input type="button" class="btn btn-primary" @click="saveApprove" value="确定"/>
             &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
         </div>
     </form>
 </div>
 </div>
 
-<script src="${request.contextPath}/statics/js/modules/oa/oavacationea.js?_${.now?long}"></script>
+<script src="${request.contextPath}/statics/js/modules/oa/oavacationea.js"></script>
 </body>
 </html>

@@ -96,6 +96,31 @@ public class OaVacationController extends AbstractController {
         return R.ok();
     }
 
+    @RequiresPermissions("oa:oavacation:approvelist")
+    @RequestMapping("/approvelist")
+    public R approvelist(@RequestParam Map<String, Object> params) {
+        PageUtils page = oaVacationService.queryTaskPage(params);
+
+        return R.ok().put("page", page);
+    }
+
+
+
+    @RequiresPermissions("oa:oavacation:approveinfo")
+    @RequestMapping("/approveinfo/{processId}")
+    public R approvelist(@PathVariable("processId") String processId) {
+        OaVacationEntity oaVacation = this.oaVacationService.getOneByProcessId(processId);
+
+        return R.ok().put("oaVacation", oaVacation);
+    }
+
+    @RequiresPermissions("oa:oavacation:approve")
+    @RequestMapping("/saveApprove")
+    public R saveApprove(@RequestBody Map<String, Object> params) {
+        this.oaVacationService.vacationApprove(params);
+        return R.ok();
+    }
+
 
     @RequestMapping("/getTask/{userId}")
     public void getTaskList(@PathVariable("userId") String userId) {

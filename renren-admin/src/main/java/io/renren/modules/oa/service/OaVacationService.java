@@ -19,5 +19,11 @@ public interface OaVacationService extends IService<OaVacationEntity> {
     PageUtils queryPage(Map<String, Object> params);
 
     void startVacation(OaVacationEntity oaVacationEntity, SysUserEntity user);
+
+    PageUtils queryTaskPage(Map<String, Object> params);
+
+    OaVacationEntity getOneByProcessId(String processId);
+
+    void vacationApprove(Map<String, Object> params);
 }
 
