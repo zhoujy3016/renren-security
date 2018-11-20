@@ -1,10 +1,12 @@
 package io.renren.modules.oa.utils;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -15,6 +17,7 @@ import java.util.List;
  * @email
  * @date 2018-11-19 10:18:19
  */
+@Component
 public class ActivitiUtils {
 
     @Autowired
@@ -62,14 +65,29 @@ public class ActivitiUtils {
     }
 
     /**
-     *
+     *  根据分页数据与处理人id取得分页数据
      * @param assigneeId
-     * @param start 数据开始的索引
-     * @param size 结果的数量
+     * @param page 页数
+     * @param limit 每页数量
      * @return
      */
-    public List<Task> getTaskListPageByAssigneeId(String assigneeId, int start, int size) {
-        return taskService.createTaskQuery().taskAssignee(assigneeId).listPage(start, size);
+    public Page<Task> getTaskListPageByAssigneeId(String assigneeId, String page, String limit) {
+        int current = Integer.parseInt(page);
+        int size = Integer.parseInt(limit);
+        int total = getTaskListCountByAssigneeId(assigneeId);
+        List<Task> taskList = taskService.createTaskQuery().taskAssignee(assigneeId).listPage((current - 1) * size, size);
+        Page<Task> pagePlugin = new Page(current, size, total);
+        pagePlugin.setRecords(taskList);
+        return pagePlugin;
+    }
+
+    /**
+     * 取得该处理人所有任务的数
+     * @param assigneeId
+     * @return
+     */
+    public int getTaskListCountByAssigneeId(String assigneeId) {
+        return (int)taskService.createTaskQuery().taskAssignee(assigneeId).count();
     }
 
 }
