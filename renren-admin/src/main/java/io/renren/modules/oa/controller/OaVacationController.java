@@ -99,7 +99,7 @@ public class OaVacationController extends AbstractController {
     @RequiresPermissions("oa:oavacation:approvelist")
     @RequestMapping("/approvelist")
     public R approvelist(@RequestParam Map<String, Object> params) {
-        PageUtils page = oaVacationService.queryTaskPage(params);
+        PageUtils page = oaVacationService.queryTaskPage(params, getUser());
 
         return R.ok().put("page", page);
     }

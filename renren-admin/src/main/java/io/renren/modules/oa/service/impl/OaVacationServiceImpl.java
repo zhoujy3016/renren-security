@@ -77,8 +77,8 @@ public class OaVacationServiceImpl extends ServiceImpl<OaVacationDao, OaVacation
     }
 
     @Override
-    public PageUtils queryTaskPage(Map<String, Object> params) {
-        List<Task> tasks = taskService.createTaskQuery()
+    public PageUtils queryTaskPage(Map<String, Object> params, SysUserEntity userEntity) {
+        List<Task> tasks = taskService.createTaskQuery().taskAssignee(String.valueOf(userEntity.getUserId()))
                 .listPage(Integer.parseInt(String.valueOf(params.get("page"))) - 1,
                         Integer.parseInt(String.valueOf(params.get("limit"))));
         List<TaskEntity> result = new ArrayList<>(tasks.size());

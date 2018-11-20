@@ -20,7 +20,7 @@ public interface OaVacationService extends IService<OaVacationEntity> {
 
     void startVacation(OaVacationEntity oaVacationEntity, SysUserEntity user);
 
-    PageUtils queryTaskPage(Map<String, Object> params);
+    PageUtils queryTaskPage(Map<String, Object> params, SysUserEntity user);
 
     OaVacationEntity getOneByProcessId(String processId);
 
