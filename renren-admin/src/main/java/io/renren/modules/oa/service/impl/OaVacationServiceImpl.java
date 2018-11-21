@@ -71,19 +71,16 @@ public class OaVacationServiceImpl extends ServiceImpl<OaVacationDao, OaVacation
         var1.put("userId", user.getUserId());
         var1.put("title", user.getUsername() + "请假申请");
         var1.put("datetime", J8DateUtils.format(LocalDateTime.now(), J8DateUtils.DATE_TIME_PATTERN));
-        // 启动流程
-        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("VacationProcess", var1);
-        String processInstanceId = processInstance.getId();
-        // 任务
-        Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
+
         Map<String, Object> var2 = new HashMap<>();
         // 指定受理人
         var2.put("managerId", "1");
         var2.put("days", oaVacationEntity.getVaDays());
-        // 完成任务
-        taskService.complete(task.getId(), var2);
+
+        ProcessInstance processInstance = activitiUtils.startProcessInstansceAndCompleteTask("VacationProcess", var1, var2);
+
         oaVacationEntity.setUserId(user.getUserId());
-        oaVacationEntity.setProcessId(processInstanceId);
+        oaVacationEntity.setProcessId(processInstance.getId());
         this.save(oaVacationEntity);
     }
 
@@ -94,7 +91,7 @@ public class OaVacationServiceImpl extends ServiceImpl<OaVacationDao, OaVacation
                 String.valueOf(params.get("limit")));
         List<TaskEntity> result = new ArrayList<>(page.getRecords().size());
         for(Task task: page.getRecords()) {
-            ProcessInstance pi = runtimeService.createProcessInstanceQuery().processInstanceId(task.getProcessInstanceId()).singleResult();
+            ProcessInstance pi = activitiUtils.getProcessInstanceByTaskId(task.getId());
             TaskEntity taskEntity = new TaskEntity();
             taskEntity.setProcessId(pi.getId());
             taskEntity.setRequestDate(DateUtils.format(task.getCreateTime(), DateUtils.DATE_TIME_PATTERN));
@@ -117,7 +114,7 @@ public class OaVacationServiceImpl extends ServiceImpl<OaVacationDao, OaVacation
     public void vacationApprove(Map<String, Object> params) {
         String processId = (String) params.get("processId");
         String content = (String) params.get("content");
-        Task task = this.taskService.createTaskQuery().processInstanceId(processId).singleResult();
+        Task task = activitiUtils.getTaskByProcessInstanceId(processId);
         taskService.addComment(task.getId(), processId, content);
         taskService.complete(task.getId());
     }

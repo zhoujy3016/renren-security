@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  *  activiti工具类
@@ -26,6 +27,18 @@ public class ActivitiUtils {
     @Autowired
     private TaskService taskService;
 
+    /**
+     * 启动流程并完成一个任务
+     * @param key 流程key
+     * @param var1
+     * @param var2
+     */
+    public ProcessInstance startProcessInstansceAndCompleteTask(String key, Map<String, Object> var1, Map<String, Object> var2) {
+        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(key, var1);
+        Task task = getTaskByProcessInstanceId(processInstance.getProcessInstanceId());
+        taskService.complete(task.getId(), var2);
+        return processInstance;
+    }
 
     /**
      * 通过流程实例id取得流程实例
@@ -42,7 +55,7 @@ public class ActivitiUtils {
      * @return
      */
     public ProcessInstance getProcessInstanceByTaskId(String taskId) {
-        Task task = getTaskById(taskId);
+        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
         return getProcessInstanceById(task.getProcessInstanceId());
     }
 
@@ -51,7 +64,7 @@ public class ActivitiUtils {
      * @param processInstanceId
      * @return
      */
-    public Task getTaskById(String processInstanceId) {
+    public Task getTaskByProcessInstanceId(String processInstanceId) {
         return taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
     }
 
