@@ -29,18 +29,18 @@ public class OaVacationEntity extends ProcessEntity implements Serializable {
 	/**
 	 * 休假天数
 	 */
-    @NotBlank(message="请假天数不能为空！")
+    @NotNull(message="请假天数不能为空！")
 	private Integer vaDays;
 	/**
 	 * 开始日期
 	 */
-    @NotBlank(message="开始日期不能为空！")
+    @NotNull(message="开始日期不能为空！")
 	@JsonFormat(pattern = J8DateUtils.DATE_PATTERN)
 	private LocalDate vaBegin;
 	/**
 	 * 结束日期
 	 */
-    @NotBlank(message="结束日期不能为空！")
+    @NotNull(message="结束日期不能为空！")
 	@JsonFormat(pattern = J8DateUtils.DATE_PATTERN)
 	private LocalDate vaEnd;
 	/**

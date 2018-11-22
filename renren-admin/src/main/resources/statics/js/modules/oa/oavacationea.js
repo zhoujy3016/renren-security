@@ -55,14 +55,14 @@ var vm = new Vue({
 
             vm.getInfo(processId)
         },
-        saveApprove: function (event) {
+        saveApprove: function (isAgree) {
             var url = "oa/oavacation/saveApprove";
 
             $.ajax({
                 type: "POST",
                 url: baseURL + url,
                 contentType: "application/json",
-                data: JSON.stringify({"processId": vm.oaVacation.processId, "content": $("#content").val()}),
+                data: JSON.stringify({"processId": vm.oaVacation.processId, "content": $("#content").val(), "isAgree":isAgree}),
                 success: function(r){
                     if(r.code === 0){
                         alert('审批成功', function(index){

@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import io.renren.common.utils.PageUtils;
 import io.renren.modules.oa.entity.OaVacationEntity;
 import io.renren.modules.sys.entity.SysUserEntity;
+import org.activiti.engine.task.Comment;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,6 +21,10 @@ public interface OaVacationService extends IService<OaVacationEntity> {
     PageUtils queryPage(Map<String, Object> params);
 
     void startVacation(OaVacationEntity oaVacationEntity, SysUserEntity user);
+
+    List<Comment> queryCommentInfo(OaVacationEntity oaVacationEntity);
+
+    void updateVacation(OaVacationEntity oaVacationEntity, SysUserEntity user);
 
     PageUtils queryTaskPage(Map<String, Object> params, SysUserEntity user);
 

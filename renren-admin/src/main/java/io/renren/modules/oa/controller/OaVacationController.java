@@ -1,12 +1,14 @@
 package io.renren.modules.oa.controller;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import io.renren.common.validator.ValidatorUtils;
 import io.renren.modules.sys.controller.AbstractController;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.task.Comment;
 import org.activiti.engine.task.Task;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,8 +60,11 @@ public class OaVacationController extends AbstractController {
     @RequiresPermissions("oa:oavacation:info")
     public R info(@PathVariable("vaId") Integer vaId){
         OaVacationEntity oaVacation = oaVacationService.getById(vaId);
-
-        return R.ok().put("oaVacation", oaVacation);
+        List<Comment> commentList = this.oaVacationService.queryCommentInfo(oaVacation);
+        Map<String, Object> map = new HashMap<>();
+        map.put("oaVacation", oaVacation);
+        map.put("commentList", commentList);
+        return R.ok(map);
     }
 
     /**
@@ -80,7 +85,7 @@ public class OaVacationController extends AbstractController {
     @RequiresPermissions("oa:oavacation:update")
     public R update(@RequestBody OaVacationEntity oaVacation){
         ValidatorUtils.validateEntity(oaVacation);
-        oaVacationService.updateById(oaVacation);//全部更新
+        this.oaVacationService.updateVacation(oaVacation, getUser());
         
         return R.ok();
     }

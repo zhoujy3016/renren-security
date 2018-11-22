@@ -10,9 +10,12 @@ import io.renren.common.utils.*;
 import io.renren.modules.oa.entity.TaskEntity;
 import io.renren.modules.oa.utils.ActivitiUtils;
 import io.renren.modules.sys.entity.SysUserEntity;
+import org.activiti.engine.HistoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.history.HistoricActivityInstance;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Comment;
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +43,9 @@ public class OaVacationServiceImpl extends ServiceImpl<OaVacationDao, OaVacation
 
     @Autowired
     private TaskService taskService;
+
+    @Autowired
+    private HistoryService historyService;
 
     @Override
     @DataCreatorFilter(tableAlias = "oa_vacation", userId = "user_id")
@@ -85,6 +91,31 @@ public class OaVacationServiceImpl extends ServiceImpl<OaVacationDao, OaVacation
     }
 
     @Override
+    public List<Comment> queryCommentInfo(OaVacationEntity oaVacationEntity) {
+        String processId = oaVacationEntity.getProcessId();
+        Task task = activitiUtils.getTaskByProcessInstanceId(processId);
+
+        List<Comment> commentList = new ArrayList<>();
+        List<HistoricActivityInstance> his = historyService.createHistoricActivityInstanceQuery().processInstanceId(processId).list();
+        for(HistoricActivityInstance hai:his) {
+            String hTaskId = hai.getTaskId();
+            List<Comment> comments = taskService.getTaskComments(hTaskId);
+            commentList.addAll(comments);
+        }
+        return commentList;
+    }
+
+    @Override
+    public void updateVacation(OaVacationEntity oaVacationEntity, SysUserEntity user) {
+        this.updateById(oaVacationEntity);//全部更新
+        Map<String, Object> var = new HashMap<>();
+        var.put("managerId", "1");
+        var.put("days", oaVacationEntity.getVaDays());
+        Task task = taskService.createTaskQuery().processInstanceId(oaVacationEntity.getProcessId()).taskAssignee(String.valueOf(user.getUserId())).singleResult();
+        taskService.complete(task.getId(), var);
+    }
+
+    @Override
     public PageUtils queryTaskPage(Map<String, Object> params, SysUserEntity userEntity) {
         Page<Task> page = activitiUtils.getTaskListPageByAssigneeId(String.valueOf(userEntity.getUserId()),
                 String.valueOf(params.get("page")),
@@ -114,8 +145,11 @@ public class OaVacationServiceImpl extends ServiceImpl<OaVacationDao, OaVacation
     public void vacationApprove(Map<String, Object> params) {
         String processId = (String) params.get("processId");
         String content = (String) params.get("content");
+        Boolean isAgree = (Boolean) params.get("isAgree");
+        Map<String, Object> var = new HashMap<>();
+        var.put("agree", isAgree);
         Task task = activitiUtils.getTaskByProcessInstanceId(processId);
         taskService.addComment(task.getId(), processId, content);
-        taskService.complete(task.getId());
+        taskService.complete(task.getId(), var);
     }
 }

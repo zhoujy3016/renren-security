@@ -58,13 +58,14 @@
         </div>
         <div class="form-group">
             <div class="col-sm-2 control-label"></div>
-            <input type="button" class="btn btn-primary" @click="saveApprove" value="确定"/>
+            <input type="button" class="btn btn-primary" @click="saveApprove(true)" value="同意"/>
+            <input type="button" class="btn btn-primary" @click="saveApprove(false)" value="不同意"/>
             &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
         </div>
     </form>
 </div>
 </div>
 
-<script src="${request.contextPath}/statics/js/modules/oa/oavacationea.js"></script>
+<script src="${request.contextPath}/statics/js/modules/oa/oavacationea.js?_${.now?long}"></script>
 </body>
 </html>

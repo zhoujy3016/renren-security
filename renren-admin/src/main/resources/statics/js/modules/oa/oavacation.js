@@ -49,6 +49,7 @@ var vm = new Vue({
 			vm.showList = false;
 			vm.title = "新增";
 			vm.oaVacation = {vaType : ''};
+            $("#comment").html("");
 		},
 		update: function (event) {
 			var vaId = getSelectedRow();
@@ -117,6 +118,11 @@ var vm = new Vue({
 		getInfo: function(vaId){
 			$.get(baseURL + "oa/oavacation/info/"+vaId, function(r){
                 vm.oaVacation = r.oaVacation;
+                console.log(vm.oaVacation);
+                $("#comment").html("");
+                for(var i = 0; i < r.commentList.length; i++) {
+                	$("#comment").append(r.commentList[i].message).append("</br>");
+				}
             });
 		},
 		reload: function (event) {
