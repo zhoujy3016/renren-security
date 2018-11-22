@@ -1,6 +1,7 @@
 package io.renren.modules.oa.utils;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.activiti.engine.HistoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.runtime.ProcessInstance;
@@ -26,6 +27,9 @@ public class ActivitiUtils {
 
     @Autowired
     private TaskService taskService;
+
+    @Autowired
+    private HistoryService historyService;
 
     /**
      * 启动流程并完成一个任务
@@ -66,6 +70,17 @@ public class ActivitiUtils {
      */
     public Task getTaskByProcessInstanceId(String processInstanceId) {
         return taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
+    }
+
+    /**
+     * 完成任务
+     * @param processInstanceId 流程实例id
+     * @param userId 当前任务的受理人
+     * @param var 下一任务的参数
+     */
+    public void completeTask(String processInstanceId, String userId, Map<String, Object> var) {
+        Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).taskAssignee(userId).singleResult();
+        taskService.complete(task.getId(), var);
     }
 
     /**

@@ -111,8 +111,7 @@ public class OaVacationServiceImpl extends ServiceImpl<OaVacationDao, OaVacation
         Map<String, Object> var = new HashMap<>();
         var.put("managerId", "1");
         var.put("days", oaVacationEntity.getVaDays());
-        Task task = taskService.createTaskQuery().processInstanceId(oaVacationEntity.getProcessId()).taskAssignee(String.valueOf(user.getUserId())).singleResult();
-        taskService.complete(task.getId(), var);
+        activitiUtils.completeTask(oaVacationEntity.getProcessId(), String.valueOf(user.getUserId()), var);
     }
 
     @Override
