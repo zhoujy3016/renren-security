@@ -93,7 +93,7 @@ public class OaVacationServiceImpl extends ServiceImpl<OaVacationDao, OaVacation
     @Override
     public List<Comment> queryCommentInfo(OaVacationEntity oaVacationEntity) {
         String processId = oaVacationEntity.getProcessId();
-        Task task = activitiUtils.getTaskByProcessInstanceId(processId);
+        Task task = activitiUtils.getTask(processId);
 
         List<Comment> commentList = new ArrayList<>();
         List<HistoricActivityInstance> his = historyService.createHistoricActivityInstanceQuery().processInstanceId(processId).list();
@@ -107,11 +107,12 @@ public class OaVacationServiceImpl extends ServiceImpl<OaVacationDao, OaVacation
 
     @Override
     public void updateVacation(OaVacationEntity oaVacationEntity, SysUserEntity user) {
-        this.updateById(oaVacationEntity);//全部更新
+        this.updateById(oaVacationEntity);
         Map<String, Object> var = new HashMap<>();
         var.put("managerId", "1");
         var.put("days", oaVacationEntity.getVaDays());
-        activitiUtils.completeTask(oaVacationEntity.getProcessId(), String.valueOf(user.getUserId()), var);
+        Task task = activitiUtils.getTask(oaVacationEntity.getProcessId(), String.valueOf(user.getUserId()));
+        taskService.complete(task.getId(), var);
     }
 
     @Override
@@ -147,7 +148,7 @@ public class OaVacationServiceImpl extends ServiceImpl<OaVacationDao, OaVacation
         Boolean isAgree = (Boolean) params.get("isAgree");
         Map<String, Object> var = new HashMap<>();
         var.put("agree", isAgree);
-        Task task = activitiUtils.getTaskByProcessInstanceId(processId);
+        Task task = activitiUtils.getTask(processId);
         taskService.addComment(task.getId(), processId, content);
         taskService.complete(task.getId(), var);
     }

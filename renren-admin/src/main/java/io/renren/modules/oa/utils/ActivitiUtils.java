@@ -39,7 +39,7 @@ public class ActivitiUtils {
      */
     public ProcessInstance startProcessInstansceAndCompleteTask(String key, Map<String, Object> var1, Map<String, Object> var2) {
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(key, var1);
-        Task task = getTaskByProcessInstanceId(processInstance.getProcessInstanceId());
+        Task task = getTask(processInstance.getProcessInstanceId());
         taskService.complete(task.getId(), var2);
         return processInstance;
     }
@@ -68,19 +68,18 @@ public class ActivitiUtils {
      * @param processInstanceId
      * @return
      */
-    public Task getTaskByProcessInstanceId(String processInstanceId) {
+    public Task getTask(String processInstanceId) {
         return taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
     }
 
     /**
-     * 完成任务
-     * @param processInstanceId 流程实例id
-     * @param userId 当前任务的受理人
-     * @param var 下一任务的参数
+     *
+     * @param processInstanceId
+     * @param userId
+     * @return
      */
-    public void completeTask(String processInstanceId, String userId, Map<String, Object> var) {
-        Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).taskAssignee(userId).singleResult();
-        taskService.complete(task.getId(), var);
+    public Task getTask(String processInstanceId, String userId) {
+        return taskService.createTaskQuery().processInstanceId(processInstanceId).taskAssignee(userId).singleResult();
     }
 
     /**
