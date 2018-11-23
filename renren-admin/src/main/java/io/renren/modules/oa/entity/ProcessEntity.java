@@ -4,9 +4,10 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.renren.common.utils.J8DateUtils;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class ProcessEntity {
+public class ProcessEntity implements Serializable {
 
     /**
      * 流程id

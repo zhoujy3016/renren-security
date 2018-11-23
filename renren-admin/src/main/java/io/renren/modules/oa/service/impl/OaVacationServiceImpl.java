@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.renren.common.annotation.DataCreatorFilter;
 import io.renren.common.utils.*;
 
+import io.renren.modules.oa.entity.ProcessEntity;
 import io.renren.modules.oa.entity.TaskEntity;
 import io.renren.modules.oa.utils.ActivitiUtils;
 import io.renren.modules.sys.entity.SysUserEntity;
@@ -55,19 +56,21 @@ public class OaVacationServiceImpl extends ServiceImpl<OaVacationDao, OaVacation
                 new QueryWrapper<OaVacationEntity>().apply(params.get(Constant.SQL_FILTER) != null, (String)params.get(Constant.SQL_FILTER))
         );
 
+        List<ProcessEntity> processEntityList = new ArrayList<>();
+
         for(OaVacationEntity oaVacationEntity:page.getRecords()) {
             String processId = oaVacationEntity.getProcessId();
             ProcessInstance pi = activitiUtils.getProcessInstanceById(processId);
-            if(pi != null) {
-                oaVacationEntity.setTitle((String) this.runtimeService.getVariable(processId,"title"));
-                oaVacationEntity.setCreateDateTime(J8DateUtils.stringToDate((String)this.runtimeService.getVariable(processId,"datetime"), J8DateUtils.DATE_TIME_PATTERN));
-            } else {
-                oaVacationEntity.setTitle("完结");
-                oaVacationEntity.setCreateDateTime(LocalDateTime.now());
+            ProcessEntity processEntity = (ProcessEntity) runtimeService.getVariable(pi.getId(),"pro");
+            if(pi == null) {
+                processEntity.setTitle("完结");
             }
+            processEntityList.add(processEntity);
         }
 
-        return new PageUtils(page);
+        Page<ProcessEntity> entityPage = new Page(page.getCurrent(), page.getSize(), page.getTotal());
+        entityPage.setRecords(processEntityList);
+        return new PageUtils(entityPage);
     }
 
     @Override
@@ -75,8 +78,12 @@ public class OaVacationServiceImpl extends ServiceImpl<OaVacationDao, OaVacation
     public void startVacation(OaVacationEntity oaVacationEntity, SysUserEntity user) {
         Map<String, Object> var1 = new HashMap<>();
         var1.put("userId", user.getUserId());
-        var1.put("title", user.getUsername() + "请假申请");
-        var1.put("datetime", J8DateUtils.format(LocalDateTime.now(), J8DateUtils.DATE_TIME_PATTERN));
+//        var1.put("title", user.getUsername() + "请假申请");
+//        var1.put("datetime", J8DateUtils.format(LocalDateTime.now(), J8DateUtils.DATE_TIME_PATTERN));
+        ProcessEntity processEntity = new ProcessEntity();
+        processEntity.setTitle(user.getUsername() + "请假申请");
+        processEntity.setCreateDateTime(LocalDateTime.now());
+        var1.put("pro", processEntity);
 
         Map<String, Object> var2 = new HashMap<>();
         // 指定受理人
@@ -123,11 +130,12 @@ public class OaVacationServiceImpl extends ServiceImpl<OaVacationDao, OaVacation
         List<TaskEntity> result = new ArrayList<>(page.getRecords().size());
         for(Task task: page.getRecords()) {
             ProcessInstance pi = activitiUtils.getProcessInstanceByTaskId(task.getId());
+            ProcessEntity processEntity = (ProcessEntity) runtimeService.getVariable(pi.getId(), "pro");
             TaskEntity taskEntity = new TaskEntity();
             taskEntity.setProcessId(pi.getId());
-            taskEntity.setRequestDate(DateUtils.format(task.getCreateTime(), DateUtils.DATE_TIME_PATTERN));
             taskEntity.setTaskId(task.getId());
-            taskEntity.setTitle((String) runtimeService.getVariable(pi.getId(), "title"));
+            taskEntity.setTitle(processEntity.getTitle());
+            taskEntity.setRequestDate(J8DateUtils.format(processEntity.getCreateDateTime(), J8DateUtils.DATE_TIME_PATTERN));
             result.add(taskEntity);
         }
 

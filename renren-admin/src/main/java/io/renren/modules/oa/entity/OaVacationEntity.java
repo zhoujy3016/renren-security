@@ -18,7 +18,7 @@ import java.time.LocalDate;
  * @date 2018-11-19 10:18:19
  */
 @TableName("oa_vacation")
-public class OaVacationEntity extends ProcessEntity implements Serializable {
+public class OaVacationEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -58,6 +58,11 @@ public class OaVacationEntity extends ProcessEntity implements Serializable {
 	 * 申请人id
 	 */
 	private Long userId;
+
+	/**
+	 * 流程id
+	 */
+	private String processId;
 
 	/**
 	 * 设置：
@@ -143,5 +148,13 @@ public class OaVacationEntity extends ProcessEntity implements Serializable {
 	 */
 	public Long getUserId() {
 		return userId;
+	}
+
+	public String getProcessId() {
+		return processId;
+	}
+
+	public void setProcessId(String processId) {
+		this.processId = processId;
 	}
 }
