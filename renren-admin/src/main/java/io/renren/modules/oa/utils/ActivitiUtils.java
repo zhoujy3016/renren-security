@@ -37,7 +37,7 @@ public class ActivitiUtils {
      * @param var1
      * @param var2
      */
-    public ProcessInstance startProcessInstansceAndCompleteTask(String key, Map<String, Object> var1, Map<String, Object> var2) {
+    public ProcessInstance startProcessInstanceAndCompleteTask(String key, Map<String, Object> var1, Map<String, Object> var2) {
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(key, var1);
         Task task = getTask(processInstance.getProcessInstanceId());
         taskService.complete(task.getId(), var2);
@@ -80,6 +80,19 @@ public class ActivitiUtils {
      */
     public Task getTask(String processInstanceId, String userId) {
         return taskService.createTaskQuery().processInstanceId(processInstanceId).taskAssignee(userId).singleResult();
+    }
+
+
+    /**
+     * 完成一个任务并提交一个comment
+     * @param processInstanceId
+     * @param comment
+     * @param var
+     */
+    public void completeTaskWithComment(String processInstanceId, String comment, Map<String, Object> var) {
+        Task task = getTask(processInstanceId);
+        taskService.addComment(task.getId(), processInstanceId, comment);
+        taskService.complete(task.getId(), var);
     }
 
     /**

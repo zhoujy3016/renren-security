@@ -83,7 +83,7 @@ public class OaVacationServiceImpl extends ServiceImpl<OaVacationDao, OaVacation
         var2.put("managerId", "1");
         var2.put("days", oaVacationEntity.getVaDays());
 
-        ProcessInstance processInstance = activitiUtils.startProcessInstansceAndCompleteTask("VacationProcess", var1, var2);
+        ProcessInstance processInstance = activitiUtils.startProcessInstanceAndCompleteTask("VacationProcess", var1, var2);
 
         oaVacationEntity.setUserId(user.getUserId());
         oaVacationEntity.setProcessId(processInstance.getId());
@@ -148,8 +148,6 @@ public class OaVacationServiceImpl extends ServiceImpl<OaVacationDao, OaVacation
         Boolean isAgree = (Boolean) params.get("isAgree");
         Map<String, Object> var = new HashMap<>();
         var.put("agree", isAgree);
-        Task task = activitiUtils.getTask(processId);
-        taskService.addComment(task.getId(), processId, content);
-        taskService.complete(task.getId(), var);
+        activitiUtils.completeTaskWithComment(processId, content, var);
     }
 }
