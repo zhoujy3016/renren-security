@@ -1,5 +1,9 @@
 package io.renren.modules.oa.config;
 
+import io.renren.modules.oa.service.IRuntimeService;
+import io.renren.modules.oa.service.ITaskService;
+import io.renren.modules.oa.service.impl.RuntimeServiceImpl;
+import io.renren.modules.oa.service.impl.TaskServiceImpl;
 import org.activiti.engine.ProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration;
 import org.activiti.spring.boot.AbstractProcessEngineAutoConfiguration;
@@ -26,6 +30,16 @@ public class ActivitiConfig extends AbstractProcessEngineAutoConfiguration {
         configuration.setAsyncExecutorActivate(false);
         // 事务配置？
         return configuration;
+    }
+
+    @Bean
+    public ITaskService iTaskService() {
+        return new TaskServiceImpl();
+    }
+
+    @Bean
+    public IRuntimeService iRuntimeService() {
+        return new RuntimeServiceImpl();
     }
 
 //    @Bean

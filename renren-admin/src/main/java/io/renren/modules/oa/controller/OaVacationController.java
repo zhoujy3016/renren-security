@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.renren.common.validator.ValidatorUtils;
+import io.renren.modules.oa.service.ITaskService;
 import io.renren.modules.sys.controller.AbstractController;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.task.Comment;
@@ -40,6 +41,9 @@ public class OaVacationController extends AbstractController {
 
     @Autowired
     private TaskService taskService;
+
+    @Autowired
+    private ITaskService iTaskService;
 
     /**
      * 列表
@@ -141,5 +145,7 @@ public class OaVacationController extends AbstractController {
         });
 
     }
+
+
 
 }

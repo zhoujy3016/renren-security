@@ -9,6 +9,7 @@ import io.renren.common.utils.*;
 
 import io.renren.modules.oa.entity.ProcessEntity;
 import io.renren.modules.oa.entity.TaskEntity;
+import io.renren.modules.oa.service.IRuntimeService;
 import io.renren.modules.oa.utils.ActivitiUtils;
 import io.renren.modules.sys.entity.SysUserEntity;
 import org.activiti.engine.HistoryService;
@@ -48,6 +49,9 @@ public class OaVacationServiceImpl extends ServiceImpl<OaVacationDao, OaVacation
     @Autowired
     private HistoryService historyService;
 
+    @Autowired
+    private IRuntimeService iRuntimeService;
+
     @Override
     @DataCreatorFilter(tableAlias = "oa_vacation", userId = "user_id")
     public PageUtils queryPage(Map<String, Object> params) {
@@ -60,8 +64,8 @@ public class OaVacationServiceImpl extends ServiceImpl<OaVacationDao, OaVacation
 
         for(OaVacationEntity oaVacationEntity:page.getRecords()) {
             String processId = oaVacationEntity.getProcessId();
-            ProcessInstance pi = activitiUtils.getProcessInstanceById(processId);
-            ProcessEntity processEntity = (ProcessEntity) runtimeService.getVariable(pi.getId(),"pro");
+            ProcessInstance pi = iRuntimeService.getProcessInstanceById(processId);
+            ProcessEntity processEntity = (ProcessEntity) iRuntimeService.getRuntimeService().getVariable(pi.getId(),"pro");
             if(pi == null) {
                 processEntity.setTitle("完结");
             }
