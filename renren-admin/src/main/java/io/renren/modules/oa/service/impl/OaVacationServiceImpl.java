@@ -10,6 +10,7 @@ import io.renren.common.utils.*;
 import io.renren.modules.oa.entity.ProcessEntity;
 import io.renren.modules.oa.entity.TaskEntity;
 import io.renren.modules.oa.service.IRuntimeService;
+import io.renren.modules.oa.service.ITaskService;
 import io.renren.modules.oa.utils.ActivitiUtils;
 import io.renren.modules.sys.entity.SysUserEntity;
 import org.activiti.engine.HistoryService;
@@ -37,20 +38,24 @@ import org.springframework.transaction.annotation.Transactional;
 @Service("oaVacationService")
 public class OaVacationServiceImpl extends ServiceImpl<OaVacationDao, OaVacationEntity> implements OaVacationService {
 
-    @Autowired
-    private ActivitiUtils activitiUtils;
-
-    @Autowired
-    private RuntimeService runtimeService;
-
-    @Autowired
-    private TaskService taskService;
+//    @Autowired
+//    private ActivitiUtils activitiUtils;
+//
+//    @Autowired
+//    private RuntimeService runtimeService;
+//
+//    @Autowired
+//    private TaskService taskService;
 
     @Autowired
     private HistoryService historyService;
 
+
     @Autowired
     private IRuntimeService iRuntimeService;
+
+    @Autowired
+    private ITaskService iTaskService;
 
     @Override
     @DataCreatorFilter(tableAlias = "oa_vacation", userId = "user_id")
@@ -94,7 +99,7 @@ public class OaVacationServiceImpl extends ServiceImpl<OaVacationDao, OaVacation
         var2.put("managerId", "1");
         var2.put("days", oaVacationEntity.getVaDays());
 
-        ProcessInstance processInstance = activitiUtils.startProcessInstanceAndCompleteTask("VacationProcess", var1, var2);
+        ProcessInstance processInstance = iRuntimeService.startProcessInstanceAndCompleteTask("VacationProcess", var1, var2);
 
         oaVacationEntity.setUserId(user.getUserId());
         oaVacationEntity.setProcessId(processInstance.getId());
@@ -104,13 +109,13 @@ public class OaVacationServiceImpl extends ServiceImpl<OaVacationDao, OaVacation
     @Override
     public List<Comment> queryCommentInfo(OaVacationEntity oaVacationEntity) {
         String processId = oaVacationEntity.getProcessId();
-        Task task = activitiUtils.getTask(processId);
+        Task task = iTaskService.getTask(processId);
 
         List<Comment> commentList = new ArrayList<>();
         List<HistoricActivityInstance> his = historyService.createHistoricActivityInstanceQuery().processInstanceId(processId).list();
         for(HistoricActivityInstance hai:his) {
             String hTaskId = hai.getTaskId();
-            List<Comment> comments = taskService.getTaskComments(hTaskId);
+            List<Comment> comments = iTaskService.getTaskService().getTaskComments(hTaskId);
             commentList.addAll(comments);
         }
         return commentList;
@@ -122,22 +127,21 @@ public class OaVacationServiceImpl extends ServiceImpl<OaVacationDao, OaVacation
         Map<String, Object> var = new HashMap<>();
         var.put("managerId", "1");
         var.put("days", oaVacationEntity.getVaDays());
-        Task task = activitiUtils.getTask(oaVacationEntity.getProcessId(), String.valueOf(user.getUserId()));
-        taskService.complete(task.getId(), var);
+        Task task = iTaskService.getTask(oaVacationEntity.getProcessId(), String.valueOf(user.getUserId()));
+        iTaskService.getTaskService().complete(task.getId(), var);
     }
 
     @Override
     public PageUtils queryTaskPage(Map<String, Object> params, SysUserEntity userEntity) {
-        Page<Task> page = activitiUtils.getTaskListPageByAssigneeId(String.valueOf(userEntity.getUserId()),
+        Page<Task> page = iTaskService.getTaskListPageByAssigneeId(String.valueOf(userEntity.getUserId()),
                 String.valueOf(params.get("page")),
                 String.valueOf(params.get("limit")));
         List<TaskEntity> result = new ArrayList<>(page.getRecords().size());
         for(Task task: page.getRecords()) {
-            ProcessInstance pi = activitiUtils.getProcessInstanceByTaskId(task.getId());
-            ProcessEntity processEntity = (ProcessEntity) runtimeService.getVariable(pi.getId(), "pro");
+            ProcessInstance pi = iRuntimeService.getProcessInstanceByTaskId(task.getId());
+            ProcessEntity processEntity = (ProcessEntity) iRuntimeService.getRuntimeService().getVariable(pi.getId(), "pro");
             TaskEntity taskEntity = new TaskEntity();
             taskEntity.setProcessId(pi.getId());
-            taskEntity.setTaskId(task.getId());
             taskEntity.setTitle(processEntity.getTitle());
             taskEntity.setRequestDate(J8DateUtils.format(processEntity.getCreateDateTime(), J8DateUtils.DATE_TIME_PATTERN));
             result.add(taskEntity);
@@ -160,6 +164,6 @@ public class OaVacationServiceImpl extends ServiceImpl<OaVacationDao, OaVacation
         Boolean isAgree = (Boolean) params.get("isAgree");
         Map<String, Object> var = new HashMap<>();
         var.put("agree", isAgree);
-        activitiUtils.completeTaskWithComment(processId, content, var);
+        iTaskService.completeTaskWithComment(processId, content, var);
     }
 }

@@ -2,16 +2,19 @@ package io.renren.modules.oa.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.renren.modules.oa.service.ITaskService;
+import org.activiti.engine.HistoryService;
+import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 
-@Service
-public class TaskServiceImpl implements ITaskService {
+@Component
+public class MyTaskServiceImpl implements ITaskService {
 
     @Autowired
     private TaskService taskService;

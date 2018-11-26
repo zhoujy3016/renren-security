@@ -6,12 +6,13 @@ import org.activiti.engine.TaskService;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
-@Service
-public class RuntimeServiceImpl implements IRuntimeService {
+@Component
+public class MyRuntimeServiceImpl implements IRuntimeService {
 
     @Autowired
     private TaskService taskService;
