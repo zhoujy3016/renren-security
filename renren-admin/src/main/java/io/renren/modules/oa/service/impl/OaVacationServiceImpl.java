@@ -9,6 +9,7 @@ import io.renren.common.utils.*;
 
 import io.renren.modules.oa.entity.ProcessEntity;
 import io.renren.modules.oa.entity.TaskEntity;
+import io.renren.modules.oa.service.IHistoryService;
 import io.renren.modules.oa.service.IRuntimeService;
 import io.renren.modules.oa.service.ITaskService;
 import io.renren.modules.oa.utils.ActivitiUtils;
@@ -38,24 +39,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Service("oaVacationService")
 public class OaVacationServiceImpl extends ServiceImpl<OaVacationDao, OaVacationEntity> implements OaVacationService {
 
-//    @Autowired
-//    private ActivitiUtils activitiUtils;
-//
-//    @Autowired
-//    private RuntimeService runtimeService;
-//
-//    @Autowired
-//    private TaskService taskService;
-
-    @Autowired
-    private HistoryService historyService;
-
-
     @Autowired
     private IRuntimeService iRuntimeService;
 
     @Autowired
     private ITaskService iTaskService;
+
+    @Autowired
+    private IHistoryService iHistoryService;
 
     @Override
     @DataCreatorFilter(tableAlias = "oa_vacation", userId = "user_id")
@@ -70,9 +61,12 @@ public class OaVacationServiceImpl extends ServiceImpl<OaVacationDao, OaVacation
         for(OaVacationEntity oaVacationEntity:page.getRecords()) {
             String processId = oaVacationEntity.getProcessId();
             ProcessInstance pi = iRuntimeService.getProcessInstanceById(processId);
-            ProcessEntity processEntity = (ProcessEntity) iRuntimeService.getRuntimeService().getVariable(pi.getId(),"pro");
+            ProcessEntity processEntity = null;
             if(pi == null) {
+                processEntity = new ProcessEntity();
                 processEntity.setTitle("完结");
+            } else {
+                processEntity = (ProcessEntity) iRuntimeService.getRuntimeService().getVariable(pi.getId(),"pro");
             }
             processEntityList.add(processEntity);
         }
@@ -109,16 +103,7 @@ public class OaVacationServiceImpl extends ServiceImpl<OaVacationDao, OaVacation
     @Override
     public List<Comment> queryCommentInfo(OaVacationEntity oaVacationEntity) {
         String processId = oaVacationEntity.getProcessId();
-        Task task = iTaskService.getTask(processId);
-
-        List<Comment> commentList = new ArrayList<>();
-        List<HistoricActivityInstance> his = historyService.createHistoricActivityInstanceQuery().processInstanceId(processId).list();
-        for(HistoricActivityInstance hai:his) {
-            String hTaskId = hai.getTaskId();
-            List<Comment> comments = iTaskService.getTaskService().getTaskComments(hTaskId);
-            commentList.addAll(comments);
-        }
-        return commentList;
+        return iHistoryService.getCommentListByProcessInstanceId(processId);
     }
 
     @Override

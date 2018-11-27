@@ -91,6 +91,18 @@ var vm = new Vue({
                 }
             });
 		},
+        getHistory:function(event) {
+            $.ajax({
+                type: "POST",
+                url: baseURL + "oa/oavacation/getHistory/1",
+                contentType: "application/json",
+                success: function(r){
+                    if(r.code == 0){
+
+                    }
+                }
+            });
+		},
 		del: function (event) {
 			var vaIds = getSelectedRows();
 			if(vaIds == null){

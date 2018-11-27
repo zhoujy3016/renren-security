@@ -6,9 +6,11 @@ import java.util.List;
 import java.util.Map;
 
 import io.renren.common.validator.ValidatorUtils;
+import io.renren.modules.oa.service.IHistoryService;
 import io.renren.modules.oa.service.ITaskService;
 import io.renren.modules.sys.controller.AbstractController;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.history.*;
 import org.activiti.engine.task.Comment;
 import org.activiti.engine.task.Task;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -40,10 +42,10 @@ public class OaVacationController extends AbstractController {
     private OaVacationService oaVacationService;
 
     @Autowired
-    private TaskService taskService;
+    private ITaskService iTaskService;
 
     @Autowired
-    private ITaskService iTaskService;
+    private IHistoryService iHistoryService;
 
     /**
      * 列表
@@ -133,19 +135,48 @@ public class OaVacationController extends AbstractController {
 
     @RequestMapping("/getTask/{userId}")
     public void getTaskList(@PathVariable("userId") String userId) {
-        List<Task> taskList = taskService.createTaskQuery().taskAssignee(userId).list();
+        List<Task> taskList = iTaskService.getTaskService().createTaskQuery().taskAssignee(userId).list();
         taskList.stream().forEach(task -> {
             System.out.println("任务ID："+task.getId());
             System.out.println("任务的办理人："+task.getAssignee());
             System.out.println("任务名称："+task.getName());
             System.out.println("任务的创建时间："+task.getCreateTime());
             System.out.println("流程实例ID："+task.getProcessInstanceId());
-            System.out.println("请假天数:" + taskService.getVariable(task.getId(), "days"));
+            System.out.println("请假天数:" + iTaskService.getTaskService().getVariable(task.getId(), "days"));
             System.out.println("##################################");
         });
 
     }
 
+    @RequestMapping("/getHistory/{userId}")
+    public void getHistory(@PathVariable("userId") String userId) {
+         List<HistoricProcessInstance> list =  iHistoryService.getHistoryService().createHistoricProcessInstanceQuery().list();
+         for(int i = 0; i < list.size(); i++) {
+             HistoricProcessInstance hpi = list.get(i);
+             System.out.println("##################################");
+             System.out.println("历史流程实例id:" + hpi.getId());
+             List<HistoricTaskInstance> taskList = iHistoryService.getHistoryService().createHistoricTaskInstanceQuery().processInstanceId(hpi.getId()).list();
 
+             List<Comment> commentList = iHistoryService.getCommentListByProcessInstanceId(hpi.getId());
+             commentList.stream().forEach(comment -> System.out.println(comment.getFullMessage()));
+
+
+             List<HistoricVariableInstance> varList = iHistoryService.getHistoryService().createHistoricVariableInstanceQuery().processInstanceId(hpi.getId()).list();
+
+
+             List<HistoricActivityInstance> list1 = iHistoryService.getHistoryService().createHistoricActivityInstanceQuery().processInstanceId(hpi.getId()).taskAssignee(String.valueOf(getUserId())).list();
+
+             for(int j = 0; j < taskList.size(); j++) {
+                 HistoricTaskInstance task = taskList.get(j);
+                 System.out.println("任务ID："+task.getId());
+                 System.out.println("任务的办理人："+task.getAssignee());
+                 System.out.println("任务名称："+task.getName());
+                 System.out.println("任务的创建时间："+task.getCreateTime());
+                 System.out.println("流程实例ID："+task.getProcessInstanceId());
+                 System.out.println("请假天数:" + task.getProcessVariables());
+                 System.out.println("--------------------------------");
+             }
+         }
+    }
 
 }
