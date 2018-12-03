@@ -1,20 +1,16 @@
-package io.renren.modules.oa.service.impl;
+package io.renren.modules.oa.component;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import io.renren.modules.oa.service.ITaskService;
-import org.activiti.engine.HistoryService;
-import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 
 @Component
-public class MyTaskServiceImpl implements ITaskService {
+public class OaTaskService {
 
     @Autowired
     private TaskService taskService;
@@ -24,7 +20,6 @@ public class MyTaskServiceImpl implements ITaskService {
      * @param processInstanceId
      * @return
      */
-    @Override
     public Task getTask(String processInstanceId) {
         return taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
     }
@@ -35,7 +30,6 @@ public class MyTaskServiceImpl implements ITaskService {
      * @param userId
      * @return
      */
-    @Override
     public Task getTask(String processInstanceId, String userId) {
         return taskService.createTaskQuery().processInstanceId(processInstanceId).taskAssignee(userId).singleResult();
     }
@@ -47,7 +41,6 @@ public class MyTaskServiceImpl implements ITaskService {
      * @param comment
      * @param var
      */
-    @Override
     public void completeTaskWithComment(String processInstanceId, String comment, Map<String, Object> var) {
         Task task = getTask(processInstanceId);
         taskService.addComment(task.getId(), processInstanceId, comment);
@@ -59,7 +52,6 @@ public class MyTaskServiceImpl implements ITaskService {
      * @param assigneeId
      * @return
      */
-    @Override
     public List<Task> getTaskListByAssigneeId(String assigneeId) {
         return taskService.createTaskQuery().taskAssignee(assigneeId).list();
     }
@@ -71,7 +63,6 @@ public class MyTaskServiceImpl implements ITaskService {
      * @param limit 每页数量
      * @return
      */
-    @Override
     public Page<Task> getTaskListPageByAssigneeId(String assigneeId, String page, String limit) {
         int current = Integer.parseInt(page);
         int size = Integer.parseInt(limit);
@@ -87,12 +78,10 @@ public class MyTaskServiceImpl implements ITaskService {
      * @param assigneeId
      * @return
      */
-    @Override
     public int getTaskListCountByAssigneeId(String assigneeId) {
         return (int)taskService.createTaskQuery().taskAssignee(assigneeId).count();
     }
 
-    @Override
     public TaskService getTaskService() {
         return taskService;
     }

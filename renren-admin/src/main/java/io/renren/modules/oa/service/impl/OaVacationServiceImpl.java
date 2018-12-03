@@ -1,23 +1,17 @@
 package io.renren.modules.oa.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.renren.common.annotation.DataCreatorFilter;
 import io.renren.common.utils.*;
 
+import io.renren.modules.oa.component.OaHistoryService;
+import io.renren.modules.oa.component.OaRuntimeService;
+import io.renren.modules.oa.component.OaTaskService;
 import io.renren.modules.oa.entity.ProcessEntity;
 import io.renren.modules.oa.entity.TaskEntity;
-import io.renren.modules.oa.service.IHistoryService;
-import io.renren.modules.oa.service.IRuntimeService;
-import io.renren.modules.oa.service.ITaskService;
-import io.renren.modules.oa.utils.ActivitiUtils;
 import io.renren.modules.sys.entity.SysUserEntity;
-import org.activiti.engine.HistoryService;
-import org.activiti.engine.RuntimeService;
-import org.activiti.engine.TaskService;
-import org.activiti.engine.history.HistoricActivityInstance;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Comment;
 import org.activiti.engine.task.Task;
@@ -40,13 +34,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class OaVacationServiceImpl extends ServiceImpl<OaVacationDao, OaVacationEntity> implements OaVacationService {
 
     @Autowired
-    private IRuntimeService iRuntimeService;
+    private OaRuntimeService iRuntimeService;
 
     @Autowired
-    private ITaskService iTaskService;
+    private OaTaskService iTaskService;
 
     @Autowired
-    private IHistoryService iHistoryService;
+    private OaHistoryService iHistoryService;
 
     @Override
     @DataCreatorFilter(tableAlias = "oa_vacation", userId = "user_id")

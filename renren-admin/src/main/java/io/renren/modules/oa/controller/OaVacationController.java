@@ -6,10 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import io.renren.common.validator.ValidatorUtils;
-import io.renren.modules.oa.service.IHistoryService;
-import io.renren.modules.oa.service.ITaskService;
+import io.renren.modules.oa.component.OaHistoryService;
+import io.renren.modules.oa.component.OaTaskService;
 import io.renren.modules.sys.controller.AbstractController;
-import org.activiti.engine.TaskService;
 import org.activiti.engine.history.*;
 import org.activiti.engine.task.Comment;
 import org.activiti.engine.task.Task;
@@ -42,10 +41,10 @@ public class OaVacationController extends AbstractController {
     private OaVacationService oaVacationService;
 
     @Autowired
-    private ITaskService iTaskService;
+    private OaTaskService iTaskService;
 
     @Autowired
-    private IHistoryService iHistoryService;
+    private OaHistoryService iHistoryService;
 
     /**
      * 列表

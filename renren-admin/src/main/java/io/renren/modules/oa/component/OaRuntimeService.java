@@ -1,18 +1,16 @@
-package io.renren.modules.oa.service.impl;
+package io.renren.modules.oa.component;
 
-import io.renren.modules.oa.service.IRuntimeService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
 @Component
-public class MyRuntimeServiceImpl implements IRuntimeService {
+public class OaRuntimeService {
 
     @Autowired
     private TaskService taskService;
@@ -26,7 +24,6 @@ public class MyRuntimeServiceImpl implements IRuntimeService {
      * @param var1
      * @param var2
      */
-    @Override
     public ProcessInstance startProcessInstanceAndCompleteTask(String key, Map<String, Object> var1, Map<String, Object> var2) {
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(key, var1);
         Task task = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
@@ -39,7 +36,6 @@ public class MyRuntimeServiceImpl implements IRuntimeService {
      * @param processInstanceId
      * @return
      */
-    @Override
     public ProcessInstance getProcessInstanceById(String processInstanceId) {
         return runtimeService.createProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
     }
@@ -49,13 +45,11 @@ public class MyRuntimeServiceImpl implements IRuntimeService {
      * @param taskId
      * @return
      */
-    @Override
     public ProcessInstance getProcessInstanceByTaskId(String taskId) {
         Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
         return getProcessInstanceById(task.getProcessInstanceId());
     }
 
-    @Override
     public RuntimeService getRuntimeService() {
         return runtimeService;
     }
