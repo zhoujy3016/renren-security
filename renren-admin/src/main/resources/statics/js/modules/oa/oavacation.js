@@ -32,6 +32,20 @@ $(function () {
         	$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" }); 
         }
     });
+
+    laydate.render({
+        elem: '#begin'
+        ,done: function(value, date){
+            vm.oaVacation.vaBegin = value;
+        }
+    });
+
+    laydate.render({
+        elem: '#end'
+        ,done: function(value, date){
+            vm.oaVacation.vaEnd = value;
+        }
+    })
 });
 
 var vm = new Vue({
