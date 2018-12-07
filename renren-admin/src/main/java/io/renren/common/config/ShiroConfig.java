@@ -16,9 +16,7 @@
 
 package io.renren.common.config;
 
-import io.renren.modules.sys.shiro.RedisShiroSessionDAO;
 import io.renren.modules.sys.shiro.UserRealm;
-
 import org.apache.shiro.cache.MemoryConstrainedCacheManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.SessionManager;
@@ -27,13 +25,16 @@ import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSource
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
+import org.apache.shiro.web.session.mgt.ServletContainerSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+
 
 /**
  * Shiro的配置文件
@@ -44,21 +45,28 @@ import java.util.Map;
 @Configuration
 public class ShiroConfig {
 
-    @Bean("sessionManager")
-    public SessionManager sessionManager(RedisShiroSessionDAO redisShiroSessionDAO,
-                                         @Value("${renren.redis.open}") boolean redisOpen,
-                                         @Value("${renren.shiro.redis}") boolean shiroRedis){
+    /**
+     * 单机环境，session交给shiro管理
+     */
+    @Bean
+    @ConditionalOnProperty(prefix = "renren", name = "cluster", havingValue = "false")
+    public DefaultWebSessionManager sessionManager(@Value("${renren.globalSessionTimeout:3600}") long globalSessionTimeout){
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
-        //设置session过期时间为1小时(单位：毫秒)，默认为30分钟
-        sessionManager.setGlobalSessionTimeout(60 * 60 * 1000);
         sessionManager.setSessionValidationSchedulerEnabled(true);
         sessionManager.setSessionIdUrlRewritingEnabled(false);
+        sessionManager.setSessionValidationInterval(globalSessionTimeout * 1000);
+        sessionManager.setGlobalSessionTimeout(globalSessionTimeout * 1000);
 
-        //如果开启redis缓存且renren.shiro.redis=true，则shiro session存到redis里
-        if(redisOpen && shiroRedis){
-            sessionManager.setSessionDAO(redisShiroSessionDAO);
-        }
         return sessionManager;
+    }
+
+    /**
+     * 集群环境，session交给spring-session管理
+     */
+    @Bean
+    @ConditionalOnProperty(prefix = "renren", name = "cluster", havingValue = "true")
+    public ServletContainerSessionManager servletContainerSessionManager() {
+        return new ServletContainerSessionManager();
     }
 
     @Bean("securityManager")
@@ -66,10 +74,41 @@ public class ShiroConfig {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(userRealm);
         securityManager.setSessionManager(sessionManager);
+        securityManager.setRememberMeManager(null);
+
         // 存放认证与授权缓存
         securityManager.setCacheManager(shiroCacheManager);
+
         return securityManager;
     }
+
+
+//    @Bean("sessionManager")
+//    public SessionManager sessionManager(RedisShiroSessionDAO redisShiroSessionDAO,
+//                                         @Value("${renren.redis.open}") boolean redisOpen,
+//                                         @Value("${renren.shiro.redis}") boolean shiroRedis){
+//        DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+//        //设置session过期时间为1小时(单位：毫秒)，默认为30分钟
+//        sessionManager.setGlobalSessionTimeout(60 * 60 * 1000);
+//        sessionManager.setSessionValidationSchedulerEnabled(true);
+//        sessionManager.setSessionIdUrlRewritingEnabled(false);
+//
+//        //如果开启redis缓存且renren.shiro.redis=true，则shiro session存到redis里
+//        if(redisOpen && shiroRedis){
+//            sessionManager.setSessionDAO(redisShiroSessionDAO);
+//        }
+//        return sessionManager;
+//    }
+//
+//    @Bean("securityManager")
+//    public SecurityManager securityManager(UserRealm userRealm, SessionManager sessionManager, MemoryConstrainedCacheManager shiroCacheManager) {
+//        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+//        securityManager.setRealm(userRealm);
+//        securityManager.setSessionManager(sessionManager);
+//        // 存放认证与授权缓存
+//        securityManager.setCacheManager(shiroCacheManager);
+//        return securityManager;
+//    }
 
 
     @Bean("shiroFilter")

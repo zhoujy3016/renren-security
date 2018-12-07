@@ -31,6 +31,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.Map;
 
 /**
  * Shiro工具类
@@ -109,21 +110,12 @@ public class ShiroUtils {
 	}
 
 	/**
-	 * 从redis中取得Session对象
-	 * @return
-	 */
-	private static Session getRedisSession(String sessionId) {
-        Session session =  (Session)staticRedisTemplate.opsForValue().get(RedisKeys.getShiroSessionKey(sessionId));
-		return session;
-	}
-
-	/**
 	 * 从redis session中取得SysUserEntity对象
 	 * @return
 	 */
 	public static SysUserEntity getUserEntityFromRedisSession(String sessionId) {
-		Session session = getRedisSession(sessionId);
-		SimplePrincipalCollection simplePrincipalCollection = (SimplePrincipalCollection)session.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY);
+		Map<Object, Object> map = staticRedisTemplate.opsForHash().entries(RedisKeys.getShiroSessionKey(sessionId));
+		SimplePrincipalCollection simplePrincipalCollection = (SimplePrincipalCollection) map.get("sessionAttr:" + DefaultSubjectContext.PRINCIPALS_SESSION_KEY);
 		return (SysUserEntity) simplePrincipalCollection.getPrimaryPrincipal();
 	}
 	// 调用方法
