@@ -5,10 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.renren.common.utils.CookieUtils;
 import io.renren.common.validator.ValidatorUtils;
 import io.renren.modules.oa.component.OaHistoryService;
 import io.renren.modules.oa.component.OaTaskService;
 import io.renren.modules.sys.controller.AbstractController;
+import io.renren.modules.sys.entity.SysUserEntity;
+import io.renren.modules.sys.shiro.ShiroUtils;
 import org.activiti.engine.history.*;
 import org.activiti.engine.task.Comment;
 import org.activiti.engine.task.Task;
@@ -25,6 +28,7 @@ import io.renren.modules.oa.service.OaVacationService;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.R;
 
+import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -133,7 +137,9 @@ public class OaVacationController extends AbstractController {
 
 
     @RequestMapping("/getTask/{userId}")
-    public void getTaskList(@PathVariable("userId") String userId) {
+    public void getTaskList(@PathVariable("userId") String userId, HttpServletRequest request) {
+        SysUserEntity sysUserEntity = ShiroUtils.getUserEntityFromRedisSession(CookieUtils.getSessionId(request));
+
         List<Task> taskList = iTaskService.getTaskService().createTaskQuery().taskAssignee(userId).list();
         taskList.stream().forEach(task -> {
             System.out.println("任务ID："+task.getId());
