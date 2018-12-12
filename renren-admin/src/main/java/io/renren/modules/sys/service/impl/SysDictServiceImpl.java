@@ -54,16 +54,12 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictDao, SysDictEntity> i
 
 	@Override
 	public List<Map<String, Object>> getAllSysDictEntity() {
-		QueryWrapper<SysDictEntity> ew = new QueryWrapper<>();
-		List<Map<String, Object>> sysDictEntityMap = this.baseMapper.selectMaps(ew);
-		return sysDictEntityMap;
+		return this.baseMapper.selectMaps(new QueryWrapper<>());
 	}
 
 	@Override
 	public List<Map<String, Object>> getSysDictEntity(String type) {
-		QueryWrapper<SysDictEntity> ew = new QueryWrapper<>();
-		ew.eq(DictConstant.DICT_TYPE, type);
-		return this.baseMapper.selectMaps(ew);
+		return this.baseMapper.selectMaps(new QueryWrapper<SysDictEntity>().eq(DictConstant.DICT_TYPE, type));
 	}
 
 	@Override
