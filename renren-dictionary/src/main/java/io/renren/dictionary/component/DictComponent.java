@@ -86,10 +86,7 @@ public class DictComponent {
     public void reloadDictCacheData(String type) {
     	// 查询当前type中的数据字典列表
 		List<Map<String, Object>> dictMapList = this.sysDictService.getSysDictEntity(type);
-		// redis中删除
-		this.redisUtils.delete(DictConstant.getDictionaryKey(type));
-    	// 重新载入到redis中
-		this.redisUtils.set(DictConstant.getDictionaryKey(type), dictMapList, RedisUtils.NOT_EXPIRE);
+		setDictMapToRedis(type, dictMapList);
     }
     
     /**
@@ -98,7 +95,7 @@ public class DictComponent {
      */
     public void reloadDictCacheData(Long[] ids) {
     	// id数组查询数据字典集合并用type分组
-		Map<String, List<Map<String, Object>>> dictMapGroup = getMapByGroup(this.sysDictService.getSysDictEntityAfterDelete(ids));
+		Map<String, List<Map<String, Object>>> dictMapGroup = this.sysDictService.getSysDictEntityAfterDelete(ids);
 		loadDictDataToRedis(dictMapGroup);
     }
 
@@ -137,6 +134,7 @@ public class DictComponent {
 	 * @param type
 	 */
 	private void setDictMapToRedis(String type, List<Map<String, Object>> list) {
+		this.redisUtils.delete(DictConstant.getDictionaryKey(type));
 		this.redisUtils.set(DictConstant.getDictionaryKey(type), list, RedisUtils.NOT_EXPIRE);
 	}
 

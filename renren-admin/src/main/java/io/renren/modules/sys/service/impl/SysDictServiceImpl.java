@@ -31,9 +31,7 @@ import io.renren.modules.sys.service.SysDictService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -69,15 +67,17 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictDao, SysDictEntity> i
 	}
 
 	@Override
-	public List<Map<String, Object>> getSysDictEntityAfterDelete(Long[] ids) {
+	public Map<String, List<Map<String, Object>>> getSysDictEntityAfterDelete(Long[] ids) {
 		List<Map<String, Object>> sysDictEntityMap = this.baseMapper.getSysDictEntityGroupByType(ids);
 		// 提取type集合
 		List<String> typeList = sysDictEntityMap.stream().map(dictMap -> (String)dictMap.get(DictConstant.DICT_TYPE)).collect(Collectors.toList());
-		QueryWrapper<SysDictEntity> ew = new QueryWrapper<>();
-		// 将删除的type集合为参数，查询更新后的集合
-		ew.in(DictConstant.DICT_TYPE, typeList);
-		return this.baseMapper.selectMaps(ew);
+		Map<String, List<Map<String, Object>>> dictMapGroup = new HashMap<>(typeList.size());
+		typeList.stream().forEach(type -> {
+			dictMapGroup.put(type, this.baseMapper.selectMaps(new QueryWrapper<SysDictEntity>().eq("type", type)));
+		});
+		return dictMapGroup;
 	}
+
 	@Override
 	@DictionaryCache(operation = DictConstant.DictOperation.OP_INSERT)
     public void insertDict(SysDictEntity sysDictEntity) {

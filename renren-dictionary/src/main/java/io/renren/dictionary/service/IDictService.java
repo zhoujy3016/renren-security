@@ -25,17 +25,18 @@ public interface IDictService {
     List<Map<String, Object>> getAllSysDictEntity();
 
     /**
-     * 通过类型查询数据字典list
+     * 查询某个类型下的数据字典数据
      * @param type
      * @return
      */
     List<Map<String, Object>> getSysDictEntity(String type);
 
     /**
-     * 通过id数组查询数据字典（批量删除时候调用）
+     * 批量删除时候调用该方法，通过id数组查询数据字典，返回一个键为type, 值为list的map
+     * 某一个类型全部删除的情况下，要将键为type, 值为null放入map中。
      * @param ids
      * @return
      */
-    List<Map<String, Object>> getSysDictEntityAfterDelete(Long[] ids);
+    Map<String, List<Map<String, Object>>> getSysDictEntityAfterDelete(Long[] ids);
 }
 
