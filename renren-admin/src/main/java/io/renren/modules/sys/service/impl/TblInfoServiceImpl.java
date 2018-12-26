@@ -54,7 +54,6 @@ public class TblInfoServiceImpl extends ServiceImpl<TblInfoDao, TblInfoEntity> i
 
 	@Override
 	public void saveInfo(TblInfoEntity infoEntity) {
-		infoEntity.setInfoCreateTime(LocalDateTime.now());
 		this.save(infoEntity);
 		
 	}

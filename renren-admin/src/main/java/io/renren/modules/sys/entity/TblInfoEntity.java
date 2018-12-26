@@ -1,5 +1,6 @@
 package io.renren.modules.sys.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -52,6 +53,7 @@ public class TblInfoEntity implements Serializable {
 	 * 	创建时间
 	 */
 	@JsonFormat(pattern = J8DateUtils.DATE_TIME_PATTERN)
+	@TableField(fill = FieldFill.INSERT)
 	private LocalDateTime infoCreateTime;
 
 	/**
