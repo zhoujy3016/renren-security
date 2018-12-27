@@ -14,7 +14,7 @@ import java.util.Map;
  * @date 2018-12-26
  */
 @Component
-public class FiledMetaObjectHandler implements MetaObjectHandler {
+public class FiledFillHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
         try {
