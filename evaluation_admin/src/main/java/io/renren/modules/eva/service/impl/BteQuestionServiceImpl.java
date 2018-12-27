@@ -30,8 +30,6 @@ public class BteQuestionServiceImpl extends ServiceImpl<BteQuestionDao, BteQuest
 
 	@Override
 	public void insertQuestion(BteQuestionEntity bteQuestion) {
-		bteQuestion.setCreateDate(LocalDateTime.now());
-		bteQuestion.setCreateUserId(ShiroUtils.getUserId());
 		this.save(bteQuestion);
 	}
 

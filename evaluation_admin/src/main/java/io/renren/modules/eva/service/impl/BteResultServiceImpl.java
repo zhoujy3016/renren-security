@@ -84,8 +84,6 @@ public class BteResultServiceImpl extends ServiceImpl<BteResultDao, BteResultEnt
 		} else { // 具体意见
 			resultEntity.setEvalSuggest(String.valueOf(map.get("evalSuggest")));
 		}
-		// 创建日期
-		resultEntity.setCreateDate(LocalDateTime.now());
 		// 客户端ip
 		resultEntity.setIpAddr(IPUtils.getIpAddr(request));
 		return resultEntity;

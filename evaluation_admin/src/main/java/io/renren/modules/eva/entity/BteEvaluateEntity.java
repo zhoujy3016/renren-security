@@ -1,13 +1,18 @@
 package io.renren.modules.eva.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.renren.common.interceptor.FiledFill;
 import io.renren.common.utils.J8DateUtils;
+import io.renren.modules.sys.shiro.ShiroUtils;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.validation.constraints.NotBlank;
 
@@ -19,7 +24,7 @@ import javax.validation.constraints.NotBlank;
  * @date 2018-06-19 21:00:48
  */
 @TableName("bte_evaluate")
-public class BteEvaluateEntity implements Serializable {
+public class BteEvaluateEntity implements Serializable, FiledFill {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -44,10 +49,12 @@ public class BteEvaluateEntity implements Serializable {
 	 * 
 	 */
 	@JsonFormat(pattern = J8DateUtils.DATE_TIME_PATTERN)
+	@TableField(fill = FieldFill.INSERT)
 	private LocalDateTime createDate;
 	/**
 	 * 
 	 */
+	@TableField(fill = FieldFill.INSERT)
 	private Long createUserId;
 	
 	/**
@@ -134,6 +141,13 @@ public class BteEvaluateEntity implements Serializable {
 	public void setEvalStateName(String evalStateName) {
 		this.evalStateName = evalStateName;
 	}
-	
-	
+
+
+	@Override
+	public Map<String, Object> insertFill() {
+		Map<String, Object> fillMap =  new HashMap<>(2);
+		fillMap.put("createDate", LocalDateTime.now());
+		fillMap.put("createUserId", ShiroUtils.getUserId());
+		return fillMap;
+	}
 }

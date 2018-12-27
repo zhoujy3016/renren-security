@@ -1,10 +1,15 @@
 package io.renren.modules.eva.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.renren.common.interceptor.FiledFill;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 
@@ -14,7 +19,7 @@ import java.time.LocalDateTime;
  * @date 2018-06-20 14:30:53
  */
 @TableName("bte_result")
-public class BteResultEntity implements Serializable {
+public class BteResultEntity implements Serializable, FiledFill {
 	private static final long serialVersionUID = 1L;
 
 	public BteResultEntity() {
@@ -44,6 +49,7 @@ public class BteResultEntity implements Serializable {
 	/**
 	 * 
 	 */
+	@TableField(fill = FieldFill.INSERT)
 	private LocalDateTime createDate;
 	/**
 	 * 
@@ -146,5 +152,12 @@ public class BteResultEntity implements Serializable {
 
 	public void setIpAddr(String ipAddr) {
 		this.ipAddr = ipAddr;
+	}
+
+	@Override
+	public Map<String, Object> insertFill() {
+		Map<String, Object> fillMap =  new HashMap<>(2);
+		fillMap.put("createDate", LocalDateTime.now());
+		return fillMap;
 	}
 }

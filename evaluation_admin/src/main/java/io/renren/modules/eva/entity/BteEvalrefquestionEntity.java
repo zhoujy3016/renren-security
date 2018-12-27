@@ -2,6 +2,7 @@ package io.renren.modules.eva.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.renren.common.interceptor.FiledFill;
 
 import java.io.Serializable;
 
@@ -13,7 +14,7 @@ import java.io.Serializable;
  * @date 2018-06-20 13:52:32
  */
 @TableName("bte_evalrefquestion")
-public class BteEvalrefquestionEntity implements Serializable {
+public class BteEvalrefquestionEntity implements Serializable, FiledFill {
 	private static final long serialVersionUID = 1L;
 
 	/**

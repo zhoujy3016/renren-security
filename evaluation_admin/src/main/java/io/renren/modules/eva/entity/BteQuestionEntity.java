@@ -1,12 +1,16 @@
 package io.renren.modules.eva.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.renren.common.interceptor.FiledFill;
+import io.renren.modules.sys.shiro.ShiroUtils;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -19,7 +23,7 @@ import javax.validation.constraints.NotNull;
  * @date 2018-06-19 15:11:26
  */
 @TableName("bte_question")
-public class BteQuestionEntity implements Serializable {
+public class BteQuestionEntity implements Serializable, FiledFill {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -44,10 +48,12 @@ public class BteQuestionEntity implements Serializable {
 	/**
 	 * 
 	 */
+	@TableField(fill = FieldFill.INSERT)
 	private LocalDateTime createDate;
 	/**
 	 * 
 	 */
+	@TableField(fill = FieldFill.INSERT)
 	private Long createUserId;
 	
 	/**
@@ -146,6 +152,12 @@ public class BteQuestionEntity implements Serializable {
 	public void setQuestionStateName(String questionStateName) {
 		this.questionStateName = questionStateName;
 	}
-	
-	
+
+	@Override
+	public Map<String, Object> insertFill() {
+		Map<String, Object> fillMap =  new HashMap<>(2);
+		fillMap.put("createDate", LocalDateTime.now());
+		fillMap.put("createUserId", ShiroUtils.getUserId());
+		return fillMap;
+	}
 }

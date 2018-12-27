@@ -64,10 +64,6 @@ public class BteEvaluateServiceImpl extends ServiceImpl<BteEvaluateDao, BteEvalu
 	public void insertEvaluate(BteEvaluateEntity bteEvaluate) {
 		// 查询当前开启状态的试题
 		List<BteQuestionEntity> questionList = bteQuestionService.list(new QueryWrapper<BteQuestionEntity>().eq("question_state_id", "1"));
-		// 创建日期
-		bteEvaluate.setCreateDate(LocalDateTime.now());
-		// 创建人
-		bteEvaluate.setCreateUserId(ShiroUtils.getUserId());
 		this.save(bteEvaluate);
 		Integer evalId = bteEvaluate.getDataNo();
 		

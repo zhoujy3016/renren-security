@@ -1,11 +1,16 @@
 package io.renren.modules.eva.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.renren.common.interceptor.FiledFill;
+import io.renren.modules.sys.shiro.ShiroUtils;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -18,7 +23,7 @@ import javax.validation.constraints.NotNull;
  * @date 2018-06-20 09:55:48
  */
 @TableName("bte_lesson")
-public class BteLessonEntity implements Serializable {
+public class BteLessonEntity implements Serializable, FiledFill {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -63,11 +68,13 @@ public class BteLessonEntity implements Serializable {
 	/**
 	 * 
 	 */
+	@TableField(fill = FieldFill.INSERT)
 	private LocalDateTime createDate;
 	/**
 	 * 
 	 */
-	private Integer createUserId;
+	@TableField(fill = FieldFill.INSERT)
+	private Long createUserId;
 	
 	/**
 	 * 课程类型嵌套类
@@ -169,13 +176,13 @@ public class BteLessonEntity implements Serializable {
 	/**
 	 * 设置：
 	 */
-	public void setCreateUserId(Integer createUserId) {
+	public void setCreateUserId(Long createUserId) {
 		this.createUserId = createUserId;
 	}
 	/**
 	 * 获取：
 	 */
-	public Integer getCreateUserId() {
+	public Long getCreateUserId() {
 		return createUserId;
 	}
 
@@ -193,5 +200,13 @@ public class BteLessonEntity implements Serializable {
 
 	public BteLessonTypeEntity getBteLessonTypeEntity() {
 		return bteLessonTypeEntity;
+	}
+
+	@Override
+	public Map<String, Object> insertFill() {
+		Map<String, Object> fillMap =  new HashMap<>(2);
+		fillMap.put("createDate", LocalDateTime.now());
+		fillMap.put("createUserId", ShiroUtils.getUserId());
+		return fillMap;
 	}
 }
