@@ -4,7 +4,7 @@
 <mapper namespace="io.renren.modules.eva.dao.BteResultDao">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="BteResultEntity" id="bteResultMap">
+    <resultMap type="io.renren.modules.eva.entity.BteResultEntity" id="bteResultMap">
         <id property="dataNo" column="data_no"/>
         <result property="evalId" column="eval_id"/>
         <result property="questionTypeId" column="question_type_id"/>
@@ -15,7 +15,7 @@
     </resultMap>
 
 	<!-- 继承结果entity -->
-    <resultMap type="BteResultEntityExt" extends="bteResultMap" id="bteResultMapExt">
+    <resultMap type="io.renren.modules.eva.entity.BteResultEntityExt" extends="bteResultMap" id="bteResultMapExt">
         <result property="questionTitle" column="question_title"/>
 		<result property="lessonCategoryName" column="lesson_category_name" />
 		<result property="lessonTypeName" column="lesson_type_name" />
@@ -31,7 +31,7 @@
     </resultMap>
     
     <!-- 存放建议题目的entity，与结果没有联系 -->
-    <resultMap type="BteResultEntitySuggest" id="bteResultMapSuggest">
+    <resultMap type="io.renren.modules.eva.entity.BteResultEntitySuggest" id="bteResultMapSuggest">
 		<result property="questionTitle" column="question_title"/>
         <result property="evalSuggest" column="eval_suggest"/>
     </resultMap>

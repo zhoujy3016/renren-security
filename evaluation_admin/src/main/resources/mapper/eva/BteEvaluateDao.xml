@@ -4,7 +4,7 @@
 <mapper namespace="io.renren.modules.eva.dao.BteEvaluateDao">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="BteEvaluateEntity" id="bteEvaluateMap">
+    <resultMap type="io.renren.modules.eva.entity.BteEvaluateEntity" id="bteEvaluateMap">
         <id property="dataNo" column="data_no"/>
         <result property="evalTitle" column="eval_title"/>
         <result property="evalMemo" column="eval_memo"/>
