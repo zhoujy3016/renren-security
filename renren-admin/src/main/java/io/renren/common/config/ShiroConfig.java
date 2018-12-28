@@ -60,15 +60,6 @@ public class ShiroConfig {
         return sessionManager;
     }
 
-    /**
-     * 集群环境，session交给spring-session管理
-     */
-    @Bean
-    @ConditionalOnProperty(prefix = "renren", name = "cluster", havingValue = "true")
-    public ServletContainerSessionManager servletContainerSessionManager() {
-        return new ServletContainerSessionManager();
-    }
-
     @Bean("securityManager")
     public SecurityManager securityManager(UserRealm userRealm, SessionManager sessionManager, MemoryConstrainedCacheManager shiroCacheManager) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
