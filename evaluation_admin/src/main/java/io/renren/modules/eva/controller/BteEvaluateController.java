@@ -6,8 +6,11 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import io.renren.common.utils.CookieUtils;
 import io.renren.common.validator.ValidatorUtils;
 import io.renren.modules.sys.controller.AbstractController;
+import io.renren.modules.sys.entity.SysUserEntity;
+import io.renren.modules.sys.shiro.ShiroUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,8 +44,10 @@ public class BteEvaluateController extends AbstractController {
      */
     @RequestMapping("/list")
     @RequiresPermissions("eva:bteevaluate:list")
-    public R list(@RequestParam Map<String, Object> params){
+    public R list(@RequestParam Map<String, Object> params, HttpServletRequest request){
         PageUtils page = bteEvaluateService.queryPage(params);
+
+        SysUserEntity sysUserEntity = ShiroUtils.getUserEntityFromRedisSession(CookieUtils.getSessionId(request));
 
         return R.ok().put("page", page);
     }

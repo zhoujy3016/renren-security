@@ -29,6 +29,6 @@ public class RedisKeys {
     }
 
     public static String getShiroSessionKey(String key){
-        return "sessionid:" + key;
+        return "spring:session:sessions:" + key;
     }
 }
