@@ -16,7 +16,6 @@
 
 package io.renren.common.config;
 
-import io.renren.modules.sys.shiro.RedisShiroSessionDAO;
 import io.renren.modules.sys.shiro.UserRealm;
 
 import org.apache.shiro.cache.MemoryConstrainedCacheManager;
@@ -27,7 +26,6 @@ import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSource
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
-import org.apache.shiro.web.session.mgt.ServletContainerSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -61,14 +59,7 @@ public class ShiroConfig {
         return sessionManager;
     }
 
-    /**
-     * 集群环境，session交给spring-session管理
-     */
-    @Bean
-    @ConditionalOnProperty(prefix = "renren", name = "cluster", havingValue = "true")
-    public ServletContainerSessionManager servletContainerSessionManager() {
-        return new ServletContainerSessionManager();
-    }
+
 
     @Bean("securityManager")
     public SecurityManager securityManager(UserRealm userRealm, SessionManager sessionManager, MemoryConstrainedCacheManager shiroCacheManager) {
