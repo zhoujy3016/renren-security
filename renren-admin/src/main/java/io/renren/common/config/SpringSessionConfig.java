@@ -1,4 +1,4 @@
-package io.renren.common.config;//package io.renren.common.config;
+//package io.renren.common.config;
 //
 //import org.apache.shiro.web.session.mgt.ServletContainerSessionManager;
 //import org.springframework.beans.factory.annotation.Value;
