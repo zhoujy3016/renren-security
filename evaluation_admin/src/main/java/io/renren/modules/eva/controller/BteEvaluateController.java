@@ -46,9 +46,6 @@ public class BteEvaluateController extends AbstractController {
     @RequiresPermissions("eva:bteevaluate:list")
     public R list(@RequestParam Map<String, Object> params, HttpServletRequest request){
         PageUtils page = bteEvaluateService.queryPage(params);
-
-        SysUserEntity sysUserEntity = ShiroUtils.getUserEntityFromRedisSession(CookieUtils.getSessionId(request));
-
         return R.ok().put("page", page);
     }
 
