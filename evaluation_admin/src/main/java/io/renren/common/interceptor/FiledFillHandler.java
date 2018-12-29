@@ -20,10 +20,7 @@ public class FiledFillHandler implements MetaObjectHandler {
         try {
             FiledFill filedFill = (FiledFill) metaObject.getOriginalObject();
             Map<String, Object> fillMap = filedFill.insertFill();
-            // 迭代map, 将entity中的需要自动填充的字段取出，保存
-            fillMap.keySet().stream().forEach(key -> {
-                setFieldValByName(key, fillMap.get(key), metaObject);
-            });
+            setFiledVal(fillMap, metaObject);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -32,14 +29,21 @@ public class FiledFillHandler implements MetaObjectHandler {
     @Override
     public void updateFill(MetaObject metaObject) {
         try {
-            FiledFill filedFill = (FiledFill) metaObject.getOriginalObject();
+            Map<String, Object> map = (Map<String, Object>) metaObject.getOriginalObject();
+            FiledFill filedFill = (FiledFill)map.get("param1");
             Map<String, Object> fillMap = filedFill.updateFill();
-            // 迭代map, 将entity中的需要自动填充的字段取出，保存
-            fillMap.keySet().stream().forEach(key -> {
-                setFieldValByName(key, fillMap.get(key), metaObject);
-            });
+            setFiledVal(fillMap, metaObject);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     *  将entity实现的接口保存的map迭代设置
+     */
+    private void setFiledVal(Map<String, Object> fillMap, MetaObject metaObject) {
+        fillMap.keySet().stream().forEach(key -> {
+            setFieldValByName(key, fillMap.get(key), metaObject);
+        });
     }
 }
