@@ -1,9 +1,7 @@
 server:
-  port: 8778
-#生产环境公网ip
+  port: 8001
 eva:
-    port: 80
-#    ip: 124.93.236.5
+    port: 8081
     ip: 127.0.0.1
 
 eureka:
