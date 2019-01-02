@@ -79,7 +79,7 @@ public class DictConstant {
      * @return
      */
     public static String getDictionaryKey(String key){
-        return DICT_PREFIX + key;
+        return DICT_PREFIX + ":" + key;
     }
 
 }
