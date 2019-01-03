@@ -85,7 +85,7 @@ public class BteResultServiceImpl extends ServiceImpl<BteResultDao, BteResultEnt
 			resultEntity.setEvalSuggest(String.valueOf(map.get("evalSuggest")));
 		}
 		// 客户端ip
-		resultEntity.setIpAddr(IPUtils.getIpAddr(request));
+		resultEntity.setIpAddr(String.valueOf(map.get("ipAddr")));
 		return resultEntity;
 	}
 
