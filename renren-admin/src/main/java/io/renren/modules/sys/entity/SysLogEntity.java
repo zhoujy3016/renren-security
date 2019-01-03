@@ -16,12 +16,20 @@
 
 package io.renren.modules.sys.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.renren.common.interceptor.FiledFill;
+import io.renren.common.utils.HttpContextUtils;
+import io.renren.common.utils.IPUtils;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -32,7 +40,7 @@ import java.util.Date;
  * @date 2017-03-08 10:40:56
  */
 @TableName("sys_log")
-public class SysLogEntity implements Serializable {
+public class SysLogEntity implements Serializable, FiledFill {
 	private static final long serialVersionUID = 1L;
 	@TableId
 	private Long id;
@@ -47,10 +55,12 @@ public class SysLogEntity implements Serializable {
 	//执行时长(毫秒)
 	private Long time;
 	//IP地址
+	@TableField(fill = FieldFill.INSERT)
 	private String ip;
 	//创建时间
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	private Date createDate;
+	@TableField(fill = FieldFill.INSERT)
+	private LocalDateTime createDate;
 
 	/**
 	 * 设置：
@@ -127,13 +137,13 @@ public class SysLogEntity implements Serializable {
 	/**
 	 * 设置：创建时间
 	 */
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(LocalDateTime createDate) {
 		this.createDate = createDate;
 	}
 	/**
 	 * 获取：创建时间
 	 */
-	public Date getCreateDate() {
+	public LocalDateTime getCreateDate() {
 		return createDate;
 	}
 
@@ -143,5 +153,13 @@ public class SysLogEntity implements Serializable {
 
 	public void setTime(Long time) {
 		this.time = time;
+	}
+
+	@Override
+	public Map<String, Object> insertFill() {
+		Map<String, Object> fillMap =  new HashMap<>(2);
+		fillMap.put("createDate", LocalDateTime.now());
+		fillMap.put("ip", IPUtils.getIpAddr(HttpContextUtils.getHttpServletRequest()));
+		return fillMap;
 	}
 }
