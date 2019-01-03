@@ -10,7 +10,8 @@ var vm = new Vue({
 		evalId:null,
 		lesson:{},
 		question:{},
-		result:{}
+		result:{},
+		ipAddr:''
 	},
 	beforeCreate: function(){
 
@@ -35,7 +36,7 @@ var vm = new Vue({
 				if(!this.checkData($(".question_1_"+ i), radioValue)) {
 					return;
 				}
-				vm.result[index] = {"questionTypeId" : 1, "evalId" : vm.evalId, "questionId" : vm.lesson[i].dataNo, "questionScore": radioValue};
+				vm.result[index] = {"questionTypeId" : 1, "evalId" : vm.evalId, "questionId" : vm.lesson[i].dataNo, "questionScore": radioValue, "ipAddr": vm.ipAddr};
 			}
 			// 常规试题
 			for(var i = 0; i < vm.question.length; i++, index++) {
@@ -45,13 +46,13 @@ var vm = new Vue({
 					if(!this.checkData($(".question_"+ typeId +'_'+ i), radioValue)) {
 						return;
 					}
-					vm.result[index] = {"questionTypeId" : typeId, "evalId" : vm.evalId, "questionId" : vm.question[i].dataNo, "questionScore": radioValue};	
+					vm.result[index] = {"questionTypeId" : typeId, "evalId" : vm.evalId, "questionId" : vm.question[i].dataNo, "questionScore": radioValue, "ipAddr": vm.ipAddr};
 				} else { // 其他建议
 					var suggest = $("#question_"+ typeId + '_' +  i).val();
 					if(isBlank(suggest)) {
 						suggest = "";
 					}
-					vm.result[index] = {"questionTypeId" : typeId, "evalId" : vm.evalId, "questionId" : vm.question[i].dataNo, "evalSuggest": suggest};
+					vm.result[index] = {"questionTypeId" : typeId, "evalId" : vm.evalId, "questionId" : vm.question[i].dataNo, "evalSuggest": suggest, "ipAddr": vm.ipAddr};
 				}
 			}
 			
@@ -132,5 +133,9 @@ var vm = new Vue({
 	created:function() {
 		var arrParam = getParameters(location.search);
 		this.getEvalPaper(arrParam['evalId']);
-	}
+		// 获取本机ip地址
+        getUserIP(function(ip){
+            vm.ipAddr = ip;
+        });
+    }
 });
