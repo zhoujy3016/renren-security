@@ -98,19 +98,19 @@ public class BteResultController extends AbstractController {
      * @return
      */
     @RequestMapping("/exportResult/{evalId}")
-    public void exportResult(@PathVariable("evalId") Integer evalId, HttpServletResponse httpServletResponse) {
+    public void exportResult(@PathVariable("evalId") Integer evalId) {
     	// 导出测评结果
-    	this.bteResultService.exportResult(evalId, httpServletResponse);
+    	this.bteResultService.exportResult(evalId);
     }
     
     /**
      * 导出具体建议
      * @param evalId
-     * @param httpServletResponse
+     * @param
      */
     @RequestMapping("/exportSuggest/{evalId}")
-    public void exportSuggest(@PathVariable("evalId") Integer evalId, HttpServletResponse httpServletResponse) {
-    	this.bteResultService.exportSuggest(evalId, httpServletResponse);
+    public void exportSuggest(@PathVariable("evalId") Integer evalId) {
+    	this.bteResultService.exportSuggest(evalId);
     }
     
 }

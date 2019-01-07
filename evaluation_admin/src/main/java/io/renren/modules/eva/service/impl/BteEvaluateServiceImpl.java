@@ -10,13 +10,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import io.renren.common.annotation.DataCreatorFilter;
 
@@ -27,17 +25,18 @@ import io.renren.modules.eva.entity.BteQuestionEntity;
 import io.renren.modules.eva.service.BteEvalrefquestionService;
 import io.renren.modules.eva.service.BteEvaluateService;
 import io.renren.modules.eva.service.BteQuestionService;
-import io.renren.modules.sys.shiro.ShiroUtils;
 
 
 @Service("bteEvaluateService")
 public class BteEvaluateServiceImpl extends ServiceImpl<BteEvaluateDao, BteEvaluateEntity> implements BteEvaluateService {
 	@Autowired
 	private BteQuestionService bteQuestionService;
-	
+
 	@Autowired
 	private BteEvalrefquestionService bteEvalrefquestionService;
 
+	@Autowired
+	private HttpServletRequest request;
 
 	/**
 	 * 公网ip
@@ -50,7 +49,7 @@ public class BteEvaluateServiceImpl extends ServiceImpl<BteEvaluateDao, BteEvalu
 	 */
 	@Value("${eva.evac-port}")
     private String clientPort;
-	
+
     @Override
     @DataCreatorFilter(tableAlias="be")
     public PageUtils queryPage(Map<String, Object> params) {
@@ -66,10 +65,10 @@ public class BteEvaluateServiceImpl extends ServiceImpl<BteEvaluateDao, BteEvalu
 		List<BteQuestionEntity> questionList = bteQuestionService.list(new QueryWrapper<BteQuestionEntity>().eq("question_state_id", "1"));
 		this.save(bteEvaluate);
 		Integer evalId = bteEvaluate.getDataNo();
-		
+
 		// 测评与试题关联数据
 		List<BteEvalrefquestionEntity> refList = new ArrayList<>();
-		
+
 		for(BteQuestionEntity question:questionList) {
 			BteEvalrefquestionEntity ref = new BteEvalrefquestionEntity();
 			ref.setEvalId(evalId);
@@ -81,18 +80,17 @@ public class BteEvaluateServiceImpl extends ServiceImpl<BteEvaluateDao, BteEvalu
 	}
 
 	@Override
-	public String buildQrCode(Integer dataNo, HttpServletRequest httpServletRequest,
-			HttpServletResponse httpServletResponse) throws Exception{
-		String ipAddr = null; 
+	public String buildQrCode(Integer dataNo) throws Exception{
+		String ipAddr = null;
 		// 有公网ip使用公网，没有使用服务器ip
 		if(StringUtils.isNotBlank(ipAddress)) {
 			ipAddr = ipAddress;
 		} else {
-			ipAddr = httpServletRequest.getLocalAddr();
+			ipAddr = request.getLocalAddr();
 		}
 		// 将参数加密
 		String enCode = AesUtils.Encrypt(String.valueOf(dataNo), AesUtils.CKEY);
-		String url = httpServletRequest.getScheme() + "://" + ipAddr  + ":" + clientPort  + "/evac/index.html?evalId=" + enCode;
+		String url = request.getScheme() + "://" + ipAddr  + ":" + clientPort  + "/evac/index.html?evalId=" + enCode;
 		System.out.println("url:" + url);
 		return QrcodeUtil.getBase64QRCode(url, 300, 300);
 	}

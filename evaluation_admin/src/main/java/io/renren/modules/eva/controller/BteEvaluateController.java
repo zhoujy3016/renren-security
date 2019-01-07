@@ -3,14 +3,11 @@ package io.renren.modules.eva.controller;
 import java.util.Arrays;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import io.renren.common.utils.CookieUtils;
+
 import io.renren.common.validator.ValidatorUtils;
 import io.renren.modules.sys.controller.AbstractController;
-import io.renren.modules.sys.entity.SysUserEntity;
-import io.renren.modules.sys.shiro.ShiroUtils;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,7 +41,7 @@ public class BteEvaluateController extends AbstractController {
      */
     @RequestMapping("/list")
     @RequiresPermissions("eva:bteevaluate:list")
-    public R list(@RequestParam Map<String, Object> params, HttpServletRequest request){
+    public R list(@RequestParam Map<String, Object> params){
         PageUtils page = bteEvaluateService.queryPage(params);
         return R.ok().put("page", page);
     }
@@ -98,11 +95,11 @@ public class BteEvaluateController extends AbstractController {
     }
     
     @RequestMapping("/downloadQr/{dataNo}")
-    public R downloadQr(@PathVariable("dataNo") Integer dataNo, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+    public R downloadQr(@PathVariable("dataNo") Integer dataNo) {
     	String base64 = null;
     	try {
 	    	// 生成二维码
-	    	base64 = this.bteEvaluateService.buildQrCode(dataNo, httpServletRequest, httpServletResponse);
+	    	base64 = this.bteEvaluateService.buildQrCode(dataNo);
     	} catch(Exception e) {
     		return R.error(e.toString());
     	}

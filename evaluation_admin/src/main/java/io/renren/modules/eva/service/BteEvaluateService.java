@@ -22,7 +22,7 @@ public interface BteEvaluateService extends IService<BteEvaluateEntity> {
     
     void insertEvaluate(BteEvaluateEntity bteEvaluate);
     
-    String buildQrCode(Integer dataNo, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception;
+    String buildQrCode(Integer dataNo) throws Exception;
     
     void changeEvalState(Integer toState, Integer[] dataNos);
 }

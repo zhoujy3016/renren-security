@@ -32,7 +32,7 @@ public class BteResultServiceImpl extends ServiceImpl<BteResultDao, BteResultEnt
 	private BteEvaluateService bteEvaluateService;
 
 	@Autowired
-	private HttpServletRequest request;
+	private HttpServletResponse response;
 	
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -90,21 +90,21 @@ public class BteResultServiceImpl extends ServiceImpl<BteResultDao, BteResultEnt
 	}
 
 	@Override
-	public void exportResult(Integer evalId, HttpServletResponse httpServletResponse) {
+	public void exportResult(Integer evalId) {
 		// 测评信息
 		BteEvaluateEntity evalEntity = bteEvaluateService.getById(evalId);
 		String excelName = evalEntity.getEvalTitle() + "结果";
 		List<BteResultEntityExt> resultList = this.queryResultList(evalId);
-		ExcelUtils.exportExcel(resultList, excelName, "测评结果", BteResultEntityExt.class, excelName + ".xls", httpServletResponse);
+		ExcelUtils.exportExcel(resultList, excelName, "测评结果", BteResultEntityExt.class, excelName + ".xls", response);
 	}
 
 	@Override
-	public void exportSuggest(Integer evalId, HttpServletResponse httpServletResponse) {
+	public void exportSuggest(Integer evalId) {
 		// 测评信息
 		BteEvaluateEntity evalEntity = bteEvaluateService.getById(evalId);
 		String excelName = evalEntity.getEvalTitle() + "建议";
 		List<BteResultEntitySuggest> resultList = this.baseMapper.querySuggestList(evalId);
-		ExcelUtils.exportExcel(resultList, excelName, "其他建议", BteResultEntitySuggest.class, excelName + ".xls", httpServletResponse);
+		ExcelUtils.exportExcel(resultList, excelName, "其他建议", BteResultEntitySuggest.class, excelName + ".xls", response);
 	}
 
 }
