@@ -27,7 +27,7 @@ public class EvaClientController {
      * @return
      */
     @GetMapping(value="/evalPaper")
-    public R evalPaper(@RequestParam Map<String, Object> params, HttpServletRequest request) {
+    public R evalPaper(@RequestParam Map<String, Object> params) {
         try {
             // 取得加密的测评id号
             String deCode = String.valueOf(params.get("deCode"));
@@ -46,7 +46,7 @@ public class EvaClientController {
      * @return
      */
     @PostMapping(value="/saveEval")
-    public R saveEval(@RequestBody Map<String, Object> resultMap, HttpServletRequest request) {
+    public R saveEval(@RequestBody Map<String, Object> resultMap) {
         R result =  evaluteFeignService.saveEval(resultMap);
         return result;
     }
