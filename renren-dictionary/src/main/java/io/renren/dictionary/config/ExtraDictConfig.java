@@ -15,10 +15,9 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ConditionalOnClass(ExtraDictService.class)
-@EnableAutoConfiguration
 public class ExtraDictConfig {
 	
-	@Bean(initMethod="init", destroyMethod="destroy")
+	@Bean(name = "exDictService", initMethod="init", destroyMethod="destroy")
 	ExtraDictService extraDictService() {
 		return new ExtraDictService();
 	}
