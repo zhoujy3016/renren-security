@@ -10,11 +10,11 @@ import java.util.Map;
 public class EvaluateFeignFallback implements EvaluteFeignService {
     @Override
     public R evalPaper(Integer evalId) {
-        return R.error(303, "连接超时，无法取得测评问卷数据！");
+        return R.error(408, "连接超时，无法取得测评问卷数据！");
     }
 
     @Override
     public R saveEval(Map<String, Object> resultMap) {
-        return R.error(304, "连接超时，无法提交测评问卷数据！");
+        return R.error(408, "连接超时，无法提交测评问卷数据！");
     }
 }
