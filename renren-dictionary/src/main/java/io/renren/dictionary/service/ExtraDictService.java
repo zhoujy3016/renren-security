@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
  * @email zhoujunyi-110@163.com
  * @date 2018-07-12 22:00
  */
-@Service
 public class ExtraDictService {
 	
 	@Autowired(required = false)

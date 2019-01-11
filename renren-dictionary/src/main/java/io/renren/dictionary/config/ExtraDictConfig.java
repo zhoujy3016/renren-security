@@ -1,7 +1,6 @@
 package io.renren.dictionary.config;
 
 import io.renren.dictionary.service.ExtraDictService;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
