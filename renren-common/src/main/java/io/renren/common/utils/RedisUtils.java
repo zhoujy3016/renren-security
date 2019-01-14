@@ -35,15 +35,15 @@ import java.util.concurrent.TimeUnit;
 public class RedisUtils {
     @Autowired
     private RedisTemplate redisTemplate;
-    @Resource(name="valueOperations")
+    @Resource(name="redisTemplate")
     private ValueOperations<String, String> valueOperations;
-    @Resource(name="hashOperations")
+    @Resource(name="redisTemplate")
     private HashOperations<String, String, Object> hashOperations;
-    @Resource(name="listOperations")
+    @Resource(name="redisTemplate")
     private ListOperations<String, Object> listOperations;
-    @Resource(name="setOperations")
+    @Resource(name="redisTemplate")
     private SetOperations<String, Object> setOperations;
-    @Resource(name="zSetOperations")
+    @Resource(name="redisTemplate")
     private ZSetOperations<String, Object> zSetOperations;
     /**  默认过期时长，单位：秒 */
     public final static long DEFAULT_EXPIRE = 60 * 60 * 24;
