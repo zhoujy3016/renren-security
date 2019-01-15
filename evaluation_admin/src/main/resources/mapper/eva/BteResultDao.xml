@@ -40,12 +40,12 @@
 	<select id="queryQuestionResultList" resultMap="bteResultMapExt">
 		SELECT
 		  bq.question_title,
-		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_type_id IN (2,3)) AS evaPersonNum,
-		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_score = 1 AND question_type_id IN (2,3)) AS score1,
-		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_score = 2 AND question_type_id IN (2,3)) AS score2,
-		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_score = 3 AND question_type_id IN (2,3)) AS score3,
-		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_score = 4 AND question_type_id IN (2,3)) AS score4,
-		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_score = 5 AND question_type_id IN (2,3)) AS score5,
+		  (SELECT COUNT(eval_id) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_type_id BETWEEN 2 AND 3) AS evaPersonNum,
+		  (SELECT COUNT(eval_id) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_score = 1 AND question_type_id BETWEEN 2 AND 3) AS score1,
+		  (SELECT COUNT(eval_id) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_score = 2 AND question_type_id BETWEEN 2 AND 3) AS score2,
+		  (SELECT COUNT(eval_id) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_score = 3 AND question_type_id BETWEEN 2 AND 3) AS score3,
+		  (SELECT COUNT(eval_id) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_score = 4 AND question_type_id BETWEEN 2 AND 3) AS score4,
+		  (SELECT COUNT(eval_id) FROM bte_result WHERE  eval_id = #{evalId} AND bq.data_no = question_id AND question_score = 5 AND question_type_id BETWEEN 2 AND 3) AS score5,
 		  (SELECT cast(AVG(question_score) as decimal(10, 1)) FROM bte_result WHERE eval_id = #{evalId} AND bq.data_no = question_id) AS avgScore
 		FROM
 		  bte_question bq,
@@ -54,7 +54,7 @@
 		WHERE bq.data_no = ref.question_id
 		  AND  be.data_no = ref.eval_id
 		  AND be.data_no = #{evalId}
-		  AND bq.question_type_id in (2,3)
+		  AND bq.question_type_id BETWEEN 2 AND 3
 	</select>
 	
 	<!-- 统计测评信息（课程） -->
@@ -65,12 +65,12 @@
 		  blt.type_name AS lesson_type_name,
 		  bl.lesson_teacher_name,
 		  bl.lesson_pid,
-		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bl.data_no = question_id AND question_type_id = 1) AS evaPersonNum,
-		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bl.data_no = question_id AND question_score = 1 AND question_type_id = 1) AS score1,
-		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bl.data_no = question_id AND question_score = 2 AND question_type_id = 1) AS score2,
-		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bl.data_no = question_id AND question_score = 3 AND question_type_id = 1) AS score3,
-		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bl.data_no = question_id AND question_score = 4 AND question_type_id = 1) AS score4,
-		  (SELECT COUNT(*) FROM bte_result WHERE  eval_id = #{evalId} AND bl.data_no = question_id AND question_score = 5 AND question_type_id = 1) AS score5,
+		  (SELECT COUNT(eval_id) FROM bte_result WHERE  eval_id = #{evalId} AND bl.data_no = question_id AND question_type_id = 1) AS evaPersonNum,
+		  (SELECT COUNT(eval_id) FROM bte_result WHERE  eval_id = #{evalId} AND bl.data_no = question_id AND question_score = 1 AND question_type_id = 1) AS score1,
+		  (SELECT COUNT(eval_id) FROM bte_result WHERE  eval_id = #{evalId} AND bl.data_no = question_id AND question_score = 2 AND question_type_id = 1) AS score2,
+		  (SELECT COUNT(eval_id) FROM bte_result WHERE  eval_id = #{evalId} AND bl.data_no = question_id AND question_score = 3 AND question_type_id = 1) AS score3,
+		  (SELECT COUNT(eval_id) FROM bte_result WHERE  eval_id = #{evalId} AND bl.data_no = question_id AND question_score = 4 AND question_type_id = 1) AS score4,
+		  (SELECT COUNT(eval_id) FROM bte_result WHERE  eval_id = #{evalId} AND bl.data_no = question_id AND question_score = 5 AND question_type_id = 1) AS score5,
 		  (SELECT cast(AVG(question_score) as decimal(10, 1)) FROM bte_result WHERE eval_id = #{evalId} AND bl.data_no = question_id) AS avgScore
 		FROM bte_lesson bl
 			LEFT JOIN bte_lesson_type blt on blt.data_no = bl.lesson_type_id
