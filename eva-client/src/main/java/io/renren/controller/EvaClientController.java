@@ -3,7 +3,6 @@ package io.renren.controller;
 import io.renren.common.utils.AesUtils;
 import io.renren.common.utils.R;
 import io.renren.service.EvaluteFeignService;
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
