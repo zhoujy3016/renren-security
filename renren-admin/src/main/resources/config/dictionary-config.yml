@@ -1,5 +1,5 @@
 dictionary:
-    statement: io.renren.modules.sys.dao.SysDictDao.excuteSelectExtraDictSql
+    statement: io.renren.modules.sys.dao.SysDictDao.executeSelectExtraDictSql
     #sys_dict以外需要放入缓存中的数据
     extra-dict:
         ryxx: select info_id as code , info_title as value from tbl_info

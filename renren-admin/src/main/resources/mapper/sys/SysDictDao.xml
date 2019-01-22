@@ -21,7 +21,7 @@
 
 
 	<!-- 查询额外的key value放入字典中 -->
-	<select id="excuteSelectExtraDictSql" parameterType="string" resultMap="dictMap">
+	<select id="executeSelectExtraDictSql" parameterType="string" resultMap="dictMap">
 		${value}
 	</select>
 </mapper>

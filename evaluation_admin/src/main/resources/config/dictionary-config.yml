@@ -1,5 +1,5 @@
 dictionary:
-    statement: io.renren.modules.sys.dao.SysDictDao.excuteSelectExtraDictSql
+    statement: io.renren.modules.sys.dao.SysDictDao.executeSelectExtraDictSql
     #sys_dict以外需要放入缓存中的数据
     extra-dict:
         gglx:  select data_no as code, type_name as value from bte_lesson_type where category_id = 1 and del_flag != -1
