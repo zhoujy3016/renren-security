@@ -2,6 +2,7 @@ package io.renren.dictionary.config;
 
 import io.renren.dictionary.service.ExtraDictService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,7 +16,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConditionalOnClass(ExtraDictService.class)
 public class ExtraDictConfig {
-	
+
+	@ConditionalOnMissingBean
 	@Bean(name = "exDictService", initMethod="init", destroyMethod="destroy")
 	ExtraDictService extraDictService() {
 		return new ExtraDictService();
