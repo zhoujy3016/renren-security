@@ -5,10 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.renren.dictionary.config.DictYmlConfig;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
  * 自定义数据字典service
@@ -18,21 +16,28 @@ import org.springframework.stereotype.Service;
  * @date 2018-07-12 22:00
  */
 public class ExtraDictService {
-	
-	@Autowired(required = false)
-	private DictYmlConfig dictYmlConfig;
-	
+
 	@Autowired
 	private SqlSession sqlSession;
-	
+
+	/**
+	 *	查询sql后，将结果集存放到该map
+	 */
 	private Map<String, Object> extraMap;
+
+	/**
+	 *	存放key与sql语句的map
+	 */
+	private Map<String, String> sqlMap;
+
+	private String statement;
 
 	public Map<String, Object> getExtraMap() {
 		return extraMap;
 	}
 
-	public void setExtraMap(Map<String, Object> extraMap) {
-		this.extraMap = extraMap;
+	public void setStatement(String statement) {
+		this.statement = statement;
 	}
 
 	/**
@@ -40,19 +45,19 @@ public class ExtraDictService {
 	 */
 	private void init() {
 		System.out.println("配置文件形式加载数据字典bean初始化");
-		if(dictYmlConfig != null) {
-			extraMap = new HashMap<>(10);
-			Map<String, String> sqlMap = dictYmlConfig.getExtraDict();
-			System.out.println("####extra-dict start:");
-			// 循环sqlMap， 将每一个key对应的sql语句进行查询，并放入到extraMap中
-			sqlMap.keySet().stream().forEach(key -> collectExtraData(sqlMap, key));
-			System.out.println("####extra-dict end:");
-		}
+		System.out.println("####extra-dict start:");
+		// 循环sqlMap， 将每一个key对应的sql语句进行查询，并放入到extraMap中
+		sqlMap.keySet().stream().forEach(key -> collectExtraData(sqlMap, key));
+		System.out.println("####extra-dict end:");
+	}
+
+	public void addAll(Map<String, String> map) {
+		sqlMap.putAll(map);
 	}
 	
 	public ExtraDictService() {
-		super();
-		
+		extraMap = new HashMap<>(10);
+		sqlMap = new HashMap<>(10);
 	}
 
 	/**
@@ -68,7 +73,7 @@ public class ExtraDictService {
 	 * @return
 	 */
 	public List<?> executeQuery(String sql) {
-		return this.sqlSession.selectList(dictYmlConfig.getStatement(), sql);
+		return this.sqlSession.selectList(this.statement, sql);
 	}
 
 	/**
