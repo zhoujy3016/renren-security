@@ -22,13 +22,14 @@ import org.springframework.core.io.ClassPathResource;
 @Configuration
 @ConditionalOnResource(resources=DictConstant.DICT_CONFIG_PATH)
 @ConfigurationProperties(prefix=DictConstant.DICT_PREFIX)
-public class DictYmlConfig {
+public class DictYmlConfig implements IConfigurationFile{
 	/** 读取配置文件， 存放key与sql语句的map */
 	private Map<String, String> extraDict;
 
 	/** mapper.xml中 namespace.id */
 	private String statement;
 
+	@Override
 	public Map<String, String> getExtraDict() {
 		return extraDict;
 	}
@@ -36,7 +37,8 @@ public class DictYmlConfig {
 	public void setExtraDict(Map<String, String> extraDict) {
 		this.extraDict = extraDict;
 	}
-	
+
+    @Override
 	public String getStatement() {
 		return statement;
 	}
