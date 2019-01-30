@@ -24,7 +24,7 @@ import org.springframework.core.io.ClassPathResource;
 @ConfigurationProperties(prefix=DictConstant.DICT_PREFIX)
 public class DictYmlConfig {
 	/** 读取配置文件， 存放key与sql语句的map */
-	private Map<String, String> extraDict = new HashMap<>();
+	private Map<String, String> extraDict;
 
 	/** mapper.xml中 namespace.id */
 	private String statement;
