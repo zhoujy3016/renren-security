@@ -10,7 +10,7 @@ import java.util.Map;
  * @email zhoujunyi-110@163.com
  * @date 2019-01-30 20:00
  */
-public interface IConfigurationFile {
+public interface IDictionaryConfigurationFile {
 
     /**
      *  返回配置文件中的key与sql对应关系的map

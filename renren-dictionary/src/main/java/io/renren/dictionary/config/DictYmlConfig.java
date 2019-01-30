@@ -1,6 +1,5 @@
 package io.renren.dictionary.config;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import io.renren.dictionary.utils.DictConstant;
@@ -22,7 +21,7 @@ import org.springframework.core.io.ClassPathResource;
 @Configuration
 @ConditionalOnResource(resources=DictConstant.DICT_CONFIG_PATH)
 @ConfigurationProperties(prefix=DictConstant.DICT_PREFIX)
-public class DictYmlConfig implements IConfigurationFile{
+public class DictYmlConfig implements IDictionaryConfigurationFile {
 	/** 读取配置文件， 存放key与sql语句的map */
 	private Map<String, String> extraDict;
 

@@ -19,7 +19,7 @@ public class ExtraDictConfig {
 
 	@ConditionalOnMissingBean
 	@Bean(initMethod = "init", destroyMethod = "destroy")
-	ExtraDictService extraDictService(IConfigurationFile dictYmlConfig) {
+	ExtraDictService extraDictService(IDictionaryConfigurationFile dictYmlConfig) {
 		ExtraDictService extraDictService = new ExtraDictService();
 		extraDictService.setStatement(dictYmlConfig.getStatement());
         extraDictService.addAll(dictYmlConfig.getExtraDict());
