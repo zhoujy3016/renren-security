@@ -8,6 +8,9 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 /**
  * 自定义数据字典service
  *
@@ -43,6 +46,7 @@ public class ExtraDictService {
 	/**
 	 * init方法
 	 */
+	@PostConstruct
 	private void init() {
 		System.out.println("配置文件形式加载数据字典bean初始化");
 		System.out.println("####extra-dict start:");
@@ -52,7 +56,9 @@ public class ExtraDictService {
 	}
 
 	public void addAll(Map<String, String> map) {
-		sqlMap.putAll(map);
+		if(map != null) {
+			sqlMap.putAll(map);
+		}
 	}
 	
 	public ExtraDictService() {
@@ -63,6 +69,7 @@ public class ExtraDictService {
 	/**
 	 * destroy
 	 */
+	@PreDestroy
 	private void destroy() {
 		System.out.println("配置文件形式加载数据字典bean销毁");
 	}

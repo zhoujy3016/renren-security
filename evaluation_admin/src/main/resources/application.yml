@@ -92,3 +92,6 @@ logging:
 
 #皮肤 AdminLTE & Layui
 skin: AdminLTE
+
+#是否使默认数据字典yml
+#use-dict-yml-default: true

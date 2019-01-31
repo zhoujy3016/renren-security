@@ -4,11 +4,17 @@ import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 
-public class DictionaryCondition implements Condition {
+public class DictYmlCondition implements Condition {
 
 	@Override
 	public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-		return context.getEnvironment().getProperty("extra-dict-open").equals("true");
+		String str = context.getEnvironment().getProperty("use-dict-yml-default");
+		// 配置文件中，没有此项定义，默认为true
+		if(str == null) {
+			return true;
+		} else {
+			return str.equals("true");
+		}
 	}
 
 }

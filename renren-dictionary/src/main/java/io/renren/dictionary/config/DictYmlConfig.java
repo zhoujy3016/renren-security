@@ -2,11 +2,13 @@ package io.renren.dictionary.config;
 
 import java.util.Map;
 
+import io.renren.dictionary.conditional.DictYmlCondition;
 import io.renren.dictionary.utils.DictConstant;
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnResource;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.ClassPathResource;
@@ -18,7 +20,8 @@ import org.springframework.core.io.ClassPathResource;
  * @email zhoujunyi-110@163.com
  * @date 2018-07-12 22:00
  */
-@Configuration
+@Configuration("DictYmlConfig")
+@Conditional(DictYmlCondition.class)
 @ConditionalOnResource(resources=DictConstant.DICT_CONFIG_PATH)
 @ConfigurationProperties(prefix=DictConstant.DICT_PREFIX)
 public class DictYmlConfig implements IDictionaryConfigurationFile {
