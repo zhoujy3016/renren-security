@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Order(1)
 public class DictionaryRunner implements CommandLineRunner {
     @Autowired
-    private DictComponent  dictComponent;
+    private DictComponent dictComponent;
 
     @Override
     public void run(String... args) throws Exception {
