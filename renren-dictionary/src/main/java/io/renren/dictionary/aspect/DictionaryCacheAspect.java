@@ -9,7 +9,7 @@ import io.renren.common.utils.MapUtils;
 import io.renren.dictionary.utils.DictConstant;
 import org.apache.commons.lang.StringUtils;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -41,11 +41,12 @@ public class DictionaryCacheAspect {
     DictComponent dictComponent;
 
     @Pointcut("@annotation(io.renren.dictionary.annotation.DictionaryCache)")
-    public void dataFilterCut() {
+    public void dictUpdatePointCut() {
 
     }
 
-    @After("dataFilterCut()")
+
+    @AfterReturning("dictUpdatePointCut()") // 目标方法抛异常之后不调用AfterReturning
     public void dataFilter(JoinPoint point) throws Throwable {
         MethodSignature signature = (MethodSignature) point.getSignature();
         DictionaryCache dataFilter = signature.getMethod().getAnnotation(DictionaryCache.class);
