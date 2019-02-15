@@ -18,9 +18,13 @@ public class FiledFillHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
         try {
-            FiledFill filedFill = (FiledFill) metaObject.getOriginalObject();
-            Map<String, Object> fillMap = filedFill.insertFill();
-            setFiledVal(fillMap, metaObject);
+            Object entity = metaObject.getOriginalObject();
+            if(entity instanceof FiledFill) {
+                FiledFill filedFill = (FiledFill) entity;
+                Map<String, Object> fillMap = filedFill.insertFill();
+                setFiledVal(fillMap, metaObject);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -30,9 +34,12 @@ public class FiledFillHandler implements MetaObjectHandler {
     public void updateFill(MetaObject metaObject) {
         try {
             Map<String, Object> map = (Map<String, Object>) metaObject.getOriginalObject();
-            FiledFill filedFill = (FiledFill)map.get("param1");
-            Map<String, Object> fillMap = filedFill.updateFill();
-            setFiledVal(fillMap, metaObject);
+            Object entity = map.get("param1");
+            if(entity instanceof  FiledFill) {
+                FiledFill filedFill = (FiledFill)entity;
+                Map<String, Object> fillMap = filedFill.updateFill();
+                setFiledVal(fillMap, metaObject);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
