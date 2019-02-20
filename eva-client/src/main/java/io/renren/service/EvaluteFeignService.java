@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.Map;
 
-@FeignClient(name="eva-admin", url = "http://${eva.ip}:${eva.port}/eva/home", configuration = FeignConfiguration.class, fallback = EvaluateFeignFallback.class)
+@FeignClient(name="eva-admin", path = "/eva/home", configuration = FeignConfiguration.class, fallback = EvaluateFeignFallback.class)
 public interface EvaluteFeignService {
 
     /**
