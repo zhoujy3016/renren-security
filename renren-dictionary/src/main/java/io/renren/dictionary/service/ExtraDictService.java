@@ -51,7 +51,7 @@ public class ExtraDictService {
 		System.out.println("配置文件形式加载数据字典bean初始化");
 		System.out.println("####extra-dict start:");
 		// 循环sqlMap， 将每一个key对应的sql语句进行查询，并放入到extraMap中
-		sqlMap.keySet().stream().forEach(key -> collectExtraData(sqlMap, key));
+		sqlMap.keySet().stream().forEach(key -> collectExtraData(key, sqlMap.get(key)));
 		System.out.println("####extra-dict end:");
 	}
 
@@ -85,11 +85,9 @@ public class ExtraDictService {
 
 	/**
 	 * 额外数据字典查询，并放入到extraMap中
-	 * @param sqlMap
 	 * @param key
 	 */
-	private void collectExtraData(Map<String, String> sqlMap, String key) {
-		String sql = sqlMap.get(key);
+	private void collectExtraData(String key, String sql) {
 		List<?> extraDictList = this.executeQuery(sql);
 		extraMap.put(key, extraDictList);
 	}
