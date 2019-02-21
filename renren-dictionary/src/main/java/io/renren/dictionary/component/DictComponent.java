@@ -45,7 +45,7 @@ public class DictComponent {
 	 * 一个集合，通过type分组，生成一个map
 	 * @param list
 	 */
-    public Map<String, List<Map<String, Object>>> getMapByGroup(List<Map<String, Object>> list) {
+    private Map<String, List<Map<String, Object>>> getMapByGroup(List<Map<String, Object>> list) {
     	return list.stream().collect(Collectors.groupingBy(map-> (String)map.get(DictConstant.DICT_TYPE)));
 	}
     
