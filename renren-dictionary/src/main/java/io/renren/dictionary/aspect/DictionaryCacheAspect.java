@@ -7,7 +7,7 @@ import io.renren.common.exception.RRException;
 import io.renren.dictionary.service.ExtraDictService;
 import io.renren.common.utils.MapUtils;
 import io.renren.dictionary.utils.DictConstant;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.ArrayUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -46,7 +46,13 @@ public class DictionaryCacheAspect {
     }
 
 
-    @AfterReturning("dictUpdatePointCut()") // 目标方法抛异常之后不调用AfterReturning
+    /**
+     * 目标方法更新之后对数据字典缓存进行更新操作
+     * 目标方法抛异常之后不调用AfterReturning
+     * @param point
+     * @throws Throwable
+     */
+    @AfterReturning("dictUpdatePointCut()")
     public void dataFilter(JoinPoint point) throws Throwable {
         MethodSignature signature = (MethodSignature) point.getSignature();
         DictionaryCache dataFilter = signature.getMethod().getAnnotation(DictionaryCache.class);
@@ -57,7 +63,7 @@ public class DictionaryCacheAspect {
             if (dicType == DictConstant.DictOperation.T_NORMAL) {
                 updateDictionaryCache(dataFilter, param);
             } else { // 自定义数据字典类型(DictOperationType.T_EXTRA)
-                updateExtraDictCache(dataFilter, param);
+                updateExtraDictCache(dataFilter);
             }
         } else {
             throw new RRException("数据字典操作接口参数，不能为NULL");
@@ -109,14 +115,12 @@ public class DictionaryCacheAspect {
     /**
      * 更新额外的数据字典缓存
      * @param dataFilter
-     * @param param
      */
-    private void updateExtraDictCache(DictionaryCache dataFilter, Object param) {
-        String strKeys = dataFilter.dictKey();
-        if(StringUtils.isEmpty(strKeys)) {
+    private void updateExtraDictCache(DictionaryCache dataFilter) {
+        String[] arrKeys = dataFilter.dictKey();
+        if(ArrayUtils.isEmpty(arrKeys)) {
             throw new RRException("数据字典参数为NULL，请指定key");
         }
-        String[] arrKeys = strKeys.split(",");
         Map<String, Object> extraMap = new HashMap<>(10);
         // 配置文件中取得sql
         Map<String, String> sqlMap = dictYmlConfig.getExtraDict();

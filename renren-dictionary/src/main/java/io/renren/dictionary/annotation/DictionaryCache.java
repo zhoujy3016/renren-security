@@ -19,7 +19,7 @@ import java.lang.annotation.*;
 public @interface DictionaryCache {
 
 	// 需要更新的数据字典key
-	String dictKey() default "";
+	String[] dictKey() default {};
 	// 操作：增、删、改
 	DictConstant.DictOperation operation() default DictConstant.DictOperation.OP_INSERT;
 	// 数据字典：常规、额外
