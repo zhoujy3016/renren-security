@@ -1,3 +1,4 @@
+<!-- 下拉菜单 -->
 <#macro select id="" class="" model="" cacheId="" onChange="">
     <select id="${id}" class="${class}" v-model="${model}" @change="${onChange}">
             <@dictCache id="${cacheId}">
@@ -9,4 +10,17 @@
                 </#if>
             </@dictCache>
     </select>
+</#macro>
+
+<!-- radio -->
+<#macro radio name="" labelClass="" model="" cacheId="">
+    <@dictCache id="${cacheId}">
+        <#if dictList?? && (dictList?size > 0) >
+            <#list dictList as dict>
+                <label class="${labelClass}">
+                    <input type="radio" name="${name}" value="${dict.code}"  v-model="${model}"/> ${dict.value}
+                </label>
+            </#list>
+        </#if>
+    </@dictCache>
 </#macro>
