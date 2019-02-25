@@ -1,0 +1,11 @@
+<#macro radio name="" labelClass="" model="" cacheId="">
+    <@dictCache id="${cacheId}">
+        <#if dictList?? && (dictList?size > 0) >
+            <#list dictList as dict>
+                <label class="${labelClass}">
+                    <input type="radio" name="${name}" value="${dict.code}"  v-model="${model}"/> ${dict.value}
+                </label>
+            </#list>
+        </#if>
+    </@dictCache>
+</#macro>
