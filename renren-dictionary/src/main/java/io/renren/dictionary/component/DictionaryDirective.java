@@ -8,6 +8,7 @@ import io.renren.dictionary.utils.DictConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,8 @@ import java.util.Map;
 
 @Component
 public class DictionaryDirective implements TemplateDirectiveModel {
+    @Autowired
+    private freemarker.template.Configuration configuration;
 
     @Autowired
     private DictComponent dictComponent;
@@ -37,5 +40,11 @@ public class DictionaryDirective implements TemplateDirectiveModel {
     public static BeansWrapper getBeansWrapper() {
         BeansWrapper beansWrapper = new BeansWrapperBuilder(Configuration.VERSION_2_3_28).build();
         return beansWrapper;
+    }
+
+    @PostConstruct
+    public void setSharedVariable() {
+        // 标签名
+        configuration.setSharedVariable(DictConstant.TAG_CACHE, this);
     }
 }

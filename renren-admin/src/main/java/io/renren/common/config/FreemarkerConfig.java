@@ -16,15 +16,11 @@
 
 package io.renren.common.config;
 
-import io.renren.dictionary.component.DictionaryDirective;
-import io.renren.dictionary.utils.DictConstant;
 import io.renren.modules.sys.shiro.ShiroTag;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
-import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -37,13 +33,6 @@ import java.util.Properties;
  */
 @Configuration
 public class FreemarkerConfig {
-
-    @Autowired
-    private freemarker.template.Configuration configuration;
-
-    @Autowired
-    private DictionaryDirective dictionaryDirective;
-
     @Bean
     public FreeMarkerConfigurer freeMarkerConfigurer(ShiroTag shiroTag){
         FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
@@ -58,11 +47,4 @@ public class FreemarkerConfig {
         configurer.setFreemarkerSettings(settings);
         return configurer;
     }
-
-    @PostConstruct
-    public void setSharedVariable() {
-        // 标签名
-        configuration.setSharedVariable(DictConstant.TAG_CACHE, dictionaryDirective);
-    }
-
 }
