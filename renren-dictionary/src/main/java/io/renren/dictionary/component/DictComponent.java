@@ -54,7 +54,7 @@ public class DictComponent {
      * @param dictMapGroup
      */
     private void loadDictDataToRedis(Map<String, List<Map<String, Object>>> dictMapGroup) {
-		dictMapGroup.keySet().stream().forEach(key -> setDictMapToRedis(key, dictMapGroup.get(key)));
+    	dictMapGroup.forEach((k, v)-> setDictMapToRedis(k, v));
     }
     
     /**
@@ -116,8 +116,7 @@ public class DictComponent {
      */
     private void loadExtraDictDataToRedis(Map<String, Object> extraMap) {
     	if(extraMap != null) {
-			extraMap.keySet().stream()
-                    .forEach(key -> setExtraMapToRedis(key, extraMap));
+			extraMap.forEach((k, v) -> this.redisUtils.set(DictConstant.getDictionaryKey(k), v, RedisUtils.NOT_EXPIRE));
 		}
     }
 
@@ -147,17 +146,4 @@ public class DictComponent {
 		List list = redisUtils.get(DictConstant.getDictionaryKey(type), ArrayList.class);
 		resultMap.put(type, list);
 	}
-
-
-	/**
-	 * 将extra数据字典set到redis中
-	 * @param key
-	 * @param extraMap
-	 */
-	private void setExtraMapToRedis(String key, Map<String, Object> extraMap) {
-		// ArrayList类型
-		Object list = extraMap.get(key);
-		this.redisUtils.set(DictConstant.getDictionaryKey(key), list, RedisUtils.NOT_EXPIRE);
-	}
-
 }
