@@ -71,8 +71,6 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictDao, SysDictEntity> i
 		Map<String, List<Map<String, Object>>> dictMapGroup = new HashMap<>(5);
 		sysDictEntityList.stream()
 				.map(SysDictEntity::getType)
-				.collect(Collectors.toList())
-				.stream()
 				.forEach(type -> dictMapGroup.put(type, this.baseMapper.selectMaps(new QueryWrapper<SysDictEntity>().eq("type", type))));
 		return dictMapGroup;
 	}
