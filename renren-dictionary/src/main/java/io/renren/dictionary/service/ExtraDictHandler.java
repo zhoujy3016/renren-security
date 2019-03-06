@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 其他业务表数据字典更新操作类
@@ -36,12 +37,11 @@ public class ExtraDictHandler implements IDictHandler {
         if(ArrayUtils.isEmpty(arrKeys)) {
             throw new RRException("数据字典参数为NULL，请指定key");
         }
-        Map<String, Object> extraMap = new HashMap<>(10);
         // 配置文件中取得sql
         Map<String, String> sqlMap = dictYmlConfig.getExtraDict();
-        Arrays.stream(arrKeys)
+        Map<String, Object> extraMap  = Arrays.stream(arrKeys)
                 .map(String::trim)
-                .forEach(key-> extraMap.put(key, extraDictService.executeQuery(sqlMap.get(key))));
+                .collect(Collectors.toMap(key -> key, key -> extraDictService.executeQuery(sqlMap.get(key))));
         dictComponent.reloadExtraCacheData(extraMap);
     }
 }

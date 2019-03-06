@@ -52,7 +52,7 @@ public class DictComponent {
      * @param dictMapGroup
      */
     private void loadDictDataToRedis(Map<String, List<Map<String, Object>>> dictMapGroup) {
-    	dictMapGroup.forEach((k, v)-> setDictMapToRedis(k, v));
+    	dictMapGroup.forEach((k, v) -> setDictMapToRedis(k, v));
     }
     
     /**
@@ -61,10 +61,9 @@ public class DictComponent {
      * @return
      */
     public Map<String, Object> getDictCacheDataByTypes(String types) {
-    	Map<String, Object> resultMap = new HashMap<>(20);
-		Arrays.stream(types.split(","))
+		Map<String, Object> resultMap = Arrays.stream(types.split(","))
 				.map(String::trim)
-				.forEach(type -> getDictMapFromRedis(type, resultMap));
+				.collect(Collectors.toMap(type -> type, type -> redisUtils.get(DictConstant.getDictionaryKey(type), ArrayList.class)));
     	return resultMap;
     }
 
@@ -121,15 +120,5 @@ public class DictComponent {
 	private void setDictMapToRedis(String type, List<Map<String, Object>> list) {
 		this.redisUtils.delete(DictConstant.getDictionaryKey(type));
 		this.redisUtils.set(DictConstant.getDictionaryKey(type), list, RedisUtils.NOT_EXPIRE);
-	}
-
-	/**
-	 * 根据type从redis中取得List，put到结果map中
-	 * @param type
-	 * @param resultMap
-	 */
-	private void getDictMapFromRedis(String type, Map<String, Object> resultMap) {
-		List list = redisUtils.get(DictConstant.getDictionaryKey(type), ArrayList.class);
-		resultMap.put(type, list);
 	}
 }
