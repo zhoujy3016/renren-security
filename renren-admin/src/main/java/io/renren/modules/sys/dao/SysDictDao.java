@@ -18,7 +18,6 @@ package io.renren.modules.sys.dao;
 
 
 import java.util.List;
-import java.util.Map;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import io.renren.modules.sys.entity.SysDictEntity;
@@ -35,5 +34,5 @@ public interface SysDictDao extends BaseMapper<SysDictEntity> {
      * @param ids
      * @return
      */
-    List<Map<String, Object>> getSysDictEntityGroupByType(Long[] ids);
+    List<SysDictEntity> getSysDictEntityGroupByType(Long[] ids);
 }

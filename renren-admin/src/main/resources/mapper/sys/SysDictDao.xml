@@ -10,7 +10,7 @@
 		<result column="value" property="value" javaType="String"/>
 	</resultMap>
 
-	<select id="getSysDictEntityGroupByType" resultMap="dictMap">
+	<select id="getSysDictEntityGroupByType" resultType="io.renren.modules.sys.entity.SysDictEntity">
 		select type from sys_dict where del_flag = -1 AND id in
 		<foreach item="ids" collection="array" open="(" separator="," close=")">
 			#{ids}
