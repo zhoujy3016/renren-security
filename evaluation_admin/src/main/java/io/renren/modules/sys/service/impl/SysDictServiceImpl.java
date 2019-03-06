@@ -67,13 +67,13 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictDao, SysDictEntity> i
 
 	@Override
 	public Map<String, List<Map<String, Object>>> getSysDictEntityAfterDelete(Long[] ids) {
-		List<Map<String, Object>> sysDictEntityMap = this.baseMapper.getSysDictEntityGroupByType(ids);
-		// 提取type集合
-		List<String> typeList = sysDictEntityMap.stream().map(dictMap -> (String)dictMap.get(DictConstant.DICT_TYPE)).collect(Collectors.toList());
-		Map<String, List<Map<String, Object>>> dictMapGroup = new HashMap<>(typeList.size());
-		typeList.stream().forEach(type -> {
-			dictMapGroup.put(type, this.baseMapper.selectMaps(new QueryWrapper<SysDictEntity>().eq("type", type)));
-		});
+		List<SysDictEntity> sysDictEntityList = this.baseMapper.getSysDictEntityGroupByType(ids);
+		Map<String, List<Map<String, Object>>> dictMapGroup = new HashMap<>(5);
+		sysDictEntityList.stream()
+				.map(SysDictEntity::getType)
+				.collect(Collectors.toList())
+				.stream()
+				.forEach(type -> dictMapGroup.put(type, this.baseMapper.selectMaps(new QueryWrapper<SysDictEntity>().eq("type", type))));
 		return dictMapGroup;
 	}
 
