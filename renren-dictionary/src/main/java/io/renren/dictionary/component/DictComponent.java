@@ -33,10 +33,8 @@ public class DictComponent {
      * 系统初始化加载数据字典缓存
      */
     public void initDictCacheData() {
-		// 根据type分组，生成一个新的map
-		Map<String, List<Map<String, Object>>> dictMapGroup = getMapByGroup(this.sysDictService.getAllSysDictEntity());
 		// 数据字典载入到redis
-		loadDictDataToRedis(dictMapGroup);
+		loadDictDataToRedis(getMapByGroup(this.sysDictService.getAllSysDictEntity()));
 		// 额外的数据字典载入到redis
 		loadExtraDictDataToRedis(this.extraDictService.getExtraMap());
     }
@@ -99,18 +97,6 @@ public class DictComponent {
 		loadDictDataToRedis(dictMapGroup);
     }
 
-    /**
-     * list第一位存放一个空值
-     * @param dictMapList
-     */
-    @Deprecated
-    private void insertEmpty(List<Map<String, Object>> dictMapList) {
-    	Map<String, Object> emptyMap = new HashMap<>(2);
-		emptyMap.put(DictConstant.DICT_CODE, StringUtils.EMPTY);
-		emptyMap.put(DictConstant.DICT_TYPE, StringUtils.EMPTY);
-		dictMapList.add(0, emptyMap);
-    }
-    
     /**
      * 将配置文件中针对特殊的表需要放入数据字典的map,放入redis 数据字典缓存中
      */
