@@ -34,5 +34,5 @@ public interface SysDictDao extends BaseMapper<SysDictEntity> {
      * @param ids
      * @return
      */
-    List<SysDictEntity> getSysDictEntityGroupByType(Long[] ids);
+    List<SysDictEntity> getSysDictEntityByIds(Long[] ids);
 }

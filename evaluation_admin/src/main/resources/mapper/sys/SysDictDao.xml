@@ -10,12 +10,18 @@
 		<result column="value" property="value" javaType="String"/>
 	</resultMap>
 
-	<select id="getSysDictEntityGroupByType" resultType="io.renren.modules.sys.entity.SysDictEntity">
-		select type from sys_dict where del_flag = -1 AND id in
+	<select id="getSysDictEntityByIds" resultType="io.renren.modules.sys.entity.SysDictEntity">
+		SELECT sys_dict.id,
+		sys_dict.code,
+		sys_dict.name,
+		sys_dict.type,
+		sys_dict.value
+		FROM sys_dict
+		WHERE sys_dict.del_flag = -1
+		AND sys_dict.id in
 		<foreach item="ids" collection="array" open="(" separator="," close=")">
 			#{ids}
 		</foreach>
-		group by type
 	</select>
 
 
