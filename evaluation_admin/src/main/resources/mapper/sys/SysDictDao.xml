@@ -10,7 +10,7 @@
 		<result column="value" property="value" javaType="String"/>
 	</resultMap>
 
-	<select id="getSysDictEntityByIds" resultType="io.renren.modules.sys.entity.SysDictEntity">
+	<select id="getDeletedDictEntityByIds" resultType="io.renren.modules.sys.entity.SysDictEntity">
 		SELECT sys_dict.id,
 		sys_dict.code,
 		sys_dict.name,

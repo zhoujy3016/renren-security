@@ -68,7 +68,7 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictDao, SysDictEntity> i
 	@Override
 	public Map<String, List<Map<String, Object>>> getSysDictEntityAfterDelete(Long[] ids) {
     	// 查询删除的实体
-		List<SysDictEntity> sysDictEntityList = this.baseMapper.getSysDictEntityByIds(ids);
+		List<SysDictEntity> sysDictEntityList = this.baseMapper.getDeletedDictEntityByIds(ids);
 		Map<String, List<Map<String, Object>>> dictMapGroup = new HashMap<>(5);
 		// type去重复，重新查询并放入相应的key中
 		sysDictEntityList.stream()
