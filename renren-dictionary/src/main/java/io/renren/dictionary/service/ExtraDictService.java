@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,22 +28,16 @@ public class ExtraDictService {
 	/**
 	 *	查询sql后，将结果集存放到该map
 	 */
+	@Getter
 	private Map<String, Object> extraMap;
+
+	@Setter
+	private String statement;
 
 	/**
 	 *	存放key与sql语句的map
 	 */
 	private Map<String, String> sqlMap;
-
-	private String statement;
-
-	public Map<String, Object> getExtraMap() {
-		return extraMap;
-	}
-
-	public void setStatement(String statement) {
-		this.statement = statement;
-	}
 
 	/**
 	 * init方法

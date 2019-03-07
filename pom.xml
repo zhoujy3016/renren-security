@@ -46,6 +46,7 @@
         <easypoi.base.version>3.0.3</easypoi.base.version>
         <easypoi.web.version>3.0.3</easypoi.web.version>
         <easypoi.annotation.version>3.0.3</easypoi.annotation.version>
+        <lombok.version>1.18.4</lombok.version>
     </properties>
 
     <dependencies>
@@ -174,6 +175,11 @@
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-typehandlers-jsr310</artifactId>
             <version>${mybatis.typehandlers.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
         </dependency>
     </dependencies>
 

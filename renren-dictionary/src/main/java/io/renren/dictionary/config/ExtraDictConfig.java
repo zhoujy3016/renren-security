@@ -20,8 +20,7 @@ import org.springframework.context.annotation.Configuration;
 public class ExtraDictConfig {
 
 	@Autowired(required = false)
-	@Qualifier("DictYmlConfig")
-	private IDictionaryConfigurationFile dictYmlConfig;
+	private DictYmlConfig dictYmlConfig;
 
 	@Bean
 	@ConditionalOnMissingBean
