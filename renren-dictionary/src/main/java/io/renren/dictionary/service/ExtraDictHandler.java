@@ -6,11 +6,8 @@ import io.renren.dictionary.component.DictComponent;
 import io.renren.dictionary.config.DictYmlConfig;
 import org.apache.commons.lang.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 

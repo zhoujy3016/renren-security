@@ -4,7 +4,6 @@ import java.util.Map;
 
 import io.renren.dictionary.conditional.DictYmlCondition;
 import io.renren.dictionary.utils.DictConstant;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;

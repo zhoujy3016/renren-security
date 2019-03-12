@@ -4,7 +4,6 @@ import io.renren.common.utils.RedisUtils;
 import io.renren.dictionary.service.ExtraDictService;
 import io.renren.dictionary.service.IDictService;
 import io.renren.dictionary.utils.DictConstant;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

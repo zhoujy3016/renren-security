@@ -5,9 +5,7 @@ import io.renren.dictionary.annotation.DictionaryCache;
 import io.renren.dictionary.component.DictComponent;
 import io.renren.dictionary.utils.DictConstant;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.util.Map;
 
 /**

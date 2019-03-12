@@ -3,8 +3,6 @@ package io.renren.dictionary.aspect;
 import io.renren.common.utils.SpringContextUtils;
 import io.renren.dictionary.annotation.DictionaryCache;
 import io.renren.common.exception.RRException;
-import io.renren.dictionary.service.DictHandler;
-import io.renren.dictionary.service.ExtraDictHandler;
 import io.renren.dictionary.service.IDictHandler;
 import io.renren.dictionary.utils.DictConstant;
 import org.aspectj.lang.JoinPoint;
@@ -12,7 +10,6 @@ import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
