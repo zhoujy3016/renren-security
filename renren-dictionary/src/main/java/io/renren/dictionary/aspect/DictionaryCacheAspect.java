@@ -26,17 +26,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class DictionaryCacheAspect {
 
-//    @Autowired
-//    private DictHandler dictHandler;
-//
-//    @Autowired
-//    private ExtraDictHandler extraDictHandler;
-
     @Pointcut("@annotation(io.renren.dictionary.annotation.DictionaryCache)")
     public void dictUpdatePointCut() {
 
     }
-
 
     /**
      * 目标方法更新之后对数据字典缓存进行更新操作
@@ -52,7 +45,7 @@ public class DictionaryCacheAspect {
         // 数据字典类型：常规，额外
         DictConstant.DictOperation dicType = dataFilter.dictType();
         if(param != null) {
-            String beanName = null;
+            String beanName;
             if (dicType == DictConstant.DictOperation.T_NORMAL) {
                 beanName = "dictHandler";
             } else { // 自定义数据字典类型(DictOperationType.T_EXTRA)
