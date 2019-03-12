@@ -8,6 +8,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +21,6 @@ import java.util.stream.Collectors;
  * @email zhoujunyi-110@163.com
  * @date 2019-01-30 20:00
  */
-@Component
 public class ExtraDictHandler implements IDictHandler {
     @Autowired
     private ExtraDictService extraDictService;

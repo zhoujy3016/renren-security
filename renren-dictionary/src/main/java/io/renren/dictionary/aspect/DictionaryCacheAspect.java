@@ -1,5 +1,6 @@
 package io.renren.dictionary.aspect;
 
+import io.renren.common.utils.SpringContextUtils;
 import io.renren.dictionary.annotation.DictionaryCache;
 import io.renren.common.exception.RRException;
 import io.renren.dictionary.service.DictHandler;
@@ -25,11 +26,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class DictionaryCacheAspect {
 
-    @Autowired
-    private DictHandler dictHandler;
-
-    @Autowired
-    private ExtraDictHandler extraDictHandler;
+//    @Autowired
+//    private DictHandler dictHandler;
+//
+//    @Autowired
+//    private ExtraDictHandler extraDictHandler;
 
     @Pointcut("@annotation(io.renren.dictionary.annotation.DictionaryCache)")
     public void dictUpdatePointCut() {
@@ -51,12 +52,14 @@ public class DictionaryCacheAspect {
         // 数据字典类型：常规，额外
         DictConstant.DictOperation dicType = dataFilter.dictType();
         if(param != null) {
-            IDictHandler handler;
+            String beanName = null;
             if (dicType == DictConstant.DictOperation.T_NORMAL) {
-                handler = dictHandler;
+                beanName = "dictHandler";
             } else { // 自定义数据字典类型(DictOperationType.T_EXTRA)
-                handler = extraDictHandler;
+                beanName = "extraDictHandler";
             }
+            IDictHandler handler = (IDictHandler) SpringContextUtils.getBean(beanName);
+            // 对redis进行同步更新操作
             handler.updateDictionaryCache(dataFilter, param);
         } else {
             throw new RRException("数据字典操作接口参数，不能为NULL");

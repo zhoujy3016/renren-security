@@ -7,6 +7,7 @@ import io.renren.dictionary.utils.DictConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.Map;
 
 /**
@@ -16,7 +17,6 @@ import java.util.Map;
  * @email zhoujunyi-110@163.com
  * @date 2019-01-30 20:00
  */
-@Component
 public class DictHandler implements IDictHandler {
     @Autowired
     DictComponent dictComponent;
