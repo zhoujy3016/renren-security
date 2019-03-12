@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 用户Token
+ * freemarker标签配置类
  *
  * @author zhoujy
  * @email
