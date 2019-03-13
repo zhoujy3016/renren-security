@@ -3,6 +3,7 @@ package io.renren.dictionary.config;
 import io.renren.dictionary.service.DictHandler;
 import io.renren.dictionary.service.ExtraDictHandler;
 import io.renren.dictionary.service.ExtraDictService;
+import io.renren.dictionary.service.IDictHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -30,14 +31,14 @@ public class DictionaryConfig {
 		return extraDictService;
 	}
 
-	@Bean
 	@Lazy
+	@Bean(name = IDictHandler.DICT_HANDLER)
 	DictHandler dictHandler() {
 		return new DictHandler();
 	}
 
-	@Bean
 	@Lazy
+	@Bean(name = IDictHandler.EXTRA_DICT_HANDLER)
 	ExtraDictHandler extraDictHandler() {
 		return new ExtraDictHandler();
 	}

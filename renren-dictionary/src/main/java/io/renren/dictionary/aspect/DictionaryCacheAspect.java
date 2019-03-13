@@ -44,11 +44,11 @@ public class DictionaryCacheAspect {
         if(param != null) {
             String beanName;
             if (dicType == DictConstant.DictOperation.T_NORMAL) {
-                beanName = "dictHandler";
+                beanName = IDictHandler.DICT_HANDLER;
             } else { // 自定义数据字典类型(DictOperationType.T_EXTRA)
-                beanName = "extraDictHandler";
+                beanName = IDictHandler.EXTRA_DICT_HANDLER;
             }
-            IDictHandler handler = (IDictHandler) SpringContextUtils.getBean(beanName);
+            IDictHandler handler = SpringContextUtils.getBean(beanName, IDictHandler.class);
             // 对redis进行同步更新操作
             handler.updateDictionaryCache(dataFilter, param);
         } else {
