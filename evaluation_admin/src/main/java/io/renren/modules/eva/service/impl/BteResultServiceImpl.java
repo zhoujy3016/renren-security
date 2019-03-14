@@ -57,9 +57,7 @@ public class BteResultServiceImpl extends ServiceImpl<BteResultDao, BteResultEnt
 	@Transactional(rollbackFor=Exception.class)
 	public void insertResultBatch(Map<String, Object> resultMap) {
 		List<BteResultEntity> resultList = new ArrayList<>();
-		resultMap.keySet().stream()
-				.map(key->(Map<String, Object>)resultMap.get(key))
-				.forEach(map -> resultList.add(this.makeResultEntity(map)));
+		resultMap.forEach((k, v) -> resultList.add(this.makeResultEntity((Map<String, Object>)v)));
 		// 批量插入结果
 		this.saveBatch(resultList);
 	}
