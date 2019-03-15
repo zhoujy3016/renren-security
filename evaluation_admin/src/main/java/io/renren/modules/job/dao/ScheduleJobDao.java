@@ -33,5 +33,5 @@ public interface ScheduleJobDao extends BaseMapper<ScheduleJobEntity> {
 	/**
 	 * 批量更新状态
 	 */
-	int updateBatch(@Param("params") Map<String, Object> map);
+	int updateBatch(Map<String, Object> map);
 }
