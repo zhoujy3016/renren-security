@@ -1,4 +1,5 @@
 dictionary:
+    cache-type: cache_redis
     statement: io.renren.modules.sys.dao.SysDictDao.executeSelectExtraDictSql
     #sys_dict以外需要放入缓存中的数据
     extra-dict:

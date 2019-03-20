@@ -1,6 +1,5 @@
 package io.renren.dictionary.component;
 
-import io.renren.common.utils.RedisUtils;
 import io.renren.dictionary.service.ExtraDictService;
 import io.renren.dictionary.service.IDictService;
 import io.renren.dictionary.utils.DictConstant;
@@ -21,12 +20,12 @@ import java.util.stream.Collectors;
 public class DictComponent {
     @Autowired
     private IDictService sysDictService;
-	
-    @Autowired
-    private RedisUtils redisUtils;
-	
+
     @Autowired
     private ExtraDictService extraDictService;
+
+    @Autowired
+    private CacheController cacheController;
 
 	/**
      * 系统初始化加载数据字典缓存
@@ -62,7 +61,7 @@ public class DictComponent {
     public Map<String, Object> getDictCacheDataByTypes(String types) {
 		Map<String, Object> resultMap = Arrays.stream(types.split(","))
 				.map(String::trim)
-				.collect(Collectors.toMap(type -> type, type -> redisUtils.get(DictConstant.getDictionaryKey(type), ArrayList.class)));
+				.collect(Collectors.toMap(type -> type, type -> cacheController.get(type)));
     	return resultMap;
     }
 
@@ -72,7 +71,7 @@ public class DictComponent {
 	 * @return
 	 */
 	public List getDictCacheDataByType(String type) {
-		return this.redisUtils.get(DictConstant.getDictionaryKey(type.trim()), ArrayList.class);
+		return cacheController.get(type.trim());
 	}
     
     /**
@@ -100,7 +99,7 @@ public class DictComponent {
      */
     private void loadExtraDictDataToRedis(Map<String, Object> extraMap) {
     	if(extraMap != null) {
-			extraMap.forEach((k, v) -> this.redisUtils.set(DictConstant.getDictionaryKey(k), v, RedisUtils.NOT_EXPIRE));
+			extraMap.forEach((k, v) -> cacheController.set(k, v));
 		}
     }
 
@@ -117,7 +116,6 @@ public class DictComponent {
 	 * @param type
 	 */
 	private void setDictMapToRedis(String type, List<Map<String, Object>> list) {
-		this.redisUtils.delete(DictConstant.getDictionaryKey(type));
-		this.redisUtils.set(DictConstant.getDictionaryKey(type), list, RedisUtils.NOT_EXPIRE);
+		cacheController.reset(type, list);
 	}
 }
