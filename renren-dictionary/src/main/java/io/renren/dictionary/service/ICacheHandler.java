@@ -13,9 +13,24 @@ public interface ICacheHandler<K, V> {
 
     String CACHE_TYPE_MEMORY = "cache_memory";
 
+    /**
+     * 设置
+     * @param key
+     * @param value
+     */
     void set(K key, V value);
 
+    /**
+     * 取得
+     * @param key
+     * @return
+     */
     V get(K key);
 
+    /**
+     * 重置
+     * @param key
+     * @param value
+     */
     void reset(K key, V value);
 }
