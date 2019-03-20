@@ -1,10 +1,12 @@
 package io.renren.dictionary.component;
 
 import io.renren.dictionary.service.ICacheHandler;
-import io.renren.dictionary.service.MemoryCacheHandler;
-import io.renren.dictionary.service.RedisCacheHandler;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.renren.dictionary.utils.DictConstant;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -19,26 +21,19 @@ import java.util.List;
  */
 
 @Component
-public class CacheController {
+@DependsOn(value = {ICacheHandler.CACHE_TYPE_REDIS, ICacheHandler.CACHE_TYPE_MEMORY})
+public class CacheController implements ApplicationContextAware {
+
+    private ApplicationContext context;
 
     @Value("${dictionary.cache-type}")
     private String cacheType;
 
     private ICacheHandler cacheHandler;
 
-    @Autowired
-    private RedisCacheHandler redisCacheHandler;
-
-    @Autowired
-    private MemoryCacheHandler memoryCacheHandler;
-
     @PostConstruct
     private void init() {
-        if(ICacheHandler.CACHE_TYPE_REDIS.equals(cacheType)) {
-            cacheHandler = redisCacheHandler;
-        } else if(ICacheHandler.CACHE_TYPE_MEMORY.equals(cacheType)) {
-            cacheHandler = memoryCacheHandler;
-        }
+        cacheHandler = context.getBean(DictConstant.CACHE_TYPE_PREFIX + cacheType, ICacheHandler.class);
     }
 
     public void set(String key, Object value) {
@@ -53,4 +48,9 @@ public class CacheController {
         cacheHandler.reset(key, value);
     }
 
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        context = applicationContext;
+    }
 }

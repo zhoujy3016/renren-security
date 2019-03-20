@@ -43,6 +43,12 @@ public class DictConstant {
      */
     public final static String KEY_DICTLIST = "dictList";
 
+
+    /**
+     * 缓存类型前缀
+     */
+    public final static String CACHE_TYPE_PREFIX = "cache_";
+
     /**
      * 数据字典类型枚举类
      *

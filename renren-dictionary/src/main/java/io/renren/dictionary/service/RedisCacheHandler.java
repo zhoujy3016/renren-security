@@ -1,7 +1,6 @@
 package io.renren.dictionary.service;
 
 import io.renren.common.utils.RedisUtils;
-import io.renren.common.utils.SpringContextUtils;
 import io.renren.dictionary.utils.DictConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
