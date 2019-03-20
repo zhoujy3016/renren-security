@@ -33,6 +33,7 @@ public class CacheController implements ApplicationContextAware {
 
     @PostConstruct
     private void init() {
+        System.out.println("数据字典缓存方式：" + cacheType);
         cacheHandler = context.getBean(DictConstant.CACHE_TYPE_PREFIX + cacheType, ICacheHandler.class);
     }
 
