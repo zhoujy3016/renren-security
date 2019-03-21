@@ -26,7 +26,7 @@ public class CacheController implements ApplicationContextAware {
 
     private ApplicationContext context;
 
-    @Value("${dictionary.cache-type}")
+    @Value("${dictionary.cache-type:memory}")
     private String cacheType;
 
     private ICacheHandler cacheHandler;
