@@ -1,4 +1,4 @@
-package io.renren.dictionary.service;
+package io.renren.dictionary.aspect.strategy;
 
 import io.renren.dictionary.annotation.DictionaryCache;
 

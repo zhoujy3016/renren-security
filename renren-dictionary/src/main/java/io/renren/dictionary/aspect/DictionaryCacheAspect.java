@@ -3,7 +3,7 @@ package io.renren.dictionary.aspect;
 import io.renren.common.utils.SpringContextUtils;
 import io.renren.dictionary.annotation.DictionaryCache;
 import io.renren.common.exception.RRException;
-import io.renren.dictionary.service.IDictHandler;
+import io.renren.dictionary.aspect.strategy.IDictHandler;
 import io.renren.dictionary.utils.DictConstant;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -39,7 +39,7 @@ public class DictionaryCacheAspect {
         MethodSignature signature = (MethodSignature) point.getSignature();
         DictionaryCache dataFilter = signature.getMethod().getAnnotation(DictionaryCache.class);
         Object param = point.getArgs()[0];
-        // 数据字典类型：常规，额外
+        // 数据字典类型：常规，自定义
         DictConstant.DictOperation dicType = dataFilter.dictType();
         if(param != null) {
             String beanName;

@@ -1,4 +1,4 @@
-package io.renren.dictionary.service;
+package io.renren.dictionary.cachestrategy;
 
 import io.renren.common.utils.RedisUtils;
 import io.renren.dictionary.utils.DictConstant;

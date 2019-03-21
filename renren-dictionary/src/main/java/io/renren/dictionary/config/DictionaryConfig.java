@@ -1,9 +1,9 @@
 package io.renren.dictionary.config;
 
-import io.renren.dictionary.service.DictHandler;
-import io.renren.dictionary.service.ExtraDictHandler;
+import io.renren.dictionary.aspect.strategy.DictHandler;
+import io.renren.dictionary.aspect.strategy.ExtraDictHandler;
 import io.renren.dictionary.service.ExtraDictService;
-import io.renren.dictionary.service.IDictHandler;
+import io.renren.dictionary.aspect.strategy.IDictHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;

@@ -1,6 +1,5 @@
-package io.renren.dictionary.component;
+package io.renren.dictionary.cachestrategy;
 
-import io.renren.dictionary.service.ICacheHandler;
 import io.renren.dictionary.utils.DictConstant;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Value;

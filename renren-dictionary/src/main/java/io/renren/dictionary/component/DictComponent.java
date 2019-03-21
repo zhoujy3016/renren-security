@@ -1,5 +1,6 @@
 package io.renren.dictionary.component;
 
+import io.renren.dictionary.cachestrategy.CacheController;
 import io.renren.dictionary.service.ExtraDictService;
 import io.renren.dictionary.service.IDictService;
 import io.renren.dictionary.utils.DictConstant;
@@ -33,7 +34,7 @@ public class DictComponent {
     public void initDictCacheData() {
 		// 数据字典载入到redis
 		loadDictDataToRedis(getMapByGroup(this.sysDictService.getAllSysDictEntity()));
-		// 额外的数据字典载入到redis
+		// 自定义的数据字典载入到redis
 		loadExtraDictDataToRedis(this.extraDictService.getExtraMap());
     }
 
@@ -104,7 +105,7 @@ public class DictComponent {
     }
 
 	/**
-	 * 根据传入的map, 重新加载额外的数据字典到redis中
+	 * 根据传入的map, 重新加载自定义数据字典到redis中
 	 * @param extraMap
 	 */
 	public void reloadExtraCacheData(Map<String, Object> extraMap) {

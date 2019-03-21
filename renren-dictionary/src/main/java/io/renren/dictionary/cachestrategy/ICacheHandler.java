@@ -1,4 +1,4 @@
-package io.renren.dictionary.service;
+package io.renren.dictionary.cachestrategy;
 
 /**
  * cache操作接口

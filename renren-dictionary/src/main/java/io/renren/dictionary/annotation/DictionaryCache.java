@@ -22,7 +22,7 @@ public @interface DictionaryCache {
 	String[] dictKey() default {};
 	// 操作：增、删、改
 	DictConstant.DictOperation operation() default DictConstant.DictOperation.OP_INSERT;
-	// 数据字典：常规、额外
+	// 数据字典：常规、自定义
 	DictConstant.DictOperation dictType()  default DictConstant.DictOperation.T_NORMAL;
 
 }
