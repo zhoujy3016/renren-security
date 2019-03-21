@@ -1,9 +1,9 @@
 package io.renren.dictionary.config;
 
-import io.renren.dictionary.aspect.strategy.DictHandler;
-import io.renren.dictionary.aspect.strategy.ExtraDictHandler;
+import io.renren.dictionary.aspect.strategy.DictModifyHandler;
+import io.renren.dictionary.aspect.strategy.ExtraDictModifyHandler;
+import io.renren.dictionary.aspect.strategy.IDictModifyHandler;
 import io.renren.dictionary.service.ExtraDictService;
-import io.renren.dictionary.aspect.strategy.IDictHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -32,14 +32,14 @@ public class DictionaryConfig {
 	}
 
 	@Lazy
-	@Bean(name = IDictHandler.DICT_HANDLER)
-	DictHandler dictHandler() {
-		return new DictHandler();
+	@Bean(name = IDictModifyHandler.DICT_MODIFY_HANDLER)
+	DictModifyHandler dictHandler() {
+		return new DictModifyHandler();
 	}
 
 	@Lazy
-	@Bean(name = IDictHandler.EXTRA_DICT_HANDLER)
-	ExtraDictHandler extraDictHandler() {
-		return new ExtraDictHandler();
+	@Bean(name = IDictModifyHandler.EXTRA_DICT_MODIFY_HANDLER)
+	ExtraDictModifyHandler extraDictHandler() {
+		return new ExtraDictModifyHandler();
 	}
 }

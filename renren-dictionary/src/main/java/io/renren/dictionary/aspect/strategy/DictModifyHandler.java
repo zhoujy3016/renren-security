@@ -15,7 +15,7 @@ import java.util.Map;
  * @email zhoujunyi-110@163.com
  * @date 2019-01-30 20:00
  */
-public class DictHandler implements IDictHandler {
+public class DictModifyHandler implements IDictModifyHandler {
     @Autowired
     DictComponent dictComponent;
 

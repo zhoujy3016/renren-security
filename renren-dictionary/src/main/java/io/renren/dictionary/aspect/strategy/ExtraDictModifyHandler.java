@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * @email zhoujunyi-110@163.com
  * @date 2019-01-30 20:00
  */
-public class ExtraDictHandler implements IDictHandler {
+public class ExtraDictModifyHandler implements IDictModifyHandler {
     @Autowired
     private ExtraDictService extraDictService;
 

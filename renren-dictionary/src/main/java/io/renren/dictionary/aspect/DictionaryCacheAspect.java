@@ -3,7 +3,7 @@ package io.renren.dictionary.aspect;
 import io.renren.common.utils.SpringContextUtils;
 import io.renren.dictionary.annotation.DictionaryCache;
 import io.renren.common.exception.RRException;
-import io.renren.dictionary.aspect.strategy.IDictHandler;
+import io.renren.dictionary.aspect.strategy.IDictModifyHandler;
 import io.renren.dictionary.utils.DictConstant;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -44,12 +44,12 @@ public class DictionaryCacheAspect {
         if(param != null) {
             String beanName;
             if (dicType == DictConstant.DictOperation.T_NORMAL) {
-                beanName = IDictHandler.DICT_HANDLER;
+                beanName = IDictModifyHandler.DICT_MODIFY_HANDLER;
             } else { // 自定义数据字典类型(DictOperationType.T_EXTRA)
-                beanName = IDictHandler.EXTRA_DICT_HANDLER;
+                beanName = IDictModifyHandler.EXTRA_DICT_MODIFY_HANDLER;
             }
-            IDictHandler handler = SpringContextUtils.getBean(beanName, IDictHandler.class);
-            // 对redis进行同步更新操作
+            IDictModifyHandler handler = SpringContextUtils.getBean(beanName, IDictModifyHandler.class);
+            // 对缓存进行同步更新操作
             handler.updateDictionaryCache(dataFilter, param);
         } else {
             throw new RRException("数据字典操作接口参数，不能为NULL");
