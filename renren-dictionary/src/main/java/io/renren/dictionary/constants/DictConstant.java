@@ -50,6 +50,11 @@ public class DictConstant {
     public final static String CACHE_TYPE_PREFIX = "cache_";
 
     /**
+     * 操作类型后缀
+     */
+    public final static String MODIFY_TYPE_SUFFIX = "_modify_handler";
+
+    /**
      * 数据字典redis缓存中的key
      * @param key
      * @return

@@ -27,19 +27,19 @@ public class BteLessonTypeServiceImpl extends ServiceImpl<BteLessonTypeDao, BteL
     }
 
     @Override
-    @DictionaryCache(dictType = DictOperation.T_EXTRA, dictKey = {"gglx", "zylx"})
+    @DictionaryCache(dictType = DictOperation.EXTRA_DICT, dictKey = {"gglx", "zylx"})
     public void insertLessonType(BteLessonTypeEntity bteLessonType) {
         this.save(bteLessonType);
     }
 
     @Override
-    @DictionaryCache(dictType = DictOperation.T_EXTRA, dictKey = {"gglx", "zylx"})
+    @DictionaryCache(dictType = DictOperation.EXTRA_DICT, dictKey = {"gglx", "zylx"})
     public void updateLessonType(BteLessonTypeEntity bteLessonType) {
         this.updateById(bteLessonType);
     }
 
     @Override
-    @DictionaryCache(dictType = DictOperation.T_EXTRA, dictKey = {"gglx", "zylx"})
+    @DictionaryCache(dictType = DictOperation.EXTRA_DICT, dictKey = {"gglx", "zylx"})
     public void deleteLessonType(Integer[] ids) {
         this.removeByIds(Arrays.asList(ids));
     }

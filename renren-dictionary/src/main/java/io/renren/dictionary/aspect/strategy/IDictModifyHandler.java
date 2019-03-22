@@ -14,12 +14,12 @@ public interface IDictModifyHandler {
     /**
      * 常规数据字典更新bean名称
      */
-    String DICT_MODIFY_HANDLER = "DICT_MODIFY_HANDLER";
+    String DICT_MODIFY_HANDLER = "dict_modify_handler";
 
     /**
      * 其他业务表数据字典更新bean名
      */
-    String EXTRA_DICT_MODIFY_HANDLER = "EXTRA_DICT_MODIFY_HANDLER";
+    String EXTRA_DICT_MODIFY_HANDLER = "extra_dict_modify_handler";
     /**
      * 更新数据字典缓存
      * @param dataFilter

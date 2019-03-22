@@ -25,12 +25,12 @@ public class DictModifyHandler implements IDictModifyHandler {
         DictOperation operation = dataFilter.operation();
         switch (operation) {
             // 插入
-            case OP_INSERT:
-                // 更新
-            case OP_UPDATE: dictionaryAddOrUpdateHandler(param);
+            case INSERT:
+            // 更新
+            case UPDATE: dictionaryAddOrUpdateHandler(param);
                 break;
             // 删除
-            case OP_DELETE: dictionaryDeleteHandler(param);
+            case DELETE: dictionaryDeleteHandler(param);
                 break;
             default:
                 break;
