@@ -4,7 +4,8 @@ import io.renren.common.utils.SpringContextUtils;
 import io.renren.dictionary.annotation.DictionaryCache;
 import io.renren.common.exception.RRException;
 import io.renren.dictionary.aspect.strategy.IDictModifyHandler;
-import io.renren.dictionary.utils.DictConstant;
+import io.renren.dictionary.constants.DictConstant;
+import io.renren.dictionary.constants.DictOperation;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -40,10 +41,10 @@ public class DictionaryCacheAspect {
         DictionaryCache dataFilter = signature.getMethod().getAnnotation(DictionaryCache.class);
         Object param = point.getArgs()[0];
         // 数据字典类型：常规，自定义
-        DictConstant.DictOperation dicType = dataFilter.dictType();
+        DictOperation dicType = dataFilter.dictType();
         if(param != null) {
             String beanName;
-            if (dicType == DictConstant.DictOperation.T_NORMAL) {
+            if (dicType == DictOperation.T_NORMAL) {
                 beanName = IDictModifyHandler.DICT_MODIFY_HANDLER;
             } else { // 自定义数据字典类型(DictOperationType.T_EXTRA)
                 beanName = IDictModifyHandler.EXTRA_DICT_MODIFY_HANDLER;

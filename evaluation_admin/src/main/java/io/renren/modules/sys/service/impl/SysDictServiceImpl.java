@@ -20,8 +20,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
-import io.renren.dictionary.utils.DictConstant;
 import io.renren.dictionary.annotation.DictionaryCache;
+import io.renren.dictionary.constants.DictConstant;
+import io.renren.dictionary.constants.DictOperation;
 import io.renren.dictionary.service.IDictService;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.Query;
@@ -32,7 +33,6 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -79,19 +79,19 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictDao, SysDictEntity> i
 	}
 
 	@Override
-	@DictionaryCache(operation = DictConstant.DictOperation.OP_INSERT)
+	@DictionaryCache(operation = DictOperation.OP_INSERT)
 	public void insertDict(SysDictEntity sysDictEntity) {
 		this.save(sysDictEntity);
 	}
 
 	@Override
-	@DictionaryCache(operation = DictConstant.DictOperation.OP_UPDATE)
+	@DictionaryCache(operation = DictOperation.OP_UPDATE)
 	public void updateDict(SysDictEntity sysDictEntity) {
         this.updateById(sysDictEntity);
 	}
 
 	@Override
-	@DictionaryCache(operation = DictConstant.DictOperation.OP_DELETE)
+	@DictionaryCache(operation = DictOperation.OP_DELETE)
 	public void deleteDict(Long[] ids) {
         this.removeByIds(Arrays.asList(ids));
 	}

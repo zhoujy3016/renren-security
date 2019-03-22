@@ -3,7 +3,8 @@ package io.renren.dictionary.aspect.strategy;
 import io.renren.common.utils.MapUtils;
 import io.renren.dictionary.annotation.DictionaryCache;
 import io.renren.dictionary.component.DictComponent;
-import io.renren.dictionary.utils.DictConstant;
+import io.renren.dictionary.constants.DictConstant;
+import io.renren.dictionary.constants.DictOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Map;
@@ -21,7 +22,7 @@ public class DictModifyHandler implements IDictModifyHandler {
 
     @Override
     public void updateDictionaryCache(DictionaryCache dataFilter, Object param) {
-        DictConstant.DictOperation operation = dataFilter.operation();
+        DictOperation operation = dataFilter.operation();
         switch (operation) {
             // 插入
             case OP_INSERT:

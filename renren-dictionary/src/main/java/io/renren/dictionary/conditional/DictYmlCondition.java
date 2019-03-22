@@ -13,6 +13,7 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
  * @email zhoujunyi-110@163.com
  * @date 2019-01-31 20:00
  */
+@Deprecated
 public class DictYmlCondition implements Condition {
 
 	@Override

@@ -1,7 +1,7 @@
 package io.renren.dictionary.cachestrategy;
 
 import io.renren.common.utils.RedisUtils;
-import io.renren.dictionary.utils.DictConstant;
+import io.renren.dictionary.constants.DictConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

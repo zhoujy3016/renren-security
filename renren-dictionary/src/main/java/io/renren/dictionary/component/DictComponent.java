@@ -3,7 +3,7 @@ package io.renren.dictionary.component;
 import io.renren.dictionary.cachestrategy.CacheController;
 import io.renren.dictionary.service.ExtraDictService;
 import io.renren.dictionary.service.IDictService;
-import io.renren.dictionary.utils.DictConstant;
+import io.renren.dictionary.constants.DictConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

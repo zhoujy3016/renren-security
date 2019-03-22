@@ -1,8 +1,0 @@
-dictionary:
-    cache-type: redis
-    statement: io.renren.modules.sys.dao.SysDictDao.executeSelectExtraDictSql
-    #sys_dict以外需要放入缓存中的数据
-    extra-dict:
-        zdlx : select type as code , name as value from sys_dict where del_flag = 0 group by type, name;
-        gglx : select data_no as code, type_name as value from bte_lesson_type where category_id = 1 and del_flag != -1
-        zylx : select data_no as code, type_name as value from bte_lesson_type where category_id = 2 and del_flag != -1
