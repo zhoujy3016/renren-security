@@ -5,6 +5,14 @@ import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 
+
+/**
+ * 是否启用自定义配置yml条件判定condition
+ *
+ * @author zhoujunyi
+ * @email zhoujunyi-110@163.com
+ * @date 2019-01-31 20:00
+ */
 public class DictYmlCondition implements Condition {
 
 	@Override
