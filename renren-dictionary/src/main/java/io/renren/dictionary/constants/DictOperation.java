@@ -23,9 +23,9 @@ public enum DictOperation {
     /**
      * 常规数据字典
      */
-    DICT,
+    NORMAL,
     /**
      * 自定义数据字典类型
      */
-    EXTRA_DICT
+    EXTRA
 }

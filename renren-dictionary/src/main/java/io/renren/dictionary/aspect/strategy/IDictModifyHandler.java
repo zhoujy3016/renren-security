@@ -14,7 +14,7 @@ public interface IDictModifyHandler {
     /**
      * 常规数据字典更新bean名称
      */
-    String DICT_MODIFY_HANDLER = "dict_modify_handler";
+    String NORMAL_DICT_MODIFY_HANDLER = "normal_dict_modify_handler";
 
     /**
      * 其他业务表数据字典更新bean名

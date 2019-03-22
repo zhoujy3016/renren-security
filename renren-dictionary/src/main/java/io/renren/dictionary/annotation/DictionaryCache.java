@@ -24,6 +24,6 @@ public @interface DictionaryCache {
 	// 操作：增、删、改
 	DictOperation operation() default DictOperation.INSERT;
 	// 数据字典：常规、自定义
-	DictOperation dictType()  default DictOperation.DICT;
+	DictOperation dictType()  default DictOperation.NORMAL;
 
 }

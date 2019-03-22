@@ -52,7 +52,7 @@ public class DictConstant {
     /**
      * 操作类型后缀
      */
-    public final static String MODIFY_TYPE_SUFFIX = "_modify_handler";
+    public final static String DICT_MODIFY_TYPE_SUFFIX = "_dict_modify_handler";
 
     /**
      * 数据字典redis缓存中的key

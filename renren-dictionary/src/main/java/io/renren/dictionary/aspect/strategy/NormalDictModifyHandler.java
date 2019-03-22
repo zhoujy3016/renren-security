@@ -16,7 +16,7 @@ import java.util.Map;
  * @email zhoujunyi-110@163.com
  * @date 2019-01-30 20:00
  */
-public class DictModifyHandler implements IDictModifyHandler {
+public class NormalDictModifyHandler implements IDictModifyHandler {
     @Autowired
     DictComponent dictComponent;
 
@@ -26,7 +26,7 @@ public class DictModifyHandler implements IDictModifyHandler {
         switch (operation) {
             // 插入
             case INSERT:
-            // 更新
+                // 更新
             case UPDATE: dictionaryAddOrUpdateHandler(param);
                 break;
             // 删除

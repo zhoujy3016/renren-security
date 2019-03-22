@@ -1,8 +1,8 @@
 package io.renren.dictionary.config;
 
-import io.renren.dictionary.aspect.strategy.DictModifyHandler;
 import io.renren.dictionary.aspect.strategy.ExtraDictModifyHandler;
 import io.renren.dictionary.aspect.strategy.IDictModifyHandler;
+import io.renren.dictionary.aspect.strategy.NormalDictModifyHandler;
 import io.renren.dictionary.service.ExtraDictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -29,9 +29,9 @@ public class DictionaryConfig {
 	}
 
 	@Lazy
-	@Bean(name = IDictModifyHandler.DICT_MODIFY_HANDLER)
-	DictModifyHandler dictHandler() {
-		return new DictModifyHandler();
+	@Bean(name = IDictModifyHandler.NORMAL_DICT_MODIFY_HANDLER)
+	NormalDictModifyHandler dictHandler() {
+		return new NormalDictModifyHandler();
 	}
 
 	@Lazy
