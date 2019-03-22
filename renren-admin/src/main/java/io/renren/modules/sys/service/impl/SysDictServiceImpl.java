@@ -77,19 +77,19 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictDao, SysDictEntity> i
 	}
 
 	@Override
-	@DictionaryCache(operation = DictOperation.OP_INSERT)
+	@DictionaryCache(operation = DictOperation.INSERT)
     public void insertDict(SysDictEntity sysDictEntity) {
 		this.baseMapper.insert(sysDictEntity);
 	}
 
 	@Override
-	@DictionaryCache(operation = DictOperation.OP_UPDATE)
+	@DictionaryCache(operation = DictOperation.INSERT)
     public void updateDict(SysDictEntity sysDictEntity) {
 		this.updateById(sysDictEntity);
 	}
 
 	@Override
-	@DictionaryCache(operation = DictOperation.OP_DELETE)
+	@DictionaryCache(operation = DictOperation.DELETE)
     public void deleteDict(Long[] ids) {
 		this.baseMapper.deleteBatchIds(Arrays.asList(ids));
 	}
