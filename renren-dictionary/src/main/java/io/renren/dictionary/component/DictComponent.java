@@ -32,9 +32,9 @@ public class DictComponent {
      * 系统初始化加载数据字典缓存
      */
     public void initDictCacheData() {
-		// 数据字典载入到redis
+		// 数据字典载入到cache
 		loadDictDataToCache(getMapByGroup(this.sysDictService.getAllSysDictEntity()));
-		// 自定义的数据字典载入到redis
+		// 自定义的数据字典载入到cache
 		loadExtraDictDataToCache(this.extraDictService.getExtraMap());
     }
 
@@ -47,7 +47,7 @@ public class DictComponent {
 	}
     
     /**
-     * 数据放到redis数据库中
+     * 数据放到cache中
      * @param dictMapGroup
      */
     private void loadDictDataToCache(Map<String, List<Map<String, Object>>> dictMapGroup) {
@@ -55,7 +55,7 @@ public class DictComponent {
     }
     
     /**
-     * 通过types从redis缓存中查出数据放入一个map中
+     * 通过types从缓存中查出数据放入一个map中
      * @param types
      * @return
      */
@@ -67,7 +67,7 @@ public class DictComponent {
     }
 
 	/**
-	 * 通过某种类型从redis缓存中查出一个类型的数据字典List
+	 * 通过某种类型从缓存中查出一个类型的数据字典List
 	 * @param type
 	 * @return
 	 */
@@ -76,7 +76,7 @@ public class DictComponent {
 	}
     
     /**
-     * 增、改数据字典时，更新redis数据
+     * 增、改数据字典时，更新cache
      * @param type
      */
     public void reloadDictCacheData(String type) {
@@ -86,7 +86,7 @@ public class DictComponent {
     }
     
     /**
-     * 删除数据字典时，更新redis数据
+     * 删除数据字典时，更新cache数据
      * @param ids
      */
     public void reloadDictCacheData(Long[] ids) {
@@ -96,7 +96,7 @@ public class DictComponent {
     }
 
     /**
-     * 将配置文件中针对特殊的表需要放入数据字典的map,放入redis 数据字典缓存中
+     * 将配置文件中针对特殊的表需要放入数据字典的map,放入cache缓存中
      */
     private void loadExtraDictDataToCache(Map<String, Object> extraMap) {
     	if(extraMap != null) {
@@ -105,7 +105,7 @@ public class DictComponent {
     }
 
 	/**
-	 * 根据传入的map, 重新加载自定义数据字典到redis中
+	 * 根据传入的map, 重新加载自定义数据字典到cache中
 	 * @param extraMap
 	 */
 	public void reloadExtraCacheData(Map<String, Object> extraMap) {
@@ -113,7 +113,7 @@ public class DictComponent {
 	}
 
 	/**
-	 * 根据type查询对应的数据字典，set到redis中
+	 * 根据type查询对应的数据字典，set到cache中
 	 * @param type
 	 */
 	private void setDictMapToCache(String type, List<Map<String, Object>> list) {
