@@ -19,11 +19,11 @@ import org.springframework.context.annotation.Lazy;
 @Configuration
 public class DictionaryConfig {
 	@Bean
-	ExtraDictService extraDictService(@Autowired(required = false) DictYmlConfig dictYmlConfig) {
+	ExtraDictService extraDictService(@Autowired(required = false) DictionaryProperties properties) {
 		ExtraDictService extraDictService = new ExtraDictService();
-		if(dictYmlConfig != null) {
-			extraDictService.setStatement(dictYmlConfig.getStatement());
-			extraDictService.addAll(dictYmlConfig.getExtraDict());
+		if(properties != null) {
+			extraDictService.setStatement(properties.getStatement());
+			extraDictService.addAll(properties.getExtraDict());
 		}
 		return extraDictService;
 	}

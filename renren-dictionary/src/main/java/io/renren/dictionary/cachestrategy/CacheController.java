@@ -1,8 +1,11 @@
 package io.renren.dictionary.cachestrategy;
 
+import io.renren.dictionary.config.DictionaryProperties;
 import io.renren.dictionary.constants.CacheType;
+import io.renren.dictionary.constants.DictConstant;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.DependsOn;
@@ -25,20 +28,17 @@ public class CacheController implements ApplicationContextAware {
 
     private ApplicationContext context;
 
-    @Value("${dictionary.cache-type}")
-    private CacheType cacheType;
-
     private ICacheHandler cacheHandler;
+
+    @Autowired
+    private DictionaryProperties properties;
 
     @PostConstruct
     private void init() {
-        System.out.println("数据字典缓存方式：" + cacheType);
-        if(cacheType == CacheType.REDIS) {
-            cacheHandler = context.getBean(ICacheHandler.CACHE_TYPE_REDIS, ICacheHandler.class);
-        } else {
-            cacheHandler = context.getBean(ICacheHandler.CACHE_TYPE_MEMORY, ICacheHandler.class);
-        }
-
+        CacheType cacheType = properties.getCacheType();
+        // 拼接成需要使用的bean名称
+        String beanName = DictConstant.CACHE_TYPE_PREFIX + StringUtils.lowerCase(cacheType.toString());
+        cacheHandler = context.getBean(beanName, ICacheHandler.class);
     }
 
     public void set(String key, Object value) {

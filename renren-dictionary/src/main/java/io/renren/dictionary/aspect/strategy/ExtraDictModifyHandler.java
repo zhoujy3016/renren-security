@@ -3,7 +3,7 @@ package io.renren.dictionary.aspect.strategy;
 import io.renren.common.exception.RRException;
 import io.renren.dictionary.annotation.DictionaryCache;
 import io.renren.dictionary.component.DictComponent;
-import io.renren.dictionary.config.DictYmlConfig;
+import io.renren.dictionary.config.DictionaryProperties;
 import io.renren.dictionary.service.ExtraDictService;
 import org.apache.commons.lang.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class ExtraDictModifyHandler implements IDictModifyHandler {
     private ExtraDictService extraDictService;
 
     @Autowired(required = false)
-    private DictYmlConfig dictYmlConfig;
+    private DictionaryProperties properties;
 
     @Autowired
     DictComponent dictComponent;
@@ -36,7 +36,7 @@ public class ExtraDictModifyHandler implements IDictModifyHandler {
             throw new RRException("数据字典参数为NULL，请指定key");
         }
         // 配置文件中取得sql
-        Map<String, String> sqlMap = dictYmlConfig.getExtraDict();
+        Map<String, String> sqlMap = properties.getExtraDict();
         Map<String, Object> extraMap  = Arrays.stream(arrKeys)
                 .map(String::trim)
                 .collect(Collectors.toMap(key -> key, key -> extraDictService.executeQuery(sqlMap.get(key))));
