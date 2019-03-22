@@ -3,5 +3,6 @@ dictionary:
     statement: io.renren.modules.sys.dao.SysDictDao.executeSelectExtraDictSql
     #sys_dict以外需要放入缓存中的数据
     extra-dict:
-        ryxx: select info_id as code , info_title as value from tbl_info
+        zdlx : select type as code , name as value from sys_dict where del_flag = 0 group by type, name;
+        ryxx : select info_id as code , info_title as value from tbl_info
         xxfb : select person_id as code, person_name as value from tbl_person

@@ -45,7 +45,7 @@ var vm = new Vue({
 	data:{
         q:{
             name: null,
-            type:null
+            type:''
         },
 		showList: true,
 		title: null,
