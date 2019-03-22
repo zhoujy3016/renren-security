@@ -27,7 +27,7 @@ public class DictionaryProperties implements Serializable {
     /** mapper.xml中 namespace.id */
     private String statement;
     /** 缓存类型 */
-    private CacheType cacheType;
+    private CacheType cacheType = CacheType.MEMORY;
 
 }
 
