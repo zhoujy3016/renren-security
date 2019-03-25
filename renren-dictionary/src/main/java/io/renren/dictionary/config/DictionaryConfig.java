@@ -1,7 +1,6 @@
 package io.renren.dictionary.config;
 
 import io.renren.dictionary.aspect.strategy.ExtraDictModifyHandler;
-import io.renren.dictionary.aspect.strategy.IDictModifyHandler;
 import io.renren.dictionary.aspect.strategy.NormalDictModifyHandler;
 import io.renren.dictionary.service.ExtraDictService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -4,7 +4,6 @@ import io.renren.common.utils.SpringContextUtils;
 import io.renren.dictionary.annotation.DictionaryCache;
 import io.renren.common.exception.RRException;
 import io.renren.dictionary.aspect.strategy.IDictModifyHandler;
-import io.renren.dictionary.constants.DictConstant;
 import io.renren.dictionary.constants.DictOperation;
 import org.apache.commons.lang.StringUtils;
 import org.aspectj.lang.JoinPoint;

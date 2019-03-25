@@ -21,6 +21,7 @@ public class DictConstant {
     /**
      * 数据字典配置路径&文件
      */
+    @Deprecated
     public final static String DICT_CONFIG_PATH = "config/dictionary-config.yml";
 
     /**
@@ -41,7 +42,7 @@ public class DictConstant {
     /**
      * execute中environment的key
      */
-    public final static String KEY_DICTLIST = "dictList";
+    public final static String KEY_DICT_LIST = "dictList";
 
     /**
      * 数据字典redis缓存中的key

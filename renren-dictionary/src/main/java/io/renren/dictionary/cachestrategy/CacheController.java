@@ -2,13 +2,11 @@ package io.renren.dictionary.cachestrategy;
 
 import io.renren.dictionary.config.DictionaryProperties;
 import io.renren.dictionary.constants.CacheType;
-import io.renren.dictionary.constants.DictConstant;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;

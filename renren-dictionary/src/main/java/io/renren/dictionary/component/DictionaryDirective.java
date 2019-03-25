@@ -33,7 +33,7 @@ public class DictionaryDirective implements TemplateDirectiveModel {
     public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
         String id = params.get(DictConstant.PROPERTY_ID).toString();
         List dictList = dictComponent.getDictCacheDataByType(id);
-        env.setVariable(DictConstant.KEY_DICTLIST, getBeansWrapper().wrap(dictList));
+        env.setVariable(DictConstant.KEY_DICT_LIST, getBeansWrapper().wrap(dictList));
         body.render(env.getOut());
     }
 
