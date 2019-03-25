@@ -1,8 +1,1 @@
-官网：https://www.renren.io/guide/security
-增加module renren-dictionary ：
-  启动加载数据字典到redis的功能，加载分为两部分：
-  一、数据字典表
-  二、任意需要做数据字典的业务表
-  增加数据字典增删改切面更新。
-  页面使用freemarker macro 直接读取redis数据。
-
+renren-dictionary：自定义freemaker控件select与radio，避免需要数据字典中的数据而每次从controller获取数据的冗余代码，增加数据字典缓存模块，并与业务模块彻底解耦，标记注解实现数据增、删、改操作后与缓存同步，利用策略模式灵活选择缓存方式（redis或map）
