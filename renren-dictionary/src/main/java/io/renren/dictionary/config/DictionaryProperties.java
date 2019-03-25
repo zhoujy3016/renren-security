@@ -22,11 +22,11 @@ import java.util.Map;
 @Setter
 @Getter
 public class DictionaryProperties implements Serializable {
-    /** 读取配置文件， 存放key与sql语句的map */
+    /** the map which put in dictionary type and sql */
     private Map<String, String> extraDict;
-    /** mapper.xml中 namespace.id */
+    /** namespace.id realized in mapper.xml */
     private String statement;
-    /** 缓存类型 */
+    /** cache type: redis or memory */
     private CacheType cacheType = CacheType.MEMORY;
 
 }
