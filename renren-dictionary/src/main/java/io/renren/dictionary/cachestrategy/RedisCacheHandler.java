@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @email zhoujunyi-110@163.com
  * @date 2019-03-20 15:30
  */
-@Component(value = ICacheHandler.CACHE_TYPE_REDIS)
+@Component
 public class RedisCacheHandler implements ICacheHandler<String, Object>{
 
     @Autowired

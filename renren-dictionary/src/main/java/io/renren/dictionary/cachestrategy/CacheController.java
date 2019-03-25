@@ -23,7 +23,6 @@ import java.util.List;
  */
 
 @Component
-@DependsOn(value = {ICacheHandler.CACHE_TYPE_REDIS, ICacheHandler.CACHE_TYPE_MEMORY})
 public class CacheController implements ApplicationContextAware {
 
     private ApplicationContext context;
@@ -36,8 +35,9 @@ public class CacheController implements ApplicationContextAware {
     @PostConstruct
     private void init() {
         CacheType cacheType = properties.getCacheType();
+        System.out.println("数据字典加载方式：" + cacheType);
         // 拼接成需要使用的bean名称
-        String beanName = DictConstant.CACHE_TYPE_PREFIX + StringUtils.lowerCase(cacheType.toString());
+        String beanName = StringUtils.lowerCase(cacheType.toString()) + ICacheHandler.CACHE_TYPE_SUFFIX;
         cacheHandler = context.getBean(beanName, ICacheHandler.class);
     }
 

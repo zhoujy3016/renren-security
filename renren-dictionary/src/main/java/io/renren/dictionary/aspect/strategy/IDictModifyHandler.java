@@ -12,14 +12,10 @@ import io.renren.dictionary.annotation.DictionaryCache;
 public interface IDictModifyHandler {
 
     /**
-     * 常规数据字典更新bean名称
+     * 操作类型后缀
      */
-    String NORMAL_DICT_MODIFY_HANDLER = "normal_dict_modify_handler";
+    String DICT_MODIFY_TYPE_SUFFIX = "DictModifyHandler";
 
-    /**
-     * 其他业务表数据字典更新bean名
-     */
-    String EXTRA_DICT_MODIFY_HANDLER = "extra_dict_modify_handler";
     /**
      * 更新数据字典缓存
      * @param dataFilter

@@ -45,7 +45,7 @@ public class DictionaryCacheAspect {
         DictOperation dicType = dataFilter.dictType();
         if(param != null) {
             // 根据数据字典类型组合bean名称
-            String beanName = StringUtils.lowerCase(dicType.toString()) + DictConstant.DICT_MODIFY_TYPE_SUFFIX;
+            String beanName = StringUtils.lowerCase(dicType.toString()) + IDictModifyHandler.DICT_MODIFY_TYPE_SUFFIX;
             IDictModifyHandler handler = SpringContextUtils.getBean(beanName, IDictModifyHandler.class);
             // 对缓存进行同步更新操作
             handler.updateDictionaryCache(dataFilter, param);

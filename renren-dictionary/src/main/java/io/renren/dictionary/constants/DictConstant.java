@@ -43,17 +43,6 @@ public class DictConstant {
      */
     public final static String KEY_DICTLIST = "dictList";
 
-
-    /**
-     * 缓存类型前缀
-     */
-    public final static String CACHE_TYPE_PREFIX = "cache_";
-
-    /**
-     * 操作类型后缀
-     */
-    public final static String DICT_MODIFY_TYPE_SUFFIX = "_dict_modify_handler";
-
     /**
      * 数据字典redis缓存中的key
      * @param key

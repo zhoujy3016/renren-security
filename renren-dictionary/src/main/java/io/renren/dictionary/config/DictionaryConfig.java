@@ -29,14 +29,14 @@ public class DictionaryConfig {
 	}
 
 	@Lazy
-	@Bean(name = IDictModifyHandler.NORMAL_DICT_MODIFY_HANDLER)
-	NormalDictModifyHandler dictHandler() {
+	@Bean
+	NormalDictModifyHandler normalDictModifyHandler() {
 		return new NormalDictModifyHandler();
 	}
 
 	@Lazy
-	@Bean(name = IDictModifyHandler.EXTRA_DICT_MODIFY_HANDLER)
-	ExtraDictModifyHandler extraDictHandler() {
+	@Bean
+	ExtraDictModifyHandler extraDictModifyHandler() {
 		return new ExtraDictModifyHandler();
 	}
 }

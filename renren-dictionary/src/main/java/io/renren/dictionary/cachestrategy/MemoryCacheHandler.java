@@ -11,7 +11,7 @@ import java.util.Hashtable;
  * @email zhoujunyi-110@163.com
  * @date 2019-03-20 15:30
  */
-@Component(value = ICacheHandler.CACHE_TYPE_MEMORY)
+@Component
 public class MemoryCacheHandler implements ICacheHandler<String, Object> {
 
     private Hashtable<String, Object> cacheTable = new Hashtable<>();

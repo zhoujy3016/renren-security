@@ -9,9 +9,11 @@ package io.renren.dictionary.cachestrategy;
  */
 public interface ICacheHandler<K, V> {
 
-    String CACHE_TYPE_REDIS = "cache_redis";
 
-    String CACHE_TYPE_MEMORY = "cache_memory";
+    /**
+     * 缓存类型后缀
+     */
+    String CACHE_TYPE_SUFFIX = "CacheHandler";
 
     /**
      * 设置
