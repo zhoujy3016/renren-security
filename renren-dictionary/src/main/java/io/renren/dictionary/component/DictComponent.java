@@ -31,7 +31,7 @@ public class DictComponent {
 	/**
      * 系统初始化加载数据字典缓存
      */
-    public void initDictCacheData() {
+	protected void initDictCacheData() {
 		// 数据字典载入到cache
 		loadDictDataToCache(getMapByGroup(this.sysDictService.getAllSysDictEntity()));
 		// 自定义的数据字典载入到cache
