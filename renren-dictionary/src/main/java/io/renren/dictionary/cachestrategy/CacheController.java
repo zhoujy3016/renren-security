@@ -34,11 +34,10 @@ public class CacheController {
 
     @PostConstruct
     private void init() {
-        CacheType cacheType = properties.getCacheType();
-        System.out.println("数据字典加载方式：" + cacheType);
         // 拼接成需要使用的bean名称
-        String beanName = StringUtils.lowerCase(cacheType.toString()) + ICacheHandler.CACHE_TYPE_SUFFIX;
+        String beanName = StringUtils.lowerCase(properties.getCacheType().toString()) + ICacheHandler.CACHE_TYPE_SUFFIX;
         cacheHandler = SpringContextUtils.getBean(beanName, ICacheHandler.class);
+        cacheHandler.clear();
     }
 
     public void set(String key, Object value) {

@@ -21,12 +21,6 @@ public class RedisCacheHandler implements ICacheHandler<String, Object>{
     @Autowired
     private RedisUtils redisUtils;
 
-    @PostConstruct
-    private void init() {
-        // 清空redis
-        this.clear();
-    }
-
     @Override
     public void set(String key, Object value) {
         redisUtils.set(DictConstant.getDictionaryKey(key), value, RedisUtils.NOT_EXPIRE);
