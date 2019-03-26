@@ -49,6 +49,7 @@ public class CacheController {
         return (List) cacheHandler.get(key);
     }
 
+    @Deprecated
     public void reset(String key, Object value) {
         cacheHandler.reset(key, value);
     }

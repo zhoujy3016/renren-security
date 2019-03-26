@@ -51,7 +51,7 @@ public class DictComponent {
      * @param dictMapGroup
      */
     private void loadDictDataToCache(Map<String, List<Map<String, Object>>> dictMapGroup) {
-    	dictMapGroup.forEach((k, v) -> setDictMapToCache(k, v));
+    	dictMapGroup.forEach((k, v) -> cacheController.set(k, v));
     }
     
     /**
@@ -82,7 +82,7 @@ public class DictComponent {
     public void reloadDictCacheData(String type) {
     	// 查询当前type中的数据字典列表
 		List<Map<String, Object>> dictMapList = this.sysDictService.getSysDictEntity(type);
-		setDictMapToCache(type, dictMapList);
+		cacheController.set(type, dictMapList);
     }
     
     /**
@@ -112,11 +112,4 @@ public class DictComponent {
     	this.loadExtraDictDataToCache(extraMap);
 	}
 
-	/**
-	 * 根据type查询对应的数据字典，set到cache中
-	 * @param type
-	 */
-	private void setDictMapToCache(String type, List<Map<String, Object>> list) {
-		cacheController.reset(type, list);
-	}
 }
