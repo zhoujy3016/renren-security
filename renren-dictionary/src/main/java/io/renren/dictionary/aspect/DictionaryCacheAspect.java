@@ -1,6 +1,5 @@
 package io.renren.dictionary.aspect;
 
-import io.renren.common.utils.SpringContextUtils;
 import io.renren.dictionary.annotation.DictionaryCache;
 import io.renren.common.exception.RRException;
 import io.renren.dictionary.aspect.strategy.IDictModifyHandler;
@@ -11,6 +10,8 @@ import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.stereotype.Component;
 
 /**
@@ -23,6 +24,9 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class DictionaryCacheAspect {
+
+    @Autowired
+    private DefaultListableBeanFactory factory;
 
     @Pointcut("@annotation(io.renren.dictionary.annotation.DictionaryCache)")
     public void dictUpdatePointCut() {
@@ -45,7 +49,7 @@ public class DictionaryCacheAspect {
         if(param != null) {
             // 根据数据字典类型组合bean名称
             String beanName = StringUtils.lowerCase(dicType.toString()) + IDictModifyHandler.DICT_MODIFY_TYPE_SUFFIX;
-            IDictModifyHandler handler = SpringContextUtils.getBean(beanName, IDictModifyHandler.class);
+            IDictModifyHandler handler = factory.getBean(beanName, IDictModifyHandler.class);
             // 对缓存进行同步更新操作
             handler.updateDictionaryCache(dataFilter, param);
         } else {
