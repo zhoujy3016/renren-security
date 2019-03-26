@@ -30,5 +30,5 @@ public interface ICacheHandler<K, V> {
     /**
      * 清空
      */
-    void clear();
+    default void clear(){}
 }
