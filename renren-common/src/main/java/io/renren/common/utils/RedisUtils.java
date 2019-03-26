@@ -22,6 +22,7 @@ import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -90,6 +91,15 @@ public class RedisUtils {
     }
 
     /**
+     * 前缀模糊删除
+     * @param prefix
+     */
+    public void deleteByPrefix(String prefix) {
+        Set<String> keys  = redisTemplate.keys(prefix);
+        redisTemplate.delete(keys);
+    }
+
+    /**
      * Object转成JSON数据
      */
     private String toJson(Object object){
@@ -106,4 +116,7 @@ public class RedisUtils {
     private <T> T fromJson(String json, Class<T> clazz){
         return JSON.parseObject(json, clazz);
     }
+
+
+
 }
