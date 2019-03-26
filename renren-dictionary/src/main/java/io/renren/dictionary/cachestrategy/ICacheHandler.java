@@ -8,8 +8,6 @@ package io.renren.dictionary.cachestrategy;
  * @date 2019-03-20 15:30
  */
 public interface ICacheHandler<K, V> {
-
-
     /**
      * 缓存类型后缀
      */
@@ -30,9 +28,7 @@ public interface ICacheHandler<K, V> {
     V get(K key);
 
     /**
-     * 重置
-     * @param key
-     * @param value
+     * 清空
      */
-    void reset(K key, V value);
+    default void clear(){}
 }

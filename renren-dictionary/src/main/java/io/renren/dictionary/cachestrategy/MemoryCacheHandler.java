@@ -26,9 +26,4 @@ public class MemoryCacheHandler implements ICacheHandler<String, Object> {
         return cacheTable.get(key);
     }
 
-    @Override
-    public void reset(String key, Object value) {
-        cacheTable.remove(key);
-        cacheTable.put(key, value);
-    }
 }

@@ -5,6 +5,7 @@ import io.renren.dictionary.constants.DictConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 
 /**
@@ -20,6 +21,12 @@ public class RedisCacheHandler implements ICacheHandler<String, Object>{
     @Autowired
     private RedisUtils redisUtils;
 
+    @PostConstruct
+    private void init() {
+        // 清空redis
+        this.clear();
+    }
+
     @Override
     public void set(String key, Object value) {
         redisUtils.set(DictConstant.getDictionaryKey(key), value, RedisUtils.NOT_EXPIRE);
@@ -31,8 +38,8 @@ public class RedisCacheHandler implements ICacheHandler<String, Object>{
     }
 
     @Override
-    public void reset(String key, Object value) {
-        redisUtils.delete(DictConstant.getDictionaryKey(key));
-        redisUtils.set(DictConstant.getDictionaryKey(key), value, RedisUtils.NOT_EXPIRE);
+    public void clear() {
+        // 清空dictionary:*
+        redisUtils.deleteByPrefix(DictConstant.getDictionaryKey("*"));
     }
 }
