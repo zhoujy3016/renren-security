@@ -2,7 +2,6 @@ package io.renren.dictionary.cachestrategy;
 
 import io.renren.common.utils.SpringContextUtils;
 import io.renren.dictionary.config.DictionaryProperties;
-import io.renren.dictionary.constants.CacheType;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
