@@ -31,6 +31,7 @@ import io.renren.modules.sys.entity.SysDictEntity;
 import io.renren.modules.sys.service.SysDictService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
@@ -79,18 +80,21 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictDao, SysDictEntity> i
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	@DictionaryCache(operation = DictOperation.INSERT)
 	public void insertDict(SysDictEntity sysDictEntity) {
 		this.save(sysDictEntity);
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	@DictionaryCache(operation = DictOperation.UPDATE)
 	public void updateDict(SysDictEntity sysDictEntity) {
         this.updateById(sysDictEntity);
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	@DictionaryCache(operation = DictOperation.DELETE)
 	public void deleteDict(Long[] ids) {
         this.removeByIds(Arrays.asList(ids));

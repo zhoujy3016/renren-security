@@ -14,6 +14,7 @@ import io.renren.common.utils.Query;
 import io.renren.modules.eva.dao.BteLessonTypeDao;
 import io.renren.modules.eva.entity.BteLessonTypeEntity;
 import io.renren.modules.eva.service.BteLessonTypeService;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service("bteLessonTypeService")
@@ -27,18 +28,21 @@ public class BteLessonTypeServiceImpl extends ServiceImpl<BteLessonTypeDao, BteL
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     @DictionaryCache(dictType = DictOperation.EXTRA, dictKey = {"gglx", "zylx"})
     public void insertLessonType(BteLessonTypeEntity bteLessonType) {
         this.save(bteLessonType);
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     @DictionaryCache(dictType = DictOperation.EXTRA, dictKey = {"gglx", "zylx"})
     public void updateLessonType(BteLessonTypeEntity bteLessonType) {
         this.updateById(bteLessonType);
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     @DictionaryCache(dictType = DictOperation.EXTRA, dictKey = {"gglx", "zylx"})
     public void deleteLessonType(Integer[] ids) {
         this.removeByIds(Arrays.asList(ids));

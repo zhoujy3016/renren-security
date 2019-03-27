@@ -31,6 +31,7 @@ import io.renren.modules.sys.entity.SysDictEntity;
 import io.renren.modules.sys.service.SysDictService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -77,18 +78,21 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictDao, SysDictEntity> i
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	@DictionaryCache(operation = DictOperation.INSERT)
     public void insertDict(SysDictEntity sysDictEntity) {
 		this.baseMapper.insert(sysDictEntity);
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	@DictionaryCache(operation = DictOperation.INSERT)
     public void updateDict(SysDictEntity sysDictEntity) {
 		this.updateById(sysDictEntity);
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	@DictionaryCache(operation = DictOperation.DELETE)
     public void deleteDict(Long[] ids) {
 		this.baseMapper.deleteBatchIds(Arrays.asList(ids));
