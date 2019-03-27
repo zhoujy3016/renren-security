@@ -33,7 +33,7 @@ public class ExtraDictModifyHandler implements IDictModifyHandler {
     public void updateDictionaryCache(DictionaryCache dataFilter, Object param) {
         String[] arrKeys = dataFilter.dictKey();
         if(ArrayUtils.isEmpty(arrKeys)) {
-            throw new RRException("数据字典参数为NULL，请指定key");
+            throw new RRException("未指定重置Cache的key");
         }
         // 配置文件中取得sql
         Map<String, String> sqlMap = properties.getExtraDict();

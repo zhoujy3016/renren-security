@@ -53,7 +53,7 @@ public class DictionaryCacheAspect {
             // 对缓存进行同步更新操作
             handler.updateDictionaryCache(dataFilter, param);
         } else {
-            throw new RRException("数据字典操作接口参数，不能为NULL");
+            throw new RRException("连接点参数，不能为NULL");
         }
     }
 }
