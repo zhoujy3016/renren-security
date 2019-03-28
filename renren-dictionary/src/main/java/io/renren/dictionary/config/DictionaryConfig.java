@@ -4,7 +4,6 @@ import io.renren.dictionary.aspect.strategy.ExtraDictModifyHandler;
 import io.renren.dictionary.aspect.strategy.IDictModifyHandler;
 import io.renren.dictionary.aspect.strategy.NormalDictModifyHandler;
 import io.renren.dictionary.service.ExtraDictService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
@@ -18,13 +17,12 @@ import org.springframework.context.annotation.Lazy;
  */
 @Configuration
 public class DictionaryConfig {
+
 	@Bean
-	ExtraDictService extraDictService(@Autowired(required = false) DictionaryProperties properties) {
+	ExtraDictService extraDictService(DictionaryProperties properties) {
 		ExtraDictService extraDictService = new ExtraDictService();
-		if(properties != null) {
-			extraDictService.setStatement(properties.getStatement());
-			extraDictService.addAll(properties.getExtraDict());
-		}
+		extraDictService.setStatement(properties.getStatement());
+		extraDictService.addAll(properties.getExtraDict());
 		return extraDictService;
 	}
 

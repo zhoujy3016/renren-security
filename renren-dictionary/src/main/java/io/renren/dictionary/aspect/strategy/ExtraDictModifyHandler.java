@@ -23,7 +23,7 @@ public class ExtraDictModifyHandler implements IDictModifyHandler {
     @Autowired
     private ExtraDictService extraDictService;
 
-    @Autowired(required = false)
+    @Autowired
     private DictionaryProperties properties;
 
     @Autowired
