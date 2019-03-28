@@ -1,6 +1,7 @@
 package io.renren.dictionary.cachestrategy;
 
 import io.renren.dictionary.config.DictionaryProperties;
+import io.renren.dictionary.constants.DictConstant;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 根据配置文件cache类型控制类
@@ -36,12 +39,35 @@ public class CacheController {
         cacheHandler.clear();
     }
 
+    /**
+     * 设置
+     * @param key
+     * @param value
+     */
     public void set(String key, Object value) {
         cacheHandler.set(key, value);
     }
 
+    /**
+     * 取得
+     * @param key
+     * @return
+     */
     public List get(String key) {
         return (List) cacheHandler.get(key);
     }
 
+    /**
+     * 通过类型和名称取得code
+     * @param type
+     * @param cacheName
+     * @return
+     */
+    public String getCode(String type, String cacheName) {
+        String code = (String) this.get(type).stream()
+                .filter(obj ->((Map) obj).get(DictConstant.DICT_VALUE).equals(cacheName))
+                .map(obj -> ((Map)obj).get(DictConstant.DICT_CODE))
+                .collect(Collectors.joining());
+        return code;
+    }
 }

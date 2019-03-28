@@ -53,28 +53,7 @@ public class DictComponent {
     private void loadDictDataToCache(Map<String, List<Map<String, Object>>> dictMapGroup) {
     	dictMapGroup.forEach((k, v) -> cacheController.set(k, v));
     }
-    
-    /**
-     * 通过types从缓存中查出数据放入一个map中
-     * @param types
-     * @return
-     */
-    public Map<String, Object> getDictCacheDataByTypes(String types) {
-		Map<String, Object> resultMap = Arrays.stream(types.split(","))
-				.map(String::trim)
-				.collect(Collectors.toMap(type -> type, type -> cacheController.get(type)));
-    	return resultMap;
-    }
 
-	/**
-	 * 通过某种类型从缓存中查出一个类型的数据字典List
-	 * @param type
-	 * @return
-	 */
-	public List getDictCacheDataByType(String type) {
-		return cacheController.get(type.trim());
-	}
-    
     /**
      * 增、改数据字典时，更新cache
      * @param type
@@ -110,6 +89,38 @@ public class DictComponent {
 	 */
 	public void reloadExtraCacheData(Map<String, Object> extraMap) {
     	this.loadExtraDictDataToCache(extraMap);
+	}
+
+	/**
+	 * 通过types从缓存中查出数据放入一个map中
+	 * @param types
+	 * @return
+	 */
+	public Map<String, Object> getDictCacheDataByTypes(String types) {
+		Map<String, Object> resultMap = Arrays.stream(types.split(","))
+				.map(String::trim)
+				.collect(Collectors.toMap(type -> type, type -> cacheController.get(type)));
+		return resultMap;
+	}
+
+	/**
+	 * 通过某种类型从缓存中查出一个类型的数据字典List
+	 * @param type
+	 * @return
+	 */
+	public List getDictCacheDataByType(String type) {
+		return cacheController.get(type.trim());
+	}
+
+
+	/**
+	 * 通过type与name取得code
+	 * @param type
+	 * @param cacheName
+	 * @return
+	 */
+	public String getDictCacheCode(String type, String cacheName) {
+		return cacheController.getCode(type.trim(), cacheName.trim());
 	}
 
 }

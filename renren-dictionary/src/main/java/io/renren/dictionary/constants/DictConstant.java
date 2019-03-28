@@ -19,6 +19,11 @@ public class DictConstant {
     public final static String DICT_TYPE = "type";
 
     /**
+     * 名称
+     */
+    public final static String DICT_VALUE = "value";
+
+    /**
      * 数据字典配置路径&文件
      */
     @Deprecated
