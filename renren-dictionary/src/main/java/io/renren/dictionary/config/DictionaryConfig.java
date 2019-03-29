@@ -4,6 +4,7 @@ import io.renren.dictionary.aspect.strategy.ExtraDictModifyHandler;
 import io.renren.dictionary.aspect.strategy.IDictModifyHandler;
 import io.renren.dictionary.aspect.strategy.NormalDictModifyHandler;
 import io.renren.dictionary.service.ExtraDictService;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
@@ -19,6 +20,7 @@ import org.springframework.context.annotation.Lazy;
 public class DictionaryConfig {
 
 	@Bean
+	@ConditionalOnMissingBean
 	ExtraDictService extraDictService(DictionaryProperties properties) {
 		ExtraDictService extraDictService = new ExtraDictService();
 		extraDictService.setStatement(properties.getStatement());
