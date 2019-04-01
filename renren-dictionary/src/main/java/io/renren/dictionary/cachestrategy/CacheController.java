@@ -1,7 +1,6 @@
 package io.renren.dictionary.cachestrategy;
 
 import io.renren.dictionary.config.DictionaryProperties;
-import io.renren.dictionary.constants.DictConstant;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
@@ -65,8 +64,8 @@ public class CacheController {
      */
     public String getCode(String type, String cacheName) {
         String code = (String) this.get(type).stream()
-                .filter(obj ->((Map) obj).get(DictConstant.DICT_VALUE).equals(cacheName))
-                .map(obj -> ((Map)obj).get(DictConstant.DICT_CODE))
+                .filter(obj ->((Map) obj).get(properties.getValue()).equals(cacheName))
+                .map(obj -> ((Map)obj).get(properties.getCode()))
                 .collect(Collectors.joining());
         return code;
     }

@@ -102,3 +102,7 @@ dictionary:
         zdlx : select type as code , name as value from sys_dict where del_flag = 0 group by type, name;
         gglx : select data_no as code, type_name as value from bte_lesson_type where category_id = 1 and del_flag != -1
         zylx : select data_no as code, type_name as value from bte_lesson_type where category_id = 2 and del_flag != -1
+#    code: dict_value
+#    type: dict_type
+#    value: dict_name
+#    property-type: dictType

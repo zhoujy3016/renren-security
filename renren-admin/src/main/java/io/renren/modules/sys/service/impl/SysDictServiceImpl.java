@@ -21,6 +21,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import io.renren.dictionary.annotation.DictionaryCache;
+import io.renren.dictionary.config.DictionaryProperties;
 import io.renren.dictionary.constants.DictOperation;
 import io.renren.dictionary.service.IDictService;
 import io.renren.common.utils.PageUtils;
@@ -30,6 +31,7 @@ import io.renren.modules.sys.dao.SysDictDao;
 import io.renren.modules.sys.entity.SysDictEntity;
 import io.renren.modules.sys.service.SysDictService;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,6 +41,9 @@ import java.util.stream.Collectors;
 
 @Service("sysDictService")
 public class SysDictServiceImpl extends ServiceImpl<SysDictDao, SysDictEntity> implements SysDictService, IDictService {
+
+	@Autowired
+	private DictionaryProperties dictionaryProperties;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -61,7 +66,7 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictDao, SysDictEntity> i
 
 	@Override
 	public List<Map<String, Object>> getSysDictEntity(String type) {
-		return this.baseMapper.selectMaps(new QueryWrapper<SysDictEntity>().eq(DictConstant.DICT_TYPE, type));
+		return this.baseMapper.selectMaps(new QueryWrapper<SysDictEntity>().eq(dictionaryProperties.getType(), type));
 	}
 
 	@Override
@@ -73,7 +78,7 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictDao, SysDictEntity> i
 				.map(SysDictEntity::getType)
 				.distinct()
 				.collect(Collectors.toMap(type -> type,
-						type -> this.baseMapper.selectMaps(new QueryWrapper<SysDictEntity>().eq("type", type))));
+						type -> this.baseMapper.selectMaps(new QueryWrapper<SysDictEntity>().eq(dictionaryProperties.getType(), type))));
 		return dictMapGroup;
 	}
 

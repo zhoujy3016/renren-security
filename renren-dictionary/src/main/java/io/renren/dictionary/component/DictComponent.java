@@ -1,9 +1,9 @@
 package io.renren.dictionary.component;
 
 import io.renren.dictionary.cachestrategy.CacheController;
+import io.renren.dictionary.config.DictionaryProperties;
 import io.renren.dictionary.service.ExtraDictService;
 import io.renren.dictionary.service.IDictService;
-import io.renren.dictionary.constants.DictConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,6 +28,9 @@ public class DictComponent {
     @Autowired
     private CacheController cacheController;
 
+    @Autowired
+    private DictionaryProperties dictionaryProperties;
+
 	/**
      * 系统初始化加载数据字典缓存
      */
@@ -43,7 +46,7 @@ public class DictComponent {
 	 * @param list
 	 */
     private Map<String, List<Map<String, Object>>> getMapByGroup(List<Map<String, Object>> list) {
-    	return list.stream().collect(Collectors.groupingBy(map-> (String)map.get(DictConstant.DICT_TYPE)));
+    	return list.stream().collect(Collectors.groupingBy(map-> (String)map.get(dictionaryProperties.getType())));
 	}
     
     /**

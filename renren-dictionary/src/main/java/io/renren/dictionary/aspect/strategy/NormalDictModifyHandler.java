@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import io.renren.dictionary.annotation.DictionaryCache;
 import io.renren.dictionary.component.DictComponent;
-import io.renren.dictionary.constants.DictConstant;
+import io.renren.dictionary.config.DictionaryProperties;
 import io.renren.dictionary.constants.DictOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,6 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class NormalDictModifyHandler implements IDictModifyHandler {
     @Autowired
     DictComponent dictComponent;
+
+    @Autowired
+    DictionaryProperties dictionaryProperties;
 
     @Override
     public void updateDictionaryCache(DictionaryCache dataFilter, Object param) {
@@ -44,7 +47,7 @@ public class NormalDictModifyHandler implements IDictModifyHandler {
         // 将实体类型转为jsonObject
         JSONObject dictEntity = (JSONObject) JSON.toJSON(param);
         // 将该类型重新载入缓存中
-        dictComponent.reloadDictCacheData((String) dictEntity.get(DictConstant.DICT_TYPE));
+        dictComponent.reloadDictCacheData((String) dictEntity.get(dictionaryProperties.getPropertyType()));
     }
 
     /**
