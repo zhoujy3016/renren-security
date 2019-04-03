@@ -28,7 +28,7 @@ public class NormalDictModifyHandler implements IDictModifyHandler {
         switch (operation) {
             // 插入
             case INSERT:
-                // 更新
+            // 更新
             case UPDATE: dictionaryAddOrUpdateHandler(param);
                 break;
             // 删除
