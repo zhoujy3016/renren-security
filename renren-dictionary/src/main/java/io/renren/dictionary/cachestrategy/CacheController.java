@@ -7,6 +7,7 @@ import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -53,7 +54,8 @@ public class CacheController {
      * @return
      */
     public List get(String key) {
-        return (List) cacheHandler.get(key);
+        Object object = cacheHandler.get(key);
+        return object == null? new ArrayList(1): (List)object;
     }
 
     /**
