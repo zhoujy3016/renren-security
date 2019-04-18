@@ -126,4 +126,15 @@ public class DictComponent {
 		return cacheController.getCode(type.trim(), cacheName.trim());
 	}
 
+	/**
+	 * 通过type与code取得text
+	 * @param type
+	 * @param code
+	 * @return
+	 */
+	public String getDictCacheText(String type, String code) {
+		return cacheController.getText(type.trim(), code.trim());
+	}
+
+
 }

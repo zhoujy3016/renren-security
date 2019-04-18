@@ -71,4 +71,18 @@ public class CacheController {
                 .collect(Collectors.joining());
         return code;
     }
+
+    /**
+     * 通过type与code取得text
+     * @param type
+     * @param code
+     * @return
+     */
+    public String getText(String type, String code) {
+        String text = (String) this.get(type).stream()
+                .filter(obj ->((Map) obj).get(properties.getCode()).equals(code))
+                .map(obj -> ((Map)obj).get(properties.getValue()))
+                .collect(Collectors.joining());
+        return text;
+    }
 }
