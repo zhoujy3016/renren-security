@@ -61,12 +61,12 @@ public class CacheController {
     /**
      * 通过类型和名称取得code
      * @param type
-     * @param cacheName
+     * @param text
      * @return
      */
-    public String getCode(String type, String cacheName) {
+    public String getCode(String type, String text) {
         String code = (String) this.get(type).stream()
-                .filter(obj ->((Map) obj).get(properties.getValue()).equals(cacheName))
+                .filter(obj ->((Map) obj).get(properties.getValue()).equals(text))
                 .map(obj -> ((Map)obj).get(properties.getCode()))
                 .collect(Collectors.joining());
         return code;

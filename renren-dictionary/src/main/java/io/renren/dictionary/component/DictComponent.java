@@ -119,11 +119,11 @@ public class DictComponent {
 	/**
 	 * 通过type与name取得code
 	 * @param type
-	 * @param cacheName
+	 * @param text
 	 * @return
 	 */
-	public String getDictCacheCode(String type, String cacheName) {
-		return cacheController.getCode(type.trim(), cacheName.trim());
+	public String getDictCacheCode(String type, String text) {
+		return cacheController.getCode(type.trim(), text.trim());
 	}
 
 	/**
