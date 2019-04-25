@@ -47,6 +47,7 @@
         <easypoi.web.version>3.0.3</easypoi.web.version>
         <easypoi.annotation.version>3.0.3</easypoi.annotation.version>
         <lombok.version>1.18.4</lombok.version>
+        <cglib.version>3.2.10</cglib.version>
     </properties>
 
     <dependencies>
@@ -180,6 +181,11 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>${cglib.version}</version>
         </dependency>
     </dependencies>
 

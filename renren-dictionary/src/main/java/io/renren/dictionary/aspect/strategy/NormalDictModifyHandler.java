@@ -1,12 +1,13 @@
 package io.renren.dictionary.aspect.strategy;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.toolkit.BeanUtils;
 import io.renren.dictionary.annotation.DictionaryCache;
 import io.renren.dictionary.component.DictComponent;
 import io.renren.dictionary.config.DictionaryProperties;
 import io.renren.dictionary.constants.DictOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Map;
 
 /**
  * 常规数据字典更新操作类
@@ -44,10 +45,9 @@ public class NormalDictModifyHandler implements IDictModifyHandler {
      * @param param
      */
     private void dictionaryAddOrUpdateHandler(Object param) {
-        // 将实体类型转为jsonObject
-        JSONObject dictEntity = (JSONObject) JSON.toJSON(param);
+        Map<String, Object> map = BeanUtils.beanToMap(param);
         // 将该类型重新载入缓存中
-        dictComponent.reloadDictCacheData((String) dictEntity.get(dictionaryProperties.getPropertyType()));
+        dictComponent.reloadDictCacheData((String) map.get(dictionaryProperties.getPropertyType()));
     }
 
     /**
