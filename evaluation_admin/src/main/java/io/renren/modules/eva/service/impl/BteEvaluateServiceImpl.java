@@ -54,7 +54,7 @@ public class BteEvaluateServiceImpl extends ServiceImpl<BteEvaluateDao, BteEvalu
     @DataCreatorFilter(tableAlias="be")
     public PageUtils queryPage(Map<String, Object> params) {
 		Page<BteEvaluateEntity> page = new Query<BteEvaluateEntity>(params).getPage();
-		page.setRecords(baseMapper.selectBteEvalList(page, params));
+		page.setRecords(baseMapper.selectBteEvalList(params));
 		return new PageUtils(page);
     }
 

@@ -80,6 +80,8 @@ public class Query<T> extends LinkedHashMap<String, Object> {
             }
         }
 
+        params.put("page", this.page);
+
     }
 
     public Page<T> getPage() {

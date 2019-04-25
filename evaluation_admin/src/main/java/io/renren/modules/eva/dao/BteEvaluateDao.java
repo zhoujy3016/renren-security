@@ -19,7 +19,7 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface BteEvaluateDao extends BaseMapper<BteEvaluateEntity> {
 	
-	List<BteEvaluateEntity> selectBteEvalList(Page page, @Param("params") Map<String, Object> params);
+	List<BteEvaluateEntity> selectBteEvalList(Map<String, Object> params);
 	
 	
 }
