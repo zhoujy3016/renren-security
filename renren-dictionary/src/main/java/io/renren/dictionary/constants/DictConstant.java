@@ -24,6 +24,11 @@ public class DictConstant {
     public final static String DICT_VALUE = "value";
 
     /**
+     * 排序
+     */
+    public final static String DICT_SORT = "order_num";
+
+    /**
      * 数据字典配置路径&文件
      */
     @Deprecated

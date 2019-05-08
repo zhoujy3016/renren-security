@@ -1,5 +1,6 @@
 package io.renren.dictionary.component;
 
+import io.renren.common.utils.OptionalUtils;
 import io.renren.dictionary.cachestrategy.CacheController;
 import io.renren.dictionary.config.DictionaryProperties;
 import io.renren.dictionary.service.ExtraDictService;
@@ -42,11 +43,22 @@ public class DictComponent {
     }
 
 	/**
-	 * 一个集合，通过type分组，生成一个map
+	 * 一个集合，通过type分组，生成一个排序的map
 	 * @param list
 	 */
     private Map<String, List<Map<String, Object>>> getMapByGroup(List<Map<String, Object>> list) {
-    	return list.stream().collect(Collectors.groupingBy(map-> (String)map.get(dictionaryProperties.getType())));
+		// 分组
+		Map<String, List<Map<String, Object>>> groupMap =  list.stream()
+				.collect(Collectors.groupingBy(map-> (String)map.get(dictionaryProperties.getType())));
+		// 排序
+		Map<String, List<Map<String, Object>>> groupSortMap = new HashMap<>(50);
+		groupMap.forEach((k, v) -> {
+			List<Map<String, Object>> sortList = v.stream()
+					.sorted(Comparator.comparingInt(obj -> OptionalUtils.stringToInt(String.valueOf(obj.get(dictionaryProperties.getSort())))))
+					.collect(Collectors.toList());
+			groupSortMap.put(k, sortList);
+		});
+		return groupSortMap;
 	}
     
     /**

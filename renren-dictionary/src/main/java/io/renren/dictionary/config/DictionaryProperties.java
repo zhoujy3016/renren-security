@@ -38,6 +38,9 @@ public class DictionaryProperties implements Serializable {
     /** tableFiled: dictionary code */
     private String code = DictConstant.DICT_CODE;
 
+    /** tableFiled: dictionary sort*/
+    private String sort = DictConstant.DICT_SORT;
+
     /** property: the type's name of the entity property*/
     private String propertyType = DictConstant.DICT_TYPE;
 
