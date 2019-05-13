@@ -65,11 +65,13 @@ public class CacheController {
      * @return
      */
     public String getCode(String type, String text) {
-        String code = (String) this.get(type).stream()
-                .filter(obj ->((Map) obj).get(properties.getValue()).equals(text))
-                .map(obj -> ((Map)obj).get(properties.getCode()))
-                .collect(Collectors.joining());
-        return code;
+        List<Map<String, Object>> dictList = this.get(type);
+        for (Map map: dictList) {
+            if(map.get(properties.getValue()).equals(text)) {
+                return (String) map.get(properties.getCode());
+            }
+        }
+        return "";
     }
 
     /**
@@ -79,10 +81,12 @@ public class CacheController {
      * @return
      */
     public String getText(String type, String code) {
-        String text = (String) this.get(type).stream()
-                .filter(obj ->((Map) obj).get(properties.getCode()).equals(code))
-                .map(obj -> ((Map)obj).get(properties.getValue()))
-                .collect(Collectors.joining());
-        return text;
+        List<Map<String, Object>> dictList = this.get(type);
+        for (Map map: dictList) {
+            if(map.get(properties.getCode()).equals(code)) {
+                return (String) map.get(properties.getValue());
+            }
+        }
+        return "";
     }
 }
