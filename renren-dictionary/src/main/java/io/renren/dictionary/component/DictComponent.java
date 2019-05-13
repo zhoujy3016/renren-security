@@ -51,16 +51,14 @@ public class DictComponent {
 		Map<String, List<Map<String, Object>>> groupMap =  list.stream()
 				.collect(Collectors.groupingBy(map-> (String)map.get(dictionaryProperties.getType())));
 		// 排序
-		Map<String, List<Map<String, Object>>> groupSortMap = new HashMap<>(50);
-		groupMap.forEach((k, v) -> {
-			List<Map<String, Object>> sortList = v.stream()
-					.sorted(Comparator.comparingInt(obj -> OptionalUtils.stringToInt(String.valueOf(obj.get(dictionaryProperties.getSort())))))
-					.collect(Collectors.toList());
-			groupSortMap.put(k, sortList);
-		});
+		Map<String, List<Map<String, Object>>> groupSortMap  = groupMap.keySet().stream()
+				.collect(Collectors.toMap(k -> k, k -> groupMap.get(k).stream()
+						.sorted(Comparator.comparingInt(obj ->
+								OptionalUtils.stringToInt(String.valueOf(obj.get(dictionaryProperties.getSort())))))
+						.collect(Collectors.toList())));
 		return groupSortMap;
 	}
-    
+
     /**
      * 数据放到cache中
      * @param dictMapGroup
