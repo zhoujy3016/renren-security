@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Arrays;
 import java.util.Map;
-import java.util.stream.Collectors;
+import static java.util.stream.Collectors.*;
 
 /**
  * 其他业务表数据字典更新操作类
@@ -39,7 +39,7 @@ public class ExtraDictModifyHandler implements IDictModifyHandler {
         Map<String, String> sqlMap = properties.getExtraDict();
         Map<String, Object> extraMap  = Arrays.stream(arrKeys)
                 .map(String::trim)
-                .collect(Collectors.toMap(key -> key, key -> extraDictService.executeQuery(sqlMap.get(key))));
+                .collect(toMap(key -> key, key -> extraDictService.executeQuery(sqlMap.get(key))));
         dictComponent.reloadExtraCacheData(extraMap);
     }
 }

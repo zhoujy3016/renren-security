@@ -9,7 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
-import java.util.stream.Collectors;
+import static java.util.stream.Collectors.*;
+import static java.util.Comparator.*;
 
 /**
  * 数据字典缓存操作类
@@ -30,7 +31,7 @@ public class DictComponent {
     private CacheController cacheController;
 
     @Autowired
-    private DictionaryProperties dictionaryProperties;
+    private DictionaryProperties properties;
 
 	/**
      * 系统初始化加载数据字典缓存
@@ -49,13 +50,13 @@ public class DictComponent {
     private Map<String, List<Map<String, Object>>> getMapByGroup(List<Map<String, Object>> list) {
 		// 分组
 		Map<String, List<Map<String, Object>>> groupMap =  list.stream()
-				.collect(Collectors.groupingBy(map-> (String)map.get(dictionaryProperties.getType())));
+				.collect(groupingBy(map-> (String)map.get(properties.getType())));
 		// 排序
 		Map<String, List<Map<String, Object>>> groupSortMap  = groupMap.keySet().stream()
-				.collect(Collectors.toMap(k -> k, k -> groupMap.get(k).stream()
-						.sorted(Comparator.comparingInt(obj ->
-								OptionalUtils.stringToInt(String.valueOf(obj.get(dictionaryProperties.getSort())))))
-						.collect(Collectors.toList())));
+				.collect(toMap(k -> k, k -> groupMap.get(k).stream()
+						.sorted(comparingInt(obj ->
+								OptionalUtils.stringToInt(String.valueOf(obj.get(properties.getSort())))))
+						.collect(toList())));
 		return groupSortMap;
 	}
 
@@ -112,7 +113,7 @@ public class DictComponent {
 	public Map<String, Object> getDictCacheDataByTypes(String types) {
 		Map<String, Object> resultMap = Arrays.stream(types.split(","))
 				.map(String::trim)
-				.collect(Collectors.toMap(type -> type, type -> cacheController.get(type)));
+				.collect(toMap(type -> type, type -> cacheController.get(type)));
 		return resultMap;
 	}
 

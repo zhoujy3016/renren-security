@@ -21,7 +21,7 @@ public class NormalDictModifyHandler implements IDictModifyHandler {
     DictComponent dictComponent;
 
     @Autowired
-    DictionaryProperties dictionaryProperties;
+    DictionaryProperties properties;
 
     @Override
     public void updateDictionaryCache(DictionaryCache dataFilter, Object param) {
@@ -47,7 +47,7 @@ public class NormalDictModifyHandler implements IDictModifyHandler {
     private void dictionaryAddOrUpdateHandler(Object param) {
         Map<String, Object> map = BeanUtils.beanToMap(param);
         // 将该类型重新载入缓存中
-        dictComponent.reloadDictCacheData((String) map.get(dictionaryProperties.getPropertyType()));
+        dictComponent.reloadDictCacheData((String) map.get(properties.getPropertyType()));
     }
 
     /**
