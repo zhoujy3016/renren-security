@@ -54,4 +54,28 @@ public class OptionalUtils {
                 .flatMap(OptionalUtils::s2l)
                 .orElse(0L);
     }
+
+    /**
+     * 字符串trim 返回Optional<String>
+     * @param s
+     * @return
+     */
+    public static Optional<String> s2trim(String s) {
+        try {
+            return Optional.of(s.trim());
+        } catch (NullPointerException e) {
+            return Optional.empty();
+        }
+    }
+
+    /**
+     * 返回一个trim后的字符串，给出默认值空
+     * @param s
+     * @return
+     */
+    public static String stringTrim(String s) {
+        return Optional.ofNullable(s)
+                .flatMap(OptionalUtils::s2trim)
+                .orElse("");
+    }
 }

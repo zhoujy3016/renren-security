@@ -134,7 +134,7 @@ public class DictComponent {
 	 * @return
 	 */
 	public String getDictCacheCode(String type, String text) {
-		return cacheController.getCode(type.trim(), text.trim());
+		return cacheController.getCode(type.trim(), OptionalUtils.stringTrim(text));
 	}
 
 	/**
@@ -144,7 +144,7 @@ public class DictComponent {
 	 * @return
 	 */
 	public String getDictCacheText(String type, String code) {
-		return cacheController.getText(type.trim(), code.trim());
+		return cacheController.getText(type.trim(), OptionalUtils.stringTrim(code));
 	}
 
 
