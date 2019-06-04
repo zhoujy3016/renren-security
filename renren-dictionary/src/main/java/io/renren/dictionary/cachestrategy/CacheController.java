@@ -1,16 +1,13 @@
 package io.renren.dictionary.cachestrategy;
 
 import io.renren.dictionary.config.DictionaryProperties;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * 根据配置文件cache类型控制类
@@ -23,19 +20,14 @@ import java.util.stream.Collectors;
 @Component
 public class CacheController {
 
+    @Autowired
     private ICacheHandler cacheHandler;
 
     @Autowired
     private DictionaryProperties properties;
 
-    @Autowired
-    private DefaultListableBeanFactory factory;
-
     @PostConstruct
     private void init() {
-        // 拼接成需要使用的bean名称
-        String beanName = StringUtils.lowerCase(properties.getCacheType().toString()) + ICacheHandler.CACHE_TYPE_SUFFIX;
-        cacheHandler = factory.getBean(beanName, ICacheHandler.class);
         cacheHandler.clear();
     }
 

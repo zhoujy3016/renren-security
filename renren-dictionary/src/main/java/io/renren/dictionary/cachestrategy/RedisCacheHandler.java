@@ -3,6 +3,7 @@ package io.renren.dictionary.cachestrategy;
 import io.renren.common.utils.RedisUtils;
 import io.renren.dictionary.constants.DictConstant;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
  * @date 2019-03-20 15:30
  */
 @Component
+@ConditionalOnExpression("'${dictionary.cache-type}'.equals('redis')")
 public class RedisCacheHandler implements ICacheHandler<String, Object>{
 
     @Autowired

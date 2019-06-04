@@ -1,5 +1,6 @@
 package io.renren.dictionary.cachestrategy;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.stereotype.Component;
 
 import java.util.Hashtable;
@@ -12,6 +13,7 @@ import java.util.Hashtable;
  * @date 2019-03-20 15:30
  */
 @Component
+@ConditionalOnExpression("'${dictionary.cache-type}'.equals('memory')")
 public class MemoryCacheHandler implements ICacheHandler<String, Object> {
 
     private Hashtable<String, Object> cacheTable = new Hashtable<>();
