@@ -28,7 +28,7 @@ public class CacheController {
 
     @PostConstruct
     private void init() {
-        cacheHandler.clear();
+        cacheHandler.initialize();
     }
 
     /**

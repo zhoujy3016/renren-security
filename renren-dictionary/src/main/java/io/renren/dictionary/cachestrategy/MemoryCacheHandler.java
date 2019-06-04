@@ -16,7 +16,12 @@ import java.util.Hashtable;
 @ConditionalOnExpression("'${dictionary.cache-type}'.equals('memory')")
 public class MemoryCacheHandler implements ICacheHandler<String, Object> {
 
-    private Hashtable<String, Object> cacheTable = new Hashtable<>();
+    private Hashtable<String, Object> cacheTable;
+
+    @Override
+    public void initialize() {
+        cacheTable = new Hashtable<>();
+    }
 
     @Override
     public void set(String key, Object value) {

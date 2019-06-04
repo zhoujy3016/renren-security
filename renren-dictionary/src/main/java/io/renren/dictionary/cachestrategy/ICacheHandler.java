@@ -9,6 +9,10 @@ package io.renren.dictionary.cachestrategy;
  */
 public interface ICacheHandler<K, V> {
     /**
+     * 初始化
+     */
+    void initialize();
+    /**
      * 设置
      * @param key
      * @param value
@@ -21,9 +25,4 @@ public interface ICacheHandler<K, V> {
      * @return
      */
     V get(K key);
-
-    /**
-     * 清空
-     */
-    default void clear(){}
 }

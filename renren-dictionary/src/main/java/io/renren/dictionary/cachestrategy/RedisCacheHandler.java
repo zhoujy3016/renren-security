@@ -23,6 +23,12 @@ public class RedisCacheHandler implements ICacheHandler<String, Object>{
     private RedisUtils redisUtils;
 
     @Override
+    public void initialize() {
+        // 清空dictionary:*
+        redisUtils.deleteByPrefix(DictConstant.getDictionaryKey("*"));
+    }
+
+    @Override
     public void set(String key, Object value) {
         redisUtils.set(DictConstant.getDictionaryKey(key), value, RedisUtils.NOT_EXPIRE);
     }
@@ -30,11 +36,5 @@ public class RedisCacheHandler implements ICacheHandler<String, Object>{
     @Override
     public Object get(String key) {
         return redisUtils.get(DictConstant.getDictionaryKey(key), ArrayList.class);
-    }
-
-    @Override
-    public void clear() {
-        // 清空dictionary:*
-        redisUtils.deleteByPrefix(DictConstant.getDictionaryKey("*"));
     }
 }
