@@ -9,11 +9,6 @@ package io.renren.dictionary.cachestrategy;
  */
 public interface ICacheHandler<K, V> {
     /**
-     * 缓存类型后缀
-     */
-    String CACHE_TYPE_SUFFIX = "CacheHandler";
-
-    /**
      * 设置
      * @param key
      * @param value
