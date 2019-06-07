@@ -4,6 +4,7 @@ import io.renren.dictionary.aspect.strategy.ExtraDictModifyHandler;
 import io.renren.dictionary.aspect.strategy.IDictModifyHandler;
 import io.renren.dictionary.aspect.strategy.NormalDictModifyHandler;
 import io.renren.dictionary.component.DictComponent;
+import io.renren.dictionary.constants.DictConstant;
 import io.renren.dictionary.service.ExtraDictService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -43,7 +44,7 @@ public class DictionaryConfig {
 	}
 
 	@Bean
-	@ConditionalOnMissingBean
+	@ConditionalOnMissingBean(name = DictConstant.BEAN_RUNNER)
 	public CommandLineRunner dictionaryRunner(DictComponent dictComponent) {
 		return arg -> {
 			dictComponent.initDictCacheData();

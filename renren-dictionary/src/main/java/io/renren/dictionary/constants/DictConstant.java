@@ -55,6 +55,11 @@ public class DictConstant {
     public final static String KEY_DICT_LIST = "dictList";
 
     /**
+     * runner name
+     */
+    public final static String BEAN_RUNNER = "dictionaryRunner";
+
+    /**
      * 数据字典redis缓存中的key
      * @param key
      * @return
