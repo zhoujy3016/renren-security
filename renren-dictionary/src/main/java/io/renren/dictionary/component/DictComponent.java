@@ -21,7 +21,7 @@ import static java.util.Comparator.*;
  */
 @Component
 public class DictComponent {
-    @Autowired
+    @Autowired(required = false)
     private IDictService sysDictService;
 
     @Autowired
