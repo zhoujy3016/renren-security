@@ -3,7 +3,9 @@ package io.renren.dictionary.config;
 import io.renren.dictionary.aspect.strategy.ExtraDictModifyHandler;
 import io.renren.dictionary.aspect.strategy.IDictModifyHandler;
 import io.renren.dictionary.aspect.strategy.NormalDictModifyHandler;
+import io.renren.dictionary.component.DictComponent;
 import io.renren.dictionary.service.ExtraDictService;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,5 +40,14 @@ public class DictionaryConfig {
 	@Bean
 	IDictModifyHandler extraDictModifyHandler() {
 		return new ExtraDictModifyHandler();
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public CommandLineRunner dictionaryRunner(DictComponent dictComponent) {
+		return arg -> {
+			dictComponent.initDictCacheData();
+			dictComponent.initExtraDictCacheData();
+		};
 	}
 }

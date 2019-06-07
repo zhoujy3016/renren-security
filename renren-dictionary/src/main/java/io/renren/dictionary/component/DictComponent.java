@@ -36,12 +36,18 @@ public class DictComponent {
 	/**
      * 系统初始化加载数据字典缓存
      */
-	protected void initDictCacheData() {
+	public void initDictCacheData() {
 		// 数据字典载入到cache
 		loadDictDataToCache(getMapByGroup(this.sysDictService.getAllSysDictEntity()));
+    }
+
+	/**
+	 * 系统初始化加载自定义数据字典缓存
+	 */
+	public void initExtraDictCacheData() {
 		// 自定义的数据字典载入到cache
 		loadExtraDictDataToCache(this.extraDictService.getExtraMap());
-    }
+	}
 
 	/**
 	 * 一个集合，通过type分组，生成一个排序的map

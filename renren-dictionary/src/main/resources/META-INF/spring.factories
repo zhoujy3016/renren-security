@@ -4,7 +4,6 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   io.renren.dictionary.cachestrategy.MemoryCacheHandler,\
   io.renren.dictionary.cachestrategy.RedisCacheHandler,\
   io.renren.dictionary.component.DictComponent,\
-  io.renren.dictionary.component.DictionaryRunner,\
   io.renren.dictionary.config.DictionaryProperties,\
   io.renren.dictionary.config.DictionaryConfig
 
