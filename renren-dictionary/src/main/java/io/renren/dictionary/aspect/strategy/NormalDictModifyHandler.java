@@ -1,13 +1,12 @@
 package io.renren.dictionary.aspect.strategy;
 
-import com.baomidou.mybatisplus.core.toolkit.BeanUtils;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import io.renren.dictionary.annotation.DictionaryCache;
 import io.renren.dictionary.component.DictComponent;
 import io.renren.dictionary.config.DictionaryProperties;
 import io.renren.dictionary.constants.DictOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.Map;
 
 /**
  * 常规数据字典更新操作类
@@ -45,9 +44,9 @@ public class NormalDictModifyHandler implements IDictModifyHandler {
      * @param param
      */
     private void dictionaryAddOrUpdateHandler(Object param) {
-        Map<String, Object> map = BeanUtils.beanToMap(param);
+        JSONObject jsonObject = JSONUtil.parseObj(param);
         // 将该类型重新载入缓存中
-        dictComponent.reloadDictCacheData((String) map.get(properties.getPropertyType()));
+        dictComponent.reloadDictCacheData((String) jsonObject.get(properties.getPropertyType()));
     }
 
     /**
