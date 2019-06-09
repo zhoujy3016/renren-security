@@ -2,7 +2,7 @@ package io.renren.dictionary.aspect.strategy;
 
 import io.renren.common.exception.RRException;
 import io.renren.dictionary.annotation.DictionaryCache;
-import io.renren.dictionary.component.DictComponent;
+import io.renren.dictionary.component.CacheController;
 import io.renren.dictionary.config.DictionaryProperties;
 import io.renren.dictionary.service.ExtraDictService;
 import org.apache.commons.lang.ArrayUtils;
@@ -27,7 +27,7 @@ public class ExtraDictModifyHandler implements IDictModifyHandler {
     private DictionaryProperties properties;
 
     @Autowired
-    DictComponent dictComponent;
+    CacheController cacheController;
 
     @Override
     public void updateDictionaryCache(DictionaryCache dataFilter, Object param) {
@@ -40,6 +40,6 @@ public class ExtraDictModifyHandler implements IDictModifyHandler {
         Map<String, Object> extraMap  = Arrays.stream(arrKeys)
                 .map(String::trim)
                 .collect(toMap(key -> key, key -> extraDictService.executeQuery(sqlMap.get(key))));
-        dictComponent.reloadExtraCacheData(extraMap);
+        cacheController.reloadExtraCacheData(extraMap);
     }
 }

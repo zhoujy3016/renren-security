@@ -3,7 +3,7 @@ package io.renren.dictionary.aspect.strategy;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import io.renren.dictionary.annotation.DictionaryCache;
-import io.renren.dictionary.component.DictComponent;
+import io.renren.dictionary.component.CacheController;
 import io.renren.dictionary.config.DictionaryProperties;
 import io.renren.dictionary.constants.DictOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class NormalDictModifyHandler implements IDictModifyHandler {
     @Autowired
-    DictComponent dictComponent;
+    CacheController cacheController;
 
     @Autowired
     DictionaryProperties properties;
@@ -46,7 +46,7 @@ public class NormalDictModifyHandler implements IDictModifyHandler {
     private void dictionaryAddOrUpdateHandler(Object param) {
         JSONObject jsonObject = JSONUtil.parseObj(param);
         // 将该类型重新载入缓存中
-        dictComponent.reloadDictCacheData((String) jsonObject.get(properties.getPropertyType()));
+        cacheController.reloadDictCacheData((String) jsonObject.get(properties.getPropertyType()));
     }
 
     /**
@@ -55,6 +55,6 @@ public class NormalDictModifyHandler implements IDictModifyHandler {
      */
     private void dictionaryDeleteHandler(Object param) {
         Long[] ids = (Long[]) param;
-        dictComponent.reloadDictCacheData(ids);
+        cacheController.reloadDictCacheData(ids);
     }
 }
