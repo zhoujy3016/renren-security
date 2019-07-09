@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -87,12 +88,10 @@ public class CacheController {
      */
     protected String getCode(String type, String text) {
         List<Map<String, Object>> dictList = this.get(type);
-        for (Map map: dictList) {
-            if(map.get(properties.getValue()).equals(text)) {
-                return (String) map.get(properties.getCode());
-            }
-        }
-        return StrUtil.EMPTY;
+        Map<String, Object> map = dictList.stream()
+                .filter(dict -> dict.get(properties.getValue()).equals(text))
+                .findAny().orElse(new HashMap<>(1));
+        return (String) map.get(properties.getCode());
     }
 
     /**
@@ -103,12 +102,10 @@ public class CacheController {
      */
     protected String getText(String type, String code) {
         List<Map<String, Object>> dictList = this.get(type);
-        for (Map map: dictList) {
-            if(map.get(properties.getCode()).equals(code)) {
-                return (String) map.get(properties.getValue());
-            }
-        }
-        return StrUtil.EMPTY;
+        Map<String, Object> map = dictList.stream()
+                .filter(dict -> dict.get(properties.getCode()).equals(code))
+                .findAny().orElse(new HashMap<>(1));
+        return (String) map.get(properties.getValue());
     }
 
     /**
