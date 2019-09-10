@@ -3,6 +3,7 @@ package io.renren.common.utils;
 import java.util.Optional;
 
 /**
+ * lnpc
  * Optional工具类
  */
 public class OptionalUtils {
@@ -78,4 +79,29 @@ public class OptionalUtils {
                 .flatMap(OptionalUtils::s2trim)
                 .orElse("");
     }
+
+    /**
+     * Object to String, 返回Optional<String>
+     * @param o
+     * @return
+     */
+    public static Optional<String> o2s(Object o) {
+        try {
+            return Optional.of(String.valueOf(o));
+        } catch (Exception e) {
+            return Optional.empty();
+        }
+    }
+
+    /**
+     * Object to String
+     * @param o
+     * @return
+     */
+    public static String parseToString(Object o) {
+        return Optional.ofNullable(o)
+                .flatMap(OptionalUtils::o2s)
+                .orElse("");
+    }
+
 }
