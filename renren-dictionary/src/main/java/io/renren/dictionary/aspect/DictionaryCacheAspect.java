@@ -45,10 +45,10 @@ public class DictionaryCacheAspect {
         DictionaryCache dataFilter = signature.getMethod().getAnnotation(DictionaryCache.class);
         Object param = point.getArgs()[0];
         // 数据字典类型：常规，自定义
-        DictOperation dicType = dataFilter.dictType();
+        DictOperation dictType = dataFilter.dictType();
         if(param != null) {
             // 根据数据字典类型组合bean名称
-            String beanName = StringUtils.lowerCase(dicType.toString()) + IDictModifyHandler.DICT_MODIFY_TYPE_SUFFIX;
+            String beanName = StringUtils.lowerCase(dictType.toString()) + IDictModifyHandler.DICT_MODIFY_TYPE_SUFFIX;
             IDictModifyHandler handler = factory.getBean(beanName, IDictModifyHandler.class);
             // 对缓存进行同步更新操作
             handler.updateDictionaryCache(dataFilter, param);

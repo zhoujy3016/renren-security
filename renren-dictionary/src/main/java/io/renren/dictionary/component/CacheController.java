@@ -1,6 +1,5 @@
 package io.renren.dictionary.component;
 
-import cn.hutool.core.util.StrUtil;
 import io.renren.common.utils.OptionalUtils;
 import io.renren.dictionary.cachestrategy.ICacheHandler;
 import io.renren.dictionary.config.DictionaryProperties;
