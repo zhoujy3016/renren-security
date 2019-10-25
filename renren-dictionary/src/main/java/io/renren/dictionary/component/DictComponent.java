@@ -77,4 +77,12 @@ public class DictComponent {
 		return cacheController.getText(type.trim(), OptionalUtils.stringTrim(code));
 	}
 
+	/**
+	 * 取得所有数据字典
+	 * @return
+	 */
+	public Map<String, Object> getAllDictData() {
+		return cacheController.getAllDictData();
+	}
+
 }

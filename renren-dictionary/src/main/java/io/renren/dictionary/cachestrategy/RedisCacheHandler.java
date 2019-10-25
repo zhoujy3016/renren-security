@@ -7,6 +7,10 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import static java.util.stream.Collectors.toMap;
 
 /**
  * redis操作实现类
@@ -36,5 +40,11 @@ public class RedisCacheHandler implements ICacheHandler<String, Object>{
     @Override
     public Object get(String key) {
         return redisUtils.get(DictConstant.getDictionaryKey(key), ArrayList.class);
+    }
+
+    @Override
+    public Map<String, Object> getAll() {
+        List<String> keyList = new ArrayList<>(redisUtils.getKeys(DictConstant.getDictionaryKey("*")));
+        return keyList.stream().map(key -> key.split(":")[1]).collect(toMap(key -> key, key-> this.get(key)));
     }
 }

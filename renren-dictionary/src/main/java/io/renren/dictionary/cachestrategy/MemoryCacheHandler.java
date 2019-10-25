@@ -4,6 +4,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.stereotype.Component;
 
 import java.util.Hashtable;
+import java.util.Map;
 
 /**
  * memory操作实现类
@@ -31,5 +32,10 @@ public class MemoryCacheHandler implements ICacheHandler<String, Object> {
     @Override
     public Object get(String key) {
         return cacheTable.get(key);
+    }
+
+    @Override
+    public Map<String, Object> getAll() {
+        return cacheTable;
     }
 }

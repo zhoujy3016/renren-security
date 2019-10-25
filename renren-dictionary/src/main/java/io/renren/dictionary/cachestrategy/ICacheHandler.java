@@ -1,5 +1,7 @@
 package io.renren.dictionary.cachestrategy;
 
+import java.util.Map;
+
 /**
  * cache操作接口
  *
@@ -25,4 +27,10 @@ public interface ICacheHandler<K, V> {
      * @return
      */
     V get(K key);
+
+    /**
+     * 取得所有
+     * @return
+     */
+    Map<K, V> getAll();
 }

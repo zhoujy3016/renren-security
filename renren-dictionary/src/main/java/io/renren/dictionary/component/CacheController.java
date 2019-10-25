@@ -80,6 +80,14 @@ public class CacheController {
     }
 
     /**
+     * 取得所有数据字典
+     * @return
+     */
+    protected Map<String, Object> getAllDictData() {
+        return cacheHandler.getAll();
+    }
+
+    /**
      * 通过类型和名称取得code
      * @param type
      * @param text

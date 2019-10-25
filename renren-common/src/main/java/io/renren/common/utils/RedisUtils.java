@@ -95,8 +95,17 @@ public class RedisUtils {
      * @param prefix
      */
     public void deleteByPrefix(String prefix) {
-        Set<String> keys  = redisTemplate.keys(prefix);
+        Set<String> keys = getKeys(prefix);
         redisTemplate.delete(keys);
+    }
+
+    /**
+     * 取得keys
+     * @param prefix
+     * @return
+     */
+    public Set<String> getKeys(String prefix) {
+        return redisTemplate.keys(prefix);
     }
 
     /**
