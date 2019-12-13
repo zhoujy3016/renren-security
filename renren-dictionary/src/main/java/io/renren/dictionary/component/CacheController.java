@@ -57,7 +57,7 @@ public class CacheController {
      *  初始化自定义数据字典
      */
     protected void initExtraDictCacheData() {
-        loadExtraDictDataToCache(this.extraDictService.getExtraMap());
+        loadExtraDictDataToCache(this.extraDictService.loadExtraDictData());
     }
 
     /**
