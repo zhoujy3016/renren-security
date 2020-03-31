@@ -96,7 +96,7 @@ public class CacheController {
     protected String getCode(String type, String text) {
         List<Map<String, Object>> dictList = this.get(type);
         Map<String, Object> map = dictList.stream()
-                .filter(dict -> dict.get(properties.getValue()).equals(text))
+                .filter(dict -> text.equals(dict.get(properties.getValue())))
                 .findAny().orElse(new HashMap<>(1));
         return (String) map.get(properties.getCode());
     }
@@ -110,7 +110,7 @@ public class CacheController {
     protected String getText(String type, String code) {
         List<Map<String, Object>> dictList = this.get(type);
         Map<String, Object> map = dictList.stream()
-                .filter(dict -> dict.get(properties.getCode()).equals(code))
+                .filter(dict -> code.equals(dict.get(properties.getCode())))
                 .findAny().orElse(new HashMap<>(1));
         return (String) map.get(properties.getValue());
     }
