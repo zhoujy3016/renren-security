@@ -124,10 +124,9 @@ public class CacheController {
         Map<String, List<Map<String, Object>>> groupMap =  list.stream()
                 .collect(groupingBy(map-> (String)map.get(properties.getType())));
         // 排序
-        Map<String, List<Map<String, Object>>> groupSortMap  = groupMap.keySet().stream()
-                .collect(toMap(k -> k, k -> groupMap.get(k).stream()
-                        .sorted(comparingInt(obj ->
-                                OptionalUtils.stringToInt(String.valueOf(obj.get(properties.getSort())))))
+        Map<String, List<Map<String, Object>>> groupSortMap  = groupMap.entrySet().stream()
+                .collect(toMap(entry -> entry.getKey(), entry -> entry.getValue().stream()
+                        .sorted(comparingInt(obj -> OptionalUtils.stringToInt(String.valueOf(obj.get(properties.getSort())))))
                         .collect(toList())));
         return groupSortMap;
     }
