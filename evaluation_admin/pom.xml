@@ -106,6 +106,13 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
 		</dependency>
+<!--		<dependency>
+			<groupId>io.renren</groupId>
+			<artifactId>renren-dictionary</artifactId>
+			<version>3.2.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/resources/lib/renren-dictionary.jar</systemPath>
+		</dependency>-->
 	</dependencies>
 
 	<dependencyManagement>
@@ -152,6 +159,28 @@
 				</configuration>
 				<!-- 运行命令 mvn clean package docker:build 打包并生成docker镜像 -->
 			</plugin>
+<!--			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<includeSystemScope>true</includeSystemScope>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<webResources>
+						<resource>
+							<directory>src/main/resources/lib</directory>
+							<targetPath>WEB-INF/lib/</targetPath>
+							<includes>
+								<include>**/*.jar</include>
+							</includes>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>-->
 		</plugins>
 	</build>
 </project>
