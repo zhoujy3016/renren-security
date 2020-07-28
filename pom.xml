@@ -48,6 +48,7 @@
         <easypoi.annotation.version>3.0.3</easypoi.annotation.version>
         <lombok.version>1.18.4</lombok.version>
         <cglib.version>3.2.10</cglib.version>
+        <gson.version>1.7.2</gson.version>
     </properties>
 
     <dependencies>
@@ -181,6 +182,11 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${gson.version}</version>
         </dependency>
         <dependency>
             <groupId>cglib</groupId>
