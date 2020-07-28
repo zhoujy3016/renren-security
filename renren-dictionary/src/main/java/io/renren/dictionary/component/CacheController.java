@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.util.Comparator.comparingInt;
 import static java.util.stream.Collectors.groupingBy;
@@ -76,7 +73,7 @@ public class CacheController {
      */
     protected List get(String key) {
         Object object = cacheHandler.get(key);
-        return object == null? new ArrayList(1): (List)object;
+        return Optional.ofNullable((List)object).orElse(new ArrayList<>());
     }
 
     /**

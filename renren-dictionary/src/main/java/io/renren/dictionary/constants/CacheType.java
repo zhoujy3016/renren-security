@@ -9,5 +9,6 @@ package io.renren.dictionary.constants;
  */
 public enum CacheType {
     MEMORY,
-    REDIS
+    REDIS,
+    CAFFEINE
 }
