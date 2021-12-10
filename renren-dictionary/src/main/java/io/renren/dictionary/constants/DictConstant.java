@@ -58,6 +58,11 @@ public class DictConstant {
      * runner name
      */
     public final static String BEAN_RUNNER = "dictionaryRunner";
+    
+    /**
+     * bean name: resultInterceptor
+     */
+    public final static String RESULT_INTERCEPTOR = "resultInterceptor";
 
     /**
      * 数据字典redis缓存中的key
