@@ -51,4 +51,10 @@ public class DictionaryConfig {
 			dictComponent.initExtraDictCacheData();
 		};
 	}
+	
+	@Bean
+	@ConditionalOnMissingBean(name = DictConstant.RESULT_INTERCEPTOR)
+	public DictBindInterceptor dictBindInterceptor() {
+		return new DictBindInterceptor();
+	}
 }
