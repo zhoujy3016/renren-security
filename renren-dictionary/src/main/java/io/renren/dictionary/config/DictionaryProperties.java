@@ -29,16 +29,16 @@ public class DictionaryProperties implements Serializable {
     /** cache type: redis or memory */
     private CacheType cacheType = CacheType.MEMORY;
 
-    /** tableFiled: dictionary type */
+    /** tableField: dictionary type */
     private String type = DictConstant.DICT_TYPE;
 
-    /** tableFiled: dictionary value */
+    /** tableField: dictionary value */
     private String value = DictConstant.DICT_VALUE;
 
-    /** tableFiled: dictionary code */
+    /** tableField: dictionary code */
     private String code = DictConstant.DICT_CODE;
 
-    /** tableFiled: dictionary sort*/
+    /** tableField: dictionary sort*/
     private String sort = DictConstant.DICT_SORT;
 
     /** property: the type's name of the entity property*/
