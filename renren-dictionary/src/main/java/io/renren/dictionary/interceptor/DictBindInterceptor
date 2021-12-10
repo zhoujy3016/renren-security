@@ -1,0 +1,76 @@
+package io.renren.dictionary.interceptor;
+
+import io.renren.common.utils.SpringContextUtils;
+import io.renren.dictionary.annotation.DictionaryBind;
+import io.renren.dictionary.component.DictComponent;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.executor.resultset.DefaultResultSetHandler;
+import org.apache.ibatis.executor.resultset.ResultSetHandler;
+import org.apache.ibatis.plugin.*;
+import org.apache.ibatis.reflection.MetaObject;
+import org.apache.ibatis.reflection.SystemMetaObject;
+
+import java.lang.reflect.Field;
+import java.sql.Statement;
+import java.util.List;
+import java.util.Properties;
+import java.util.stream.Stream;
+
+/**
+ * 数据返回结果拦截器
+ * 对实体含有注解DictionaryBind进行映射绑定
+ * @author zhoujunyi
+ * @email zhoujunyi-110@163.com
+ * @date 2021-12-07
+ */
+@Intercepts(@Signature(type = ResultSetHandler.class,
+        method = "handleResultSets",
+        args = {Statement.class}))
+public class DictBindInterceptor implements Interceptor {
+
+    private DictComponent dictComponent;
+
+    @Override
+    public Object intercept(Invocation invocation) throws Throwable {
+        Object result =  invocation.proceed();
+        dictComponent = SpringContextUtils.getBean("dictComponent", DictComponent.class);
+        if(result instanceof List) {
+            ((List) result).forEach(this::mappingValue);
+        } else {
+            this.mappingValue(result);
+        }
+        return result;
+    }
+
+    private void mappingValue(Object source) {
+        if(source != null) {
+            Class<?> sourceClass = source.getClass();
+            MetaObject metaObject = SystemMetaObject.forObject(source);
+            Stream.of(sourceClass.getDeclaredFields()).parallel()
+                    .filter(field -> field.isAnnotationPresent(DictionaryBind.class))
+                    .forEach(field -> this.setValue(metaObject, field));
+        }
+    }
+
+    private void setValue(MetaObject metaObject, Field field) {
+        DictionaryBind dictBind = field.getAnnotation(DictionaryBind.class);
+        String sourceField = field.getName();
+        String value = String.valueOf(metaObject.getValue(sourceField));
+        if(StringUtils.isNotBlank(value)) {
+            metaObject.setValue(dictBind.target(), dictComponent.getDictCacheText(dictBind.dictKey(), value));
+        }
+    }
+
+    @Override
+    public Object plugin(Object target) {
+        if(target instanceof DefaultResultSetHandler) {
+            return Plugin.wrap(target, this);
+        }
+        return target;
+    }
+
+    @Override
+    public void setProperties(Properties properties) {
+
+    }
+}
